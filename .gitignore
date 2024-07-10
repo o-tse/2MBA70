@@ -1,0 +1,10 @@
+
+# ignore all log files
+*.log
+
+# ignore outputs created by TexStudio
+*.aux
+*.blg
+*.out
+*.synctex.gz
+*.bib.sav

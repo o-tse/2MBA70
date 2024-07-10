@@ -1,0 +1,84 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\begin{titlepage}
+    \university{TU/e}
+    \courseid{2MBA70}
+    \title{Measure and Probability Theory}
+    \author{Pim van der Hoorn and Oliver Tse}
+    \version{Version 0.1 July 10 2024}
+    \maketitle
+\end{titlepage}
+
+\begin{chapquote}[30pt]{Someone}
+Quote about measure theory?
+\end{chapquote}
+\vfill
+\textbf{Disclaimer:}
+
+\vspace{0.5cm} 
+These are lecture notes for the course \emph{Measure and Probability Theory}. They are by no means a replacement for the lectures or the books, nor are they intended to cover every aspect of the field of measure theory of probability theory.
+
+Since these are lecture notes, they also include problems. Each chapter ends with a set of exercises that are designed to help you understand the contents of the chapter better and master the tools and concepts. 
+
+These notes are still in progress and they almost surely contain small typos. If you see any or if you think that the presentation of some concepts is not yet crystal clear and might enjoy some polishing feel free to drop a line. The most efficient way is to send an email to us, \href{mailto:w.l.f.v.d.hoorn@tue.nl}{w.l.f.v.d.hoorn@tue.nl} or \href{mailto:o.t.c.tse@tue.nl}{o.t.c.tse@tue.nl}. All comments and suggestions will be greatly appreciated.
+
+Finally, we hold the copyrights to this document and as such, their contents, either partially or as a whole, cannot be redistributed or used without our explicit consent.
+
+\newpage
+
+\tableofcontents
+
+\chapter{Introduction}
+\label{chapter:introduction}
+
+\chapter{Sigma-algebras, measures and measurable functions}
+\label{chapter:sigma_algebras}
+\input{sigma_algebras}
+
+\appendix
+\chapter{Appendix}
+\label{chapter:appendix}
+
+
+\bibliography{references}
+
+\end{document}

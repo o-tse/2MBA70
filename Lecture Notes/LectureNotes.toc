@@ -1,8 +1,12 @@
 \contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Sigma-algebras, measures and measurable functions}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Recalling basic probability theory}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}$\sigma $-Algebras}{6}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Measuring sets}{6}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Measurable functions}{6}{section.2.4}%
-\contentsline {chapter}{\numberline {A}Appendix}{7}{appendix.A}%
+\contentsline {section}{\numberline {2.2}Sigma-algebras}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Definition and examples}{6}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Constructing $\sigma $-algebras}{7}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Borel $\sigma $-algebra}{9}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Measures}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Measurable functions}{10}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Problems}{10}{section.2.5}%
+\contentsline {chapter}{\numberline {A}Appendix}{11}{appendix.A}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

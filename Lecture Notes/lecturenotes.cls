@@ -12,8 +12,7 @@
 \RequirePackage{hyperref,cleveref}
 \RequirePackage{tikzsymbols}
 
-% Reset mathcal back to previous style (not curly)
-\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
 
 % These are the colors used by TU/e as described in the TU/e Visual Identity document
 

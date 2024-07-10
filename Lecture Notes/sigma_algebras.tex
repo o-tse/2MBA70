@@ -1,5 +1,5 @@
 
-\section{Recalling basic probability theory}
+\section{Recalling basic probability theory}\label{sec:recalling_probability_theory}
 
 During the first course on probability theory, Probability and Modeling (2MBS10), the concept of probabilities were introduced. The idea here (in its simplest version) is that you have space $\Omega$ of possible outcomes of an experiment, and you want to assign a value in $[0,1]$ to each set $A$ of possible outcomes that represents the \emph{probability} that the experiment will yield an outcome in this set $A$. This value was then denoted by $\prob{A}$. 
 
@@ -26,11 +26,15 @@ It is important to note here that already it was needed to make a distinction of
 The solutions to all these issues comes from a generalization of event spaces and probability measures introduced above. These go by the names sigma-algebra and measure, respectively. With this we can then define when any mapping between spaces is \emph{measurable} and use such mappings to define random objects in that space such a function maps to. The remainder of this chapter is dedicated to introduced all these concepts.
 
 
-\section{$\sigma$-Algebras}
+\section{Sigma-algebras}
 
 % Definition sigma algebra
 
-\begin{definition}[Sigma Algebra]\label{def:test1}
+\subsection{Definition and examples}
+
+We begin this section with introducing the general structure needed on a collection of sets to be able to assign a notion of measurement to them. Such a collection is called a sigma-algebra, often written as $\sigma$-algebra.
+
+\begin{definition}[Sigma Algebra]\label{def:sigma_algebra}
 A \emph{$\sigma$-algebra} $\cF$ on a set $\Omega$ is a collection of subsets of $\Omega$ with the following properties:
 \begin{enumerate}
 \item $\emptyset \in \cF$ and $\Omega \in \cF$;
@@ -39,11 +43,116 @@ A \emph{$\sigma$-algebra} $\cF$ on a set $\Omega$ is a collection of subsets of 
 \end{enumerate}
 \end{definition}
 
+This definition looks very similar to that of an event space. It turns out that they are actually the same, see Problem~\ref{prb:event_space_are_sigma_algebras}. 
 
+Before we give some examples, we first show that any \sigalg/ is also closed under countable intersections. The proof is left as an exercise to the reader (see Problem~\ref{prb:sigma_algebra_closed_intersections}).
 
-% Constructing sigma algebras
+\begin{lemma}\label{lem:sigma_algebra_closed_intersections}
+Let $\cF$ be a \sigalg/ on $\Omega$ and let $A_1, A_2, \dots \in \cF$. Then it holds that $\bigcap_{i = 1}^\infty A_i \in \cF$
+\end{lemma}
 
-% Borel sigma algebra
+We now give examples and non-examples of \sigalgs/.
+
+\begin{example}[(Non-)Examples of $\sigma$-algebras]\label{example:sigma_algebras}
+\hfil
+\begin{enumerate}
+\item The collection $\cF = \{\emptyset, \Omega\}$ is a $\sigma$-algebra. This is called the \emph{trivial $\sigma$-algebra} or the \emph{minimal} $\sigma$-algebra on $\Omega$.
+\item For any subset $A \subset \Omega$ we have that $\cF := \{\emptyset, A, \Omega\setminus A, \Omega\}$ is a $\sigma$-algebra.
+\item The \emph{power set} $\cP(\Omega)$ (the collection of all possible subsets of $\Omega$) is a $\sigma$-algebra. This is sometimes called the \emph{maximal $\sigma$-algebra} on $\Omega$.
+\item For any subset $A \subset \Omega$ such that $A \ne \emptyset, \Omega$, we have that $\cF := \{\emptyset, A, \Omega\}$ is \textbf{not} a $\sigma$-algebra.
+\item Let $\Omega = [0,1]$ and $\cF$ be the collections of finite unions of intervals of the form $[a,b]$, $[a,b)$, $(a,b]$ and $(a,b)$ for $0 \le a < b \le 1$. Then $\cF$ is \textbf{not} a $\sigma$-algebra.
+\item Let $f : \Omega \to \Omega^\prime$ and let $cF^\prime$ be a \sigalg/ on $\Omega^\prime$. Then the collection
+\[
+	\cF := f^{-1}(\cF^\prime) = \{f^{-1}(A^\prime) \, : \, A^\prime \in \cF^\prime\},
+\]
+is a \sigalg/. The converse to this is not always true, see Problem~\ref{prb:converse_preimage_sigma_algebra}.
+\end{enumerate}
+\end{example}
+
+The idea of measure theory is that one can assign a notion of measure to each set in a $\sigma$-algebra. In line with this, a pair $(\Omega, \cF)$ where $\Omega$ is a set and $\cF$ a \sigalg/ on $\Omega$ is called a \emph{measurable space}. 
+
+\subsection{Constructing \sigalgs/}
+
+We now know what a \sigalg/ is and have seen some example and some non-examples. But the examples we have seen are still quite uninspiring. We will actually discuss a very important \sigalg/ in the next section. But for now, we will describe several ways to construct \sigalgs/. The first is restricting an existing \sigalg/ to a given set.
+
+\begin{lemma}[Restriction of a \sigalg/]\label{lem:restriction_sigma_algebra}
+Let $(\Omega, \cF)$ be a measurable space and $A \subset \Omega$. Then the collection define by 
+\[
+	\cF_A := \{A \cap B \, : \, B \in \cF\},
+\]
+is a \sigalg/ on $A$, called the \emph{restriction of $\cF$ to $A$}.
+\end{lemma}
+
+\begin{proof}
+We need to check all three properties.
+\begin{enumerate}
+\item Since $A \cap \Omega = A$ and $A \cap \emptyset = \emptyset$, it follows that $A, \emptyset \in \cF_A$.
+\item Consider a set $C \in \cF_A$. Then by definition $C = A \cap B$ for some $B \in \cF$. Next, we note
+\[
+	A \setminus C = A \setminus (A \cap B) = A \cap (\Omega \setminus B).
+\]
+Since $\cF$ is a \sigalg/, it follows that $\Omega \setminus B \in \cF$ and so $A \setminus C \in \cF_A$.
+\item Let $C_1, C_2, \dots$ be sets in $\cF_A$. Then there are $B_1, B_2, \dots \in \cF$ such that $C_i = A \cap B_i$. Hence
+\[
+	\bigcup_{i=1}^\infty C_i = \bigcup_{i=1}^\infty A \cap B_i = A \cap \bigcup_{i=1}^\infty B_i \in \cF_A,
+\]
+since $\bigcup_{i=1}^\infty B_i \in \cF$ because this is a \sigalg/.
+\end{enumerate}
+\end{proof}
+
+While it is nice to be able to take a given \sigalg/ and create a possibly smaller one by restricting it to a given set, we might also want to start with a given collection of sets $\cA$ and then create a \sigalg/ that contains this collection. Of course, the powerset $\cP(\Omega)$ will always work. However, it is not always desirable to take this maximal \sigalg/. It would be much better if we could create the smallest \sigalg/ that contains $\cA$. It turns out that this can be done and the resulting \sigalg/ is said to be \emph{generated by $\cA$}. 
+
+\begin{proposition}[Generated \sigalg/]
+Let $\cA$ be a collection of subsets of $\Omega$ and denote by $\Sigma_\cA$ the collection of all \sigalgs/ on $\Omega$ that contain $\cA$. Then the collection defined by
+\[
+	\sigma(\cA) := \bigcap_{\cF \in \Sigma_\cA} \cF,
+\]
+is a \sigalg/. It is called the \emph{\sigalg/ generated by $\cA$}.
+\end{proposition}
+
+\begin{proof}
+Similar to Lemma~\ref{lem:restriction_sigma_algebra} we need to check all the requirements.
+\begin{enumerate}
+\item Since $\emptyset, \Omega \in \cF$ holds for every $\cF \in \Sigma_\cA$ it follows that $\emptyset, \Omega \in \sigma(\cA)$. In particular, we note that $\sigma(\cA)$ is not empty.
+\item Take $A \in \sigma(\cA)$. Then $A \in \cF$ for each $\cF \in \Sigma_\cA$. Since $\cF$ is a \sigalg/ it holds that $\Omega \setminus A \in \cF$ for each $\cF \in \Sigma_\cA$. This then implies that $\Omega \setminus A \in \sigma(\cA)$.
+\item Let $(A_i)_{i \in \bbN}$ be a sequence of sets in $\sigma(\cA)$. Then by definition $A_i \in \cF$ for each $\cF \in \Sigma_\cA$. Hence
+\[
+	\bigcup_{i \in \bbN} A_i \in \cF,
+\] 
+holds for each $\cF \in \Sigma_\cA$ and thus it follows that $\bigcup_{i \in \bbN} A_i \in \sigma(\cA)$.
+\end{enumerate}
+\end{proof}
+
+If $\cF$ is a \sigalg/ on $\Omega$ and $\cA$ is a collection of subsets such that $\cF = \sigma(\cA)$, we call $\cA$ the \emph{generator of $\cF$}.
+
+With this this powerful construction tool, we can now construct products of measurable spaces.
+
+\begin{definition}[Product \sigalg/]
+Let $(\Omega, \cF)$ and $(\Omega^\prime, \cF^\prime)$ be two measurable spaces. Then we define $\cF \otimes \cF^\prime$ to be the \sigalg/ on $\Omega \times \Omega^\prime$ generated by sets of the form $A \times B$, with $A \in \cF$ and $B \in \cF^\prime$.
+\end{definition}
+
+\subsection{Borel \sigalg/}
+
+The Euclidean space $\bbR^d$ is omnipresent in mathematics and hence pops up in many bachelor courses as well. In particular, in the introduction we noticed that the concept of random variables, as given in the course Probability and Modeling, is mainly concerned with $\bbR$. The need to impose a measurable structure on this space, by means of a \sigalg/, should therefore not come as a surprise. This canonical \sigalg/ is called the \emph{Borel \sigalg/} and is named after the French mathematician \'{E}mile Borel, who was one of the pioneers of measure theory.
+
+In order to define the Borel \sigalg/ we need the notion of an open set in $\bbR^d$. For any $x \in \bbR$ and $r >0$, we denote by $B_x(r) := \{y \in \bbR^d \, : \, \|x-y\|<r\}$ the open ball of radius $r$ around $x$. A set $U \subset \bbR^d$ is called \emph{open} if and only if for every $x \in U$, there exists an $r > 0$ such that $B_x(r) \subset U$.
+
+\begin{definition}[Borel \sigalg/]
+The \emph{Borel \sigalg/} on $\bbR^d$, denoted by $\cB_{\bbR^d}$, is the \sigalg/ generated by all open sets in $\bbR^d$. Elements of $\cB_{\bbR^d}$ are called \emph{Borel sets}.
+\end{definition}
+
+\begin{remark}
+From the definition, it should be clear that one can actually define a \emph{Borel \sigalg/} on any topological space. However, this requires the notion of a topology which is beyond the scope of this course.
+\end{remark}
+
+While this is a perfectly fine definition, it is often a cumbersome to work with. It is therefore convenient that $\cB_{\bbR^d}$ is generated by other, more compact, collections of sets.
+
+\begin{proposition}
+The Borel \sigalg/ on $\bbR^d$ is the \sigalg/ generated by the sets
+\[
+	(-\infty,a_1] \times \dots \times (-\infty, a_d] \quad \text{with } a_i \in \bbQ, i = 1, \dots, d.
+\]
+\end{proposition}
 
 \section{Measures}
 
@@ -66,3 +175,17 @@ A \emph{$\sigma$-algebra} $\cF$ on a set $\Omega$ is a collection of subsets of 
 % Sigma-algebras generated by measurable functions
 
 % Random variables
+
+\section{Problems}
+
+\begin{problem}\label{prb:event_space_are_sigma_algebras}
+Show that the definition of an \emph{event space} as given in Section~\ref{sec:recalling_probability_theory} is equivalent to that of a $\sigma$-algebra as given in Definition~\ref{def:sigma_algebra}.
+\end{problem}
+
+\begin{problem}\label{prb:sigma_algebra_closed_intersections}
+Prove Lemma~\ref{lem:sigma_algebra_closed_intersections}.
+\end{problem}
+
+\begin{problem}\label{prb:converse_preimage_sigma_algebra}
+Counter example to the statement: if $(\Omega, \cF)$ is a measurable space and $f : \Omega \to \Omega^\prime$. Then $f(\cF)$ is a \sigalg/ on $\Omega^\prime$.
+\end{problem}

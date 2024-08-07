@@ -6,7 +6,20 @@
 \contentsline {subsection}{\numberline {2.2.2}Constructing $\sigma $-algebras}{7}{subsection.2.2.2}%
 \contentsline {subsection}{\numberline {2.2.3}Borel $\sigma $-algebra}{9}{subsection.2.2.3}%
 \contentsline {section}{\numberline {2.3}Measures}{10}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Measurable functions}{10}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Problems}{10}{section.2.5}%
-\contentsline {chapter}{\numberline {A}Appendix}{11}{appendix.A}%
+\contentsline {subsection}{\numberline {2.3.1}Definition and examples}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Important properties}{12}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Uniqueness and existence of measures}{14}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Measurable functions}{17}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Random variables and general stochastic objects}{17}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Problems}{17}{section.2.6}%
+\contentsline {chapter}{\numberline {3}The Lebesgue Integral}{18}{chapter.3}%
+\contentsline {section}{\numberline {3.1}The integral of a simple function}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}The Lebesgue integral of nonnegative functions}{19}{section.3.2}%
+\contentsline {section}{\numberline {3.3}The monotone convergence theorem}{20}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Intermezzo: Approximation by simple functions}{21}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Additivity of the Lebesgue integral of nonnegative functions}{22}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Integrable functions}{23}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Change of variables formula}{24}{section.3.7}%
+\contentsline {section}{\numberline {3.8}The Markov inequality}{26}{section.3.8}%
+\contentsline {chapter}{\numberline {A}Appendix}{27}{appendix.A}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

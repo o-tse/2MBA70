@@ -187,20 +187,20 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 
 %=================================
 % header and footer
-\RequirePackage{scrlayer-scrpage}
-\pagestyle{scrheadings}
-\deftriplepagestyle{pagestyle}
+%\RequirePackage{scrlayer-scrpage}
+%\pagestyle{scrheadings}
+%\deftriplepagestyle{pagestyle}
 %   [0.5pt]
 %   [0.3pt]
-  {}
-  {}
-  {\headmark}
-  {}
-  {\pagemark}
-  {}
+%  {}
+%  {}
+%  {\headmark}
+%  {}
+%  {\pagemark}
+%  {}
 
-\pagestyle{pagestyle}
-\renewcommand{\chapterpagestyle}{pagestyle}
+%\pagestyle{pagestyle}
+%\renewcommand{\chapterpagestyle}{pagestyle}
 
 
 %=================================

@@ -312,9 +312,9 @@ Since this is a countable union of measurable sets, it is indeed measurable and 
 
 \subsection{Limit operations}
 
-In addition to the fact that most of the obvious point-wise operations on measurable functions yields another measurable functions, it turns out that this also holds for limit operations. 
+In addition to the fact that most of the obvious point-wise operations on measurable functions yields another measurable function, it turns out that this also holds for limit operations. 
 
-\begin{lemma}
+\begin{lemma}\label{lem:limit_operations_measurable_functions}
 Let $(f_n)_{n \ge 1}$ be a family of measurable functions from $(\Omega, \cF)$ to  $(\bar{\bbR}, \bar{\cB})$. Then the following functions are also measurable (where again operations are taken point wise):
 \begin{enumerate}
 \item $\sup_{n \ge 1} f_n$,
@@ -322,6 +322,8 @@ Let $(f_n)_{n \ge 1}$ be a family of measurable functions from $(\Omega, \cF)$ t
 \item $\limsup_{n \to \infty} f_n$, and
 \item $\liminf_{n \to \infty} f_n$.
 \end{enumerate}
+
+Moreover, if the limit $\lim_{n \to \infty} f_n$ exists it is also measurable. 
 \end{lemma}
 
 \begin{proof}
@@ -341,11 +343,43 @@ where each side is the complement of the sets in~\eqref{eq:limit_operations}.
 
 \end{proof}
 
+Although the proof makes the content of Lemma~\ref{lem:limit_operations_measurable_functions} look rather trivial, it is actual very important. In particular is shows the power of the class of measurable functions. In contrast, the class of continuous functions is not stable under point-wise limit operations. 
+
+\begin{example}[Point-wise limits of continuous functions are not continuous]
+Consider the sequence of functions $(f_n)_{n \ge 1}$ defined by $f_n(x) = \arctan(xn)$. Each $f_n$ is clearly continuous. So let us consider the point-wise limit $f(x) = \lim_{n \to \infty} f_n(x)$. For any $x > 0$ we have that
+\[
+	f(-x) = \lim_{n \to \infty} \arctan(-x n) = -\frac{\pi}{2},
+\]
+while
+\[
+	f(x) = \lim_{n \to \infty} \arctan(x n) = \frac{\pi}{2}.
+\]
+Moreover, $f(0) = \arctan(0) = 0$. We thus conclude that the point-wise limit of $f_n$ is given by
+\[
+	f(x) = \begin{cases}
+		-\frac{\pi}{2} &\text{if } x < 0,\\
+		0 &\text{if } x = 0,\\
+		\frac{\pi}{2} &\text{if } x >0,
+	\end{cases}
+\]
+which is clearly not continuous. However, by Lemma~\ref{lem:limit_operations_measurable_functions} it is measurable.
+\end{example}
+
+The fact that point-wise limits of continuous functions are not necessary continuous is the reason why one has to be careful when, for example, exchanging limits and integration. Here the notion of uniform continuity is often needed. In contrast, as we will see later, this is not an issue for measurable functions and we once we have defined the notion of integration of these functions we obtain a powerful set of limit results for such integrals.
+
+For now we will move from the general setting of measurable functions to their application in the field of probability theory, in particular the concept of random variables.
+
 \section{Random variables and general stochastic objects}\label{sec:random_variables}
 
 % Random variables   
 
-\subsection{Definition and examples}
+\subsection{Definition}
+
+In the course Probability and Modeling two types of random variables were defined: discrete and continuous. Recall that a random variable was defined as a function $X : \Omega \to \bbR$ for some probability space $(\Omega, \cF, \bbP)$ such that
+\[
+	\{\omega \in \Omega \, : \, X(\omega) \le x\} \in \cF \quad \text{for all } x \in \bbR.
+\]
+Let us make two observations here. The first is that the set above is simply the preimage $X^{-1}((-\infty,x])$. Secondly, the sets $(-\infty, x]$ generate the Borel \sigalg/. Thus it follows from Lemma~\ref{lem:measurable_condition_generator} that $X$ is a measurable function. This is actual the proper way to define a random variable.
 
 \begin{definition}[Random variable]
 A \emph{random variable} is a measurable function from some probability space $(\Omega,\cF, \bbP)$ to the (extended) real line.
@@ -353,12 +387,18 @@ A \emph{random variable} is a measurable function from some probability space $(
 
 It is important to observe that the definition of a random variable does not make any specific claims on what the probability space should be. 
 
-Let $X$ be a random variable and recall that its \emph{cumulative distribution function} $F_X : \bbR \to [0,1]$ is defined such that $F_X(t)$ denotes the "probability" that $X \in (-\infty ,t]$. In the language of measure theory this means that we have to look at the preimage of $(-\infty, a]$ under the measurable function $X$, which is an element of the \sigalg/ $\cF$, and assign a value to it. For this the only thing we have at our disposal is the probability measure $\bbP$. So in other words, the cummulative distribution is defined as
+Let $X$ be a random variable and recall that its \emph{cumulative distribution function} $F_X : \bbR \to [0,1]$ is defined as
 \[
-	F_X(t) := \bbP(X^{-1}((-\infty,t])).
+	F_X(t) = \bbP(X \le t).
+\] 
+The fact that we use $\bbP$ here, which is the probability measure on the space $(\Omega, \cF)$ is not a coincidence.
+
+The idea behind the cdf $F_X(t)$ is that it denotes the "probability" that $X \in (-\infty ,t]$. From the perspective of measure theory, this means we need to assign a measure to the preimage of $(-\infty, t]$ under the measurable function $X$. For this, the only things we have at our disposal is the probability measure $\bbP$ and the measurable function $X$. Now recall from Proposition~\ref{prop:push_forward_measure} that we can always construct a measure from this, the push-forward measure. That is exactly what the cummulative distribution is,
+\[
+	F_X(t) := X_\# \bbP((-\infty, t]) = \bbP(X^{-1}((-\infty,t])).
 \]
 
-Observe that this is nothing more than the \emph{push forward} of $\bbP$ under $X$. In fact we can actually define, at a much more general level, random elements in any measurable space and put an associated probability measure on this space by a push-forward.
+In fact we can actually define, at a much more general level, random elements in any measurable space and put an associated probability measure on this space by a push-forward.
 
 \begin{definition}[Random elements]
 Let $(\Omega,\cF, \bbP)$ be a probability space and $(E,\cG)$ some measurable space. A \emph{random element} in $(E,\cG)$ is a measurable map $X : \Omega \to E$. It associated \emph{probability measure} is defined as the push forward of $\bbP$ under $X$, i.e.
@@ -367,7 +407,7 @@ Let $(\Omega,\cF, \bbP)$ be a probability space and $(E,\cG)$ some measurable sp
 \]
 \end{definition}
 
-Sometimes we use the term \emph{random} instead of \emph{stochastic}. 
+Sometimes we use the term \emph{stochastic} instead of \emph{random}. 
 
 With this general definition we can now easily define random vectors, random matrices, random functions and so one. The only thing we need is to start with the appropriate space (vectors, matrices, functions) and turn it into a measurable space by endowing it with a suitable \sigalg/. 
 
@@ -381,7 +421,9 @@ With this general definition we can now easily define random vectors, random mat
 
 \subsection{Constructing random variables}
 
-In any course on probability theory, one of the first random variables you encounter is the \emph{standard uniform random variable}. This is a random variable $U$ that takes values in $[0,1]$ such that its cdf satisfies $F(t) = t$ for all $0\le t \le 1$. In the course Probability and Modeling this description would be enough to work with. But now that we know what a random variable actually is, we need a bit more. More precisely, we have to construct a probability space $(\Omega,\cF, \bbP)$ and a measurable function $U : \Omega \to \bbR$ such that 
+Now that we know what random variables are, there is one problem. In order to define an random variable we need to formally define a probability space $(\Omega, \cF, \bbP)$ and measurable function $X: \Omega \to \bbR$. This is different from how we are used to work with random variables. Here we simply present a cdf $F$ and say that $X$ is a random variable with $\bbP(X \le t) = F(t)$, without worrying about a probability space or the measurability if $X$ as a function. It turns out that this way of working with random variables is valid, as for any cdf $F$ we can construct a probability space $(\Omega, \cF, \bbP)$ and measurable function $X$ such that $X_\# \bbP = F$. We will start this construction for a specific random variable and then use it to construct a random variable with any cumulative distribution function.
+
+One of the first random variables you encounter in any course in probability theory is the \emph{standard uniform random variable}. This is a random variable $U$ that takes values in $[0,1]$ such that its cdf satisfies $F(t) = t$ for all $0\le t \le 1$. In the course Probability and Modeling this description would be enough to work with. But now that we know what a random variable actually is, we need a bit more. More precisely, we have to construct a probability space $(\Omega,\cF, \bbP)$ and a measurable function $U : \Omega \to \bbR$ such that 
 \begin{equation}\label{eq:cdf_uniform_rv}
 	\bbP\left(U^{-1}((-\infty,t])\right) = \begin{cases}
 		0 &\text{if } t < 0,\\
@@ -390,7 +432,7 @@ In any course on probability theory, one of the first random variables you encou
 	\end{cases}
 \end{equation}
 
-As you might expect, this is possible. And it is here that we see the first nice usage of the Lebesgue measure.
+The following result shows that this is indeed possible. Moreover, in its proof we see a first nice usage of the Lebesgue measure.
 
 \begin{proposition}[Uniform random variable]\label{prop:uniform_random_variable}
 There exist a probability space $(\Omega,\cF, \bbP)$ and random variable $U$, such that $\bbP\left(U^{-1}((-\infty,t])\right)$ satisfies~\eqref{eq:cdf_uniform_rv}.
@@ -455,7 +497,15 @@ From this it follows that
 \]
 from which we conclude that $H \circ U$ is a way to construct an exponential random variable with rate $\lambda$.
 
-The main point of the construction above is to consider the inverse of the cdf $F^{-1}$ and evaluate this on a standard uniform random variable. However, when extending this to the more general case we have to deal with the fact that not every cdf has an inverse. [EXAMPLE]
+The main point of the construction above is to consider the inverse of the cdf $F^{-1}$ and evaluate this on a standard uniform random variable. However, when extending this to the more general case we have to deal with the fact that not every cdf has an inverse. For example, consider a Bernoulli random variable with success probability $0 < p < 1$. Then
+\[
+	F(t) = \begin{cases}
+		0 &\text{if } t < 0, \\
+		1-p &\text{if } 0 \le t < 1, \\
+		1 &\text{if } t \ge 1,
+	\end{cases}
+\] 
+which is clearly does not have an inverse as for any $y \in (0,1-p)$ there is no $t$ such that $F(t) = y$.
 
 Nevertheless, if does hold than any cdf $F$ is monotonic increasing and right continuous. For these type of functions there exists the notion of a \emph{generalized inverse}, defined as
 \begin{equation}
@@ -499,16 +549,17 @@ Hence, $X$ is measurable. Finally, the above computation, together with Proposit
 which finished the proof.
 \end{proof}
 
+We end this section with an important remark for working with random variables, and random objects in general.
+
 \begin{remark}[Probability spaces are implicit!]
-It is important to note that even though we used a very explicit probability space to construct a standard uniform random variable and the random variable $X$ in the proof of Theorem~\ref{thm:construction_random_variable}, in general the probability space will often be \emph{implicit}. That is, if we say that $X$ is a random variable, we assume there is some probability space $(\Omega,\cF, \bbP)$ that makes $X$ into a measurable function with the right cdf. The same holds for other random objects.
+It is important to note that even though we used a very explicit probability space to construct a standard uniform random variable and the random variable $X$ in the proof of Theorem~\ref{thm:construction_random_variable}, in general the probability space will often be \emph{implicit}. That is, if we say that $X$ is a random variable, we assume there is some probability space $(\Omega,\cF, \bbP)$ that makes $X$ into a measurable function with the right cdf. Theorem~\ref{thm:construction_random_variable} actually says that this is okay as we can always construct an appropriate probability space and measurable function to achieve the needed cdf.
+
+Actually, when considering general random objects in $(E, \cG)$ we often also do not explicitly state or define the probability space. Since the relevant measure is defined through the push-forward we often only have to worry about taking the right measurable space $(E, \cG)$.
 
 There are, however, some cases where one should be cautious about the probability space that is used. For example when considering the notion of \emph{convergence in probability} or \emph{almost sure convergence}. Or when constructing joint distributions of random variables. 
 \end{remark}
 
-
-\subsection{Joint distributions and couplings}
-
-
+%\subsection{Joint distributions and couplings}
 
 \section{Problems}
 

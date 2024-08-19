@@ -1,32 +1,35 @@
 
-\section{Recalling basic probability theory}\label{sec:recalling_probability_theory}
+%\section{Recalling basic probability theory}\label{sec:recalling_probability_theory}
+%
+%During the first course on probability theory, Probability and Modeling (2MBS10), the concept of probabilities were introduced. The idea here (in its simplest version) is that you have a space $\Omega$ of possible outcomes of an experiment, and you want to assign a value in $[0,1]$ to each set $A$ of potential outcomes that represent the \emph{probability} that the experiment will yield an outcome in this set $A$. This value was then denoted by $\prob{A}$. 
+%
+%It turned out that in order to properly define these concepts, we needed to impose structure on both the space of events as well as on the probability measure. For example, if we had two sets $A, B$ of possible outcomes, would like to say something about the probability that the outcome is in either $A$ or $B$. This means we not only do we need to be able compute $\prob{A \cup B}$, we actually want that $A \cup B$ is also an event in our space $\Omega$. Another example concerned the probability of the outcome not being in $A$, which means compute the probability of the event $\Omega\setminus A$, requiring that this set should also be in $\Omega$. In the end this prompted the definition of an \emph{event space} which was a collection $\cF$ of subsets of $\Omega$ such that
+%\begin{enumerate}
+%\item $\cF$ is non-empty;
+%\item If $A \in \cF$, then $A^c := \Omega \setminus A \in \cF$;
+%\item If $A_1, A_2, \dots \in \cF$, then $\bigcup_{i = 1}^\infty A_i \in \cF$.
+%\end{enumerate}
+%
+%In addition, the probability assignment $\bbP$ was defined as a map $\bbP : \cF \to [0,1]$ such that
+%\begin{enumerate}
+%\item $\prob{\Omega} = 1$ and $\prob{\emptyset} = 0$, and
+%\item for any collection $A_1, A_2, \dots$ of disjoint events in $\cF$ it holds that 
+%\[
+%	\prob{\bigcup_{i = 1}^\infty A_i} = \sum_{i = 1}^\infty \prob{A_i}.
+%\]
+%\end{enumerate}
+%
+%With this setup it was possible to formally define what a \emph{random variable} is. Here a random variable $X$ was defined on a triple $(\Omega, \cF, \bbP)$, consisting of a space of outcomes, an event space and a probability on that space. Formally it is a mapping $X : \Omega \to \bbR$ such that for each $x \in \bbR$ the set $X^{-1}(-\infty,x):=\{\omega \in \Omega \, : \, X(\omega) \in (-\infty,x)\}$ is in $\cF$. This then allowed us to define the \emph{cumulative distribution function} as $F_X(x) := \prob{X^{-1}(-\infty,x)}$.
+%
+%It is important to note here that already it was needed to make a distinction of how to define a discrete and a continuous random variable. In addition, a separate definition was required to defined multivariate distribution functions. This limits the extend to which this theory can be applied. For example let $U$ have the uniform distribution on $[0,1]$ and $Y$ have uniform distribution on the set $\{1,2, \dots, 10\}$ and define the random variable $X$ to be equal to $U$ with probability $1/2$ and equal to $Y$ with probability $1/2$. How would you deal with this random variable, which is both discrete and continuous? However, the setting would becomes even more complex if we are not talking about random numbers in $\bbR$ but, say, random vectors of infinite length or random functions. Do these even exist?
+%
+%The solutions to all these issues comes from a generalization of event spaces and probability measures introduced above. These go by the names sigma-algebra and measure, respectively. With this we can then define when any mapping between spaces is \emph{measurable} and use such mappings to define random objects in that space such a function maps to. The remainder of this chapter is dedicated to introduced all these concepts.
 
-During the first course on probability theory, Probability and Modeling (2MBS10), the concept of probabilities were introduced. The idea here (in its simplest version) is that you have a space $\Omega$ of possible outcomes of an experiment, and you want to assign a value in $[0,1]$ to each set $A$ of potential outcomes that represent the \emph{probability} that the experiment will yield an outcome in this set $A$. This value was then denoted by $\prob{A}$. 
-
-It turned out that in order to properly define these concepts, we needed to impose structure on both the space of events as well as on the probability measure. For example, if we had two sets $A, B$ of possible outcomes, would like to say something about the probability that the outcome is in either $A$ or $B$. This means we not only do we need to be able compute $\prob{A \cup B}$, we actually want that $A \cup B$ is also an event in our space $\Omega$. Another example concerned the probability of the outcome not being in $A$, which means compute the probability of the event $\Omega\setminus A$, requiring that this set should also be in $\Omega$. In the end this prompted the definition of an \emph{event space} which was a collection $\cF$ of subsets of $\Omega$ such that
-\begin{enumerate}
-\item $\cF$ is non-empty;
-\item If $A \in \cF$, then $A^c := \Omega \setminus A \in \cF$;
-\item If $A_1, A_2, \dots \in \cF$, then $\bigcup_{i = 1}^\infty A_i \in \cF$.
-\end{enumerate}
-
-In addition, the probability assignment $\bbP$ was defined as a map $\bbP : \cF \to [0,1]$ such that
-\begin{enumerate}
-\item $\prob{\Omega} = 1$ and $\prob{\emptyset} = 0$, and
-\item for any collection $A_1, A_2, \dots$ of disjoint events in $\cF$ it holds that 
-\[
-	\prob{\bigcup_{i = 1}^\infty A_i} = \sum_{i = 1}^\infty \prob{A_i}.
-\]
-\end{enumerate}
-
-With this setup it was possible to formally define what a \emph{random variable} is. Here a random variable $X$ was defined on a triple $(\Omega, \cF, \bbP)$, consisting of a space of outcomes, an event space and a probability on that space. Formally it is a mapping $X : \Omega \to \bbR$ such that for each $x \in \bbR$ the set $X^{-1}(-\infty,x):=\{\omega \in \Omega \, : \, X(\omega) \in (-\infty,x)\}$ is in $\cF$. This then allowed us to define the \emph{cumulative distribution function} as $F_X(x) := \prob{X^{-1}(-\infty,x)}$.
-
-It is important to note here that already it was needed to make a distinction of how to define a discrete and a continuous random variable. In addition, a separate definition was required to defined multivariate distribution functions. This limits the extend to which this theory can be applied. For example let $U$ have the uniform distribution on $[0,1]$ and $Y$ have uniform distribution on the set $\{1,2, \dots, 10\}$ and define the random variable $X$ to be equal to $U$ with probability $1/2$ and equal to $Y$ with probability $1/2$. How would you deal with this random variable, which is both discrete and continuous? However, the setting would becomes even more complex if we are not talking about random numbers in $\bbR$ but, say, random vectors of infinite length or random functions. Do these even exist?
-
-The solutions to all these issues comes from a generalization of event spaces and probability measures introduced above. These go by the names sigma-algebra and measure, respectively. With this we can then define when any mapping between spaces is \emph{measurable} and use such mappings to define random objects in that space such a function maps to. The remainder of this chapter is dedicated to introduced all these concepts.
+At the core of measure theory are two things: 1) the objects we want to measure and 2), a way to assign a measure (value) to these objects. The objects are subsets of some given space that satisfy certain properties, which we call \emph{\sigalgs/} (sigma-algebras). The structure of these \sigalgs/ allows us to define the notion of a measure on them, which is a map that assigns to each set a value in $[0,\infty)$. Of course, we will not consider any such map but impose a few properties which will imply many interesting properties of measures and allow us later on to define a general notion on integration. This chapter is concerned with the two basic notions, \sigalgs/ and measures. We will provide the definitions, important properties and some key examples that will be fundamental for the remainder of this course.
 
 
 \section{Sigma-algebras}
+
 
 % Definition sigma algebra
 
@@ -44,13 +47,17 @@ A \emph{$\sigma$-algebra} $\cF$ on a set $\Omega$ is a collection of subsets of 
 A set $A \in \cF$ is called \emph{$\cF$-measurable}, or simply \emph{measurable} if it is clear which \sigalg/ is meant.
 \end{definition}
 
-This definition looks very similar to that of an event space. It turns out that they are actually the same, see Problem~\ref{prb:event_space_are_sigma_algebras}.
+This definition might look very familiar. In the course Probability and Modeling you have been introduced to the concept of an \emph{event space}. It turns out that these concepts are actually the same, see Problem~\ref{prb:event_space_are_sigma_algebras}.
 
-Before we give some examples, we first show that any \sigalg/ is also closed under countable intersections. The proof is left as an exercise to the reader (see Problem~\ref{prb:sigma_algebra_closed_intersections}).
+Before we give some examples, we first provide a result that states that any \sigalg/ is closed under countable intersections. The proof is left as an exercise to the reader.
 
 \begin{lemma}\label{lem:sigma_algebra_closed_intersections}
 Let $\cF$ be a \sigalg/ on $\Omega$ and let $A_1, A_2, \dots \in \cF$. Then it holds that $\bigcap_{i = 1}^\infty A_i \in \cF$
 \end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:sigma_algebra_closed_intersections}.
+\end{proof}
 
 We now give some examples and non-examples of \sigalgs/.
 
@@ -69,6 +76,8 @@ We now give some examples and non-examples of \sigalgs/.
 is a \sigalg/. The converse to this is not always true, see Problem~\ref{prb:converse_preimage_sigma_algebra}.
 \end{enumerate}
 \end{example}
+
+Proving these claims is left as an exercise, see Problem~\ref{prb:example_sigalgs}.
 
 The idea of measure theory is that one can assign a notion of measure to each set in a $\sigma$-algebra. In line with this, a pair $(\Omega, \cF)$ where $\Omega$ is a set and $\cF$ a \sigalg/ on $\Omega$ is called a \emph{measurable space}. 
 
@@ -132,15 +141,21 @@ The nice thing about this construction of \sigalgs/ is that it respects inclusio
 If $A \subset B \subset C$ are subset of $\Omega$, then also $\sigma(A) \subset \sigma(B) \subset \sigma(C)$.
 \end{lemma}
 
-Using this powerful construction tool for \sigalgs/, we can now construct products of measurable spaces.
+\begin{proof}
+See Problem~\ref{prb:inclusion_sigalgs}
+\end{proof}
+
+On example of a generated \sigalg/ is to construct products of measurable spaces.
 
 \begin{definition}[Product \sigalg/]\label{def:product_sigalg}
 Let $(\Omega, \cF)$ and $(\Omega^\prime, \cF^\prime)$ be two measurable spaces. Then we define $\cF \otimes \cF^\prime$ to be the \sigalg/ on $\Omega \times \Omega^\prime$ generated by sets of the form $A \times B$, with $A \in \cF$ and $B \in \cF^\prime$.
 \end{definition}
 
+However, there is a much more important \sigalg/ that is constructed from a generator set.
+
 \subsection{Borel \sigalg/}
 
-The Euclidean space $\bbR^d$ is omnipresent in mathematics and hence pops up in many bachelor courses as well. In particular, in the introduction we noticed that the concept of random variables, as given in the course Probability and Modeling, is mainly concerned with $\bbR$. Based on this, the need to impose a measurable structure on this space, by means of a \sigalg/, should not come as a surprise. It turns out that there is a canonical \sigalg/ which is called the \emph{Borel \sigalg/} and is named after the French mathematician \'{E}mile Borel, who was one of the pioneers of measure theory.
+The Euclidean space $\bbR^d$ is omnipresent in mathematics and hence pops up in many bachelor courses as well. In particular, the concept of random variables, as given in the course Probability and Modeling, is mainly concerned with objects that have values in $\bbR$. Based on this, the need to impose a measurable structure on this space, by means of a \sigalg/, should not come as a surprise. It turns out that there is a canonical \sigalg/ which is called the \emph{Borel \sigalg/} and is named after the French mathematician \'{E}mile Borel, who was one of the pioneers of measure theory.
 
 In order to define the Borel \sigalg/ we need the notion of an open set in $\bbR^d$. For any $x \in \bbR$ and $r >0$, we denote by $B_x(r) := \{y \in \bbR^d \, : \, \|x-y\|<r\}$ the open ball of radius $r$ around $x$. A set $U \subset \bbR^d$ is called \emph{open} if and only if for every $x \in U$, there exists an $r > 0$ such that $B_x(r) \subset U$.
 
@@ -157,12 +172,15 @@ While this is a perfectly fine definition, it is often cumbersome to work with. 
 \begin{proposition}\label{prop:characterization_borel_sigalg}
 The Borel \sigalg/ on $\bbR^d$ is the \sigalg/ generated by any of the following family of sets, 
 \begin{enumerate}
+\item $(a_1, b_1) \times \dots \times (a_d, b_d)$,
+\item $(a_1, b_1] \times \dots \times (a_d, b_d]$,
+\item $[a_1, b_1) \times \dots \times [a_d, b_d)$,
 \item $(-\infty,a_1] \times \dots \times (-\infty, a_d]$,
 \item $(-\infty,a_1) \times \dots \times (-\infty, b_d)$,
 \item $[a_1, \infty) \times \dots \times [a_d, \infty)$,
 \item $(a_1,\infty) \times \dots \times (a_d,\infty)$,
 \end{enumerate}
-where $a_i \in \bbQ,$ or $a_i \in \bbR$ for $i = 1, \dots, d.$
+where $a_i, b_i \in \bbQ,$ or $a_i, b_i \in \bbR$ for $i = 1, \dots, d.$
 \end{proposition}
 
 \section{Measures}
@@ -183,7 +201,7 @@ Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\inf
 \end{enumerate}
 \end{definition}
 
-A triple $(\Omega, \cF, \mu)$, consisting of a measure space $(\Omega, \cF)$ and a measure $\mu$ on that space is called a \emph{measure space}. If the $\mu(\Omega) < \infty$ we say that $\mu$ is $\sigma$-finite and call the associated measure space a \emph{$\sigma$-finite measure space}. If $\mu(\Omega) = 1$ we call $\mu$ a \emph{probability measure} and the associated measure space a \emph{probability space}.
+A triple $(\Omega, \cF, \mu)$, consisting of a measurable space $(\Omega, \cF)$ and a measure $\mu$ on that space is called a \emph{measure space}. If the $\mu(\Omega) < \infty$ we say that $\mu$ is $\sigma$-finite and call the associated measure space a \emph{$\sigma$-finite measure space}. If $\mu(\Omega) = 1$ we call $\mu$ a \emph{probability measure} and the associated measure space a \emph{probability space}.
 
 Let us give some simple examples of measures.
 
@@ -223,11 +241,13 @@ is a measure called the \emph{discrete measure}. If the $a_i$ are such that $\su
 \end{enumerate}
 \end{example}
 
+However, there is a measure, not included above, that plays a fundamental role in measure theory and especially probability theory.
+
 \subsection{Lebesgue measure}
 
-It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its basis. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, that the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. 
+It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, that the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. 
 
-It turns out that such a measure exists. This fundamental measure is called the \emph{Lebesgue measure} and, in addition to the property mentioned above, has several other strong features.
+Still, it turns out that such a measure exists. This fundamental measure is called the \emph{Lebesgue measure} and, in addition to the property mentioned above, has several other strong features.
 
 \begin{theorem}[Lebesgue measure]\label{thm:lebesgue_measure}
 There exists a unique measure $\lambda$ on $(\bbR^d, \cB_{\bbR^d})$ with the following properties, for any $B \in \cB_{\bbR^d}$:
@@ -241,7 +261,7 @@ There exists a unique measure $\lambda$ on $(\bbR^d, \cB_{\bbR^d})$ with the fol
 
 The proof of this theorem is involved and relies on a more abstract approach to constructing measures. The interested student is referred to the Appendix, where we provide the full details.  
 
-We end this section by looking at some important properties of measures.
+We end this section by looking at some important general properties of measures.
 
 
 \subsection{Important properties}
@@ -286,7 +306,7 @@ where the last line follows from applying property 3 twice.
 
 The subadditive property can actually be extended to any countable family of sets.
 
-\begin{lemma}[Measures are $\sigma$-subadditive]
+\begin{lemma}[Measures are $\sigma$-subadditive]\label{lem:sigma_subadditive}
 Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be a family of sets in $\cF$. Then
 \[
 	\mu\left(\bigcup_{i \in \bbN} A_i\right) \le \sum_{i = 1}^\infty \mu(A_i),
@@ -294,7 +314,9 @@ Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be a fa
 and the measure $\mu$ is said to be \emph{$\sigma$-subadditive}.
 \end{lemma}
 
-The proof of this lemma is left as an exercise, see Problem [REF].
+\begin{proof}
+See Problem~\ref{prb:sigma_subadditive}
+\end{proof}
 
 In addition to properties relating a measure $\mu$ to set operations, we also want to understand what happens if we take a limit of the measures of an infinite family of sets. Let $(A_i)_{i \in \bbN}$ be a family of measurable sets. We say this family is \emph{increasing} if $A_i \subset A_{i+1}$ holds for all $i \in \bbN$. Because a measure is monotone it follows that the sequence $(\mu(A_i))_{i \in \bbN}$ is a monotone sequence in $[0,\infty]$. So a natural question would be: what is the limit of this sequence? It turns out that this can be expressed as the measure of the union of all sets.
 
@@ -326,7 +348,9 @@ Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an d
 \]
 \end{proposition}
 
-The proof of this proposition is similar to that of Proposition~\ref{prop:continuity_measure_below} and is left as an exercise, see Problem~\ref{prb:proof_continuity_above}.
+\begin{proof}
+See Problem~\ref{prb:proof_continuity_above}.
+\end{proof}
 
 In addition to being useful in determining the limits of the measure of families of sets, these continuity properties are actually powerful enough to characterize a measure. 
 
@@ -355,7 +379,7 @@ Using property 2. we get that $\mu(B_k) = \sum_{i = 1}^k \mu(A_i)$ while propert
 \]
 \end{proof}
 
-In Section~\ref{ssec:construction_sigalgs} we discussed how to construct \sigalgs/ from a generator set $\cA$. Suppose now that we have two measures $\mu_1$ and $\mu_2$ agree on $\cA$, that is $\mu_1(A) = \mu_2(A)$ for all $A \in \cA$. Then we would intuitively expect that they should agree on the entire \sigalg/ $\sigma(\cA)$. This turns out to be true, under some small conditions on the generator set.
+Finally, let use discuss a uniqueness result for measures. In Section~\ref{ssec:construction_sigalgs} we discussed how to construct \sigalgs/ from a generator set $\cA$. Suppose now that we have two measures $\mu_1$ and $\mu_2$ agree on $\cA$, that is $\mu_1(A) = \mu_2(A)$ for all $A \in \cA$. Then we would intuitively expect that they should agree on the entire \sigalg/ $\sigma(\cA)$. This turns out to be true, under some small conditions on the generator set.
 
 \begin{theorem}[Uniqueness of measures]\label{thm:uniqueness_measures}
 Let $(\Omega ,\cF)$ be a measurable space where $\cF = \sigma(\cA)$ with $\cA$ satisfying the following properties:
@@ -370,23 +394,40 @@ The proof of this theorem is covered in the Appendix, as it is requires another 
 
 
 
-
 \section{Problems}
 
 \begin{problem}\label{prb:event_space_are_sigma_algebras}
-Show that the definition of an \emph{event space} as given in Section~\ref{sec:recalling_probability_theory} is equivalent to that of a $\sigma$-algebra as given in Definition~\ref{def:sigma_algebra}.
+Recal that an \emph{event space} is a collection $\cF$ of subsets of $\Omega$ such that
+\begin{enumerate}
+\item $\cF$ is non-empty;
+\item If $A \in \cF$, then $A^c := \Omega \setminus A \in \cF$;
+\item If $A_1, A_2, \dots \in \cF$, then $\bigcup_{i = 1}^\infty A_i \in \cF$.
+\end{enumerate}
+Show that the definition of an \emph{event space} is equivalent to that of a $\sigma$-algebra as given in Definition~\ref{def:sigma_algebra}.
 \end{problem}
 
 \begin{problem}\label{prb:sigma_algebra_closed_intersections}
 Prove Lemma~\ref{lem:sigma_algebra_closed_intersections}.
 \end{problem}
 
+\begin{problem}\label{prb:example_sigalgs}
+Prove the claims made in Example~\ref{example:sigma_algebras}.
+\end{problem}
+
 \begin{problem}\label{prb:converse_preimage_sigma_algebra}
 Provide a counter example to the statement: if $(\Omega, \cF)$ is a measurable space and $f : \Omega \to \Omega^\prime$. Then $f(\cF)$ is a \sigalg/ on $\Omega^\prime$.
 \end{problem}
 
+\begin{problem}\label{prb:inclusion_sigalgs}
+Prove Lemma~\ref{lem:inclusion_sigalgs}.
+\end{problem}
+
+\begin{problem}\label{prb:sigma_subadditive}
+Prove Lemma~\ref{lem:sigma_subadditive}
+\end{problem}
+
 \begin{problem}\label{prb:proof_continuity_above}
-Prove Proposition~\ref{prop:continuity_measure_above}.
+Prove Proposition~\ref{prop:continuity_measure_above}. Hint: The proof is very similar to that of Proposition~\ref{prop:continuity_measure_below}.
 \end{problem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

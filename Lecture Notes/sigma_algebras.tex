@@ -255,7 +255,17 @@ However, there is a measure, not included above, that plays a fundamental role i
 
 It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, that the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. 
 
-Still, it turns out that such a measure exists. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features.
+Still, it turns out that such a measure exists. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
+
+%However, to formally state the theorem that we need to introduce the concept of \emph{null sets} and complete measure spaces.
+%
+%\begin{definition}[Null set]
+%Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
+%\end{definition}
+%
+%It is important to note that a null set does not have to be measurable, i.e. be in $\cF$. We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
+%
+%We can now state the main result that proves the existence of the Lebesgue measure and states its important properties. 
 
 \begin{theorem}[Lebesgue measure]\label{thm:lebesgue_measure}
 There exists a unique measure $\lambda$ on $(\bbR^d, \cB_{\bbR^d})$ with the following properties, for any $B \in \cB_{\bbR^d}$:
@@ -431,7 +441,11 @@ Prove Lemma~\ref{lem:inclusion_sigalgs}.
 \end{problem}
 
 \begin{problem}\label{prb:sigma_subadditive}
-Prove Lemma~\ref{lem:sigma_subadditive}. [Hint: use the properties finitely additive and monotone.] 
+The goal of this exercise is to prove Lemma~\ref{lem:sigma_subadditive}. We will do this in two steps. 
+\begin{enumerate}
+\item Suppose $(B_i)_{i \in \bbN}$ is an increasing sequence, i.e. $B_i \subset B_{i +1}$. Show that $\mu(\bigcup_{i \in \bbN} B_i) \le \sum_{i = 1}^\infty \mu(B_i)$. [Hint: Construct a family of disjoint sets and use the properties finitely additive and monotone.]
+\item Prove Lemma~\ref{lem:sigma_subadditive}. [Hint: can you construct a helpful increasing sequence?]
+\end{enumerate}  
 \end{problem}
 
 \begin{problem}\label{prb:proof_continuity_above}
@@ -465,10 +479,10 @@ We now move to the other family of sets. By symmetry of 2 and 3 it suffices to p
 \item Prove that $\cB_\bbR = \sigma(\cA_2^\prime) = \sigma(\cA_2)$, where $\cA_2 = \{(a,b] \, : \, a,b \in \bbQ\}$ and $\cA_2^\prime = \{(a,b] \, : \, a,b \in \bbR\}$.
 \end{enumerate}
 
-This basically covers the full set of ideas to prove the rest of Proposition~\ref{prop:characterization_borel_sigalg_1d}. We invite you to work these out yourself to practice with these kind of arguments. For this problems however we will ask you to explain the idea for the proofs.
+This basically covers the full set of ideas to prove the rest of Proposition~\ref{prop:characterization_borel_sigalg_1d}. We invite you to work these out yourself to practice with these kind of arguments. For this problem however we will ask you to explain the idea for the proofs.
 \begin{enumerate}
 \setcounter{enumi}{7}
-\item Explain how what changes in the proof of point 3 from the proof of 2 outlined above.
+\item Explain what changes in the proof of point 3 from the proof of 2 outlined above.
 \item Describe the proof strategy to get points 4-8 using 1-4.
 \end{enumerate}
 \end{problem}

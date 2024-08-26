@@ -1,29 +1,7 @@
 
 %\section{Recalling basic probability theory}\label{sec:recalling_probability_theory}
 %
-%During the first course on probability theory, Probability and Modeling (2MBS10), the concept of probabilities were introduced. The idea here (in its simplest version) is that you have a space $\Omega$ of possible outcomes of an experiment, and you want to assign a value in $[0,1]$ to each set $A$ of potential outcomes that represent the \emph{probability} that the experiment will yield an outcome in this set $A$. This value was then denoted by $\prob{A}$. 
-%
-%It turned out that in order to properly define these concepts, we needed to impose structure on both the space of events as well as on the probability measure. For example, if we had two sets $A, B$ of possible outcomes, would like to say something about the probability that the outcome is in either $A$ or $B$. This means we not only do we need to be able compute $\prob{A \cup B}$, we actually want that $A \cup B$ is also an event in our space $\Omega$. Another example concerned the probability of the outcome not being in $A$, which means compute the probability of the event $\Omega\setminus A$, requiring that this set should also be in $\Omega$. In the end this prompted the definition of an \emph{event space} which was a collection $\cF$ of subsets of $\Omega$ such that
-%\begin{enumerate}
-%\item $\cF$ is non-empty;
-%\item If $A \in \cF$, then $A^c := \Omega \setminus A \in \cF$;
-%\item If $A_1, A_2, \dots \in \cF$, then $\bigcup_{i = 1}^\infty A_i \in \cF$.
-%\end{enumerate}
-%
-%In addition, the probability assignment $\bbP$ was defined as a map $\bbP : \cF \to [0,1]$ such that
-%\begin{enumerate}
-%\item $\prob{\Omega} = 1$ and $\prob{\emptyset} = 0$, and
-%\item for any collection $A_1, A_2, \dots$ of disjoint events in $\cF$ it holds that 
-%\[
-%	\prob{\bigcup_{i = 1}^\infty A_i} = \sum_{i = 1}^\infty \prob{A_i}.
-%\]
-%\end{enumerate}
-%
-%With this setup it was possible to formally define what a \emph{random variable} is. Here a random variable $X$ was defined on a triple $(\Omega, \cF, \bbP)$, consisting of a space of outcomes, an event space and a probability on that space. Formally it is a mapping $X : \Omega \to \bbR$ such that for each $x \in \bbR$ the set $X^{-1}(-\infty,x):=\{\omega \in \Omega \, : \, X(\omega) \in (-\infty,x)\}$ is in $\cF$. This then allowed us to define the \emph{cumulative distribution function} as $F_X(x) := \prob{X^{-1}(-\infty,x)}$.
-%
-%It is important to note here that already it was needed to make a distinction of how to define a discrete and a continuous random variable. In addition, a separate definition was required to defined multivariate distribution functions. This limits the extend to which this theory can be applied. For example let $U$ have the uniform distribution on $[0,1]$ and $Y$ have uniform distribution on the set $\{1,2, \dots, 10\}$ and define the random variable $X$ to be equal to $U$ with probability $1/2$ and equal to $Y$ with probability $1/2$. How would you deal with this random variable, which is both discrete and continuous? However, the setting would becomes even more complex if we are not talking about random numbers in $\bbR$ but, say, random vectors of infinite length or random functions. Do these even exist?
-%
-%The solutions to all these issues comes from a generalization of event spaces and probability measures introduced above. These go by the names sigma-algebra and measure, respectively. With this we can then define when any mapping between spaces is \emph{measurable} and use such mappings to define random objects in that space such a function maps to. The remainder of this chapter is dedicated to introduced all these concepts.
+
 
 At the core of measure theory are two things: 1) the objects we want to measure and 2), a way to assign a measure (value) to these objects. The objects are subsets of some given space that satisfy certain properties, which we call \emph{\sigalgs/} (sigma-algebras). The structure of these \sigalgs/ allows us to define the notion of a measure on them, which is a map that assigns to each set a value in $[0,\infty)$. Of course, we will not consider any such map but impose a few properties which will imply many interesting properties of measures and allow us later on to define a general notion on integration. This chapter is concerned with the two basic notions, \sigalgs/ and measures. We will provide the definitions, important properties and some key examples that will be fundamental for the remainder of this course.
 

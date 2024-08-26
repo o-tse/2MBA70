@@ -1,22 +1,48 @@
 
-\subsection{The need to measure and integrate}
 
-% Need a proper theory of integration
 
-% Analyze/solve PDE's
-% Harmonic analysis
-% Functional analysis
+\section{The need to measure}
+This course, as the name suggest, is about measuring and about probabilities. The field of measure theory is fundamental for many modern versions of mathematical disciplines, such as analysis and probability theory. These lecture notes are designed to introduce the foundations of measure theory and highlight its use in developing the modern theory of probabilities and expectations.  
 
-\subsection{The issue with Riemann integrals}
+At the core of measure theory is the notion of \emph{measuring}. We do this every day; whether we are measuring the length of wall to determine if our bed fits, making sure everyone gets an equal size pizza slice, or counting down the minutes till the end of a boring lecture. 
 
-% What is wrong with Riemann?
+The term measuring here refers to the act of assigning a (non-negative) number to every object in some collection. If that was the only requirement, this would be a very brief course. However, such an assignment should satisfy some properties is we want it to be useful. For example, if we want to compute the area of some complex shape we often (without any thought) divide this shape into smaller more regular pieces for which we can compute the area and then combine these to get the area of the entire shape. If the shape is very complex, we might even approximate it by a collection of easier shapes (think of approximating with little squares for example). The actual area is then computed by taking a finer and finer approximation and considering the limit of these computed areas. In both these cases we are (implicitly) making use of the fact that our notion of measuring respects these operations. The goal of measure theory is to provide clear mathematical definitions for the operations a proper way of measuring should respect and use these to develop new important concepts and theory. The most fundamental of which is integration. 
 
-\subsection{Measure theory as the foundation of probability theory}
+\section{A new theory of integration}
 
-% Need foundation for probability theory
+The ability to properly measure is instrumental for integration. If you think back to your analysis course, integrating a function $f : \bbR \to \bbR$ is basically computing the area under the curve. In other words, measuring the set $A \subset \bbR^2$ given by $A := \{(x,f(x)) \, :\, x \in \bbR\}$. In most cases, this area is actually very complex and we need to approximate it by looking at very small sections and then combine the outcomes to get the full answer.
 
-% Random variable that is neither discrete nor continuous
-% Conditional probabilities and expectation
-% Stochastic process/Point process
+Being able to integrate is fundamental in a wide variety of mathematical fields. For example, solving Partial Differential Equations and analyzing their solutions requires a powerful theory of integration, as this is the inverse operation to differentiation. Another example is Harmonic Analysis, eg. Fourier Analysis in $\bbR^d$, where functions are studied by transforming them using integrals. But also functional analysis, which plays a fundamental part in the foundation of modern quantum mechanics, requires integration to map functions to numbers or other object. Finally,  the field of probability theory heavily relies on being able to measure sets and integrate (more on this later). 
+
+But if integration is so fundamental, why do we need another course on this? We already know how to integrate a function using the \emph{Riemann} integration. The problem is that Riemann integration is lacks in power. Let us highlight this using two examples:
+
+\begin{enumerate}
+\item Consider a sequence $(f_n)_{n \ge 1}$ of functions that are each Riemann integrable. Suppose now these function converge point-wise to a limit function $f$. Then we would like to say something about whether $f$ is Riemann integrable. Even more nice would be if $\lim_{n \to \infty} \int f_n = \int \lim_{n \to \infty} f_n = \int f$, i.e. if we can interchange limits and integration. The issue is that both these things or not generally possible, and the condition for the interchange of limits and integration are very restrictive.
+\item In general, it is even difficult to provide a practical characterization for when any function is Riemann integrable. This means that, in the worst case, you have to prove convergence of the upper and lower Riemann sums for a function $f$ you want to integrate. 
+\end{enumerate}
+
+One of the main outcomes of this course is a new theory of integration called \emph{Lebesgue integration}. The beauty of this theory is that not only does it not suffer from any of the issue outlined above. We can easily characterize if a function is Riemann-integrable withing this new theory. More importantly, any point-wise limit of Lebesgue-integrable functions is again Lebesgue integrable and (most of the time) $\lim_{n \to \infty} \int f_n = \int \lim_{n \to \infty} f_n$. Finally, the theory of Lebesgue integration also generalizes Riemann integration. That is, if you know the Riemann integral $\int f$ of a function $f$ exists, its Lebesgue integral will have the same value. So $\int_0^1 x^2 dx$ is still equal to $1/3$, don't worry.
+
+\section{Measure theory as the foundation of probability theory}
+
+Aside from providing us with a new and powerful theory of integration, measure theory is the true foundation of modern probability theory. 
+
+During the first course on probability theory, Probability and Modeling (2MBS10), the concept of probabilities were introduced. The idea here (in its simplest version) is that you have a space $\Omega$ of possible outcomes of an experiment, and you want to assign a value in $[0,1]$ to each set $A$ of potential outcomes. This value would then represent the \emph{probability} that the experiment will yield an outcome in this set $A$, and was denoted by $\prob{A}$. 
+
+It turned out that in order to define these concepts, we needed to impose structure on both the space of events as well as on the probability measure. For example, if we had two sets $A, B$ of possible outcomes, would like to say something about the probability that the outcome is in either $A$ or $B$. This means that not only do we need to be able to compute $\prob{A \cup B}$, we actually want that $A \cup B$ is also an event in our space $\Omega$. Another example concerned the probability of the outcome not being in $A$, which means computing the probability of the event $\Omega\setminus A$, requiring that this set should also be in $\Omega$. 
+
+In the end this prompted the definition of an \emph{event space} which was a collection $\cF$ of subsets of $\Omega$ satisfying a certain set of properties. In addition, the probability assignment $\bbP$ was defined as a map $\bbP : \cF \to [0,1]$ with some addition properties, such as $\prob{\Omega} = 1$.
+
+
+With this setup it was then possible to define what a \emph{random variable} is. Here a random variable $X$ was defined on a triple $(\Omega, \cF, \bbP)$, consisting of a space of outcomes, an event space and a probability on that space. Formally it is a mapping $X : \Omega \to \bbR$ such that for each $x \in \bbR$ the set $X^{-1}(-\infty,x):=\{\omega \in \Omega \, : \, X(\omega) \in (-\infty,x)\}$ is in $\cF$. This then allowed us to define the \emph{cumulative distribution function} as $F_X(x) := \prob{X^{-1}(-\infty,x)}$.
+
+It is important to note here that already it was needed to make a distinction of how to define a discrete and a continuous random variable. In addition, a separate definition was required to defined multivariate distribution functions. All of this limits the extend to which this theory can be applied. For example, let $U$ have the uniform distribution on $[0,1]$ and $Y$ have uniform distribution on the set $\{1,2, \dots, 10\}$ and define the random variable $X$ to be equal to $U$ with probability $1/3$ and equal to $Y$ with probability $2/2$. How would you deal with this random variable, which is both discrete and continuous? 
+
+The setting would becomes even more complex and fuzzy if we are not talking about random numbers in $\bbR$ but, say, random vectors of infinite length or random functions. Do these even exist? There are also many other things that remain fuzzy or simply impossible in a theory of probability without measure theory. What are conditional probabilities/expectation? How do you define a continuous time Markov Process or a point process? What is a stochastic process actually? Or, does there exist such a thing as a random probability measure?
+
+The solutions to all these issues comes from a generalization of event spaces and probability measures introduced above. These go by the names sigma-algebra and measure, respectively, which are the core concepts in measure theory. With this we can then define when any mapping between spaces is \emph{measurable} and use such mappings to define random objects in the space such a function maps to. Finally, armed with the theory of Lebesgue integration, measure theory provides the foundation to define expectations, convergence of random variables, and, most importantly, the notion of a conditional probability. 
+
+All of this is to say that a proper study of Probability Theory cannot happen without the Measure Theory. By the end of these notes we hope you will appreciate this and be inspired by the versatility and beauty of measures theory and Lebesgue integration.
+
 
 

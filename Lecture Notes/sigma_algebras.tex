@@ -86,7 +86,7 @@ The idea of measure theory is that one can assign a notion of measure to each se
 We now know what a \sigalg/ is and have seen some example and some non-examples. But the examples we have seen are still quite uninspiring. We will actually discuss a very important \sigalg/ in the next section. But for now, we will describe several ways to construct \sigalgs/. The first is restricting an existing \sigalg/ to a given set.
 
 \begin{lemma}[Restriction of a \sigalg/]\label{lem:restriction_sigma_algebra}
-Let $(\Omega, \cF)$ be a measurable space and $A \subset \Omega$. Then the collection define by 
+Let $(\Omega, \cF)$ be a measurable space and $A \subset \Omega$. Then the collection defined by 
 \[
 	\cF_A := \{A \cap B \, : \, B \in \cF\},
 \]
@@ -251,24 +251,26 @@ is a measure called the \emph{discrete measure}. If the $a_i$ are such that $\su
 
 However, there is a measure, not included above, that plays a fundamental role in measure theory and especially probability theory.
 
-\subsection{Lebesgue measure}
+\subsection{Null sets, complete measure spaces and the Lebesgue measure}
 
 It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, that the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. 
 
 Still, it turns out that such a measure exists. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
 
-%However, to formally state the theorem that we need to introduce the concept of \emph{null sets} and complete measure spaces.
-%
-%\begin{definition}[Null set]
-%Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
-%\end{definition}
-%
-%It is important to note that a null set does not have to be measurable, i.e. be in $\cF$. We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
-%
-%We can now state the main result that proves the existence of the Lebesgue measure and states its important properties. 
+However, to formally state the theorem that we need to introduce the concept of \emph{null sets} and complete measure spaces.
+
+\begin{definition}[Null set]
+Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
+\end{definition}
+
+It is important to note that a null set does not have to be measurable, i.e. be in $\cF$. We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
+
+Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \bar{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction an \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
+
+We can now state the main result that proves the existence of the Lebesgue measure and states its important properties. 
 
 \begin{theorem}[Lebesgue measure]\label{thm:lebesgue_measure}
-There exists a unique measure $\lambda$ on $(\bbR^d, \cB_{\bbR^d})$ with the following properties, for any $B \in \cB_{\bbR^d}$:
+There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique measure $\lambda$ such that $(\bbR^d, \cL^d, \lambda)$ is complete and satisfies the the following properties, for any $B \in \cB_{\bbR^d}$:
 \begin{enumerate}
 \item For any half-open rectangle $I := [a_1, b_1) \times \dots \times [a_d, b_d)$ it holds that $\lambda(I) = \prod_{i = 1}^d (b_i-a_i)$;
 \item For any $x \in \bbR^d$, $\lambda(B+x) = \lambda(B)$, where $B + x = \{y+x \, : \, y \in B\}$;
@@ -278,6 +280,13 @@ There exists a unique measure $\lambda$ on $(\bbR^d, \cB_{\bbR^d})$ with the fol
 \end{theorem}
 
 The proof of this theorem is involved and relies on a more abstract approach to constructing measures. The interested student is referred to the Appendix, where we provide the full details.  
+
+It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure formally defined on a larger \sigalg/ $\cL$ then the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
+
+\begin{remark}[Lebesgue vs Borel measurable]
+It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable.
+\end{remark}
+
 
 We end this section by looking at some important general properties of measures.
 
@@ -457,7 +466,7 @@ The goal of this problem is to prove Proposition~\ref{prop:characterization_bore
 
 \begin{enumerate}
 \item Prove that $\sigma(\cA_1) \subset \sigma(\cA_1^\prime) \subset \cB_\bbR$. [Hint: what is the relation between an interval $(a,b)$ and an open set?]
-\item We will no focus on the intervals with rational endpoints. Show that for any open set $O \subset \bbR$
+\item We will now focus on the intervals with rational endpoints. Show that for any open set $O \subset \bbR$
 \[
 	O = \bigcup_{I \in \cA_1, I \subset O} I
 \]
@@ -482,8 +491,28 @@ We now move to the other family of sets. By symmetry of 2 and 3 it suffices to p
 This basically covers the full set of ideas to prove the rest of Proposition~\ref{prop:characterization_borel_sigalg_1d}. We invite you to work these out yourself to practice with these kind of arguments. For this problem however we will ask you to explain the idea for the proofs.
 \begin{enumerate}
 \setcounter{enumi}{7}
-\item Explain what changes in the proof of point 3 from the proof of 2 outlined above.
-\item Describe the proof strategy to get points 4-8 using 1-4.
+\item Explain what changes in the proof of point 3 of Proposition~\ref{prop:characterization_borel_sigalg_1d} from the proof of point 2 of this proposition outlined above.
+\item Describe the proof strategy to get points 4-8 of Proposition~\ref{prop:characterization_borel_sigalg_1d} using 1-4.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:completion_measure_space}
+The goal of this problem is to complete a given measure space. To this end, let $(\Omega, \cF, \mu)$ be a measure space. Let $\cN$ be the family of null sets of $\mu$ and define the family of sets $\bar{\cF}$ as
+\[
+	\bar{\cF} := \{A \cup N \, : \, A \in \cF \text{ and } N \in \cN\}.
+\]
+\begin{enumerate}
+\item Show that $\bar{\cF}$ is a \sigalg/ that contains $\cF$.
+\end{enumerate}
+Define the set function $\bar{\mu} : \bar{\cF} \to [0,\infty]$ as
+\[
+	\bar{\mu}(A \cup N) := \mu(A).
+\]
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Prove that $\bar{\mu}$ is a measure on $\bar{\cF}$.
+\item Show that $\bar{\mu}|_\cF = \mu$.
+\item Conclude that $(\Omega, \bar{\cF}, \bar{\mu})$ is a complete measure space.
 \end{enumerate}
 \end{problem}
 

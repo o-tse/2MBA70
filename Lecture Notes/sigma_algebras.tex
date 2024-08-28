@@ -3,7 +3,7 @@
 %
 
 
-At the core of measure theory are two things: 1) the objects we want to measure and 2), a way to assign a measure (value) to these objects. The objects are subsets of some given space that satisfy certain properties, which we call \emph{\sigalgs/} (sigma-algebras). The structure of these \sigalgs/ allows us to define the notion of a measure on them, which is a map that assigns to each set a value in $[0,\infty)$. Of course, we will not consider any such map but impose a few properties which will imply many interesting properties of measures and allow us later on to define a general notion on integration. This chapter is concerned with the two basic notions, \sigalgs/ and measures. We will provide the definitions, important properties and some key examples that will be fundamental for the remainder of this course.
+At the core of measure theory are two things: 1) the objects we want to measure and 2), a way to assign a measure (value) to these objects. The objects are subsets of some given space that satisfy certain properties, which we call \emph{\sigalgs/} (sigma-algebras). The structure of these \sigalgs/ allows us to define the notion of a measure on them, which is a map that assigns to each set a value in $[0,\infty)$. Of course, we will not consider any such map but impose a few properties which will imply many interesting properties of measures and allow us later on to define a general notion of integration. This chapter is concerned with the two basic notions, \sigalgs/ and measures. We will provide the definitions, important properties, and some key examples that will be fundamental for the remainder of this course.
 
 
 \section{Sigma-algebras}
@@ -32,7 +32,6 @@ Before we give some examples, we first provide a result that states that any \si
 \begin{lemma}\label{lem:sigma_algebra_closed_intersections}
 Let $\cF$ be a \sigalg/ on $\Omega$ and let $A_1, A_2, \dots \in \cF$. Then it holds that $\bigcap_{i = 1}^\infty A_i \in \cF$
 \end{lemma}
-
 \begin{proof}
 See Problem~\ref{prb:sigma_algebra_closed_intersections}.
 \end{proof}
@@ -41,11 +40,11 @@ We now give some examples and non-examples of \sigalgs/.
 
 \begin{example}[(Non-)Examples of $\sigma$-algebras]\label{example:sigma_algebras}
 \hfil
-\begin{enumerate}
+\begin{enumerate}[label=(\alph*)]
 \item The collection $\cF = \{\emptyset, \Omega\}$ is a $\sigma$-algebra. This is called the \emph{trivial $\sigma$-algebra} or the \emph{minimal} $\sigma$-algebra on $\Omega$.
 \item For any subset $A \subset \Omega$ we have that $\cF := \{\emptyset, A, \Omega\setminus A, \Omega\}$ is a $\sigma$-algebra.
 \item The \emph{power set} $\cP(\Omega)$ (the collection of all possible subsets of $\Omega$) is a $\sigma$-algebra. This is sometimes called the \emph{maximal $\sigma$-algebra} on $\Omega$.
-\item For any subset $A \subset \Omega$ such that $A \ne \emptyset, \Omega$, we have that $\cF := \{\emptyset, A, \Omega\}$ is \textbf{not} a $\sigma$-algebra.
+\item For any subset $A \subset \Omega$, $A \ne \emptyset, \Omega$, we have that $\cF := \{\emptyset, A, \Omega\}$ is \textbf{not} a $\sigma$-algebra.
 \item Let $\Omega = [0,1]$ and $\cF$ be the collections of finite unions of intervals of the form $[a,b]$, $[a,b)$, $(a,b]$ and $(a,b)$ for $0 \le a < b \le 1$. Then $\cF$ is \textbf{not} a $\sigma$-algebra.
 \item Let $f : \Omega \to \Omega^\prime$ and let $cF^\prime$ be a \sigalg/ on $\Omega^\prime$. Then the collection
 \[
@@ -53,15 +52,16 @@ We now give some examples and non-examples of \sigalgs/.
 \]
 is a \sigalg/. The converse to this is not always true, see Problem~\ref{prb:converse_preimage_sigma_algebra}.
 \end{enumerate}
+Proving these claims is left as an exercise, see Problem~\ref{prb:example_sigalgs}.
 \end{example}
 
-Proving these claims is left as an exercise, see Problem~\ref{prb:example_sigalgs}.
+\medskip
 
-The idea of measure theory is that one can assign a notion of measure to each set in a $\sigma$-algebra. In line with this, a pair $(\Omega, \cF)$ where $\Omega$ is a set and $\cF$ a \sigalg/ on $\Omega$ is called a \emph{measurable space}. 
+The idea of measure theory is that one can assign a measure to each set in a $\sigma$-algebra. In line with this, a pair $(\Omega, \cF)$ where $\Omega$ is a set and $\cF$ a \sigalg/ on $\Omega$ is called a \emph{measurable space}. 
 
 \subsection{Constructing \sigalgs/}\label{ssec:construction_sigalgs}
 
-We now know what a \sigalg/ is and have seen some example and some non-examples. But the examples we have seen are still quite uninspiring. We will actually discuss a very important \sigalg/ in the next section. But for now, we will describe several ways to construct \sigalgs/. The first is restricting an existing \sigalg/ to a given set.
+We now know what a \sigalg/ is and have seen some examples and some non-examples. But the examples we have seen are still quite uninspiring. We will actually discuss a very important \sigalg/ in the next section. But for now, we will describe several ways to construct \sigalgs/. The first is restricting an existing \sigalg/ to a given set.
 
 \begin{lemma}[Restriction of a \sigalg/]\label{lem:restriction_sigma_algebra}
 Let $(\Omega, \cF)$ be a measurable space and $A \subset \Omega$. Then the collection defined by 
@@ -84,7 +84,7 @@ Since $\cF$ is a \sigalg/, it follows that $\Omega \setminus B \in \cF$ and so $
 \[
 	\bigcup_{i=1}^\infty C_i = \bigcup_{i=1}^\infty A \cap B_i = A \cap \bigcup_{i=1}^\infty B_i \in \cF_A,
 \]
-since $\bigcup_{i=1}^\infty B_i \in \cF$ because this is a \sigalg/.
+since $\bigcup_{i=1}^\infty B_i \in \cF$ because this is a \sigalg/. \qedhere
 \end{enumerate}
 \end{proof}
 
@@ -93,11 +93,11 @@ While it is nice to be able to take a given \sigalg/ and create a possibly small
 \begin{proposition}[Generated \sigalg/]\label{prop:generated_sigalg}
 Let $\cA$ be a collection of subsets of $\Omega$ and denote by $\Sigma_\cA$ the collection of all \sigalgs/ on $\Omega$ that contain $\cA$. Then the collection defined by
 \[
-	\sigma(\cA) := \bigcap_{\cF \in \Sigma_\cA} \cF,
+	\sigma(\cA) := \bigcap_{\cF \in \Sigma_\cA} \cF\qquad\text{is a \sigalg/.}
 \]
-is a \sigalg/. It is called the \emph{\sigalg/ generated by $\cA$}. Equivalently, $\cA$ is called the \emph{generator of $\sigma(\cA)$}.
+It is called the \emph{\sigalg/ generated by $\cA$}. Equivalently, $\cA$ is called the \emph{generator of $\sigma(\cA)$}.
 
-Moreover, $\sigma(\cA)$ is the smallest \sigalg/ that contains $\cA$. 
+Moreover, $\sigma(\cA)$ is the smallest \sigalg/ that contains $\cA$. If $\cF$ is a \sigalg/ on $\Omega$ and $\cA$ is a collection of subsets such that $\cF = \sigma(\cA)$, we call $\cA$ the \emph{generator of $\cF$}. 
 \end{proposition}
 
 \begin{proof}
@@ -111,11 +111,9 @@ Similar to Lemma~\ref{lem:restriction_sigma_algebra} we need to check all the re
 \[
 	\bigcup_{i \in \bbN} A_i \in \cF,
 \] 
-holds for each $\cF \in \Sigma_\cA$ and thus it follows that $\bigcup_{i \in \bbN} A_i \in \sigma(\cA)$.
+holds for each $\cF \in \Sigma_\cA$ and thus it follows that $\bigcup_{i \in \bbN} A_i \in \sigma(\cA)$.\qedhere
 \end{enumerate}
 \end{proof}
-
-If $\cF$ is a \sigalg/ on $\Omega$ and $\cA$ is a collection of subsets such that $\cF = \sigma(\cA)$, we call $\cA$ the \emph{generator of $\cF$}. 
 
 The nice thing about this construction of \sigalgs/ is that it respects inclusions.
 
@@ -127,7 +125,7 @@ If $A \subset B \subset C$ are subset of $\Omega$, then also $\sigma(A) \subset 
 See Problem~\ref{prb:inclusion_sigalgs}
 \end{proof}
 
-On example of a generated \sigalg/ is to construct products of measurable spaces.
+An example of a generated \sigalg/ is to construct products of measurable spaces.
 
 \begin{definition}[Product \sigalg/]\label{def:product_sigalg}
 Let $(\Omega, \cF)$ and $(\Omega^\prime, \cF^\prime)$ be two measurable spaces. Then we define $\cF \otimes \cF^\prime$ to be the \sigalg/ on $\Omega \times \Omega^\prime$ generated by sets of the form $A \times B$, with $A \in \cF$ and $B \in \cF^\prime$.
@@ -137,7 +135,7 @@ However, there is a much more important \sigalg/ that is constructed from a gene
 
 \subsection{Borel \sigalg/}
 
-The Euclidean space $\bbR^d$ is omnipresent in mathematics and hence pops up in many bachelor courses as well. In particular, the concept of random variables, as given in the course Probability and Modeling, is mainly concerned with objects that have values in $\bbR$. Based on this, the need to impose a measurable structure on this space, by means of a \sigalg/, should not come as a surprise. It turns out that there is a canonical \sigalg/ which is called the \emph{Borel \sigalg/} and is named after the French mathematician \'{E}mile Borel, who was one of the pioneers of measure theory.
+The Euclidean space $\bbR^d$ is omnipresent in mathematics and hence pops up in many bachelor courses as well. In particular, the concept of random variables, as given in the course Probability and Modeling, is mainly concerned with objects that have values in $\bbR$. Based on this, the need to impose a measurable structure on this space, by means of a \sigalg/, should not come as a surprise. It turns out that there is a canonical \sigalg/ which is called the \emph{Borel \sigalg/} and is named after the French mathematician \'{E}mile Borel, one of the pioneers of measure theory.
 
 In order to define the Borel \sigalg/ we need the notion of an open set in $\bbR^d$. For any $x \in \bbR$ and $r >0$, we denote by $B_x(r) := \{y \in \bbR^d \, : \, \|x-y\|<r\}$ the open ball of radius $r$ around $x$. A set $U \subset \bbR^d$ is called \emph{open} if and only if for every $x \in U$, there exists an $r > 0$ such that $B_x(r) \subset U$.
 
@@ -154,7 +152,7 @@ While this is a perfectly fine definition, it is often cumbersome to work with. 
 \begin{proposition}\label{prop:characterization_borel_sigalg_1d}
 The Borel \sigalg/ on $\bbR$ is the \sigalg/ generated by any of the following family of sets, 
 \begin{enumerate}
-\item $\{(a_1, b_1)\}$,
+\item $\{(a, b)\}$,
 \item $\{(a, b]\}$,
 \item $\{[a, b)\}$,
 \item $\{(-\infty,a]\}$,
@@ -231,26 +229,33 @@ However, there is a measure, not included above, that plays a fundamental role i
 
 \subsection{Null sets, complete measure spaces and the Lebesgue measure}
 
-It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, that the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. 
+It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. In particular, we want the measure of the rectangle, say in $\bbR^2$, to be independent of where it is, i.e., we want the measure to be translational and rotational invariant.
 
-Still, it turns out that such a measure exists. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
+Fortunately, it turns out that such a measure does exist. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was the architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
 
-However, to formally state the theorem that we need to introduce the concept of \emph{null sets} and complete measure spaces.
+However, to formally state the theorem we need to introduce the concept of \emph{null sets} and \emph{complete measure spaces}.
 
-\begin{definition}[Null set]
+\begin{definition}[Null set and complete measure space]
 Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
+
+We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
 \end{definition}
 
-It is important to note that a null set does not have to be measurable, i.e. be in $\cF$. We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
+It is important to note that a null set does not have to be measurable, i.e., be in $\cF$. 
 
-Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \bar{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction an \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
+\medskip
 
-We can now state the main result that proves the existence of the Lebesgue measure and states its important properties. 
+Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \overline{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction as \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
+
+We can now state the main result that proves the existence of the Lebesgue measure and its important properties. 
 
 \begin{theorem}[Lebesgue measure]\label{thm:lebesgue_measure}
-There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique measure $\lambda$ such that $(\bbR^d, \cL^d, \lambda)$ is complete and satisfies the the following properties, for any $B \in \cB_{\bbR^d}$:
+There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique measure $\lambda$ such that $(\bbR^d, \cL^d, \lambda)$ is complete and satisfies the following properties for any $B \in \cB_{\bbR^d}$:
 \begin{enumerate}
-\item For any half-open rectangle $I := [a_1, b_1) \times \dots \times [a_d, b_d)$ it holds that $\lambda(I) = \prod_{i = 1}^d (b_i-a_i)$;
+\item For any half-open rectangle $I := [a_1, b_1) \times \dots \times [a_d, b_d)$ it holds that 
+	\[
+		\lambda(I) = \prod_{i = 1}^d (b_i-a_i);
+	\]
 \item For any $x \in \bbR^d$, $\lambda(B+x) = \lambda(B)$, where $B + x = \{y+x \, : \, y \in B\}$;
 \item For any combination of translation, rotation and reflection $R$, $\lambda(R^{-1}(B)) = \lambda(B)$;
 \item For any invertible matrix $M \in \bbR^{d \times d}$, $\lambda(M^{-1}(B)) = |\mathrm{det} M|^{-1} \lambda(B)$.
@@ -259,10 +264,10 @@ There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique me
 
 The proof of this theorem is involved and relies on a more abstract approach to constructing measures. The interested student is referred to the Appendix, where we provide the full details.  
 
-It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure formally defined on a larger \sigalg/ $\cL$ then the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
+It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure formally defined on a larger \sigalg/ $\cL^d$ than the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
 
 \begin{remark}[Lebesgue vs Borel measurable]
-It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable.
+It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable (eg.\ subsets of the Cantor set).
 \end{remark}
 
 
@@ -271,10 +276,10 @@ We end this section by looking at some important general properties of measures.
 
 \subsection{Important properties}
 
-Although the number of properties a measure needs to satisfy are very limited, they actually imply a great number of other important properties. We will start with the basic ones, which relate the measure of a set that is obtained from a given set operation on two sets $A, B$ to the measure of these sets.
+Although the number of properties a measure needs to satisfy is very limited, they actually imply a great number of other important properties. We will start with the basic ones, which relate the measure of a set that is obtained from a given set operation on two sets $A, B$ to the measure of these sets.
 
 \begin{proposition}[Basic properties of measures]\label{prop:basic_properties_measures}
-Let $(\Omega, \cF, \mu)$ be a measure space and let $A, B \in \cF$. Then the following properties hold for $\mu$.
+Let $(\Omega, \cF, \mu)$ be a measure space and $A, B \in \cF$. Then the following properties hold for $\mu$:
 \begin{enumerate}
 \item (finitely additive) If $A \cap B = \emptyset$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.
 \item (monotone) If $A \subseteq B$, then $\mu(A) \le \mu(B)$.
@@ -305,7 +310,7 @@ Adding $\mu(A \cap B) < \infty$ to both side we get
 	&= \mu(A) + \mu(B), 
 \end{align*}
 where the last line follows from applying property 3 twice.
-\item Property 4 implies that $\mu(A) + \mu(B) = \mu(A \cup B) + \mu(A \cap B) \ge \mu(A \cup B)$.
+\item Property 4 implies that $\mu(A) + \mu(B) = \mu(A \cup B) + \mu(A \cap B) \ge \mu(A \cup B)$.\qedhere
 \end{enumerate}
 \end{proof}
 
@@ -475,22 +480,22 @@ This basically covers the full set of ideas to prove the rest of Proposition~\re
 \end{problem}
 
 \begin{problem}\label{prb:completion_measure_space}
-The goal of this problem is to complete a given measure space. To this end, let $(\Omega, \cF, \mu)$ be a measure space. Let $\cN$ be the family of null sets of $\mu$ and define the family of sets $\bar{\cF}$ as
+The goal of this problem is to complete a given measure space. To this end, let $(\Omega, \cF, \mu)$ be a measure space. Let $\cN$ be the family of null sets of $\mu$ and define the family of sets $\overline{\cF}$ as
 \[
-	\bar{\cF} := \{A \cup N \, : \, A \in \cF \text{ and } N \in \cN\}.
+	\overline{\cF} := \{A \cup N \, : \, A \in \cF \text{ and } N \in \cN\}.
 \]
 \begin{enumerate}
-\item Show that $\bar{\cF}$ is a \sigalg/ that contains $\cF$.
+\item Show that $\overline{\cF}$ is a \sigalg/ that contains $\cF$.
 \end{enumerate}
-Define the set function $\bar{\mu} : \bar{\cF} \to [0,\infty]$ as
+Define the set function $\bar{\mu} : \overline{\cF} \to [0,\infty]$ as
 \[
 	\bar{\mu}(A \cup N) := \mu(A).
 \]
 \begin{enumerate}
 \setcounter{enumi}{1}
-\item Prove that $\bar{\mu}$ is a measure on $\bar{\cF}$.
+\item Prove that $\bar{\mu}$ is a measure on $\overline{\cF}$.
 \item Show that $\bar{\mu}|_\cF = \mu$.
-\item Conclude that $(\Omega, \bar{\cF}, \bar{\mu})$ is a complete measure space.
+\item Conclude that $(\Omega, \overline{\cF}, \bar{\mu})$ is a complete measure space.
 \end{enumerate}
 \end{problem}
 

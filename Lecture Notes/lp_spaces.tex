@@ -1,0 +1,191 @@
+Let $(\Omega,\cF,\mu)$ be a measure space and $p\in[1,+\infty)$. Throughout this chapter, we denote
+\[
+	\|f\|_p := \left(\int_\Omega |f|^p\,\dd\mu\right)^{1/p}\qquad \text{for any measurable function $f:\Omega\to\bbR$}.
+\]
+For $p=+\infty$, we set
+\[
+\|f\|_{\infty} := \esssup \{ |f(\omega)| : \ \omega \in \Omega \} = \inf\{t \in [0,\infty) : \ \mu(\{ |f| > t\}) = 0 \}.
+\]
+
+\section{The H\"older inequality}
+
+\begin{proposition}[H\"older's inequality] Let $(\Omega,\cF,\mu)$ be a measure space and $p,q\in[1,+\infty]$ be conjugate exponents, i.e.\ $\frac{1}{p}+\frac{1}{q}=1$. Then,
+\[
+	\|f g \|_1 \leq \|f\|_p\|g\|_q\qquad\text{for all measurable functions $f,g:\Omega\to\bbR$.}
+\]
+\end{proposition}
+
+\begin{proof}
+If the right-hand side is $+\infty$, there is nothing to prove. 
+
+Now we will see a very important trick in proving inequalities like this. We note that it is enough to show the inequality for the case in which
+\[
+\int_\Omega |f|^p \,\dd \mu = \int_\Omega |g|^q \,\dd \mu = 1.
+\]
+By Young's inequality for conjugate exponents $p,q\in(1,+\infty)$,
+\[
+	ab \le \frac{1}{p}a^p + \frac{1}{q} b^q\qquad\text{for any $a,b\in[0,+\infty)$,}
+\] 
+we have for every $\omega \in \Omega$, that
+\[
+|f(\omega) g(\omega)| \leq \frac{1}{p}|f(\omega)|^p  + \frac{1}{q} |g(\omega)|^q.
+\]
+Hence
+\[
+\int_\Omega |fg|\,\dd \mu \leq \frac{1}{p} \int_\Omega |f|^p \,\dd \mu + \frac{1}{q} \int_\Omega |g|^q \,\dd \mu = 1.
+\]
+For the case $p=1$, $q=+\infty$, we easily get
+\[
+	\int_\Omega |fg|\,\dd\mu \le \int_\Omega |f|\|g\|_\infty\,\dd\mu = \|f\|_1\|g\|_\infty.\qedhere
+\]
+\end{proof}
+
+\section{The Minkowski inequality}
+
+\begin{proposition}
+	Let $(\Omega,\cF,\mu)$ be a measure space and $p\in[1,+\infty]$ be conjugate exponents. Then the `triangle inequality' holds:
+\[
+	\|f + g\|_p \leq \|f\|_p + \|g \|_p\qquad \text{for all measurable functions $f,g:\Omega\to\bbR$}.
+\]
+\end{proposition}
+\begin{proof}
+As before, if the right-hand side is $+\infty$, then there is nothing to prove. Now suppose that $\|f\|_p,\|g\|_p<+\infty$. Then from the binomial formula for $p
+\in[1,+\infty)$
+\[
+	|a+b|^p \le 2^{p-1}\bigl(|a|^p + |b|^p\bigr),
+\]
+we have that
+\[
+	\int_\Omega |f+g|^p\,\dd\mu \le 2^{p-1}\left(\int_\Omega |f|^p\,\dd\mu + \int_\Omega |g|^p\,\dd\mu\right),
+\]
+and hence $\|f+g\|_p<+\infty$. Next,
+\[
+\begin{split}
+\|f + g\|^p_{p}
+&= \int_\Omega |f + g|^p \,\dd \mu \\
+&= \int_\Omega |f + g| |f + g|^{p-1} \,\dd \mu \\
+&\leq \int_\Omega (|f| + |g|) |f + g|^{p-1} \,\dd \mu \\
+&= \int_\Omega |f| |f+g|^{p-1} \,\dd \mu + \int_\Omega |g | |f+g|^{p-1} \,\dd \mu.
+\end{split}
+\]
+Now we apply H\"older's inequality (with exponents $p$ and $p/(p-1)$) on both terms to obtain
+\[
+\|f+g\|^p_{L^p} \le \left(\int_\Omega |f|^p \dd \mu\right)^{1/p}  \|f+ g\|_p^{{p-1}} + \left(\int_\Omega |g|^p \dd \mu\right)^{1/p}  \|f+ g\|_p^{{p-1}}.
+\]
+Finally, we divide both sides by $\|f + g\|_p^{p-1}$ and find
+\[
+\|f+g\|_p \leq \|f\|_p + \|g\|_p.
+\]
+As for the case $p=+\infty$, we use the triangle inequality to obtain $|f+g|\le |f| + |g|$, and hence,
+\[
+	|f(\omega)+g(\omega)| \le \|f\|_\infty + \|g\|_\infty\qquad\text{for $\mu$-almost every $\omega\in\Omega$}.
+\]
+Taking the essential supremum then yields the required inequality.
+\end{proof}
+
+\section{Normed and semi-normed vector spaces}
+\label{se:normed-and-seminormed-spaces}
+
+Recall that a norm $\| \cdot \|$ on a vector space $V$ is a function $V \to [0,\infty)$ such that
+\begin{enumerate}
+\item $\|v\|= 0 \Leftrightarrow v = 0$ for all $v \in V$
+\item $\|\lambda v \| = |\lambda| \|v\|$ for all $\lambda \in \mathbb{R}$ and $v \in V$
+\item $\|v + w\| \leq \|v\| + \|w \|$ for all $v, w \in V$.
+\end{enumerate}
+
+If only the last two properties hold, $\|. \|$ is instead called a \emph{seminorm}.
+
+Let $(V, \|\cdot \|)$ be a semi-normed space. We say that a sequence $(v_n)_{n\in\bbN} \subset V$ is a Cauchy sequence if for every $\epsilon > 0$ there exists an $N \in \mathbb{N}$ such that for all $m, n \geq N$,
+\[
+\| v_m - v_n \| < \epsilon.
+\]
+We say that a semi-normed space is \emph{complete}, if and only if every Cauchy sequence converges, that is, for every Cauchy sequence $(v_n)_{n\in\bbN} \subset V$ there exists a $v \in V$ such that
+\[
+\lim_{n \to \infty} \|v_n - v\| = 0.
+\]
+
+To every semi-normed space $(V, \|\cdot\|)$ one can associate a normed linear space in a standard way. 
+One defines the equivalence relation $\sim$ by $v \sim w$ if and only if $\|v - w\| = 0$. Denote by $W$ the linear space of equivalence classes. One defines a norm on equivalence classes $[v]$ and $[w]$ in $W$ by $\|[w]-[v]\| = \|w - v\|$. If $(V, \|\cdot\|)$ is a complete semi-normed space, then $W$ is a \emph{Banach space}, which is a complete normed linear space.
+
+\section{Semi-normed $\bbL^p$ spaces}
+
+We have seen in Section~\ref{ch:integrable} that the set of $\mu$-integrable functions form a vector space (over $\mathbb{R}$). For $p \in [0,+\infty)$, we define the vector space $\bbL^p$ of integrable functions $f$ for which 
+\[
+	\| f \|_{p} < +\infty.
+\]
+By the Minkowski inequality, $\|\cdot\|_{p}$ is a seminorm on $\bbL^p$ for every $p \in [1,\infty]$.
+
+Clearly, the seminorm $\|. \|_p$ is not a norm on $\bbL^p$: indeed $\|f - g\|_p=0$ if and only if $f(\omega) = g(\omega)$, for $\mu$-almost every $\omega \in \Omega$. 
+We follow the standard construction described in Section \ref{se:normed-and-seminormed-spaces} to create an associated normed linear space. We say that $f \sim g$ if and only if $f$ is equal to $g$ $\mu$-almost everywhere. 
+We denote by $L^p$ the vector space of equivalence classes
+\[
+L^p := \bbL^p/\sim.
+\]
+
+\section{Completeness of $L^p$-spaces}
+
+\begin{theorem}[Completeness of $L^p$ spaces]
+The normed linear space $L^p$ is complete, and is thus a Banach space, for every $p \in [1,+\infty]$.	
+\end{theorem}
+
+\begin{proof}
+First let $p \in [1,\infty)$ and let $(f_n)_{n\in\bbN}$ be a Cauchy sequence. The trick is to select a subsequence $(f_{n_k})_{k\in\bbN}$ such that 
+\[
+\| f_{n_{k+1}} - f_{n_k} \|_{L^p(\Omega)} < 4^{-k-1}.
+\]
+For ease of notation we set $g_k := f_{n_{k}}$.
+Note that by a telescoping argument, for all $\ell \geq k$,
+\[
+\| g_\ell - g_k \|_{L^p(\Omega)} < 4^{-k}.
+\]
+Then
+\[
+\mu \left(\left\{ x \in \Omega : \ |g_{k+1}(\omega) - g_k(\omega) | 
+> 2^{-k}  \right\} \right) < \frac{1}{2^{-k p} }\| g_{k+1} - g_k \|_{L^p(\Omega)}^p <2^{-kp}.
+\]
+In particular, by the Borel-Cantelli Lemma, for $\mu$-a.e. $x \in \Omega$, there is an $N \in \mathbb{N}$ such that
+\[
+|g_{k+1}(\omega) - g_k(\omega)| \leq 2^{-k}\qquad\text{for all $k > N$}.
+\]
+For such $x$, the sequence $(g_k(\omega))_{k\in\bbN}$ is Cauchy. So by the completeness of $\mathbb{R}$, a limit exists, which we call $f(\omega)$.
+
+By Fatou's Lemma,
+\[
+\| g_k - f\|_p \leq \liminf_{\ell \to \infty} \| g_k - g_\ell \|_p \leq 4^{-k}.
+\]
+To see that this implies that $f_n$ converges to $f$ in $L^p$, we take an arbitrary $\epsilon > 0$. 
+Since $f_n$ is a Cauchy sequence, there exists an $N_1 \in \mathbb{N}$ such that for all $m, n \geq N_1$,
+\[
+\|f_{n} - f_m\|_{p} < \frac{\epsilon}{2}.
+\]
+Now there exists an $K \in \mathbb{N}$, with $K > N_1$ (and therefore $n_K > N_1$) such that for all $k \geq K$,
+\[
+\|f_{n_k} - f \|_{p} < \frac{\epsilon}{2}.
+\]
+Set $N_2 := \max( N_1, n_{K} )$. Then, for $n \geq N_2$, we find
+\[
+\| f_n - f \|_{p} 
+\leq \| f_{n} - f_{n_{K}} \|_{p} + \|f_{n_K} - f\|_{L^p(\Omega)}  < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon,
+\]
+which gives the required convergence.
+
+The proof of completeness of $L^\infty(\Omega)$ follows similar lines but is in a way easier. Let again $(f_n)_{n\in\bbN}$ be a Cauchy sequence and select a subsequence $(f_{n_k})_{k\in\bbN}$ such that
+\[
+\| f_{n_{k+1}} - f_{n_k} \|_{L^\infty(\Omega)} < 4^{-k-1}.
+\]
+We define again $g_k = f_{n_k}$.
+Then
+\[
+\mu\left( \left\{ x \in \Omega : \ |g_{k+1}(\omega) - g_k(\omega) | \geq 4^{-k-1} \right\} \right) = 0.
+\]
+So, $(g_k(\omega))_{k\in\bbN}$ is a Cauchy-sequence for almost every $\omega \in \Omega$.
+For such $\omega$, the limit as $k \to \infty$ of $g_k(\omega)$ exists, and we denote it by $f(\omega)$.
+Moreover, 
+\[
+\mu\left( \left\{ x \in \Omega : |g_k(\omega) - f(\omega)|  \geq 4^{-k} \right\} \right) = 0.
+\]
+It follows that $g_k$ converges to $f$ in $L^\infty(\Omega)$ as $k \to \infty$, and therefore that $f_n$ converges to $f$ in $L^\infty(\Omega)$ as $n \to \infty$ using the same argument as above.
+\end{proof}
+
+
+	

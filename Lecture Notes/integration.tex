@@ -270,7 +270,44 @@ As in the case of non-negative measurable functions, we have the following prope
 \begin{definition}
 We say that a measurable function $f\colon(\Omega, \cF) \to (\bbR, \cB_\bbR)$ is integrable on a set $A \in \cF$ if the function $\mathbf{1}_A f$ is integrable on $\Omega$. Equivalently, we say that $f$ is integrable on $A$ if the restriction $f|_A$ is integrable on the measure space $(A, \cF_A, \mu|_A)$. 
 \end{definition}
+
+\section{Riemann vs Lebesgue integration}
+
+A fundamental fact about the Lebesgue integral is its relationship with the Riemann integral, which allows us to make use of the integration techniques we know from Calculus and Analysis to compute the Lebesgue integral of a Lebesgue integrable function.
+
+We state an important result, which we will not prove, but will be essential for computing integrals (cf.\ Appendix~\ref{chapter:appendix-2}). The first part of the result provides a full characterization of Riemann-integrable functions, while the second provides the means to compute Lebesgue integrals.
+
+\begin{theorem}[Riemann vs Lebesgue]\label{thm:riem-leb}
+	A bounded function $f\colon [a,b] \to \bbR$ on a compact set $[a,b]\subset\bbR$ is Riemann integrable if and only if it is continuous $\lambda$-almost everywhere.
 	
+	If a bounded function $f\colon [a,b] \to \bbR$ is Riemann integrable, then $f$ is $\cL$-measurable and $\lambda$-integrable. Moreover,
+	\[
+		\int_a^b f(x) \,\dd x = \int_{[a,b]} f \,\dd \lambda,
+	\]
+	where the left-hand side denotes the Riemann integral of $f$.
+\end{theorem}
+
+\begin{example}
+	Let us determine the value $\displaystyle \int_\bbR \frac{1}{x^2+1}\,\lambda(\dd x)$.
+	
+	\noindent To do so, we set $g(x):= \frac{1}{x^2+1}\ge 0$ and let $g_n:= g\mathbf{1}_{[-n,n]}$. Then clearly, $g_n\to g$ point-wise monotonically. By the MCT, we have that
+\[
+	\lim_{n\to\infty} \int_\bbR g_n\,\dd\lambda = \int_\bbR g\,\dd\lambda.
+\]
+On the other hand, for every $n\ge 1$,
+\[
+	\int_\bbR g_n\,\dd\lambda = \int_{[-n,n]} g\,\dd\lambda = \int_{-n}^n g\,\dd x = \int_{-n}^n \frac{1}{1+x^2}\,\dd x = \arctan(n) - \arctan(-n),
+\]
+where the second equality follows from the fact that $g$ is continuous on the compact set $[-n,n]$ and from Theorem~\ref{thm:riem-leb}. Hence,
+\[
+	\int_\bbR g\,\dd\lambda=\lim_{n\to\infty} \int_\bbR g_n\,\dd\lambda = \frac{\pi}{2} + \frac{\pi}{2} = \pi,
+\]
+thus implying that $g$ is $\lambda$-integrable.
+\end{example}
+
+
+
+
 \section{Change of variables formula}
 \label{sec:change-of-variables}
 

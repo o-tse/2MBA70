@@ -6,5 +6,6 @@
 *.aux
 *.blg
 *.out
+*.toc
 *.synctex.gz
 *.bib.sav

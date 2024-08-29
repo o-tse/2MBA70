@@ -11,7 +11,7 @@
 \contentsline {subsection}{\numberline {2.2.1}Definition and examples}{12}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Null sets, complete measure spaces and the Lebesgue measure}{14}{subsection.2.2.2}%
 \contentsline {subsection}{\numberline {2.2.3}Important properties}{15}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Problems}{19}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Problems}{18}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Measurable functions and stochastic objects}{21}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Measurable functions}{21}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Definition and properties}{21}{subsection.3.1.1}%
@@ -39,16 +39,4 @@
 \contentsline {section}{\numberline {4.8}Change of variables formula}{45}{section.4.8}%
 \contentsline {section}{\numberline {4.9}The Markov inequality}{47}{section.4.9}%
 \contentsline {section}{\numberline {4.10}Problems}{47}{section.4.10}%
-\contentsline {chapter}{\numberline {5}$L^p$-spaces}{49}{chapter.5}%
-\contentsline {section}{\numberline {5.1}The H\"older inequality}{49}{section.5.1}%
-\contentsline {section}{\numberline {5.2}The Minkowski inequality}{50}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Normed and semi-normed vector spaces}{51}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Semi-normed $\ensuremath {\mathbb L}^p$ spaces}{51}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Completeness of $L^p$-spaces}{51}{section.5.5}%
-\contentsline {chapter}{\numberline {A}Appendix}{54}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Uniqueness of measures}{54}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Construction of the Lebesgue measure}{55}{section.A.2}%
-\contentsline {chapter}{\numberline {B}Appendix: From Riemann to Lebesgue}{58}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Recalling Riemann integration}{58}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Riemann vs Lebesgue integration}{59}{section.B.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

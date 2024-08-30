@@ -672,15 +672,30 @@ The above relation is often denoted as $X \stackrel{d}{=} Y$ ($X$ is equal to $Y
 \end{problem}
 
 \begin{problem}
-	Explicitly construct two independent random variables $X$ and $Y$ such that $X$ is \emph{Poisson} distributed with parameter $\lambda>0$, and $Y$ is \emph{Cauchy} distributed with parameter $\gamma>0$. More precisely define a probability space $(\Omega, \cF, \bbP)$ and $(\cF,\cB_\bbR)$-measurable functions $X\colon \Omega\to \bbR$ and $Y\colon \Omega\to\bbR$ such that
-	\begin{align*}
-		\bbP(X=n) &= \frac{e^{-\lambda}\lambda^n}{n!},\qquad \forall\,n\in\bbN,\\
-		\bbP(Y\le z) &= \frac{1}{\pi}\arctan\left(\frac{z}{\gamma}\right) + \frac{1}{2},\qquad \forall\,x\in\bbR.
-	\end{align*}
-It is recommended that you go through the following steps:
-\begin{enumerate}[label=(\alph*)]
-	\item Define $(\Omega, \cF, \bbP)$ and the functions $X\colon \Omega\to \bbR$ and $Y\colon \Omega\to\bbR$.
-	\item Show that $X$ and $Y$ are $(\cF,\cB_\bbR)$-measurable.
-	\item Show that the equalities above hold.
+In this problem we will	explicitly construct two random variables $X$ and $Y$ such that $X$ is \emph{Poisson} distributed with parameter $\lambda>0$, and $Y$ is \emph{Cauchy} distributed with parameter $\gamma>0$. 
+
+For this we define the Poisson probability mass function (pmf)
+\begin{equation}
+	f_\lambda(n) := \frac{e^{-\lambda}\lambda^n}{n!},\qquad \forall\,n\in\bbN,
+\end{equation}
+and the Cauchy cumulative distribution function (cdf)
+\begin{equation}
+	H_\gamma(z) := \frac{1}{\pi}\arctan\left(\frac{z}{\gamma}\right) + \frac{1}{2},\qquad \forall\,z\in\bbR.
+\end{equation}
+
+We will first construct the Cauchy random variable.
+\begin{enumerate}
+\item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide an explicit formula for the function $Y\colon \Omega\to\bbR$ such that $Y_\# \bbP = H_\gamma$.
+\item Show that the function from 1 is measurable.
 \end{enumerate}
+
+For the Poisson random variable we first need to go from the pmf to its cdf.
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item Express the cumulative distribution function $F_\lambda$ for a Poisson random variable in terms of the pmf $f_\lambda$.
+\item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide a formula for the function $X\colon \Omega\to\bbR$ such that $X_\# \bbP = F_\lambda$.
+\item Show that the function from 4 is measurable.
+\item Show that for any $n \in \bbN$ $X_\# \bbP (\{n\}) = f_\lambda(n)$.
+\end{enumerate}
+
 \end{problem}

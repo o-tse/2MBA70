@@ -1,0 +1,297 @@
+  
+
+\section{Convergence Theorems}
+
+One of the motivations for developing a new theory of integration using measurable functions instead of continuous ones, was that we would be able to change limits and integrals more often. We have already seen an example of such a result in the monotone convergence theorem, Theorem~\ref{th:monotone-convergence-I}. However, this required that the sequence $f_n$ of function was monotone (i.e. non-decreasing) everywhere, which sounds a bit restrictive. That is why in this section we will use the monotone convergence theorem to derive other convergence results that have less restrictive conditions.
+
+\subsection{Monotone convergence (continued)}
+
+Theorem~\ref{th:monotone-convergence-I} states that if we have a sequence of measurable functions $(f_n)_{n \in \bbN}$ from some measure space $(\Omega, \cF, \mu)$ to $[0,+\infty]$ such that $f_n \le f_{n+1}$, then we could interchange limits and integration so that
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \, \dd \mu = \int_\Omega \lim_{n \to \infty} f_n \, \dd \mu.
+\]
+It should be noted that the monotone properties requires that $f_n(\omega) \le f_{n+1}(\omega)$ for all $\omega \in \Omega$. However, from the definition of the Lebesgue integral we see that it is not affected by sets measure zero. Hence, we would expect that we can relax the monotone property to hold $\mu$-almost everywhere, i.e. the set where it does not hold has measure zero. This turns out to be the case, providing a slightly more general version of the monotone convergence theorem.
+
+\begin{theorem}[Monotone convergence II]\label{thm:monotone_convergence_ii}
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of non-negative, measurable functions and let $f$ be a non-negative measurable functions such that the following holds $\mu$-almost everywhere
+\begin{enumerate}
+\item $f_n \le f_{n+1}$ for all $n \in \bbN$, and
+\item $\lim_{n \to \infty} f_n = f$.
+\end{enumerate}
+Then
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \dd \mu = \int_\Omega f \dd \mu.
+\]
+\end{theorem}
+
+\begin{proof}
+As you might have expected, the proof will use the first monotone convergence theorem. For this we first note that by assumption there exists a $N \in \cF$ with $\mu(N) = 0$ such that properties 1 and 2 from theorem statement hold for all $\omega \in \Omega \setminus N$. Now define the function $g_n(\omega) = \max_{1 \le k \le n} f_k(\omega)$. Then $g_n(\omega) \le g_{n+1}(\omega)$ holds for \emph{all} $\omega \in \Omega$. We further define $g(\omega) := \lim_{n \to \infty} g_n(\omega)$. Here comes the key observation. For every $\omega \in \Omega\setminus N$ it holds that $g_n(\omega) = f_n(\omega)$ and $g(\omega) = f(\omega)$. Moreover, since $\mu(N) = 0$ we have that
+\[
+	\int_\Omega f_n \, \dd \mu = \int_\Omega g_n \, \dd \mu \quad \text{and} \quad
+	\int_\Omega f \, \dd \mu = \int_\Omega g \, \dd \mu.
+\]
+The result then follows by applying Theorem~\ref{th:monotone-convergence-I} to the functions $g_n$ and $g$.
+\end{proof}
+
+\subsection{Fatou's Lemma}
+
+\begin{theorem}[Fatou's lemma]\label{thm:fatou}
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of non-negative, measurable functions and define
+\[
+	f := \liminf_{n\to \infty} f_n = \lim_{n \to \infty} \inf_{k \ge n} f_k.
+\]
+Then
+\[
+	\int_\Omega f \dd \mu \le \liminf_{n\to \infty} \int_\Omega f_n \dd \mu
+\]
+\end{theorem}
+
+\begin{proof}
+Our proof will use the monotone convergence theorem. There are however other proofs, based on first principles. See for example [REF].
+
+Define the function $g_n(\omega) := \inf_{k \ge n} f_k(\omega)$ and note that by Lemma~\ref{lem:limit_operations_measurable_functions} $g_n$ are measurable. Moreover, $g_n(\omega) \le g_{n+1}(\omega)$ for all $\omega \in \Omega$ and $\lim_{n \to \infty} g_n(\omega) = f(\omega)$. Hence, Theorem~\ref{thm:monotone_convergence_ii} implies that
+\[
+	\lim_{n \to \infty} \int_\Omega g_n \, \dd \mu = \int_\Omega \lim_{n \to \infty} g_n \, \dd \mu
+	= \int f \, \dd \mu. 
+\]
+Finally we observe that by definition $g_n \le f_n$ holds for all $n \in \bbN$ so that
+\begin{align*}
+	\int f \, \dd \mu &= \lim_{n \to \infty} \int_\Omega g_n \, \dd \mu \\
+	&= \lim_{n \to \infty} \int_\Omega \inf_{k \ge n} f_k \, \dd \mu \\
+	&\le \lim_{n \to \infty} \inf_{\ell \ge n} \int_\Omega  f_\ell \, \dd \mu\\
+	&= \liminf_{n \to \infty} \int_\Omega  f_\ell \, \dd \mu.
+\end{align*}
+Here we used that $\inf_{k \ge n} f_k \le f_\ell$ for all $\ell \ge k$ and monotonicity of the integral (see Proposition~\ref{prop:properties-integral}).
+\end{proof}
+
+\subsection{Dominated Convergence}
+
+Armed with Fatou's lemma we can now prove one of the most useful convergence results for Lebesgue integrals.
+
+\begin{theorem}[Dominated convergence]\label{thm:dominated_convergence}
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of non-negative, measurable functions and let $f$ be a non-negative measurable functions such that $f_n \to f$ point-wise $\mu$-almost everywhere. Moreover, assume there exists a non-negative $\mu$-integrable function $g : \Omega \to [0,\infty]$ such that $|f_n| \le g$ $\mu$-almost everywhere. Then
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \dd \mu = \int_\Omega f \dd \mu.
+\]
+\end{theorem}
+
+\begin{proof}
+We will first proof the result for the case that both $|f_n| \le g$ and $f_n \to f$ hold everywhere.  
+
+Consider the functions $f_n+g$, and note that $|f_n| \le g$ implies that these are non-negative. Fatou's lemma (Theorem~\ref{thm:fatou}) now implies that
+\[
+	\int_\Omega f + g \, \dd \mu \le \liminf_{n \to \infty} \int_\Omega f_n + g \, \dd \mu.
+\] 
+Using the additive property ot the integral we get
+\[
+	\int_\Omega f \, \dd \mu + \int_\Omega g \, \dd \mu 
+	\le \liminf_{n \to \infty} \int_\Omega f_n \, \dd \mu + \int_\Omega g \, \dd \mu.
+\]
+Since $\int_\Omega g \, \dd \mu < \infty$ this implies that
+\[
+	\int_\Omega f \, \dd \mu \le \liminf_{n \to \infty} \int_\Omega f_n \, \dd \mu.
+\]
+On the other hand, the condition $|f_n| \le g$ also implies that the functions $g - f_n$ are non-negative. Applying Fatou's lemma here yields
+\[
+	\int_\Omega g - f \, \dd \mu \le \liminf_{n \to \infty} \int_\Omega g - f_n \, \dd \mu.
+\]
+The additive property of integral now yields
+\[
+	\int_\Omega g \dd \mu - \int_\Omega f \, \dd \mu \le \int_\Omega g \, \dd \mu 
+	+ \liminf_{n \to \infty} \int_\Omega - f_n \, \dd \mu,
+\]
+which implies that 
+\[
+	\int_\Omega f \, \dd \mu \ge - \liminf_{n \to \infty} \int_\Omega - f_n \, \dd \mu 
+	= \limsup_{n \to \infty} \int_\Omega f_n \, \dd \mu.
+\]
+We thus conclude that
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \, \dd \mu = \int_\Omega f \, \dd \mu.
+\]
+
+Now let us consider the general case. Then there exists a $N \in \cF$ such that $\mu(N) = 0$ and both $|f_n| \le g$ and $f_n \to f$ hold for every $\omega \in \Omega \setminus N$. Let us now define the following functions
+\[
+	\hat{f}_n(\omega) = \begin{cases}
+		f_n(\omega) &\text{if } \omega \in \Omega \setminus N,\\
+		0 &\text{else,}
+	\end{cases}
+	\quad 
+	\hat{f}(\omega) = \begin{cases}
+		f(\omega) &\text{if } \omega \in \Omega \setminus N,\\
+		0 &\text{else,}
+	\end{cases}
+\]
+and
+\[
+	\hat{g}(\omega) = \begin{cases}
+		g(\omega) &\text{if } \omega \in \Omega \setminus N,\\
+		0 &\text{else.}
+	\end{cases}
+\]
+
+Then 
+\[
+	\int_\Omega \hat{f}_n \, \dd \mu = \int_\Omega f_n \, \dd \mu \quad \text{and} \quad
+	\int_\Omega \hat{f} \, \dd \mu = \int_\Omega f \, \dd \mu
+\]
+Moreover, $\hat{f}_n \le \hat{g}$ and $\hat{f}_n \to \hat{f}$ hold \emph{everywhere}. So using the first part of the proof we have that
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \, \dd \mu = \lim_{n \to \infty} \int_\Omega \hat{f}_n \, \dd \mu
+	= \lim_{n \to \infty} \int_\Omega \hat{f} \, \dd \mu = \lim_{n \to \infty} \int_\Omega f \, \dd \mu.
+\]
+\end{proof}
+
+\begin{example}
+Consider the sequence of functions $f_n(x) = \frac{n \sin(x/n)}{x(x^2+1)}$. We will use dominated convergence to determine $\lim_{n \to \infty} \int_\bbR f_n \, \dd \lambda$. Define $g(x) = \frac{1}{x^2 +1}$ and note that 
+\[
+	f_n(x) = \frac{\sin(x/n)}{x/n} g(x).
+\]
+Note that $|\sin(y)| \le |y|$ holds for all $y > 0$ and that for every $x$ we have that $\lim_{n \to \infty} \frac{\sin(x/n)}{x/n} = 1$. We thus conclude that $|f_n(x)| \le g(x)$ and $f_n \to g(x)$ holds for all $x \in \bbR \setminus \{0\}$. Since the set $\{0\}$ has Lebesgue measure zero, all the conditions of Theorem~\ref{thm:dominated_convergence} are satisfied. Hence (see Example~\ref{ex:computation_lebesgue_integral})
+\[
+	\lim_{n \to \infty} \int_\bbR \frac{n \sin(x/n)}{x(x^2+1)} \lambda(\dd x) 
+	= \int_\bbR \frac{1}{x^2 +1} \lambda(\dd x) = \pi.
+\]
+\end{example}
+
+\section{Convergence of random variables}
+
+\subsection{Weak convergence of probability measures}
+
+Let $(\Omega, \cF, \mu)$ be a measure space and $f : \Omega \to \bbR$ be $\mu$-integrable. Then we define the measure $\mu \ast f : \cF \to [0,\infty]$ as
+\begin{equation}
+	\mu \ast f (A) := \int_A f \dd \mu \quad \text{for } A \in \cF.
+\end{equation}
+
+\begin{definition}
+Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. We say that $\mu_n$ \emph{converges weakly} to $\mu$ if for every continuous bounded function $f : \bbR \to \bbR$ it holds that
+\[
+	\mu_n \ast f \to \mu \ast f.
+\]
+If this is the case we write $\mu_n \Rightarrow \mu$.
+\end{definition}
+
+\subsection{Convergence in distribution}
+
+\begin{definition}[Convergence in distribution]\label{def:convergence_distribution}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces with probability measures $\bbP_n$ and $\bbP$, respectively. We say that $X_n$ \emph{converges in distribution} to $X$ if
+\[
+	(X_n)_\# \bbP_n \Rightarrow X_\# \bbP.
+\]
+If this is the case write we $X_n \stackrel{d}{\rightarrow} X$.
+\end{definition}
+
+Note that convergence in distribution of random variables is simply defined as weak convergence of their push-forward measures on $(\bbR, \cB_\bbR)$. This might seem strange to those who have encountered the \emph{more standard} definition used in courses on Probability Theory. There $X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$, with $F_n$ and $F$ denoting the cdfs of $X_n$ and $X$ respectively.
+
+But fear not. This definition is actually equivalent to the one in Definition~\ref{def:convergence_distribution}. Actually, there are many other equivalent ways to define convergence in distribution. These results are referred to as the Portmanteau lemma or theorem. We give one version of this below. For this we introduce the notation $\cC_h \subset \bbR$ to be the set of continuity points of a function $h : \bbR \to \bbR$. Also recall our short-hand notation $\bbP(X \in A)$ to denote the push-forward measure $X_\# \bbP(A)$ of the set $A \in \cB_\bbR$.
+
+\begin{theorem}[Portmanteau Theorem]\label{thm:portmanteau}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces $(\Omega_n, \cF_n, \bbP_n)$ and $(\Omega, \cF, \bbP)$. Furthermore, denote by, respectively, $F_n$ and $F$ their associated cdfs and let $\cC_F $ denote the . Then the following statements are equivalent:
+\begin{enumerate}
+\item $X_n \stackrel{d}{\rightarrow} X$.
+\item $\bbE[h(X_n)] \to \bbE[h(x)]$ for all bounded measurable functions $h: \bbR \to \bbR$ with $\bbP(X \in \cC_h) = 1$.
+\item $\limsup_{n \to \infty} \bbP_n(X_n \in B) \le \bbP(X \in B)$ for all closed sets $B \subset \bbR$.
+\item $\liminf_{n \to \infty} \bbP_n(X_n \in A) \ge \bbP(X \in A)$ for all open sets $A \subset \bbR$.
+\item $\lim_{n \to \infty} F_n(t) = F(t)$ for all $t \in \cC_F$.
+\end{enumerate}
+\end{theorem} 
+
+The following technical lemma will be important for proving this theorem.
+
+\begin{lemma}
+Let $X$ be a random variable and $h : \bbR \to \bbR$ be a bounded measurable function with $\bbP(X \in \cC_h) = 1$. Then for every $\varepsilon > 0$, there exist continuous bounded functions $h^-_\varepsilon$ and $h^+_\varepsilon$ such that
+\begin{enumerate}
+\item $h^-_\varepsilon \le h \le h^+_\varepsilon$ and
+\item $\bbE[h^+_\varepsilon(X) - h^-_\varepsilon(X)] < \varepsilon$.
+\end{enumerate} 
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:portmanteau}]
+We will prove the following implication chain: 4 $\iff$ 3 $\Rightarrow$ 1 $\Rightarrow$ 2 $\Rightarrow$ 5 $\Rightarrow$ 4  
+
+\textbf{1 $\Rightarrow$ 2} Fix $\varepsilon > 0$ and let $h^-_\varepsilon$ and $h^+_\varepsilon$ be the function from Lemma [REF]. Then
+\[
+	\bbE[h(X)] \le \bbE[h^+_\varepsilon(X)] = \bbE[h^+_\varepsilon(X) - h^-_\varepsilon(X)] + \bbE[h^-_\varepsilon(X)],
+\]
+which implies that
+\[
+	\bbE[h(X)] -\varepsilon \le \bbE[h^-_\varepsilon(X)].
+\]
+
+In a similar way we obtain that
+\[
+	\bbE[h^+_\varepsilon(X)] \le \bbE[h(X)] +\varepsilon.
+\]
+
+Now we employ condition 1 for the functions $h^-_\varepsilon$ and $h^+_\varepsilon$ to get
+\begin{align*}
+	\bbE[h(X)] -\varepsilon &\le \bbE[h^-_\varepsilon(X)]\\
+	&= \lim_{n \to \infty} \bbE[h^-_\varepsilon(X_n)]\\
+	&= \liminf_{n \to \infty} \bbE[h(X_n)] \\
+	&\le \limsup_{n \to \infty} \bbE[h(X_n)]\\
+	&\le \lim \bbE[h^+_\varepsilon(X_n)]\\
+	&= \bbE[h^+_\varepsilon(X)] \le \bbE[h(X)] +\varepsilon.
+\end{align*}
+From this it follows that
+\[
+	\bbE[h(X)] -\varepsilon \le \liminf_{n \to \infty} \bbE[h(X_n)]
+	\le \limsup_{n \to \infty} \bbE[h(X_n)] \le \bbE[h(X)] +\varepsilon.
+\]
+And since $\varepsilon > 0$ was arbitrary we conclude that
+\[
+	\liminf_{n \to \infty} \bbE[h(X_n)] = \limsup_{n \to \infty} \bbE[h(X_n)],
+\]
+which then implies that $\bbE[h(X_n)] \to \bbE[h(X)]$.
+
+\textbf{2 $\Rightarrow$ 5} For every $t \in \cC_F$ we will construct a bounded measurable function $h_t$ with $\bbP(X \in \cC_{h_t}) = 1$, such that $\bbE[h_t(X_n)] \to \bbE[h_t(X)]$ implies $F_n(t) \to F(t)$. From this the result follows.
+
+
+
+\end{proof}
+
+
+
+\begin{lemma}\label{lem:convergence_distribution_cdfs}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables and denote by, respectively, $F_n$ and $F$ their associated cdfs. Then
+$X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$.
+\end{lemma}
+
+Convergence in distribution to a constant $r \in \bbR$. 
+
+\subsection{Convergence in probability}
+
+\begin{definition}[Convergence in probability]
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables define on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := \|X_n - X\|$. We say that $X_n$ \emph{converges in probability} to $X$ if
+\[
+	(Y_n)_\# \bbP \Rightarrow 0_\# \bbP,
+\] 
+where $0$ denotes the constant function $\omega \mapsto 0$.
+
+If this is the case we write $X_n \stackrel{\bbP}{\rightarrow} X$.
+\end{definition}
+
+Recall that for a random variable $X$ on a probability space $(\Omega, \cF, \bbP)$ we wrote $\bbP(X \le t)$ as a short hand notation for $X_\# \bbP ((-\infty,t])$, i.e. the cdf of $X$ at $t$, and $\bbP(X > t)$ for $X_\# \bbP ((t,\infty))$, i.e. the ccdf of $X$ at $t$.
+
+The following result relates the definition of convergence in probability to a version that is presented in most probability courses.
+
+\begin{lemma}\label{lem:convergence_probability_classical}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables define on the same probability space. Then $X_n \stackrel{\bbP}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} \bbP(\|X_n - X\| > \varepsilon) = 0 \quad \text{for every } \varepsilon > 0.
+\]
+\end{lemma}
+
+\subsection{Almost-sure convergence}
+

@@ -51,4 +51,20 @@
 \contentsline {subsection}{\numberline {5.2.3}Convergence in probability}{60}{subsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.2.4}Almost-sure convergence}{61}{subsection.5.2.4}%
 \contentsline {section}{\numberline {5.3}Problems}{61}{section.5.3}%
+\contentsline {chapter}{\numberline {6}$L^p$-spaces}{57}{chapter.6}%
+\contentsline {section}{\numberline {6.1}The H\"older inequality}{57}{section.6.1}%
+\contentsline {section}{\numberline {6.2}The Minkowski inequality}{58}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Normed and semi-normed vector spaces}{59}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Semi-normed $\ensuremath {\mathbb L}^p$ spaces}{59}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Completeness of $L^p$-spaces}{59}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Littlewood's principles}{61}{section.6.6}%
+\contentsline {paragraph}{\nonumberline Littlwood's first principle 1:}{61}{paragraph*.7}%
+\contentsline {paragraph}{\nonumberline Littlewood's second principle:}{62}{paragraph*.9}%
+\contentsline {paragraph}{\nonumberline Littlewood's third principle:}{63}{paragraph*.11}%
+\contentsline {chapter}{\numberline {A}Appendix}{66}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Uniqueness of measures}{66}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Construction of the Lebesgue measure}{67}{section.A.2}%
+\contentsline {chapter}{\numberline {B}Appendix: From Riemann to Lebesgue}{70}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Recalling Riemann integration}{70}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Riemann vs Lebesgue integration}{71}{section.B.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

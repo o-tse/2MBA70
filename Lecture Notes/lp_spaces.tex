@@ -4,7 +4,7 @@ Let $(\Omega,\cF,\mu)$ be a measure space and $p\in[1,+\infty)$. Throughout this
 \]
 For $p=+\infty$, we set
 \[
-\|f\|_{\infty} := \esssup \{ |f(\omega)| : \ \omega \in \Omega \} = \inf\{t \in [0,\infty) : \ \mu(\{ |f| > t\}) = 0 \}.
+\|f\|_{\infty} := \esssup \bigl\{ |f(\omega)| : \ \omega \in \Omega \bigr\} = \inf\bigl\{t \in [0,\infty) : \ \mu(\{ |f| > t\}) = 0 \bigr\}.
 \]
 
 \section{The H\"older inequality}
@@ -92,8 +92,9 @@ Recall that a norm $\| \cdot \|$ on a vector space $V$ is a function $V \to [0,\
 \item $\|\lambda v \| = |\lambda| \|v\|$ for all $\lambda \in \bbR$ and $v \in V$
 \item $\|v + w\| \leq \|v\| + \|w \|$ for all $v, w \in V$.
 \end{enumerate}
-
 If only the last two properties hold, $\|. \|$ is instead called a \emph{seminorm}.
+
+\medskip
 
 Let $(V, \|\cdot \|)$ be a semi-normed space. We say that a sequence $(v_n)_{n\in\bbN} \subset V$ is a Cauchy sequence if for every $\epsilon > 0$ there exists an $N \in \bbN$ such that for all $m, n \geq N$,
 \[
@@ -107,9 +108,9 @@ We say that a semi-normed space is \emph{complete}, if and only if every Cauchy 
 To every semi-normed space $(V, \|\cdot\|)$ one can associate a normed linear space in a standard way. 
 One defines the equivalence relation $\sim$ by $v \sim w$ if and only if $\|v - w\| = 0$. Denote by $W$ the linear space of equivalence classes. One defines a norm on equivalence classes $[v]$ and $[w]$ in $W$ by $\|[w]-[v]\| = \|w - v\|$. If $(V, \|\cdot\|)$ is a complete semi-normed space, then $W$ is a \emph{Banach space}, which is a complete normed linear space.
 
-\section{Semi-normed $\bbL^p$ spaces}
+\medskip
 
-We have seen in Section~\ref{ch:integrable} that the set of $\mu$-integrable functions form a vector space (over $\bbR$). For $p \in [0,+\infty)$, we define the vector space $\bbL^p$ of integrable functions $f$ for which 
+We have seen in Section~\ref{chapter:integration} that the set of $\mu$-integrable functions form a vector space (over $\bbR$). For $p \in [0,+\infty)$, we define the vector space $\bbL^p$ of integrable functions $f$ for which 
 \[
 	\| f \|_{p} < +\infty.
 \]
@@ -362,6 +363,7 @@ The final result of this chapter is an important application of Lusin's theorem,
 	In particular, the Littlewood principles hold also for the Lebesgue measure $\lambda$ on $(\bbR^d,\cB_{\bbR^d})$ since $\lambda(B_\omega(r))<+\infty$ for every $\omega\in\bbR^d$ and any $r>0$.
 \end{remark}
 
+\section{Problems}
 
 
 	

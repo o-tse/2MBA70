@@ -171,6 +171,180 @@ Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$.
 If this is the case we write $\mu_n \Rightarrow \mu$.
 \end{definition}
 
+The definition of weak convergence ask us to verify the convergence of the $\mu_n$ integral of $h$ for any continuous bounded function $h$. In some cases that can be cumbersome task. Hence it would be helpful if we would have some equivalent conditions for weak convergence. The beauty here is that there are many equivalent definitions. There are often summarized in what is known as the Portmanteau lemma (or theorem). We provide one version of it below.
+
+We will first prove an important technical lemma, needed for the proof of this theorem. For any function $h : \bbR \to \bbR$ we denote by $\cC_h \subset \bbR$ the set of continuity points of $h$, i.e. the set of all points $x\in \bbR$ at which $h$ is continuous. 
+
+The following technical lemma allows us to approximates measurable functions by continuous ones, with arbitrary precision in terms of the integrals.
+
+\begin{lemma}
+Let $\mu$ be a probability measure on $(\bbR, \cB_\bbR)$ and $h : \bbR \to \bbR$ be a bounded measurable function with $\mu(\cC_h) = 1$. Then for every $\varepsilon > 0$, there exist continuous bounded functions $h^-_\varepsilon$ and $h^+_\varepsilon$ such that
+\begin{enumerate}
+\item $h^-_\varepsilon \le h \le h^+_\varepsilon$ and
+\item $\mu \ast h^+_\varepsilon - \mu \ast h^-_\varepsilon < \varepsilon$.
+\end{enumerate} 
+\end{lemma}
+
+\begin{proof}
+TODO
+\end{proof}
+
+Recall that a set $A \subset \bbR^d$ is open if for every $x \in A$ there exists an $r > 0$ such that $B_x(r) \subset A$. In addition, a set $B\subset \bbR^d$ is called \emph{closed} if $B = \bbR^d \setminus A$ for some open set $A$.
+
+For a set $A \subset \bbR$ denote by $\bar{A}$ the smallest closed set that contains $A$ and by $A^\circ$ the largest open set that is contained in $A$. The sets $\bar{A}$ and $A^\circ$ are called the \emph{closure} and \emph{interior} of $A$, respectively. We now define the \emph{boundary} of $A$ as $\partial A := \bar{A} \setminus A^\circ$. Given a measure $\mu$ on $(\bbR, \cB_\bbR)$, a set $A$ is called a \emph{$\mu$-continuity set} if $\mu(\delta A) = 0$.
+
+\pagebreak
+
+We can now state a list of equivalent definition for weak convergence of probability measures.
+
+\begin{theorem}[Portmanteau Theorem]\label{thm:portmanteau}
+Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. Then the following statements are equivalent:
+\begin{enumerate}
+\item $\mu_n \Rightarrow \mu$.
+\item $\mu_n \ast h \to \mu \ast h$ for all bounded measurable functions $h: \bbR \to \bbR$ with $\mu(\cC_h) = 1$.
+\item $\limsup_{n \to \infty} \mu_n(B) \le \mu(B)$ for all closed sets $B \subset \bbR$.
+\item $\liminf_{n \to \infty} \mu_n(A) \ge \mu(A)$ for all open sets $A \subset \bbR$.
+\item $\lim_{n \to \infty} \mu(C) = \mu(C)$ for all $\mu$-continuity sets $C$.
+\end{enumerate}
+\end{theorem} 
+
+\begin{proof}
+We will prove the following implication chain: 4 $\iff$ 3 $\Rightarrow$ 1 $\Rightarrow$ 2 $\Rightarrow$ 5 $\Rightarrow$ 3  
+
+\textbf{4 $\iff$ 3:} This follows directly since every closed set $B$ is the complement of an open set $A$, i.e. $B = \bbR \setminus A$ and thus
+\[
+	\limsup_{n \to \infty} \mu_n(B) = \limsup_{n \to \infty} 1 - \mu_n(A) = 1 - \liminf_{n \to \infty} \mu_n(A).
+\]
+
+\textbf{3 $\Rightarrow$ 1:} Let $h$ be a continuous bounded function. Then, without loss of generality we may assume that $0 \ge h < 1$. Now fix some $k \in \bbN$ and define the following sets:
+\[
+	B_j := \{x \in \bbR \, : \, \frac{j}{k} \le f(x)\} \quad \text{for } j = 0, 1, \dots, k.
+\]
+Note that since $f$ is continuous these are closed sets. Also note that $\mu(B_0) = 1$ and $\mu(B_k) = 0$.
+
+We further observe that $f(x) = \sum_{j = 1}^k f(x) \mathbf{1}_{B_{j-1} \cap B_j^c}$, where $B_j^c = \bbR \setminus B_j$. Hence we can now bound the integral $\mu \ast h$ from above and below as follows:
+\begin{equation}\label{eq:portmanteau_1}
+	\sum_{j = 1}^k \frac{j-1}{k} \mu(B_{j - 1} \cap B_j^c) \le \int_\bbR h \, \dd \mu \le \sum_{j = 1}^k \frac{j}{k} \mu(B_{j - 1} \cap B_j^c).
+\end{equation}
+
+Using that $B_{j-1} \supset B_{j}$ we get
+\[
+	\mu(B_{j - 1}) = \mu(B_{j-1} \cap B_j^c) + \mu(B_{j-1} \cap B_j) = \mu(B_{j-1} \cap B_j^c) + \mu(B_j)
+\]
+so that
+\[
+	\mu(B_{j-1} \cap B_j^c) = \mu(B_{j-1}) - \mu(B_j)
+\]
+
+Plugging this into the sum on the right hand side in Equation~\eqref{eq:portmanteau_1} we get
+\begin{align*}
+	\sum_{j = 1}^k \frac{j}{k} \mu(B_{j - 1} \cap B_j^c) &= \sum_{j = 1}^k \frac{j}{k} (\mu(B_{j-1}) - \mu(B_j))\\
+	&= \frac{1}{k} \left(\mu(B_0) + \sum_{j = 1}^{k-1} (j+1) \mu(B_j) - \sum_{j = 1}^k \mu(B_j)\right) \\
+	&= \frac{1}{k} \left(1 + \sum_{j = 1}^{k-1} \mu(B_j) - k \mu(b_k)\right)\\
+	&= \frac{1}{k} + \frac{1}{k} \sum_{j = 2}^{k} \mu(B_j),
+\end{align*}
+where we used that $\mu(B_0) = 1$ and $\mu(B_k) = 0$.
+
+In a similar fashion, the sum on the left hand side in Equation~\eqref{eq:portmanteau_1} equals
+\[
+	\frac{1}{k} \sum_{j = 1}^k \mu(B_j).
+\]
+
+We thus conclude that for any $k \ge 1$,
+\begin{equation}
+	\frac{1}{k} \sum_{j = 1}^k \mu(B_j) \le \int_\bbR h \, \dd \mu \le
+	\frac{1}{k} + \frac{1}{k} \sum_{j = 2}^{k} \mu(B_j).
+\end{equation}
+Moreover, the same inequalities hold for the measures $\mu_n$.
+
+Applying 3 we then get
+\begin{align*}
+	\limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n
+	&\le  \limsup_{n \to \infty} \left(\frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \mu_n(B_j) \right)\\
+	&\le \frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \limsup_{n \to \infty} \mu_n(B_j)\\
+	&\le \frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \mu(B_j) \\
+	&\le \frac{1}{k} + \int_\bbR h \, \dd \mu.
+\end{align*}
+So that by taking $k \to \infty$ we obtain
+\[
+	\limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n \le \int_\bbR h \, \dd \mu.
+\]
+
+Apply this conclusion to the function $-h$, which is also continuous and bounded, we get
+\[
+	\int_\bbR h \, \dd \mu \le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n,
+\]
+from which it follows that $\lim_{n \to \infty} \int_\bbR h \, \dd \mu_n = \int_\bbR h \, \dd \mu$.
+
+
+
+\textbf{1 $\Rightarrow$ 2:} Fix $\varepsilon > 0$ and let $h^-_\varepsilon$ and $h^+_\varepsilon$ be the function from Lemma [REF]. Then
+\[
+	\mu \ast h \le \mu \ast h^+_\varepsilon = \mu \ast h^+_\varepsilon - \mu \ast h^-_\varepsilon + \mu \ast h^-_\varepsilon,
+\]
+which implies that
+\[
+	 \mu \ast h -\varepsilon \le \mu \ast h^-_\varepsilon.
+\]
+
+In a similar way we obtain that
+\[
+	\mu \ast h^+_\varepsilon \le \mu \ast h +\varepsilon.
+\]
+
+Now we employ condition 1 for the functions $h^-_\varepsilon$ and $h^+_\varepsilon$ to get
+\begin{align*}
+	\mu \ast h -\varepsilon &\le \mu \ast h^-_\varepsilon\\
+	&= \lim_{n \to \infty} \mu_n \ast h^-_\varepsilon\\
+	&\le \liminf_{n \to \infty} \mu_n \ast h \\
+	&\le \limsup_{n \to \infty} \mu_n \ast h\\
+	&\le \mu_n \ast h^+_\varepsilon\\
+	&= \mu \ast h^+_\varepsilon \le \mu \ast h +\varepsilon.
+\end{align*}
+From this it follows that
+\[
+	\mu \ast h -\varepsilon \le \liminf_{n \to \infty} \mu_n \ast h
+	\le \limsup_{n \to \infty} \mu_n \ast h \le \mu \ast h +\varepsilon.
+\]
+And since $\varepsilon > 0$ was arbitrary we conclude that
+\[
+	\liminf_{n \to \infty} \mu_n \ast h = \limsup_{n \to \infty} \mu_n \ast h,
+\]
+which then implies that $\mu_n \ast h \to \mu \ast h$.
+
+\textbf{2 $\Rightarrow$ 5:} Let $C$ be a $\mu$-continuity set and consider the function $h(x) = \mathbf{1}_{C}$. Then clearly $h$ is measurable and bounded. Moreover, the function $h$ is discontinuous precisely on the boundary $\partial C$ and hence
+\[
+	\mu(\cC_h) =\mu(\bbR \setminus \partial C) = 1 - \mu(\partial C) = 1-0 = 1.
+\]
+Hence the function $h$ satisfies the conditions of 2 and thus
+\[
+	\mu_n(C) = \int_\bbR h \, \dd \mu_n = \mu_n \ast h \to \mu \ast h = \int_\bbR h \, \dd \mu = \mu(C).
+\]
+
+
+\textbf{5 $\Rightarrow$ 3:} Let $B$ be a closed set, take $\delta > 0$ and consider the sets
+\[
+	A_\delta = \{x \in \bbR \, : \, \|x - B\| < \delta\},
+\]
+where $\|x - B\| = \inf_{y \in B} \|x - y\|$ denotes the distance from $x$ to the set $B$. Note that $A_\delta$ is an open set in $\bbR$, and hence $A_\delta^\circ = A_\delta$.
+
+Next we observe that $A_\delta \subset \{x \in \bbR \, : \, \|x-B\| \le \delta\}$ where the latter sets are closed. It then follows that
+\[
+	\partial A_\delta = \bar{A_\delta} \setminus A_\delta \subset \{x \in \bbR \, : \, \|x-B\| \le \delta\} \setminus A_\delta = \{x \in \bbR \, : \, \|x-B\| = \delta\}.
+\]
+It then follows that $\partial A_\delta \cap \partial A_{\delta^\prime} = \emptyset$ for all $\delta \ne \delta^\prime$. Since $\mu$ is a probability measure, there can be only a countable number of disjoint sets with positive measure. From this we conclude that there exists a sequence $(\delta_k)_{k \ge 1}$ with $\delta_k \to 0$ such that $\mu(\partial A_{\delta_k}) = 0$ for all $k \ge 1$. Let us write $B_k := A_{\delta_k}$. Then each $B_k$ is a $\mu$-continuity set, $B_k \supset B_{k + 1}$ and $B_k \downarrow B$ because $B$ is closed.
+
+We then have that
+\[
+	\limsup_{n \to \infty} \mu_n(B) \le \limsup_{n \to \infty} \mu_n(B_k) = \mu(B_k),
+\]
+where the last equality is due to 5, which implies that $\mu_n(B_k) \to \mu(B_k)$.
+
+Taking $k \to \infty$ now yields 3.
+
+
+\end{proof}
+
 \subsection{Convergence in distribution}
 
 \begin{definition}[Convergence in distribution]\label{def:convergence_distribution}
@@ -187,76 +361,7 @@ Note that convergence in distribution of random variables is simply defined as w
 \]
 holds for all continuity points $t$ of $F$, with $F_n$ and $F$ denoting the cdfs of $X_n$ and $X$ respectively.
 
-But fear not. This definition is actually equivalent to the one in Definition~\ref{def:convergence_distribution}. Actually, there are many other equivalent ways to define convergence in distribution. These results are referred to as the Portmanteau lemma or theorem. We give one version of this below. For this we introduce the notation $\cC_h \subset \bbR$ to be the set of continuity points of a function $h : \bbR \to \bbR$. Also recall our short-hand notation $\bbP(X \in A)$ to denote the push-forward measure $X_\# \bbP(A)$ of the set $A \in \cB_\bbR$.
-
-\begin{theorem}[Portmanteau Theorem]\label{thm:portmanteau}
-Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces $(\Omega_n, \cF_n, \bbP_n)$ and $(\Omega, \cF, \bbP)$. Furthermore, denote by, respectively, $F_n$ and $F$ their associated cdfs and let $\cC_F $ denote the . Then the following statements are equivalent:
-\begin{enumerate}
-\item $X_n \stackrel{d}{\rightarrow} X$.
-\item $\bbE[h(X_n)] \to \bbE[h(x)]$ for all bounded measurable functions $h: \bbR \to \bbR$ with $\bbP(X \in \cC_h) = 1$.
-\item $\limsup_{n \to \infty} \bbP_n(X_n \in B) \le \bbP(X \in B)$ for all closed sets $B \subset \bbR$.
-\item $\liminf_{n \to \infty} \bbP_n(X_n \in A) \ge \bbP(X \in A)$ for all open sets $A \subset \bbR$.
-\item $\lim_{n \to \infty} F_n(t) = F(t)$ for all $t \in \cC_F$.
-\end{enumerate}
-\end{theorem} 
-
-The following technical lemma will be important for proving this theorem.
-
-\begin{lemma}
-Let $X$ be a random variable and $h : \bbR \to \bbR$ be a bounded measurable function with $\bbP(X \in \cC_h) = 1$. Then for every $\varepsilon > 0$, there exist continuous bounded functions $h^-_\varepsilon$ and $h^+_\varepsilon$ such that
-\begin{enumerate}
-\item $h^-_\varepsilon \le h \le h^+_\varepsilon$ and
-\item $\bbE[h^+_\varepsilon(X) - h^-_\varepsilon(X)] < \varepsilon$.
-\end{enumerate} 
-\end{lemma}
-
-\begin{proof}
-
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:portmanteau}]
-We will prove the following implication chain: 4 $\iff$ 3 $\Rightarrow$ 1 $\Rightarrow$ 2 $\Rightarrow$ 5 $\Rightarrow$ 4  
-
-\textbf{1 $\Rightarrow$ 2} Fix $\varepsilon > 0$ and let $h^-_\varepsilon$ and $h^+_\varepsilon$ be the function from Lemma [REF]. Then
-\[
-	\bbE[h(X)] \le \bbE[h^+_\varepsilon(X)] = \bbE[h^+_\varepsilon(X) - h^-_\varepsilon(X)] + \bbE[h^-_\varepsilon(X)],
-\]
-which implies that
-\[
-	\bbE[h(X)] -\varepsilon \le \bbE[h^-_\varepsilon(X)].
-\]
-
-In a similar way we obtain that
-\[
-	\bbE[h^+_\varepsilon(X)] \le \bbE[h(X)] +\varepsilon.
-\]
-
-Now we employ condition 1 for the functions $h^-_\varepsilon$ and $h^+_\varepsilon$ to get
-\begin{align*}
-	\bbE[h(X)] -\varepsilon &\le \bbE[h^-_\varepsilon(X)]\\
-	&= \lim_{n \to \infty} \bbE[h^-_\varepsilon(X_n)]\\
-	&= \liminf_{n \to \infty} \bbE[h(X_n)] \\
-	&\le \limsup_{n \to \infty} \bbE[h(X_n)]\\
-	&\le \lim \bbE[h^+_\varepsilon(X_n)]\\
-	&= \bbE[h^+_\varepsilon(X)] \le \bbE[h(X)] +\varepsilon.
-\end{align*}
-From this it follows that
-\[
-	\bbE[h(X)] -\varepsilon \le \liminf_{n \to \infty} \bbE[h(X_n)]
-	\le \limsup_{n \to \infty} \bbE[h(X_n)] \le \bbE[h(X)] +\varepsilon.
-\]
-And since $\varepsilon > 0$ was arbitrary we conclude that
-\[
-	\liminf_{n \to \infty} \bbE[h(X_n)] = \limsup_{n \to \infty} \bbE[h(X_n)],
-\]
-which then implies that $\bbE[h(X_n)] \to \bbE[h(X)]$.
-
-\textbf{2 $\Rightarrow$ 5} For every $t \in \cC_F$ we will construct a bounded measurable function $h_t$ with $\bbP(X \in \cC_{h_t}) = 1$, such that $\bbE[h_t(X_n)] \to \bbE[h_t(X)]$ implies $F_n(t) \to F(t)$. From this the result follows.
-
-
-
-\end{proof}
-
+But fear not. It turns out that this definition is yet another equivalent statement for Definition~\ref{def:convergence_distribution}. 
 
 
 \begin{lemma}\label{lem:convergence_distribution_cdfs}
@@ -267,6 +372,26 @@ $X_n \stackrel{d}{\rightarrow} X$ if and only if
 \]
 holds for all continuity points $t$ of $F$.
 \end{lemma}
+
+\begin{proof}
+Let $\mu_n := (X_n)_\# \bbP_n$ and $\mu :=  X_\# \bbP_n$.
+
+We will first prove that $X_n \stackrel{d}{\rightarrow} X$ implies $\lim_{n \to \infty} F_n(t) = F(t)$ for all $t \in \cC_F$. For this let $h(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
+\[
+	F_n(t) = (X_n)_\# \bbP_n ((-\infty,x]) = \int_\bbR \mathbbm{1}_{(-\infty,t]} \, \dd (X_n)_\# \bbP_n
+	= \mu_n \ast h.
+\]
+The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. Moreover, for any $\varepsilon > 0$
+\[
+	\mu((t-\varepsilon, t+\varepsilon)) = \mu((t-\varepsilon,t]) + \mu((t,t+\varepsilon))
+	= F(t) - F(t-\varepsilon) + F(t + \varepsilon) - F(t).
+\]
+Since $F$ is continuous at $t$, the right hand side goes to zero as $\varepsilon \to 0$. Therefore
+\[
+	\mu(\{t\}) = \lim_{\varepsilon \to 0} \mu((t-\varepsilon, t+\varepsilon)) = 0,
+\]
+which implies that $\mu(\cC_h) = 1$. The result now follows by applying condition 2 in Theorem~\ref{thm:portmanteau}.
+\end{proof}
 
 Convergence in distribution to a constant $r \in \bbR$. 
 
@@ -294,4 +419,63 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables define on the same probability
 \end{lemma}
 
 \subsection{Almost-sure convergence}
+
+\section{Problems}
+
+\begin{problem}\label{prb:convergence_distribution}
+The goal of this problem is to prove Lemma~\ref{lem:convergence_probability_classical}. That is
+\[
+	X_n \stackrel{d}{\rightarrow} X \iff F_n(t) \to F(t) \quad \text{for all } t \in \cC_F,
+\]
+where $F_n$ and $F$ denote the cdfs of the random variables $X_n$ and $X$, respectively.
+ 
+We will first prove the $\Rightarrow$ implication. Write $\mu_n = (X_n)_\# \bbP_n$ and $\mu = X_\# \bbP$.
+\begin{enumerate}
+\item Let $t \in \bbR$. Find a measurable function $h_t$, such that $F_n(t) = \mu_n \ast h_t$ and $F(t) = \mu \ast h_t$.
+\item Show that $\mu(\cC_{h_t}) = 1$.
+\item Prove the $\Rightarrow$ implication. 
+\end{enumerate}
+
+For the other implication $\Leftarrow$ we will first show that $F_n(t) \to F(t)$ for all $t \in \cC_F$ implies that $\mu_n \ast g \to \mu \ast g$ for all continuous function that are non-zero only on a bounded and closed set $C$.
+
+So let $g$ be such a function. You may use the fact that any continuous function that is non-zero on a bounded and closed set is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
+\begin{enumerate}
+\setcounter{enumi}{3}
+\item Construct a partition of $C$ into $T$ intervals $I_i = (a_i, b_i]$ such that for each $i \le T$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
+\end{enumerate}
+
+We will now define an approximate function
+\[
+	\hat{g}(x) = \sum_{i = 1}^T \eta_i \mathbf{1}_{I_i},
+\]
+where $\eta_i = h(\max\{x \in I_i\})$.
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item Show that there exists sequences $(b_i)_{1 \le i \le m}$ and $(t_i)_{1 \le i \le m}$ such that
+\[
+	\tilde{g}(x) = \sum_{i = 1}^m b_i \mathbf{1}_{(-\infty, t_i]}.
+\]
+\item Prove that $\lim_{n \to \infty} \bbE[\tilde{g}(X_n)] = \bbE[\tilde{g}(X)]$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
+\item Prove that $\|\bbE[g(X_n)] - \bbE[g(X)]\| \to 0$. [Hint: First use the previous result to show that $\|\bbE[g(X_n)] - \bbE[g(X)]\| \to 2\varepsilon$ by adding and subtracting $\bbE[\tilde{g}(X_n)]$ and $\bbE[\tilde{g}(X)]$.]
+\end{enumerate}
+
+Now consider a general continuous bounded function $h$ and suppose that $\|h(x)\| \le H$ for all $x \in \bbR$. Let $\varepsilon > 0$, let $\alpha = \alpha(\varepsilon) > 0$ be such that $\bbP(\|X\| > \alpha) \le \varepsilon/(2H)$ and define
+\[
+	\hat{h}(x) = \begin{cases}
+		x + 1 + \alpha g&\text{if } -\alpha - 1 < x < -\alpha,\\
+		1 &\text{if } \|x\| \le \alpha,\\
+		x + (1-\alpha) &\text{if } \alpha < \alpha < \alpha +1,\\
+		0 &\text{else.}
+	\end{cases}
+\]
+\begin{enumerate}
+\setcounter{enumi}{7}
+\item Show that $\bbE[\hat{h}(X)] \ge 1 - \frac{\varepsilon}{2M}$.
+\item Prove that $\left|\bbE[X_n] - \bbE[h(X_n)\hat{h}(X_n)] \right| \to \varepsilon/2$ and similarly for $X$.
+\item Show that $\left|\bbE[h(X_n)] - \bbE[h(X)]\right| \to \varepsilon$. [Hint: add and subtract both $\bbE[h(X_n)\hat{h}(X_n)]$ and $\bbE[h(X)\hat{h}(X)]$ and use the previous result and the one show in 7.]
+\item Conclude that $\bbE[h(X)_n)] \to \bbE[h(X)]$.
+\end{enumerate} 
+
+\end{problem}
 

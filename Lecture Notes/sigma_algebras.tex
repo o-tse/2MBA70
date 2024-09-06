@@ -295,21 +295,7 @@ Let $(\Omega, \cF, \mu)$ be a measure space and $A, B \in \cF$. Then the followi
 \item Let $A_1 = A$, $A_2 = B$ and $A_i = \emptyset$ for all $i \ge 3$. Then this property follows directly from the fact that $\mu$ is $\sigma$-additive.
 \item Since $A \subseteq B$ we have that $B = A \cup (B \setminus A)$, with $A$ and $B \setminus A$ disjoint sets. It then follows from property 1 that $\mu(B) = \mu(A) + \mu(B \setminus A)$ and thus $\mu(A) \le \mu(B)$.
 \item Since $\mu(A) < \infty$ we can subtract $\mu(A)$ from both sides of the equation $\mu(B) = \mu(A) + \mu(B \setminus A)$ to obtain the desired result.
-\item First note that if $\mu(A \cap B) = \infty$ then by property 2 we have that also $\mu(A), \mu(B)$ and $\mu(A \cup B) = \infty$ and hence the result holds trivially. So assume now that $\mu(A \cap B) < \infty$. Since 
-\[
-	A \cup B = (A \setminus (A\cap B)) \cup (B \setminus (A \cap B)) \cup (A \cap B),
-\] 
-it follows from property 1 that
-\[
-	\mu(A \cup B) = \mu(A \setminus (A \cap B))) + \mu(A \cap B) + \mu(B \setminus (A \cap B)).
-\] 
-Adding $\mu(A \cap B) < \infty$ to both side we get
-\begin{align*}
-	\mu(A \cup B) + \mu(A \cap B) 
-	&= \mu(A \setminus (A \cap B))) + \mu(A \cap B) + \mu(B \setminus (A \cap B)) + \mu(A \cap B)\\
-	&= \mu(A) + \mu(B), 
-\end{align*}
-where the last line follows from applying property 3 twice.
+\item See Problem~\ref{prb:strongly_additive}. 
 \item Property 4 implies that $\mu(A) + \mu(B) = \mu(A \cup B) + \mu(A \cap B) \ge \mu(A \cup B)$.\qedhere
 \end{enumerate}
 \end{proof}
@@ -432,12 +418,12 @@ Provide a counter example to the statement: if $(\Omega, \cF)$ is a measurable s
 Prove Lemma~\ref{lem:inclusion_sigalgs}.
 \end{problem}
 
+\begin{problem}\label{prb:strongly_additive}
+Prove the \emph{strongly additive} property of Proposition~\ref{prop:basic_properties_measures}. [Hint: write $A \cup B$ as the union of three disjoint sets.]
+\end{problem}
+
 \begin{problem}\label{prb:sigma_subadditive}
-The goal of this exercise is to prove Lemma~\ref{lem:sigma_subadditive}. We will do this in two steps. 
-\begin{enumerate}
-\item Suppose $(B_i)_{i \in \bbN}$ is an increasing sequence, i.e. $B_i \subset B_{i +1}$. Show that $\mu(\bigcup_{i \in \bbN} B_i) \le \sum_{i = 1}^\infty \mu(B_i)$. [Hint: Construct a family of disjoint sets and use the properties finitely additive and monotone.]
-\item Prove Lemma~\ref{lem:sigma_subadditive}. [Hint: can you construct a helpful increasing sequence?]
-\end{enumerate}  
+Prove Lemma~\ref{lem:sigma_subadditive}. [Hint: Construct a new family of sets and use properties $\sigma$-additive and monotone] 
 \end{problem}
 
 \begin{problem}\label{prb:proof_continuity_above}

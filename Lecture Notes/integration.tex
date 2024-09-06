@@ -244,7 +244,7 @@ It follows that $f = f^+ - f^-$ and $|f| = f^+ + f^-$.
 
 As in the case of non-negative measurable functions, we have the following properties for $\mu$-integrable functions.
 
-\begin{proposition}
+\begin{proposition}\label{prop:properties-integral}
 	Let $f$, $g$ be two $\mu$-integrable functions and $\alpha \in \bbR$ be a constant.
 	\begin{enumerate}
 		\item (absolute continuity) If $B \in \cF$ satisfies $\mu(B) = 0$, then
@@ -287,7 +287,7 @@ We state an important result, which we will not prove, but will be essential for
 	where the left-hand side denotes the Riemann integral of $f$.
 \end{theorem}
 
-\begin{example}
+\begin{example}\label{ex:computation_lebesgue_integral}
 	Let us determine the value $\displaystyle \int_\bbR \frac{1}{x^2+1}\,\lambda(\dd x)$.
 	
 	\noindent To do so, we set $g(x):= \frac{1}{x^2+1}\ge 0$ and let $g_n:= g\mathbf{1}_{[-n,n]}$. Then clearly, $g_n\to g$ point-wise monotonically. By the MCT, we have that
@@ -304,9 +304,6 @@ where the second equality follows from the fact that $g$ is continuous on the co
 \]
 thus implying that $g$ is $\lambda$-integrable.
 \end{example}
-
-
-
 
 \section{Change of variables formula}
 \label{sec:change-of-variables}
@@ -357,33 +354,121 @@ Let $(\Omega, \cF, \mu)$ be a measure space and $(E,\cG)$ be a measurable space.
 \]
 \end{proposition}
 
-\begin{example}
-Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X\colon (\Omega, \cF) \to (\bbR, \cB_\bbR)$ be a continuous random variable. Assume that the distribution of $X$ can be represented by a \emph{probability density function} $\varrho\colon \bbR \to [0,+\infty)$, where $\varrho$ is a Lebesgue integrable function. Then, $X_\# \mathbb{P}$ is the (unique) measure given by
+\section{Expectation of random variables}
+
+Now that we have a notion of integration we can formally define what the expected value of a random variables is.
+
+\begin{definition}\label{def:expectation_random_variable}
+Let $(\Omega. \cF, \bbP)$ be a probability space and $X$ and random variable. Then
 \[
-(X_\# \mathbb{P})((-\infty,a]) =\mathbb{P}\left(\bigl\{ \omega \in \Omega : X(\omega) \in (-\infty,a]\bigr\} \right) = 
-\int_{-\infty}^a \varrho \, \dd \lambda.
-\]	
-Let $h\colon \bbR \to \bbR$ be a bounded measurable function. Then by the change of variables formula,
-\[
-	\mathbb{E}[h(X)] = \int_{\bbR} h \, \dd (X_\# \mathbb{P}).
+	\bbE[X] := \int_\Omega X \, \dd \bbP.
 \]
-On the other hand, the set function
+\end{definition}
+
+We say that a random variable is discrete if $X(\omega) \in \bbZ$ for all $\omega \in \Omega$. It then follows (see Problem~\ref{prb:discrete_random_variable}) that 
 \[
-	\nu\colon \cB_{\bbR} \to [0,+\infty],\qquad\nu(A) := \int_A \varrho\, \dd \lambda
+	\bbP(X \in A) = \sum_{j \in \bbZ} \delta_j(A) p_j,
 \]
-is a measure on the Borel $\sigma$-algebra (see Problem~\ref{prb:measure}). By uniqueness, we conclude that $\nu = X_\# \mathbb{P}$. For simple functions $g:\bbR \to \bbR$, one can now check that
+for some sequence $(p_j)_{j \in \bbZ}$ with $\sum_{j \in \bbZ} p_j = 1$. We can now define the \emph{probability mass function} (pmf) of $X$ as $p(j) = p_j$.
+
+In the course Probability and Modeling you have seen the following formula for the expectation of $h(X)$, where $h$ is a function and $X$ a discrete random variable:
 \[
-\int_\bbR g\, \dd \nu = \int_\bbR g \varrho\, \dd \lambda.
-\]
-By approximating an arbitrary bounded Borel-measurable function $h$ by a sequence of simple functions and applying the \emph{dominated convergence theorem} (see next chapter), we conclude that also for arbitrary bounded measurable functions $h$,
+	\bbE[h(X)] = \sum_{j \in \bbZ} h(j) p(j).
+\] 
+This was actually the definition of the expectation for a discrete random variable. The following result shows that this is correct, given the general definition for expectations in Definition~\ref{def:expectation_random_variable}.
+
+
+\begin{lemma}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ be a discrete random variable and consider a function $h : \bbR \to \bbR$ such that $h\circ X$ is $\bbP$-integrable. Then
 \[
-\int_{\bbR} h\, \dd \nu = \int_{\bbR} h \varrho\, \dd \lambda
-\]
-and thus
+	\bbE[h(X)] = \sum_{j \in \bbZ} h(j) p(j),
+\] 
+where $p$ is the pmf of $X$.
+\end{lemma}
+
+\begin{proof}
+Recall the definition of the positive and negative part of a measurable function $f$, denoted by respectively $f^+$ and $f^-$. Further, recall that 
 \[
-\mathbb{E}[h(X)] = \int_{\bbR} h \, \dd (X_\# \mathbb{P}) = \int_{\bbR} h \, \dd \nu = \int_{\bbR} h \varrho \, \dd \lambda.
+	\int_\Omega f \, \dd \mu := \int_\Omega f^+ \, \dd \mu - \int_\Omega f^- \, \dd \mu 
+\] 
+Now, for any $n \in \bbN$ define the functions
+\[
+	g_n^\pm = \sum_{j = -n}^n (h \circ X)^\pm \mathbf{1}_{X^{-1}(j)}.
 \]
-\end{example}
+Then $g_n^\pm \le g_{n+1}^\pm$ and
+\[
+	\lim_{n \to \infty} g_n^\pm = (h \circ X)^\pm.
+\]
+Then, using the monotone convergence theorem we get
+\begin{align*}
+	\int_\Omega (h \circ X)^\pm \, \dd \bbP &= \int_\Omega \lim_{n \to \infty} g_n^\pm \, \dd \bbP\\
+	&= \lim_{n \to \infty} \int_\Omega g_n^\pm \, \dd \bbP \\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n \int_\Omega (h \circ X)^\pm \mathbf{1}_{X^{-1}(j)} \, \dd \bbP\\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n \int_{X^{-1}(j)} h^\pm(j) \, \dd \bbP\\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n h^\pm(j) \bbP(X^{-1}(j)) \\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n h^\pm(j) p(j) = \sum_{j \in \bbZ} h^\pm(j) p(j).
+\end{align*}
+Since $h\circ X$ is $\bbP$-integrable if and only if it positive and negative part are, we conclude that
+\[
+	\int_\Omega (h \circ X) \, \dd \bbP = \int_\Omega (h \circ X)^+ \, \dd \bbP
+	- \int_\Omega (h \circ X)^- \, \dd \bbP = \sum_{j \in \bbZ} h(j) p(j).
+\]
+\end{proof}
+
+Let us now turn to the other class of random variables, continuous random variables. Here the notion of a \emph{probability density function} $\rho$ was introduce so that $F(t)$ was equal to the integral of $\rho$ on $(-\infty,t]$. Expressed formally in the language of measure theory we have the following
+
+\begin{definition}[Probability density function]
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X$ a continuous random variable. We say that $X$ has a \emph{probability density function} $\rho : \bbR \to [0,\infty)$, if for every $t \in \bbR$,
+\[
+	X_\# \bbP((-\infty , t]) = \int_{(-\infty,t]} \rho \, \dd \lambda.
+\]
+In particular, a probability density function much be integrable.
+\end{definition}
+
+Now recall that in the case of a continuous random variable $Y$ with a probability density $\rho$, there was also a formula for its expectation,
+\[
+	\bbE[h(Y)] = \int_\bbR h(x) \rho(x) \, \dd x.
+\]
+Again, this formula is correct and follows from Definition~\ref{def:expectation_random_variable} after applying a change of variables. The proof of this result is left as an exercise.
+
+\begin{lemma}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ a continuous random variable with probability density $\rho$ and let $h : \bbR \to \bbR$ be measurable function. Then
+\[
+	\bbE[h(Y)] = \int_\bbR h \rho \, \dd \lambda.
+\]
+\end{lemma}
+
+\begin{proof}
+See problem [??]
+\end{proof}
+
+%\begin{example}
+%Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X\colon (\Omega, \cF) \to (\bbR, \cB_\bbR)$ be a continuous random variable. Assume that the distribution of $X$ can be represented by a \emph{probability density function} $\varrho\colon \bbR \to [0,+\infty)$, where $\varrho$ is a Lebesgue integrable function. Then, $X_\# \mathbb{P}$ is the (unique) measure given by
+%\[
+%(X_\# \mathbb{P})((-\infty,a]) =\mathbb{P}\left(\bigl\{ \omega \in \Omega : X(\omega) \in (-\infty,a]\bigr\} \right) = 
+%\int_{-\infty}^a \varrho \, \dd \lambda.
+%\]	
+%Let $h\colon \bbR \to \bbR$ be a bounded measurable function. Then by the change of variables formula,
+%\[
+%	\mathbb{E}[h(X)] = \int_{\bbR} h \, \dd (X_\# \mathbb{P}).
+%\]
+%On the other hand, the set function
+%\[
+%	\nu\colon \cB_{\bbR} \to [0,+\infty],\qquad\nu(A) := \int_A \varrho\, \dd \lambda
+%\]
+%is a measure on the Borel $\sigma$-algebra (see Problem~\ref{prb:measure}). By uniqueness, we conclude that $\nu = X_\# \mathbb{P}$. For simple functions $g:\bbR \to \bbR$, one can now check that
+%\[
+%\int_\bbR g\, \dd \nu = \int_\bbR g \varrho\, \dd \lambda.
+%\]
+%By approximating an arbitrary bounded Borel-measurable function $h$ by a sequence of simple functions and applying the \emph{dominated convergence theorem} (see next chapter), we conclude that also for arbitrary bounded measurable functions $h$,
+%\[
+%\int_{\bbR} h\, \dd \nu = \int_{\bbR} h \varrho\, \dd \lambda
+%\]
+%and thus
+%\[
+%\mathbb{E}[h(X)] = \int_{\bbR} h \, \dd (X_\# \mathbb{P}) = \int_{\bbR} h \, \dd \nu = \int_{\bbR} h \varrho \, \dd \lambda.
+%\]
+%\end{example}
 
 
 \section{The Markov inequality}

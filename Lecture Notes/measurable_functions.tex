@@ -144,7 +144,15 @@ Let $(\Omega_i, \cF_i)$, for $i \in I$ be measurable spaces and $(f_i)_{i \in I}
 \] 
 \end{proposition}
 
-\begin{proof}
+\begin{remark}
+	The collection of sets $\bigcup_{i \in I} f_i^{-1}(\cF_i)$ may be equivalently expressed as
+	\[
+		\Bigl\{f_i^{-1}(B) : i\in I,\; B\in \cF_i\Bigr\}.
+	\]
+\end{remark}
+
+
+\begin{proof}[Proof of Proposition~\ref{prop:sigalg_generated_functions}]
 First note that by Proposition~\ref{prop:generated_sigalg}, $\sigma(f_i \, : \, i \in I)$ is a \sigalg/. We will show that any \sigalg/ that makes each $f_i$ measurable much contain $\sigma(f_i \, : \, i \in I)$. So let $\cF$ be such a \sigalg/. Then in particular, for any $i\in I$ and $B \in \cF_i$ we have that $f_i^{-1}(B) \in \cF$. This implies that
 \[
 	\bigcup_{i \in I} f_i^{-1}(\cF_i) \subseteq \cF.
@@ -282,17 +290,13 @@ Let $f, g : (\Omega, \cF) \to \bbR$ be measurable. Then the following functions 
 \begin{proof}
 We will prove (2) and (4). The other parts are left as an exercise, see Problem~\ref{prb:basic_properties_measurable_functions}.
 
-\paragraph{(2)} We first note that the sets $\{f \ge g\}$ and $\{g > f\}$ are measurable. This follows from Lemma~\ref{lem:measurable_set_real_line} and the fact that
+\paragraph{(2)} We first note that the sets $\{f > g\}$, $\{g > f\}$, $\{f=g\}$ are measurable. This follows from Lemma~\ref{lem:measurable_set_real_line} and the fact that
 \[
-	\{f \ge g\} = \bigcup_{q \in \bbQ} \{f \ge q\} \cap \{g \le q\},
-\]
-while
-\[
-	\{g > f\} = \bigcup_{q \in \bbQ} \{g \ge q\} \cap \{f < q\}.
+	\{f > g\} = \bigcup_{q \in \bbQ} \{f \ge q\} \cap \{g < q\},\qquad \{g > f\} = \bigcup_{q \in \bbQ} \{g \ge q\} \cap \{f < q\}.
 \]
 Next, we observe that for any set $A \subset \bbR$
 \[
-	(f \vee g)^{-1}(A) = \left(f^{-1}(A) \cap \{f \ge g\}\right) \cup \left(g^{-1}(A) \cap \{g > f\}\right),
+	(f \vee g)^{-1}(A) = \left(f^{-1}(A) \cap \{f > g\}\right) \cup \left(g^{-1}(A) \cap \{g > f\}\right) \cup \{f=g\},
 \]
 which implies that $(f \vee g)^{-1}(A) \in \cF$ for any $A \in \cB_\bbR$.
 
@@ -468,7 +472,7 @@ There exist a probability space $(\Omega,\cF, \bbP)$ and random variable $U$, su
 \end{proposition}
 
 \begin{proof}
-Consider the space $\Omega = [0,1]$ together with the restricted Borel \sigalg/ $\cF = \cB_\bbR|_{[0,1]}$ and as probability measure the restricted Lebesgue measure $\bbP := \lambda|_{[0,1]}$. Now consider the function $U(t) = \mathbf{1}_{(0,1]} \, t$. Then, it follows that
+Consider the space $\Omega = [0,1]$ together with the restricted Borel \sigalg/ $\cF = \cB_{[0,1]}$ and as probability measure the restricted Lebesgue measure $\bbP := \lambda|_{[0,1]}$. Now consider the function $U(t) = \mathbf{1}_{(0,1]} \, t$. Then, it follows that
 \[
 	U^{-1}((-\infty,t]) = \begin{cases}
 		\emptyset &\text{if } t \le 0,\\
@@ -503,7 +507,7 @@ For $u \in (0,1)$, write $H(u) := F_X^{-1}(u)$ and note that
 \[
 	H(u) = \frac{1}{\lambda} \log\left(\frac{1}{1-u}\right).
 \]
-Now let $U$ be the standard normal random variable and consider the composition $H \circ U : [0,1] \to \bbR$. First we note that since cdf $F_X(x)$ is strictly monotonic increase, so is $H$. In particular it follows that for any $t > 0$,
+Now let $U$ be the uniform normal random variable and consider the composition $H \circ U : [0,1] \to \bbR$. First, we note that since cdf $F_X(x)$ is strictly monotonic increase, so is $H$. In particular, it follows that for any $t > 0$,
 \[
 	H^{-1}((-\infty,t]) = (-\infty, H^{-1}(t)] = (-\infty, F_X(t)].
 \]
@@ -536,11 +540,11 @@ The main point of the construction above is to consider the inverse of the cdf $
 \] 
 which does not have an inverse as for any $y \in (0,1-p)$ there is no $t$ such that $F(t) = y$.
 
-Nevertheless, if does hold than any cdf $F$ is non-decreasing and right continuous. For these type of functions there exists the notion of a \emph{generalized inverse}, defined as
+Nevertheless, it does hold that any cdf $F$ is non-decreasing and right continuous. For these types of functions, there exists the notion of a \emph{generalized inverse}, defined as
 \begin{equation}
 	\overleftarrow{F}(u) := \inf\{ x \in \bbR \, : \, F(x) \ge y\}. 
 \end{equation}
-The construction we used for the exponential random variable can now be generalize by using $\overleftarrow{F}$ instead of $F^{-1}$. This results in the following theorem on the existence of random variables with a given cdf.
+The construction we used for the exponential random variable can now be generalized by using $\overleftarrow{F}$ instead of $F^{-1}$. This results in the following theorem on the existence of random variables with a given cdf.
 
 \begin{theorem}[Constructing random variables]\label{thm:construction_random_variable}
 Let $F : \bbR \to [0,1]$ be a right continuous, non-decreasing function with 

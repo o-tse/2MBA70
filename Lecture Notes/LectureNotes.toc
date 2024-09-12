@@ -20,7 +20,7 @@
 \contentsline {subsection}{\numberline {3.1.4}Push forward measure}{26}{subsection.3.1.4}%
 \contentsline {section}{\numberline {3.2}Measurable functions on the real line}{26}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Extended real line}{27}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Basic operations}{27}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.2}Basic operations}{28}{subsection.3.2.2}%
 \contentsline {paragraph}{\nonumberline (2)}{28}{paragraph*.3}%
 \contentsline {paragraph}{\nonumberline (4)}{29}{paragraph*.5}%
 \contentsline {subsection}{\numberline {3.2.3}Limit operations}{29}{subsection.3.2.3}%

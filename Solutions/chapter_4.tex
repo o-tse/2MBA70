@@ -1,0 +1,58 @@
+
+\textbf{Problem 4.6}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $t \in \bbR$ and consider the set $A_t = (-\infty, t]$. Then by definition of the probability density function
+\[
+	\nu(A_t) = \int_{-\infty}^t \rho \, \dd \lambda = (X_\# \bbP)((-\infty, t]).
+\]
+We thus conclude that $\nu$ and $X_\# \bbP$ coincide on the family of set $A_t$ and since these generate $\cB$ Theorem 2.2.17 implies that $\nu = X_\# \bbP$.
+\item Since $g$ is a simple function, there exist an $N \in \bbN$, constants $(a_n)_{1 \le n \le N}$ and measurable sets $(A_n)_{1 \le n \le N}$ such that
+\[
+	g = \sum_{n = 1}^N a_n \mathbf{1}_{A_n}.
+\]
+
+Now, by first applying Proposition 4.8.11 and then part (a), we get that
+\begin{align*}
+	\bbE[g(X)] &= \int_{\Omega} g(X) \, \dd \bbP
+		= \int_{\Omega} g \, \dd X_\# \bbP 
+		= \int_\Omega g \, \dd \nu \\
+	&= \int_\Omega \sum_{n = 1}^N a_n \mathbf{1}_{A_n} \, \dd \nu 
+		= \sum_{n = 1}^N a_n \nu(A_n) 
+		= \sum_{n = 1}^N a_n \int_{A_n} \rho \, \dd \lambda \\
+	&= \int_\bbR \sum_{n = 1}^N a_n \mathbf{1}_{A_n} \rho \, \dd \lambda = \int_\bbR g \rho \, \dd \lambda
+\end{align*}
+
+\item First note that by part (b) we have that
+\[
+	\int_\Omega [h]_n(X) \, \dd \bbP = \int_\bbR [h_n] \rho \, \dd \lambda.
+\]
+Now we split the function $[h_n] \rho$ into its positive and negative part and note that
+\[
+	([h_n] \rho)^+ = [h]_n^+ \rho^+ + [h]_n^- \rho^- \quad \text{and} \quad
+	([h_n] \rho)^- = [h]_n^+ \rho^- + [h]_n^- \rho^+,
+\] 
+where $[h]_n^\pm$ and $\rho^\pm$ denote the positive and negative parts of $[h]_n$ and $\rho$.
+
+We will show that 
+\[
+	\int_\Omega h^+(X) \, \dd \bbP = \int_\bbR h^+ \rho \, \dd \lambda. 
+\]
+The proof for the negative part is similar.
+
+\begin{align*}
+	\int_\bbR h^+ \, \dd \nu &= \lim_{n \to \infty} \int_\bbR [h]_n^+ \, \dd \nu &&\text{by Theorem 4.3.4}\\
+	&= \lim_{n \to \infty} \int_\bbR [h]_n^+ \rho \, \dd \lambda &&\text{by part (b)} \\
+	&= \lim_{n \to \infty} \int_\bbR [h]_n^+ \rho^+ \, \dd \lambda
+		- \lim_{n \to \infty} \int_\bbR [h]_n^+ \rho^- \, \dd \lambda &&\text{by linearity of integration} \\
+	&= \int_\bbR h+ \rho^+ \, \dd \lambda - \int_\bbR h+ \rho^- \, \dd \lambda &&\text{by Theorem 4.3.4} \\
+	&= \int_\bbR h^+ \rho \, \dd \lambda &&\text{by linearity of integration}
+\end{align*}
+\item 
+\begin{align*}
+	\bbE[h(X)] &= \int_\Omega h(X) \, \dd \bbP \\
+	&= \int_\bbR h \, \dd X_\# \bbP &&\text{by Proposition 4.8.11}\\
+	&= \int_\bbR h \, \dd \nu &&\text{by part (a)}\\
+	&= \int_\bbR h \rho \, \dd \lambda &&\text{by part (c)}.
+\end{align*}
+\end{enumerate}   

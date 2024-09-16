@@ -431,45 +431,16 @@ Now recall that in the case of a continuous random variable $Y$ with a probabili
 \]
 Again, this formula is correct and follows from Definition~\ref{def:expectation_random_variable} after applying a change of variables. The proof of this result is left as an exercise.
 
-\begin{lemma}
-Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ a continuous random variable with probability density $\rho$ and let $h : \bbR \to \bbR$ be measurable function. Then
+\begin{lemma}\label{lem:expectation_continuous_random_variable}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ a continuous random variable with probability density $\rho$ and let $h : \bbR \to \bbR$ be a measurable function such that $h \rho$ is Lebesgue integrable. Then
 \[
 	\bbE[h(Y)] = \int_\bbR h \rho \, \dd \lambda.
 \]
 \end{lemma}
 
 \begin{proof}
-See problem [??]
+See problem~\ref{prb:expectation_continuous_random_variable}
 \end{proof}
-
-%\begin{example}
-%Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X\colon (\Omega, \cF) \to (\bbR, \cB_\bbR)$ be a continuous random variable. Assume that the distribution of $X$ can be represented by a \emph{probability density function} $\varrho\colon \bbR \to [0,+\infty)$, where $\varrho$ is a Lebesgue integrable function. Then, $X_\# \mathbb{P}$ is the (unique) measure given by
-%\[
-%(X_\# \mathbb{P})((-\infty,a]) =\mathbb{P}\left(\bigl\{ \omega \in \Omega : X(\omega) \in (-\infty,a]\bigr\} \right) = 
-%\int_{-\infty}^a \varrho \, \dd \lambda.
-%\]	
-%Let $h\colon \bbR \to \bbR$ be a bounded measurable function. Then by the change of variables formula,
-%\[
-%	\mathbb{E}[h(X)] = \int_{\bbR} h \, \dd (X_\# \mathbb{P}).
-%\]
-%On the other hand, the set function
-%\[
-%	\nu\colon \cB_{\bbR} \to [0,+\infty],\qquad\nu(A) := \int_A \varrho\, \dd \lambda
-%\]
-%is a measure on the Borel $\sigma$-algebra (see Problem~\ref{prb:measure}). By uniqueness, we conclude that $\nu = X_\# \mathbb{P}$. For simple functions $g:\bbR \to \bbR$, one can now check that
-%\[
-%\int_\bbR g\, \dd \nu = \int_\bbR g \varrho\, \dd \lambda.
-%\]
-%By approximating an arbitrary bounded Borel-measurable function $h$ by a sequence of simple functions and applying the \emph{dominated convergence theorem} (see next chapter), we conclude that also for arbitrary bounded measurable functions $h$,
-%\[
-%\int_{\bbR} h\, \dd \nu = \int_{\bbR} h \varrho\, \dd \lambda
-%\]
-%and thus
-%\[
-%\mathbb{E}[h(X)] = \int_{\bbR} h \, \dd (X_\# \mathbb{P}) = \int_{\bbR} h \, \dd \nu = \int_{\bbR} h \varrho \, \dd \lambda.
-%\]
-%\end{example}
-
 
 \section{The Markov inequality}
 
@@ -552,6 +523,34 @@ In probability language, the Markov inequality looks as follows.
 \smallskip
 	
 	\noindent\textbf{Hint:} If $f$ is bounded, things are easy, so consider the set where $|f|$ is larger than some value and where $|f|$ is smaller than such value.
+\end{problem}
+
+\begin{problem}\label{prb:expectation_continuous_random_variable}
+The goal of this problem is to prove Lemma~\ref{lem:expectation_continuous_random_variable}. 
+
+Consider the set function
+\[
+	\nu\colon \cB_{\bbR} \to [0,+\infty],\qquad\nu(A) := \int_A \varrho\, \dd \lambda,
+\]
+which is a measure on the Borel \sigalg/ by Problem~\ref{prb:measure}.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that $\nu = X_\# \bbP$.
+\item Let $g : \bbR \to \bbR$ be a simple function. Show that
+\[
+	\int_\bbR g \, \dd \nu = \int_\bbR g \rho \, \dd \nu.
+\]
+\end{enumerate}
+
+Now consider the general case, with $h : \bbR \to \bbR$ a measurable function such that $h \rho$ is Lebesgue integrable. Consider not the approximation of $h$ by the simple functions $([h]_n)_{n \ge 1}$ defined in Section~\ref{sec:simple-approximation}.
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{2}
+\item Prove that 
+\[
+	\int_\bbR h \, \dd \nu = \int_\bbR h \rho \, \dd \nu.
+\]
+[Hint: use monotone convergence]
+\item Prove Lemma~\ref{lem:expectation_continuous_random_variable}.
+\end{enumerate}
 \end{problem}
 
 \begin{problem}[Chebyshev's inequality]

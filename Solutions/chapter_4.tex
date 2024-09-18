@@ -1,4 +1,31 @@
 
+\textbf{Problem 4.2}
+
+The idea is to apply the monotone convergence theorem (Theorem 4.3.4). To this end we first note that
+\[
+	\| f_n(\omega) - f(\omega) \| \le 2^{-n} \quad \text{for all } n \in \bbN, \, \omega \in \Omega.
+\] 
+
+From this it follows that $f_n(\omega) \le 2^{-n} + f(\omega)$ and hence
+\begin{align*}
+	\|[f_n](\omega) - f(\omega)\| 
+	&= \|2^n - f(\omega)\| \mathbf{1}_{2^n \le f_n} + \|f_n(\omega) - f(\omega)\|\mathbf{1}_{f_n < 2^n}\\
+	&\le 2^{-n} + 2^{-n}
+\end{align*}
+form which we conclude that $[f_n] \to f$.
+
+The final part is to show that $[f_n] \le [f_{n+1}]$ which follows if we can show that $f_n \le f_{n+1}$. For this we first note that for all $k \ge 1$ $(k+1) 2^{-(n+1)} \le k 2^{-n}$. We also note that $2^{n} \le 2{n+1}$. Now suppose that there exist an $n \ge 1$ and $\omega$ such that $f_n(\omega) > f_{n + 1}(\omega)$. Then it must hold that $f_n(\omega) > 0$ and hence $f_n(\omega) = k 2^{-n}$ for some $k \ge 1$. This then implies that $f_{n+1}(\omega) = \ell 2^{-n}$ for some $\ell \ge k+1$. But this cannot be the case as $[\ell 2^{-n}, (\ell+1)2^{-n}) \cap [k 2^{-n}, (k+1)2^{-n}) = \emptyset$ while $f(\omega)$ should be in both sets.
+
+\bigskip
+
+\textbf{Problem 4.3}
+
+\bigskip
+
+\textbf{Problem 4.4}
+
+\bigskip
+
 \textbf{Problem 4.6}
 
 \begin{enumerate}[label=(\alph*)]

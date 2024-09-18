@@ -1,4 +1,69 @@
+\textbf{Problem 4.2}
 
+This follows directly from an application of MCT since the sequence $[f]_n$ converges pointwise monotonically to $f$.
+
+\bigskip
+\textbf{Problem 4.3}
+
+\begin{enumerate}[label={(\alph*)}]
+	\item By definition, we have that $\nu_f(\Omega) = \int_\Omega f\,\dd\mu = 1$. Now let $(A_n)_{n\in\bbN}$ be a family of mutually disjoint measurable sets. Then we have that the sequence 
+	\[
+		g_n:= \sum_{i=1}^n f\,\mathbf{1}_{A_i} = f\,\mathbf{1}_{\bigcup_{i=1}^n\! A_i}\;\longrightarrow\; g:= f\,\mathbf{1}_{\bigcup_{i\in\bbN}\! A_i}\qquad\text{pointwise monotonically}.
+	\]
+	By MCT, we then have that
+	\[
+		\nu_f\left(\bigcup_{i\in\bbN} A_i\right) = \int_{\bigcup_{i\in\bbN}\! A_i} f\,\dd\mu = \lim_{n\to\infty} \int_{\bigcup_{i=1}^n\! A_i} f\,\dd\mu = \lim_{n\to\infty} \sum_{i=1}^n \int_{A_i} f\,\dd\mu = \sum_{i\in\bbN}\nu_f(A_i),
+	\]
+	thus showing that $\nu_f$ is a probability measure on $(\Omega,\cF)$.
+	
+	\item Following the hint, we start by considering nonnegative simple functions $g$. Suppose $g=\sum_{i=1}^n a_i \mathbf{1}_{A_i}$ for $a_i\in\bbR$ and $A_i\in\cF$ mutually disjoint. Then,
+	\[
+		\int_\Omega g\,d\nu_f = \sum_{i=1}^n a_i =\,\nu_f(A_i) = \sum_{i=1}^n a_i\int_{A_i} f\,\dd\mu = \int_\Omega gf\,\dd\mu.
+	\]
+	Now let $g$ be a nonnegative measurable function and $[g]_n$ be a sequence of nonnegative simple functions that converge pointwise monotonically to $g$. Then MCT yields
+	\[
+		\int_\Omega g\,\dd\nu_f = \lim_{n\to\infty}\int_\Omega [g]_n\,\dd\nu_f = \lim_{n\to\infty} \int_\Omega [g]_n f\,\dd\mu = \int_\Omega gf\,\dd\mu,
+	\]
+	where we used the fact that $[g]_n f$ converges pointwise monotonically to $gf$.
+	
+	\item Let $g$ be measurable. Then $g=g^+-g^-$, where $g^\pm$ are nonnegative measurable functions. Since $f$ is nonnegative, we have that $(fg)^\pm = f g^\pm$. Due to (b), we deduce
+	\[
+		\int_\Omega g^\pm\,\dd\nu_f = \int_\Omega g^\pm f\,\dd\mu = \int_\Omega (gf)^\pm\,\dd\mu.
+	\]
+	Hence, $g^\pm$ is $\nu_f$-integrable if and only if $(gf)^\pm$ is $\mu$-integrable. Consequently, $g$ is $\nu_f$-integrable if and only if $gf$ is $\mu$-integrable, since
+	\[
+		\int_\Omega |g|\,\dd\nu_f = \int_\Omega g^+\,\dd\nu_f + \int_\Omega g^-\,\dd\nu_f = \int_\Omega g^+f\,\dd\mu + \int_\Omega g^-f\,\dd\mu = \int_\Omega |gf|\,\dd\mu.
+	\]
+\end{enumerate}
+
+\bigskip
+\textbf{Problem 4.4}
+
+\paragraph{($\Rightarrow$)} Let $f$ be $\mu$-integrable. Then both $|f|\mathbf{1}_{\{|f|<n\}}$ and $|f|\mathbf{1}_{\{|f|\ge n\}}$ are integrable, due to the monotonicity of the integral. By linearity of the integral,
+\[
+	\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu.
+\]
+Since the sequence $g_n:= |f|\mathbf{1}_{\{|f|< n\}}\ge 0$ converges pointwise monotonically to $|f|$, we can apply MCT to obtain
+\[
+	\lim_{n\to\infty} \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,dd\mu = \int_\Omega |f|\,\dd\mu.
+\]
+Hence,
+\[	
+	\lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu = 0.
+\]
+
+\paragraph{($\Leftarrow$)} By assumption, there is some $N\ge 1$ such that
+\[
+	\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le 1.
+\]
+By linearity of the integral,
+\[
+	\int_\Omega |f|\,\dd\mu = \int_\Omega |f|\mathbf{1}_{\{|f|< N\}}\,\dd\mu +\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le N \mu\bigl(\{|f|< N\}\bigr) + 1.
+\]
+Since $\mu$ is a finite measure, the right-hand side is finite, implying that $f$ is $\mu$-integrable.
+
+
+\bigskip
 \textbf{Problem 4.6}
 
 \begin{enumerate}[label=(\alph*)]

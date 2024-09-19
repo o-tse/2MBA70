@@ -156,6 +156,8 @@ Note that $|\sin(y)| \le |y|$ holds for all $y > 0$ and that for every $x$ we ha
 
 \section{Convergence of random variables}
 
+Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real number, we would like to have a notion of convergence of this sequence. In other words we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there is different ways to define the concept of convergence of random variables. In this section we will discuss three of them: convergence in distribution, convergence in probability and almost sure convergence. While the last one has a more straightforward definition (see ??) the other two rely on a notion of convergence of probability measures, which we will discuss first.
+
 \subsection{Weak convergence of probability measures}
 
 Let $(\Omega, \cF, \mu)$ be a measure space and $f : \Omega \to \bbR$ be $\mu$-integrable. Then we define the measure $\mu \ast f : \cF \to [0,\infty]$ as
@@ -171,7 +173,7 @@ Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$.
 If this is the case we write $\mu_n \Rightarrow \mu$.
 \end{definition}
 
-The definition of weak convergence ask us to verify the convergence of the $\mu_n$ integral of $h$ for any continuous bounded function $h$. In some cases that can be cumbersome task. Hence it would be helpful if we would have some equivalent conditions for weak convergence. The beauty here is that there are many equivalent definitions. There are often summarized in what is known as the Portmanteau lemma (or theorem). We provide one version of it below.
+The definition of weak convergence ask us to verify the convergence of the $\mu_n$ integral of $h$ for any continuous bounded function $h$. In some cases that can be cumbersome task. Hence it would be helpful if we would have some equivalent conditions for weak convergence. The beauty here is that there are many equivalent definitions. They are often summarized in what is known as the Portmanteau lemma (or theorem). We provide one version of it below.
 
 We will first prove an important technical lemma, needed for the proof of this theorem. For any function $h : \bbR \to \bbR$ we denote by $\cC_h \subset \bbR$ the set of continuity points of $h$, i.e. the set of all points $x\in \bbR$ at which $h$ is continuous. 
 
@@ -347,6 +349,8 @@ Taking $k \to \infty$ now yields 3.
 
 \subsection{Convergence in distribution}
 
+Convergence in distribution of a sequence $(X_n)_{n }$ is defined as weak convergence of the corresponding probability measures.
+
 \begin{definition}[Convergence in distribution]\label{def:convergence_distribution}
 Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces with probability measures $\bbP_n$ and $\bbP$, respectively. We say that $X_n$ \emph{converges in distribution} to $X$ if
 \[
@@ -374,7 +378,7 @@ holds for all continuity points $t$ of $F$.
 \end{lemma}
 
 \begin{proof}
-Let $\mu_n := (X_n)_\# \bbP_n$ and $\mu :=  X_\# \bbP_n$.
+Let $\mu_n := (X_n)_\# \bbP_n$ and $\mu :=  X_\# \bbP_n$ and note that for any measurable function $f$, $\bbE[f(X_n)] = \int f \, \dd \mu_n$ and $\bbE[f(X)] = \int f \, \dd \mu$.
 
 We will first prove that $X_n \stackrel{d}{\rightarrow} X$ implies $\lim_{n \to \infty} F_n(t) = F(t)$ for all $t \in \cC_F$. For this let $h(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
 \[
@@ -391,14 +395,90 @@ Since $F$ is continuous at $t$, the right hand side goes to zero as $\varepsilon
 	\mu(\{t\}) = \lim_{\varepsilon \to 0} \mu((t-\varepsilon, t+\varepsilon)) = 0,
 \]
 which implies that $\mu(\cC_h) = 1$. The result now follows by applying condition 2 in Theorem~\ref{thm:portmanteau}.
+
+Next, we prove the other implication. This will be a bit more advanced as it requires two approximation steps for continuous bounded functions. Suppose that  $\lim_{n \to \infty} F_n(t) = F(t)$ for all $t \in \cC_F$. The goals is to show that
+\[
+	\lim_{n \to \infty} \|\bbE[f(X_n)] - \bbE[f(X)]\| = 0,
+\]
+for any continuous bounded function $f$.  
+
+We will first prove this for a slightly different class of functions. Let $h : \bbR \to \bbR$ be a continuous bounded function that is zero outside the closed and bounded interval $[-K, K]]$, for some $K > 0$. We will first show that 
+\begin{equation}\label{eq:conergence_distribution_1}
+	\lim_{n \to \infty} \|\bbE[h(X_n)] - \bbE[h(X)]\| = 0.
+\end{equation}
+
+First note that since $h$ is bounded and continuous and $[-K,K]$ is closed There exists a $\delta > 0$ such that $\|x-y\| \le \delta$ implies that $\|h(x) - h(y)\| < \varepsilon$.
+
+So fix $\varepsilon > 0$, pick such a $\delta$ and partition the interval $[-K,K]$ into $L_\delta := \left \lceil \frac{4K}{\delta} \right \rceil$ intervals $I_\ell = (a_\ell, b_\ell]$ of equal length, which is $\le \delta/2 < \delta$. Now we define the simple function
+\[
+	\hat{h} := \sum_{\ell = 1}^L h(b_\ell) \mathbbm{1}_{I_\ell},
+\]
+and note that we can write this as
+\[
+	\hat{h} := \sum_{\ell = 1}^L \beta_\ell \mathbf{1}_{(-\infty, b_\ell]},
+\]
+where $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$. 
+
+With this last representation we get
+\begin{align*}
+	\lim_{n \to \infty} \bbE[\hat{h}(X_n)] 
+	&= \lim_{n \to \infty} \sum_{\ell = 1}^L \beta_\ell \int_\bbR \mathbf{1}_{X_n^{-1}((-\infty,b_\ell])} \, \dd \bbP \\
+	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell (X_n)_\# \bbP ((-\infty, b_\ell]) \\
+	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell F_n(b_\ell) \\
+	&= \sum_{\ell = 1}^L F(b_\ell) = \bbE[\hat{h}(X)].
+\end{align*}
+
+Using the first representation of $\hat{h}$ we note that $\|h(x) - \hat(y)\| < \varepsilon$ for all $x,y \in I_\ell$. This then implies that
+\begin{align*}
+	\|\bbE[h(X_n)] - \bbE[h(X)]\| &\le \|h(X_n) - \hat{h}(X_n)\| + \|h(X) - \hat{h}(X)\| + \|\hat{h}(X_n) - \hat{h}(X)\|\\
+	&\le 2\varepsilon + \|\hat{h}(X_n) - \hat{h}(X)\|,
+\end{align*}
+where we have shown that the last term goes to zero as $n \to \infty$. Since $\varepsilon$ was arbitrary we conclude that~\eqref{eq:conergence_distribution_1} holds.
+
+Now consider the case of a continuous bounded function $f$ with $\|f(x)\| \le M$ for all $x \in \bbR$. We will show that for any $\varepsilon > 0$
+\[
+	\|\bbE[f(X_n)] - \bbE[f(X)]\| \to \varepsilon,
+\]
+which then implies the result.
+
+So let $\varepsilon > 0$ be fixed and observe that there exists an $\alpha > 0$ such that $\bbP(\|X|\ > \alpha) \le \varepsilon/(2M)$. Also observe that we can define a non-negative continuous function $g$ such that $g = 1$ on $[-\alpha, \alpha]$ and $g = 0$ on $\bbR \setminus (-(\alpha+1),\alpha+1)$.
+
+We now make two observation
+\begin{enumerate}
+\item The function $g$ is a non-negative continuous bounded functions that is zero outside the interval $[-(\alpha+1), \alpha+1]$ and thus we can apply the convergence result in~\eqref{eq:conergence_distribution_1}.
+\item By definition of $\alpha$ we have that 
+\[
+	\bbE[g(X)] \ge \bbE[g(X) \mathbbm{1}_{X \in [-\alpha, \alpha]}] = \bbP(X^{-1}([-\alpha,\alpha]))
+	= 1 - \bbP(\|X\| > \alpha) \ge 1 - \frac{\varepsilon}{2M}.
+\] 
+\end{enumerate}
+
+Let us now consider the function $f(X_n)$ and $f(X_n)g(X_n)$. Then we have that
+\begin{align*}
+	\|\bbE[f(X_n)] - \bbE[f(X_n)g(X_n)]\| \le \bbE[f(X_n)\|1 - g(X_n)\|] 
+	\le M \bbE[1 - g(X_n)] = M(1-\bbE[g(X_n)]).
+\end{align*}
+Since the later term converges to $\bbE[g(X)]$ by~\eqref{eq:conergence_distribution_1} we get that
+\[
+	\limsup_{n \to \infty} \|\bbE[f(X_n)] - \bbE[f(X_n)g(X_n)]\| \le M(1-\bbE[g(X)])
+	\le \frac{\varepsilon}{2},
+\]
+using the second observation. The same conclusion holds true when we replace $X_n$ by $X$.
+
+If we now write
+\begin{align*}
+	\|\bbE[f(X_n)] - \bbE[f(X)]\| &\le \|\bbE[f(X_n)] - \bbE[f(X_n)g(X_n)]\| + \|\bbE[f(X)g(X)] - \bbE[f(X)]\| \\
+		&\hspace{10pt}+ \|\bbE[f(X_n)g(X_n)] - \bbE[f(X)g(X)]\|
+\end{align*}
+we see that the first two terms converge to $\varepsilon/2$ (by the computation above) while the term on the second line converges to zero by~\eqref{eq:conergence_distribution_1} since $fg$ is also a continuous bounded function that is zero outside the interval $[-(\alpha+1),\alpha+1]$. 
 \end{proof}
 
-Convergence in distribution to a constant $r \in \bbR$. 
+
 
 \subsection{Convergence in probability}
 
 \begin{definition}[Convergence in probability]
-Let $(X_n)_{n \ge 1}$ and $X$ be random variables define on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := \|X_n - X\|$. We say that $X_n$ \emph{converges in probability} to $X$ if
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := \|X_n - X\|$. We say that $X_n$ \emph{converges in probability} to $X$ if
 \[
 	(Y_n)_\# \bbP \Rightarrow 0_\# \bbP,
 \] 
@@ -417,6 +497,93 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables define on the same probability
 	\lim_{n \to \infty} \bbP(\|X_n - X\| > \varepsilon) = 0 \quad \text{for every } \varepsilon > 0.
 \]
 \end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+
+The notion of convergence in probability is a stronger condition than convergence in distribution. In particular, the first statement implies the second. 
+
+\begin{lemma}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \plim X$. Then $X_n \dlim X$.
+\end{lemma}
+
+\begin{proof}
+Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$ Let $t$ be a continuity point of $F_X$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
+\begin{align*}
+	\bbP(X_n \le t)
+	&= \bbP(\{X_n \le t\} \cap \{|X_n - X| \le \varepsilon\}) + \bbP(\{X_n \le t\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X \le t + \varepsilon) + \bbP(|X_n - X| > \varepsilon).
+\end{align*}
+Taking the limsup on both sides yields
+\[
+	\limsup_{n \to \infty} \bbP(X_n \le t)
+	\le \bbP(X \le t + \varepsilon) + \limsup_{n \to \infty} \bbP(\|X_n - X| > \varepsilon)
+	= \bbP(X \le t + \varepsilon),
+\]
+since $X_n \plim X$ implies that
+\[
+	\limsup_{n \to \infty} \bbP(|X_n - X| > \varepsilon)
+	= \lim_{n \to \infty} \bbP(|X_n - X| > \varepsilon) = 0.
+\]
+Since $t$ is a continuity point of $F_X$ it follows that 
+\[
+	\lim_{\varepsilon \downarrow 0} \bbP(X \le t + \varepsilon) = \bbP(X \le t),
+\]
+which implies that $\limsup_{n \to \infty} \bbP(X_n \le t) \le \bbP(X \le t)$.
+
+To prove the result, it now suffices to show that $\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t)$.
+We shall do this in a way that is similar to the case with the limsup. First observe that $X \le t - \varepsilon$ and $|X_n - X| \le \varepsilon$ implies that $X_n \le t$. This way we get
+\begin{align*}
+	\bbP(X \le t - \varepsilon)
+	&= \bbP(\{X \le t - \varepsilon\} \cap \{|X_n -X|\le \varepsilon\}) + \bbP(\{X \le t - \varepsilon\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X_n \le t) + \bbP(|X_n - X| > \varepsilon).
+\end{align*}
+Taking the liminf on both sides gives
+\[
+	\bbP(X \le t - \varepsilon)
+	\le \liminf_{n \to \infty} \bbP(X_n \le t),
+\]
+and using that $t$ is a continuity point of $F_X$ we conclude that 
+\[
+	\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t).
+\]
+\end{proof}
+
+While convergence in probability implies convergence in distribution, the other implication is not true in general (see Problem ??). However, if $X$ is constant (deterministic instead of random) then both notions of convergence are equivalent.
+
+\begin{lemma}{}\label{lem:dlim_constant_plim}
+Let $(X_n)_{n \ge 1}$ be a sequence of random variables such that $X_n \dlim a$ for some constant $a \in \mathbb{R}$. Then we also have that $X_n \plim a$.
+\end{lemma}
+
+\begin{proof}
+Fix some $\varepsilon > 0$. We have to show that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0.
+\]
+Let $B_\varepsilon(a)$ denote the open ball of radius $\varepsilon$ around $a$ and consider the compliment $B_\varepsilon(a)^c := \mathbb{R} \setminus B_\varepsilon(a)$, which is a closed set. We then have
+\[
+	\bbP(|X_n-a|>\varepsilon) \le \bbP(|X_n-a|\ge\varepsilon) = \bbP(X_n \in B_\varepsilon(a)^c). 
+\]
+In particular we have
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) \le \limsup_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon(a)^c).
+\]
+Since $X_n \dlim a$, statement 3 in Theorem~\ref{thm:portmanteau} implies that 
+\[
+	\limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon(a)^c)
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon(a)^c) = 0,
+\]
+because obviously $a \notin B_\varepsilon(a)^c$. Therefore we conclude that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon(a)^c) = 0
+\]
+which implies that $\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0$.
+\end{proof}
+
 
 \subsection{Almost-sure convergence}
 

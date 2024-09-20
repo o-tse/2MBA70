@@ -47,7 +47,7 @@ Then
 \end{theorem}
 
 \begin{proof}
-Our proof will use the monotone convergence theorem. There are however other proofs, based on first principles. See for example [REF].
+Our proof will use the monotone convergence theorem. There are however other proofs, based on first principles. 
 
 Define the function $g_n(\omega) := \inf_{k \ge n} f_k(\omega)$ and note that by Lemma~\ref{lem:limit_operations_measurable_functions} $g_n$ are measurable. Moreover, $g_n(\omega) \le g_{n+1}(\omega)$ for all $\omega \in \Omega$ and $\lim_{n \to \infty} g_n(\omega) = f(\omega)$. Hence, Theorem~\ref{thm:monotone_convergence_ii} implies that
 \[
@@ -204,6 +204,7 @@ Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$.
 \begin{enumerate}
 \item $\mu_n \Rightarrow \mu$.
 \item $\mu_n \ast h \to \mu \ast h$ for all bounded measurable functions $h: \bbR \to \bbR$ with $\mu(\cC_h) = 1$.
+\item $\mu_n \ast g \to \mu \ast g$ for all continuous bounded function $g : \bbR \to \bbR$ that are zero outside an interval $[-K,K]$ for some $K > 0$.
 \item $\limsup_{n \to \infty} \mu_n(B) \le \mu(B)$ for all closed sets $B \subset \bbR$.
 \item $\liminf_{n \to \infty} \mu_n(A) \ge \mu(A)$ for all open sets $A \subset \bbR$.
 \item $\lim_{n \to \infty} \mu(C) = \mu(C)$ for all $\mu$-continuity sets $C$.
@@ -211,14 +212,14 @@ Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$.
 \end{theorem} 
 
 \begin{proof}
-We will prove the following implication chain: 4 $\iff$ 3 $\Rightarrow$ 1 $\Rightarrow$ 2 $\Rightarrow$ 5 $\Rightarrow$ 3  
+We will prove the following implication chain: 5 $\iff$ 4 $\Rightarrow$ 1 $\Rightarrow$ 2 $\Rightarrow$ 6 $\Rightarrow$ 4 and 1 $\iff$ 3. 
 
-\textbf{4 $\iff$ 3:} This follows directly since every closed set $B$ is the complement of an open set $A$, i.e. $B = \bbR \setminus A$ and thus
+\textbf{5 $\iff$ 4:} This follows directly since every closed set $B$ is the complement of an open set $A$, i.e. $B = \bbR \setminus A$ and thus
 \[
 	\limsup_{n \to \infty} \mu_n(B) = \limsup_{n \to \infty} 1 - \mu_n(A) = 1 - \liminf_{n \to \infty} \mu_n(A).
 \]
 
-\textbf{3 $\Rightarrow$ 1:} Let $h$ be a continuous bounded function. Then, without loss of generality we may assume that $0 \ge h < 1$. Now fix some $k \in \bbN$ and define the following sets:
+\textbf{4 $\Rightarrow$ 1:} Let $h$ be a continuous bounded function. Then, without loss of generality we may assume that $0 \ge h < 1$. Now fix some $k \in \bbN$ and define the following sets:
 \[
 	B_j := \{x \in \bbR \, : \, \frac{j}{k} \le f(x)\} \quad \text{for } j = 0, 1, \dots, k.
 \]
@@ -259,7 +260,7 @@ We thus conclude that for any $k \ge 1$,
 \end{equation}
 Moreover, the same inequalities hold for the measures $\mu_n$.
 
-Applying 3 we then get
+Applying 4 we then get
 \begin{align*}
 	\limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n
 	&\le  \limsup_{n \to \infty} \left(\frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \mu_n(B_j) \right)\\
@@ -314,7 +315,7 @@ And since $\varepsilon > 0$ was arbitrary we conclude that
 \]
 which then implies that $\mu_n \ast h \to \mu \ast h$.
 
-\textbf{2 $\Rightarrow$ 5:} Let $C$ be a $\mu$-continuity set and consider the function $h(x) = \mathbf{1}_{C}$. Then clearly $h$ is measurable and bounded. Moreover, the function $h$ is discontinuous precisely on the boundary $\partial C$ and hence
+\textbf{2 $\Rightarrow$ 6:} Let $C$ be a $\mu$-continuity set and consider the function $h(x) = \mathbf{1}_{C}$. Then clearly $h$ is measurable and bounded. Moreover, the function $h$ is discontinuous precisely on the boundary $\partial C$ and hence
 \[
 	\mu(\cC_h) =\mu(\bbR \setminus \partial C) = 1 - \mu(\partial C) = 1-0 = 1.
 \]
@@ -324,7 +325,7 @@ Hence the function $h$ satisfies the conditions of 2 and thus
 \]
 
 
-\textbf{5 $\Rightarrow$ 3:} Let $B$ be a closed set, take $\delta > 0$ and consider the sets
+\textbf{6 $\Rightarrow$ 4:} Let $B$ be a closed set, take $\delta > 0$ and consider the sets
 \[
 	A_\delta = \{x \in \bbR \, : \, \|x - B\| < \delta\},
 \]
@@ -340,11 +341,37 @@ We then have that
 \[
 	\limsup_{n \to \infty} \mu_n(B) \le \limsup_{n \to \infty} \mu_n(B_k) = \mu(B_k),
 \]
-where the last equality is due to 5, which implies that $\mu_n(B_k) \to \mu(B_k)$.
+where the last equality is due to 6, which implies that $\mu_n(B_k) \to \mu(B_k)$.
 
-Taking $k \to \infty$ now yields 3.
+Taking $k \to \infty$ now yields 4.
 
+\textbf{1 $\iff$ 3:} The implication $1 \Rightarrow 3$ is trivial. So assume that $\mu_n \ast g \to \mu \ast g$ holds for all continuous bounded function that are zero outside some compact interval $[-K,K]$ and let $f : \bbR \to \bbR$ be a continuous bounded function with $\|f(x)\| \le M$ for all $x \in \bbR$. We will show that for any $\varepsilon > 0$
+\[
+	\|\mu_n \ast f - \mu \ast f\| \to \varepsilon,
+\]
+which then implies the result.
 
+So let $\varepsilon > 0$ be fixed and observe that there exists an $\alpha > 0$ such that $\mu(\bbR \setminus [-\alpha, \alpha]) < \varepsilon/(2M)$. Also observe that we can define a non-negative continuous function $g$ such that $g = 1$ on $[-\alpha, \alpha]$ and $g = 0$ on $\bbR \setminus (-(\alpha+1),\alpha+1)$. Observer that $g$ is a non-negative continuous bounded functions that is zero outside the interval $[-(\alpha+1), \alpha+1]$ and thus we can apply 3.
+
+Let us now consider the measures $\mu_n \ast f$ and $\mu_n \ast fg$. Then we have that
+\begin{align*}
+	\|\mu_n\ast f(A) - \mu_n \ast fg(A)\|
+	&= \|\int_A f \, \dd \mu_n - \int_A fg \, \dd \mu_n\|\\
+	&= \|\int_A f (1-g) \, \dd \mu_n\| \le M \int_A (1-g) \, \dd \mu_n \\
+	&\le M \int_\bbR (1-g) \, \dd \mu_n = M(1-\int_\bbR g \, \dd \mu_n)
+\end{align*}
+Since the later term converges to $\int_\bbR g \, \dd \mu$ by~\eqref{eq:conergence_distribution_1} we get that
+\begin{align*}
+	\limsup_{n \to \infty} \|\mu_n\ast f(A) - \mu_n \ast fg(A)\| &\le M(1- \int_\bbR g \, \dd \mu)\\
+	&\le M \int_\bbR (1-g) \, \dd \mu \le M \mu(\bbR \setminus [-\alpha,\alpha]) < \frac{\varepsilon}{2}.
+\end{align*}
+The same conclusion holds true for $\|\mu\ast f(A) - \mu \ast fg(A)\|$.
+
+If we now write
+\begin{align*}
+	\|\mu_n \ast f(A) - \mu \ast f(A)\| &\le \|\mu_n\ast f(A) - \mu_n \ast fg(A)\| + \|\mu_\ast f(A) - \mu \ast fg(A)\|\\ &\hspace{10pt}+ \|\mu_n \ast fg(A) - \mu \ast fg(A)\|
+\end{align*}
+we see that the first two terms converge to $\varepsilon/2$ (by the computation above) while the term on the second line converges to zero by our assumption, since $fg$ is also a continuous bounded function that is zero outside the interval $[-(\alpha+1),\alpha+1]$. 
 \end{proof}
 
 \subsection{Convergence in distribution}
@@ -378,106 +405,14 @@ holds for all continuity points $t$ of $F$.
 \end{lemma}
 
 \begin{proof}
-Let $\mu_n := (X_n)_\# \bbP_n$ and $\mu :=  X_\# \bbP_n$ and note that for any measurable function $f$, $\bbE[f(X_n)] = \int f \, \dd \mu_n$ and $\bbE[f(X)] = \int f \, \dd \mu$.
-
-We will first prove that $X_n \stackrel{d}{\rightarrow} X$ implies $\lim_{n \to \infty} F_n(t) = F(t)$ for all $t \in \cC_F$. For this let $h(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
-\[
-	F_n(t) = (X_n)_\# \bbP_n ((-\infty,x]) = \int_\bbR \mathbbm{1}_{(-\infty,t]} \, \dd (X_n)_\# \bbP_n
-	= \mu_n \ast h.
-\]
-The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. Moreover, for any $\varepsilon > 0$
-\[
-	\mu((t-\varepsilon, t+\varepsilon)) = \mu((t-\varepsilon,t]) + \mu((t,t+\varepsilon))
-	= F(t) - F(t-\varepsilon) + F(t + \varepsilon) - F(t).
-\]
-Since $F$ is continuous at $t$, the right hand side goes to zero as $\varepsilon \to 0$. Therefore
-\[
-	\mu(\{t\}) = \lim_{\varepsilon \to 0} \mu((t-\varepsilon, t+\varepsilon)) = 0,
-\]
-which implies that $\mu(\cC_h) = 1$. The result now follows by applying condition 2 in Theorem~\ref{thm:portmanteau}.
-
-Next, we prove the other implication. This will be a bit more advanced as it requires two approximation steps for continuous bounded functions. Suppose that  $\lim_{n \to \infty} F_n(t) = F(t)$ for all $t \in \cC_F$. The goals is to show that
-\[
-	\lim_{n \to \infty} \|\bbE[f(X_n)] - \bbE[f(X)]\| = 0,
-\]
-for any continuous bounded function $f$.  
-
-We will first prove this for a slightly different class of functions. Let $h : \bbR \to \bbR$ be a continuous bounded function that is zero outside the closed and bounded interval $[-K, K]]$, for some $K > 0$. We will first show that 
-\begin{equation}\label{eq:conergence_distribution_1}
-	\lim_{n \to \infty} \|\bbE[h(X_n)] - \bbE[h(X)]\| = 0.
-\end{equation}
-
-First note that since $h$ is bounded and continuous and $[-K,K]$ is closed There exists a $\delta > 0$ such that $\|x-y\| \le \delta$ implies that $\|h(x) - h(y)\| < \varepsilon$.
-
-So fix $\varepsilon > 0$, pick such a $\delta$ and partition the interval $[-K,K]$ into $L_\delta := \left \lceil \frac{4K}{\delta} \right \rceil$ intervals $I_\ell = (a_\ell, b_\ell]$ of equal length, which is $\le \delta/2 < \delta$. Now we define the simple function
-\[
-	\hat{h} := \sum_{\ell = 1}^L h(b_\ell) \mathbbm{1}_{I_\ell},
-\]
-and note that we can write this as
-\[
-	\hat{h} := \sum_{\ell = 1}^L \beta_\ell \mathbf{1}_{(-\infty, b_\ell]},
-\]
-where $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$. 
-
-With this last representation we get
-\begin{align*}
-	\lim_{n \to \infty} \bbE[\hat{h}(X_n)] 
-	&= \lim_{n \to \infty} \sum_{\ell = 1}^L \beta_\ell \int_\bbR \mathbf{1}_{X_n^{-1}((-\infty,b_\ell])} \, \dd \bbP \\
-	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell (X_n)_\# \bbP ((-\infty, b_\ell]) \\
-	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell F_n(b_\ell) \\
-	&= \sum_{\ell = 1}^L F(b_\ell) = \bbE[\hat{h}(X)].
-\end{align*}
-
-Using the first representation of $\hat{h}$ we note that $\|h(x) - \hat(y)\| < \varepsilon$ for all $x,y \in I_\ell$. This then implies that
-\begin{align*}
-	\|\bbE[h(X_n)] - \bbE[h(X)]\| &\le \|h(X_n) - \hat{h}(X_n)\| + \|h(X) - \hat{h}(X)\| + \|\hat{h}(X_n) - \hat{h}(X)\|\\
-	&\le 2\varepsilon + \|\hat{h}(X_n) - \hat{h}(X)\|,
-\end{align*}
-where we have shown that the last term goes to zero as $n \to \infty$. Since $\varepsilon$ was arbitrary we conclude that~\eqref{eq:conergence_distribution_1} holds.
-
-Now consider the case of a continuous bounded function $f$ with $\|f(x)\| \le M$ for all $x \in \bbR$. We will show that for any $\varepsilon > 0$
-\[
-	\|\bbE[f(X_n)] - \bbE[f(X)]\| \to \varepsilon,
-\]
-which then implies the result.
-
-So let $\varepsilon > 0$ be fixed and observe that there exists an $\alpha > 0$ such that $\bbP(\|X|\ > \alpha) \le \varepsilon/(2M)$. Also observe that we can define a non-negative continuous function $g$ such that $g = 1$ on $[-\alpha, \alpha]$ and $g = 0$ on $\bbR \setminus (-(\alpha+1),\alpha+1)$.
-
-We now make two observation
-\begin{enumerate}
-\item The function $g$ is a non-negative continuous bounded functions that is zero outside the interval $[-(\alpha+1), \alpha+1]$ and thus we can apply the convergence result in~\eqref{eq:conergence_distribution_1}.
-\item By definition of $\alpha$ we have that 
-\[
-	\bbE[g(X)] \ge \bbE[g(X) \mathbbm{1}_{X \in [-\alpha, \alpha]}] = \bbP(X^{-1}([-\alpha,\alpha]))
-	= 1 - \bbP(\|X\| > \alpha) \ge 1 - \frac{\varepsilon}{2M}.
-\] 
-\end{enumerate}
-
-Let us now consider the function $f(X_n)$ and $f(X_n)g(X_n)$. Then we have that
-\begin{align*}
-	\|\bbE[f(X_n)] - \bbE[f(X_n)g(X_n)]\| \le \bbE[f(X_n)\|1 - g(X_n)\|] 
-	\le M \bbE[1 - g(X_n)] = M(1-\bbE[g(X_n)]).
-\end{align*}
-Since the later term converges to $\bbE[g(X)]$ by~\eqref{eq:conergence_distribution_1} we get that
-\[
-	\limsup_{n \to \infty} \|\bbE[f(X_n)] - \bbE[f(X_n)g(X_n)]\| \le M(1-\bbE[g(X)])
-	\le \frac{\varepsilon}{2},
-\]
-using the second observation. The same conclusion holds true when we replace $X_n$ by $X$.
-
-If we now write
-\begin{align*}
-	\|\bbE[f(X_n)] - \bbE[f(X)]\| &\le \|\bbE[f(X_n)] - \bbE[f(X_n)g(X_n)]\| + \|\bbE[f(X)g(X)] - \bbE[f(X)]\| \\
-		&\hspace{10pt}+ \|\bbE[f(X_n)g(X_n)] - \bbE[f(X)g(X)]\|
-\end{align*}
-we see that the first two terms converge to $\varepsilon/2$ (by the computation above) while the term on the second line converges to zero by~\eqref{eq:conergence_distribution_1} since $fg$ is also a continuous bounded function that is zero outside the interval $[-(\alpha+1),\alpha+1]$. 
+See Problem~\ref{prb:convergence_probability_classic}.
 \end{proof}
 
 
 
 \subsection{Convergence in probability}
 
-\begin{definition}[Convergence in probability]
+\begin{definition}[Convergence in probability]\label{def:convergence_probability}
 Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := \|X_n - X\|$. We say that $X_n$ \emph{converges in probability} to $X$ if
 \[
 	(Y_n)_\# \bbP \Rightarrow 0_\# \bbP,
@@ -486,6 +421,10 @@ where $0$ denotes the constant function $\omega \mapsto 0$.
 
 If this is the case we write $X_n \stackrel{\bbP}{\rightarrow} X$.
 \end{definition}
+
+\begin{remark}
+Note that unlike convergence in distribution, the concept of convergence in probability requires all random variables to be defined on the same probability space. This requirement can be relaxed a bit by having each $X_n$ be defined on a different probability space $(\Omega_n, \cF_n. \bbP_n)$ but have $X$ be defined on each of these spaces. From this perspective we see that if we talk about convergence in probability to a constant $X_n \plim a \in \bbR$, then this is always true as constant random variables can be defined on any probability space.
+\end{remark}
 
 Recall that for a random variable $X$ on a probability space $(\Omega, \cF, \bbP)$ we wrote $\bbP(X \le t)$ as a short hand notation for $X_\# \bbP ((-\infty,t])$, i.e. the cdf of $X$ at $t$, and $\bbP(X > t)$ for $X_\# \bbP ((t,\infty))$, i.e. the ccdf of $X$ at $t$.
 
@@ -499,7 +438,7 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables define on the same probability
 \end{lemma}
 
 \begin{proof}
-
+See Problem~\ref{prb:convergence_probability_classic}
 \end{proof}
 
 
@@ -510,7 +449,7 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \plim X$. Then 
 \end{lemma}
 
 \begin{proof}
-Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$ Let $t$ be a continuity point of $F_X$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
+We will use the form of from Lemma~\ref{lem:convergence_probability_classical}. Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$ Let $t$ be a continuity point of $F_X$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
 \begin{align*}
 	\bbP(X_n \le t)
 	&= \bbP(\{X_n \le t\} \cap \{|X_n - X| \le \varepsilon\}) + \bbP(\{X_n \le t\} \cap \{|X_n - X|>\varepsilon\})\\
@@ -551,14 +490,14 @@ and using that $t$ is a continuity point of $F_X$ we conclude that
 \]
 \end{proof}
 
-While convergence in probability implies convergence in distribution, the other implication is not true in general (see Problem ??). However, if $X$ is constant (deterministic instead of random) then both notions of convergence are equivalent.
+While convergence in probability implies convergence in distribution, the other implication is not true in general (see Problem~\ref{prb:dlim_not_plim}). However, if $X$ is constant (deterministic instead of random) then both notions of convergence are equivalent.
 
 \begin{lemma}{}\label{lem:dlim_constant_plim}
 Let $(X_n)_{n \ge 1}$ be a sequence of random variables such that $X_n \dlim a$ for some constant $a \in \mathbb{R}$. Then we also have that $X_n \plim a$.
 \end{lemma}
 
 \begin{proof}
-Fix some $\varepsilon > 0$. We have to show that
+We will use the form of from Lemma~\ref{lem:convergence_probability_classical}. Fix some $\varepsilon > 0$. We have to show that
 \[
 	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0.
 \]
@@ -587,26 +526,100 @@ which implies that $\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0$.
 
 \subsection{Almost-sure convergence}
 
+The final notion of convergence we will discuss is \emph{almost-sure convergence}, which looks much more natural than the previous two notions and requires less notation.
+
+\begin{definition}[Almost-sure convergence]\label{def:almost_sure_convergence}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. We say that $X_n$ \emph{converges almost-surely} to $X$ if
+\[
+	\bbP(\{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}) = 1.
+\] 
+In this case we write $X_n \aslim X$.
+\end{definition} 
+
+The definition of almost-sure convergence says that the probability that the set for which $X$ is \emph{not} the limit of $X_n$ must have probability zero. This is why it is also often referred to as \emph{convergence with probability $1$}.
+
+There is a different way to characterize \emph{almost-sure} convergence which is often useful. This requires the concept of \emph{infinitely often}.
+
+\begin{definition}[Infinitely often]
+Let $(\Omega, \cF, \bbP)$ be a probability space and consider a sequence $(A_n)_{n \ge 1}$ of measurable sets. We then define the event $\{A_n \text{ i.o.}\}$ ($A_n$ happens infinitely often) as
+\[
+	\{A_n \text{ i.o.}\} := \bigcap_{k = 1}^\infty \bigcup_{n \ge k} A_n.
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:almost_sure_alternative}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. Then
+\[
+	X_n \aslim X \iff \bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0 \quad \text{for all } \varepsilon > 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $A_n(\varepsilon) :=  \{\|X_n - X\| > \varepsilon\}$ and $A = \{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}$. We first observe that
+\[
+	\Omega\setminus A = \bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}.
+\]
+
+Now suppose that $X_n \aslim X$ and let $\varepsilon > 0$. Then $\bbP(A) = 1$ and there exist a $m \in \bbN$ such that $\{A_n(\varepsilon) \text{ i.o.}\} \subset \{A_n(1/m) \text{ i.o}\}$. Thus
+\[
+	\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) \le \bbP(\{A_n(1/m) \text{ i.o.}\}) \le \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) = \bbP(\Omega \setminus A) = 0.
+\]
+
+For the other implication suppose that $\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) = 0$ for all $\varepsilon > 0$. Then clearly the same holds for all $\varepsilon = 1/m$ with $m \in \bbN$. Hence
+\[
+	\bbP(\Omega\setminus A) = \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) \le \sum_{m \in \bbN} \bbP(\{A_n(1/m) \text{ i.o.}\}) = 0,
+\]
+which implies that $\bbP(A) = 1$.
+\end{proof}
+
+While this notion of convergence looks very natural, it turn out it is the strongest of the three notions. In practice proving almost-sure convergence is often much harder than proving convergence in probability or distribution.
+
+\begin{lemma}\label{lem:almost_sure_implies_probability}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \aslim X$. Then $X_n \plim X$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:almost_sure_implies_probability}.
+\end{proof}
+
 \section{Problems}
 
+\begin{problem}\label{prb:reverse_fatou}
+Prove the reverse Fatou lemma:
+
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be non-negative, measurable functions such that $f_n \le f$ and $\int_\Omega f \, \dd \mu <\infty$. Then
+\[
+	\limsup_{n\to \infty} \int_\Omega f_n \dd \mu \le \int_\Omega \limsup_{n\to \infty} f_n \dd \mu.
+\]
+
+\end{problem}
+
+\begin{problem}\label{prb:dlim_not_plim}
+Give an example (with proof) of a sequence of random variables that converge in distribution but not in probability.
+\end{problem}
+
+\begin{problem}\label{prb:convergence_probability_classic}
+Prove Lemma~\ref{lem:convergence_probability_classical}.
+\end{problem}
+
 \begin{problem}\label{prb:convergence_distribution}
-The goal of this problem is to prove Lemma~\ref{lem:convergence_probability_classical}. That is
+The goal of this problem is to prove Lemma~\ref{lem:convergence_distribution_cdfs}. That is
 \[
 	X_n \stackrel{d}{\rightarrow} X \iff F_n(t) \to F(t) \quad \text{for all } t \in \cC_F,
 \]
 where $F_n$ and $F$ denote the cdfs of the random variables $X_n$ and $X$, respectively.
- 
-We will first prove the $\Rightarrow$ implication. Write $\mu_n = (X_n)_\# \bbP_n$ and $\mu = X_\# \bbP$.
-\begin{enumerate}
+
+Write $\mu_n = (X_n)_\# \bbP_n$ and $\mu = X_\# \bbP$ and note that for any measurable function $f$, $\bbE[f(X_n)] = \int f \, \dd \mu_n$ and $\bbE[f(X)] = \int f \, \dd \mu$.
+
+We will first prove the $\Rightarrow$ implication. 
+\begin{enumerate}[label={(\alph*)}]
 \item Let $t \in \bbR$. Find a measurable function $h_t$, such that $F_n(t) = \mu_n \ast h_t$ and $F(t) = \mu \ast h_t$.
 \item Show that $\mu(\cC_{h_t}) = 1$.
 \item Prove the $\Rightarrow$ implication. 
 \end{enumerate}
 
-For the other implication $\Leftarrow$ we will first show that $F_n(t) \to F(t)$ for all $t \in \cC_F$ implies that $\mu_n \ast g \to \mu \ast g$ for all continuous function that are non-zero only on a bounded and closed set $C$.
-
-So let $g$ be such a function. You may use the fact that any continuous function that is non-zero on a bounded and closed set is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
-\begin{enumerate}
+For the other implication $\Leftarrow$ we will use the Portmanteau Theorem. Let $g$ be a bounded continuous function that is zero outside some interval $[-K,K]$, for some $K > 0$. You may use the fact that any continuous function that is non-zero on a bounded and closed set is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
+\begin{enumerate}[label={(\alph*)}]
 \setcounter{enumi}{3}
 \item Construct a partition of $C$ into $T$ intervals $I_i = (a_i, b_i]$ such that for each $i \le T$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
 \end{enumerate}
@@ -615,34 +628,20 @@ We will now define an approximate function
 \[
 	\hat{g}(x) = \sum_{i = 1}^T \eta_i \mathbf{1}_{I_i},
 \]
-where $\eta_i = h(\max\{x \in I_i\})$.
+where $\eta_i = h(b_i)$.
 
-\begin{enumerate}
+\begin{enumerate}[label={(\alph*)}]
 \setcounter{enumi}{4}
-\item Show that there exists sequences $(b_i)_{1 \le i \le m}$ and $(t_i)_{1 \le i \le m}$ such that
+\item Show that there exists sequences $(\gamma_i)_{1 \le i \le m}$ and $(t_i)_{1 \le i \le m}$ such that
 \[
-	\tilde{g}(x) = \sum_{i = 1}^m b_i \mathbf{1}_{(-\infty, t_i]}.
+	\hat{g}(x) = \sum_{i = 1}^m \gamma_i \mathbf{1}_{(-\infty, t_i]}.
 \]
-\item Prove that $\lim_{n \to \infty} \bbE[\tilde{g}(X_n)] = \bbE[\tilde{g}(X)]$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
-\item Prove that $\|\bbE[g(X_n)] - \bbE[g(X)]\| \to 0$. [Hint: First use the previous result to show that $\|\bbE[g(X_n)] - \bbE[g(X)]\| \to 2\varepsilon$ by adding and subtracting $\bbE[\tilde{g}(X_n)]$ and $\bbE[\tilde{g}(X)]$.]
+\item Prove that $\lim_{n \to \infty} \mu_n \ast \hat{g} = \mu \ast \hat{g}$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
+\item Prove that $\mu_n \ast g \to \mu \ast g$. [Hint: First use the previous result to show that $\|\mu_n \ast g(A) - \mu \ast g(A)\| \to 2\varepsilon$ by adding and subtracting $\mu_n \ast \hat{g}$ and $\mu \ast \hat{g}$.]
+\item Conclude that $X_n \dlim X$.
 \end{enumerate}
-
-Now consider a general continuous bounded function $h$ and suppose that $\|h(x)\| \le H$ for all $x \in \bbR$. Let $\varepsilon > 0$, let $\alpha = \alpha(\varepsilon) > 0$ be such that $\bbP(\|X\| > \alpha) \le \varepsilon/(2H)$ and define
-\[
-	\hat{h}(x) = \begin{cases}
-		x + 1 + \alpha g&\text{if } -\alpha - 1 < x < -\alpha,\\
-		1 &\text{if } \|x\| \le \alpha,\\
-		x + (1-\alpha) &\text{if } \alpha < \alpha < \alpha +1,\\
-		0 &\text{else.}
-	\end{cases}
-\]
-\begin{enumerate}
-\setcounter{enumi}{7}
-\item Show that $\bbE[\hat{h}(X)] \ge 1 - \frac{\varepsilon}{2M}$.
-\item Prove that $\left|\bbE[X_n] - \bbE[h(X_n)\hat{h}(X_n)] \right| \to \varepsilon/2$ and similarly for $X$.
-\item Show that $\left|\bbE[h(X_n)] - \bbE[h(X)]\right| \to \varepsilon$. [Hint: add and subtract both $\bbE[h(X_n)\hat{h}(X_n)]$ and $\bbE[h(X)\hat{h}(X)]$ and use the previous result and the one show in 7.]
-\item Conclude that $\bbE[h(X)_n)] \to \bbE[h(X)]$.
-\end{enumerate} 
-
 \end{problem}
 
+\begin{problem}\label{prb:almost_sure_implies_probability}
+Prove Lemma~\ref{lem:almost_sure_implies_probability}. [Hint: use the alternative definition of Lemma~\ref{lem:almost_sure_alternative} and reverse Fatou from Problem~\ref{prb:reverse_fatou}.]
+\end{problem}

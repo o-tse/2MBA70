@@ -160,15 +160,10 @@ Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the settin
 
 \subsection{Weak convergence of probability measures}
 
-Let $(\Omega, \cF, \mu)$ be a measure space and $f : \Omega \to \bbR$ be $\mu$-integrable. Then we define the measure $\mu \ast f : \cF \to [0,\infty]$ as
-\begin{equation}
-	\mu \ast f (A) := \int_A f \dd \mu \quad \text{for } A \in \cF.
-\end{equation}
-
 \begin{definition}
 Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. We say that $\mu_n$ \emph{converges weakly} to $\mu$ if for every continuous bounded function $f : \bbR \to \bbR$ it holds that
 \[
-	\mu_n \ast f \to \mu \ast f.
+	\int_\bbR f \, \dd \mu_n \to \int_\bbR f \, \dd \mu
 \]
 If this is the case we write $\mu_n \Rightarrow \mu$.
 \end{definition}
@@ -183,12 +178,62 @@ The following technical lemma allows us to approximates measurable functions by 
 Let $\mu$ be a probability measure on $(\bbR, \cB_\bbR)$ and $h : \bbR \to \bbR$ be a bounded measurable function with $\mu(\cC_h) = 1$. Then for every $\varepsilon > 0$, there exist continuous bounded functions $h^-_\varepsilon$ and $h^+_\varepsilon$ such that
 \begin{enumerate}
 \item $h^-_\varepsilon \le h \le h^+_\varepsilon$ and
-\item $\mu \ast h^+_\varepsilon - \mu \ast h^-_\varepsilon < \varepsilon$.
+\item $\int_\bbR h^+_\varepsilon \, \dd \mu - \int_\bbR h^-_\varepsilon \, \dd \mu < \varepsilon$.
 \end{enumerate} 
 \end{lemma}
 
 \begin{proof}
-TODO
+For $k \in \bbN$ define the functions
+\[
+	g_k := \inf_{y \in \bbR} h(y) + k\|x-y\| \quad G_k := \sup_{y \in \bbR} h(y) - k\|x-y\|.
+\]
+We then observe that for any $k \in \bbN$, $g_k \le g_{k + 1}$, $G_{k+1} \le G_k$ and $g_k \le h \le G_k$. Hence
+\[
+	g_1 \le g_2 \le \dots \le h \le \dots \le G_2 \le G_1.
+\]
+Moreover, since for any fixed $x \in \bbR$ the sequences $(g_k(x))_{k \ge 1}$ and $(G_k(x))_{k \ge 1}$ are bounded we get that their limits as $k \to \infty$ exist and
+\[
+	\lim_{k \to \infty} g_k(x) \le h(x) \le \lim_{k \to \infty} G_k(x).
+\]
+
+We now claim that for every $k \ge 1$ the functions $g_k$ and $M_k$ are continuous and bounded. The last part follows from directly from the definitions. For the continuity we note that
+\begin{align*}
+	g_k(x) = \inf_{y \in \bbR} h(y) + k \|x-y\|
+	\le \inf_{y \in \bbR} h(y) + k \|z-y\| +k \|x-z\|
+	= g_k(z) + k\|x-z\|,
+\end{align*}
+which implies that $\|g_k(x) - g_k(y)\| \le k \|x-y\|$. A similar argument works for $G_k$.
+
+Now, let $x \in \cC_h$, i.e. $x$ is a continuity point of $h$, and fix $\varepsilon > 0$. Then there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|h(x) - h(y)\| < \varepsilon$. If we then define
+\[
+	r =  \left \lceil \frac{h(x) - \inf_{z \in \bbR} h(z)}{\delta} \right \rceil,
+\]
+then
+\begin{align*}
+	\lim_{k \to \infty} g_k(x) &\ge g_r(x)\\
+	&= \min\{ \inf_{\|x-y\| \ge \delta} h(y) + r\|x-y\| + \inf_{\|x-y\| < \delta} h(y) + r\|x-y\|\}\\
+	&\ge \min\{h(x) - \varepsilon, \, \inf_{z \in \bbR} h(z) + (h(x) - \inf_{z \in \bbR} h(z))\delta/\delta\} \\
+	&= h(x) - \varepsilon.
+\end{align*}
+Similarly, we get that $\lim_{k \to \infty} G_K(x) \le h(x) + \varepsilon$. Since $\mu(\cC_h) = 1$ this then implies that
+\[
+	\int_\bbR \lim_{k \to \infty} g_k \, \dd \mu  = \int_\bbR h \, \dd \mu 
+	= \int_\bbR \lim_{k \to \infty} G_k \, \dd \mu. 
+\]
+
+Applying Theorem~\ref{thm:monotone_convergence_ii} to $g_k$ and to $-G_k$ we get that
+\[
+	\lim_{k \to \infty} \int_\bbR g_k \, \dd \mu = \int_\bbR h \, \dd \mu
+	= \lim_{k \to \infty} \int_\bbR G_k \, \dd \mu.
+\]
+Finally, since $g_k$ is non-decreasing and $G_k$ is non-increasing, for every $\varepsilon$ there must exist an $K$ such that for all $k \ge K$
+\[
+	\int_\bbR (G_k - g_k) \, \dd \mu = \int_\bbR (G_k - h) \, \dd \mu + \int_\bbR (h - g_k) \, \dd \mu \le \varepsilon. 
+\]
+So we can take
+\[
+	h^-_\varepsilon := g_K \quad \text{and} \quad h^+_\varepsilon := G_K.
+\]
 \end{proof}
 
 Recall that a set $A \subset \bbR^d$ is open if for every $x \in A$ there exists an $r > 0$ such that $B_x(r) \subset A$. In addition, a set $B\subset \bbR^d$ is called \emph{closed} if $B = \bbR^d \setminus A$ for some open set $A$.
@@ -203,8 +248,8 @@ We can now state a list of equivalent definition for weak convergence of probabi
 Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. Then the following statements are equivalent:
 \begin{enumerate}
 \item $\mu_n \Rightarrow \mu$.
-\item $\mu_n \ast h \to \mu \ast h$ for all bounded measurable functions $h: \bbR \to \bbR$ with $\mu(\cC_h) = 1$.
-\item $\mu_n \ast g \to \mu \ast g$ for all continuous bounded function $g : \bbR \to \bbR$ that are zero outside an interval $[-K,K]$ for some $K > 0$.
+\item $\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu$ for all bounded measurable functions $h: \bbR \to \bbR$ with $\mu(\cC_h) = 1$.
+\item $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ for all continuous bounded function $g : \bbR \to \bbR$ that are zero outside an interval $[-K,K]$ for some $K > 0$.
 \item $\limsup_{n \to \infty} \mu_n(B) \le \mu(B)$ for all closed sets $B \subset \bbR$.
 \item $\liminf_{n \to \infty} \mu_n(A) \ge \mu(A)$ for all open sets $A \subset \bbR$.
 \item $\lim_{n \to \infty} \mu(C) = \mu(C)$ for all $\mu$-continuity sets $C$.
@@ -277,43 +322,43 @@ Apply this conclusion to the function $-h$, which is also continuous and bounded
 \[
 	\int_\bbR h \, \dd \mu \le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n,
 \]
-from which it follows that $\lim_{n \to \infty} \int_\bbR h \, \dd \mu_n = \int_\bbR h \, \dd \mu$.
-
-
+from which it follows that $\lim_{n \to \infty} \int_\bbR h \, \dd \mu_n = \int_\bbR h \, \dd \mu$ for any bounded continuous function.
 
 \textbf{1 $\Rightarrow$ 2:} Fix $\varepsilon > 0$ and let $h^-_\varepsilon$ and $h^+_\varepsilon$ be the function from Lemma [REF]. Then
 \[
-	\mu \ast h \le \mu \ast h^+_\varepsilon = \mu \ast h^+_\varepsilon - \mu \ast h^-_\varepsilon + \mu \ast h^-_\varepsilon,
+	\int_\bbR h \, \dd \mu \le \int_\bbR h^+_\varepsilon \, \dd \mu 
+	= \int_\bbR h^+_\varepsilon \, \dd \mu - \int_\bbR h^-_\varepsilon \, \dd \mu
+	+ \int_\bbR h^-_\varepsilon \, \dd \mu,
 \]
 which implies that
 \[
-	 \mu \ast h -\varepsilon \le \mu \ast h^-_\varepsilon.
+	 \int_\bbR h \, \dd \mu -\varepsilon \le \int_\bbR h^-_\varepsilon \, \dd \mu.
 \]
 
 In a similar way we obtain that
 \[
-	\mu \ast h^+_\varepsilon \le \mu \ast h +\varepsilon.
+	\int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
 \]
 
 Now we employ condition 1 for the functions $h^-_\varepsilon$ and $h^+_\varepsilon$ to get
 \begin{align*}
-	\mu \ast h -\varepsilon &\le \mu \ast h^-_\varepsilon\\
-	&= \lim_{n \to \infty} \mu_n \ast h^-_\varepsilon\\
-	&\le \liminf_{n \to \infty} \mu_n \ast h \\
-	&\le \limsup_{n \to \infty} \mu_n \ast h\\
-	&\le \mu_n \ast h^+_\varepsilon\\
-	&= \mu \ast h^+_\varepsilon \le \mu \ast h +\varepsilon.
+	\int_\bbR h \, \dd \mu -\varepsilon &\le \int_\bbR h^-_\varepsilon \, \dd \mu\\
+	&= \lim_{n \to \infty} \int_\bbR h^-_\varepsilon \, \dd \mu_n\\
+	&\le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n \\
+	&\le \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n\\
+	&\le \int_\bbR h^+_\varepsilon \, \dd \mu_n\\
+	&= \int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
 \end{align*}
 From this it follows that
 \[
-	\mu \ast h -\varepsilon \le \liminf_{n \to \infty} \mu_n \ast h
-	\le \limsup_{n \to \infty} \mu_n \ast h \le \mu \ast h +\varepsilon.
+	\int_\bbR h \, \dd \mu -\varepsilon \le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n
+	\le \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n \le \int_\bbR h \, \dd \mu +\varepsilon.
 \]
 And since $\varepsilon > 0$ was arbitrary we conclude that
 \[
-	\liminf_{n \to \infty} \mu_n \ast h = \limsup_{n \to \infty} \mu_n \ast h,
+	\liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n = \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n,
 \]
-which then implies that $\mu_n \ast h \to \mu \ast h$.
+which then implies that $\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu$.
 
 \textbf{2 $\Rightarrow$ 6:} Let $C$ be a $\mu$-continuity set and consider the function $h(x) = \mathbf{1}_{C}$. Then clearly $h$ is measurable and bounded. Moreover, the function $h$ is discontinuous precisely on the boundary $\partial C$ and hence
 \[
@@ -321,7 +366,7 @@ which then implies that $\mu_n \ast h \to \mu \ast h$.
 \]
 Hence the function $h$ satisfies the conditions of 2 and thus
 \[
-	\mu_n(C) = \int_\bbR h \, \dd \mu_n = \mu_n \ast h \to \mu \ast h = \int_\bbR h \, \dd \mu = \mu(C).
+	\mu_n(C) = \int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu = \mu(C).
 \]
 
 
@@ -345,38 +390,37 @@ where the last equality is due to 6, which implies that $\mu_n(B_k) \to \mu(B_k)
 
 Taking $k \to \infty$ now yields 4.
 
-\textbf{1 $\iff$ 3:} The implication $1 \Rightarrow 3$ is trivial. So assume that $\mu_n \ast g \to \mu \ast g$ holds for all continuous bounded function that are zero outside some compact interval $[-K,K]$ and let $f : \bbR \to \bbR$ be a continuous bounded function with $\|f(x)\| \le M$ for all $x \in \bbR$. We will show that for any $\varepsilon > 0$
+\textbf{1 $\iff$ 3:} The implication $1 \Rightarrow 3$ is trivial. So assume that $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ holds for all continuous bounded function that are zero outside some compact interval $[-K,K]$ and let $f : \bbR \to \bbR$ be a continuous bounded function with $\|f(x)\| \le M$ for all $x \in \bbR$. We will show that for any $\varepsilon > 0$
 \[
-	\|\mu_n \ast f - \mu \ast f\| \to \varepsilon,
+	\|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\| \to \varepsilon,
 \]
 which then implies the result.
 
 So let $\varepsilon > 0$ be fixed and observe that there exists an $\alpha > 0$ such that $\mu(\bbR \setminus [-\alpha, \alpha]) < \varepsilon/(2M)$. Also observe that we can define a non-negative continuous function $g$ such that $g = 1$ on $[-\alpha, \alpha]$ and $g = 0$ on $\bbR \setminus (-(\alpha+1),\alpha+1)$. Observer that $g$ is a non-negative continuous bounded functions that is zero outside the interval $[-(\alpha+1), \alpha+1]$ and thus we can apply 3.
 
-Let us now consider the measures $\mu_n \ast f$ and $\mu_n \ast fg$. Then we have that
+We now have that
 \begin{align*}
-	\|\mu_n\ast f(A) - \mu_n \ast fg(A)\|
-	&= \|\int_A f \, \dd \mu_n - \int_A fg \, \dd \mu_n\|\\
-	&= \|\int_A f (1-g) \, \dd \mu_n\| \le M \int_A (1-g) \, \dd \mu_n \\
+	\|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\|
+	&= \|\int_\bbR f (1-g) \, \dd \mu_n\| \le M \int_\bbR (1-g) \, \dd \mu_n \\
 	&\le M \int_\bbR (1-g) \, \dd \mu_n = M(1-\int_\bbR g \, \dd \mu_n)
 \end{align*}
-Since the later term converges to $\int_\bbR g \, \dd \mu$ by~\eqref{eq:conergence_distribution_1} we get that
+Since the later term converges to $\int_\bbR g \, \dd \mu$ by our assumption we get that
 \begin{align*}
-	\limsup_{n \to \infty} \|\mu_n\ast f(A) - \mu_n \ast fg(A)\| &\le M(1- \int_\bbR g \, \dd \mu)\\
+	\limsup_{n \to \infty} \|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\|
 	&\le M \int_\bbR (1-g) \, \dd \mu \le M \mu(\bbR \setminus [-\alpha,\alpha]) < \frac{\varepsilon}{2}.
 \end{align*}
-The same conclusion holds true for $\|\mu\ast f(A) - \mu \ast fg(A)\|$.
+The same conclusion holds true for $\|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\|$.
 
 If we now write
 \begin{align*}
-	\|\mu_n \ast f(A) - \mu \ast f(A)\| &\le \|\mu_n\ast f(A) - \mu_n \ast fg(A)\| + \|\mu_\ast f(A) - \mu \ast fg(A)\|\\ &\hspace{10pt}+ \|\mu_n \ast fg(A) - \mu \ast fg(A)\|
+	\|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\| &\le \|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\| + \|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\|\\ &\hspace{10pt}+ \|\int_\bbR fg \, \dd \mu_n - \int_\bbR fg \, \dd \mu\|
 \end{align*}
 we see that the first two terms converge to $\varepsilon/2$ (by the computation above) while the term on the second line converges to zero by our assumption, since $fg$ is also a continuous bounded function that is zero outside the interval $[-(\alpha+1),\alpha+1]$. 
 \end{proof}
 
 \subsection{Convergence in distribution}
 
-Convergence in distribution of a sequence $(X_n)_{n }$ is defined as weak convergence of the corresponding probability measures.
+Convergence in distribution of a sequence $(X_n)_{n \ge 1}$ is defined as weak convergence of the corresponding probability measures.
 
 \begin{definition}[Convergence in distribution]\label{def:convergence_distribution}
 Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces with probability measures $\bbP_n$ and $\bbP$, respectively. We say that $X_n$ \emph{converges in distribution} to $X$ if

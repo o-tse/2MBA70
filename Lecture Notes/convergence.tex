@@ -20,14 +20,14 @@ Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence
 \end{enumerate}
 Then
 \[
-	\lim_{n \to \infty} \int_\Omega f_n \dd \mu = \int_\Omega f \dd \mu.
+	\lim_{n \to \infty} \int_\Omega f_n \,\dd \mu = \int_\Omega f \,\dd \mu.
 \]
 \end{theorem}
 
 \begin{proof}
 As you might have expected, the proof will use the first monotone convergence theorem. For this we first note that by assumption there exists a $N \in \cF$ with $\mu(N) = 0$ such that properties 1 and 2 from theorem statement hold for all $\omega \in \Omega \setminus N$. Now define the function $g_n(\omega) = \max_{1 \le k \le n} f_k(\omega)$. Then $g_n(\omega) \le g_{n+1}(\omega)$ holds for \emph{all} $\omega \in \Omega$. We further define $g(\omega) := \lim_{n \to \infty} g_n(\omega)$. Here comes the key observation. For every $\omega \in \Omega\setminus N$ it holds that $g_n(\omega) = f_n(\omega)$ and $g(\omega) = f(\omega)$. Moreover, since $\mu(N) = 0$ we have that
 \[
-	\int_\Omega f_n \, \dd \mu = \int_\Omega g_n \, \dd \mu \quad \text{and} \quad
+	\int_\Omega f_n \, \dd \mu = \int_\Omega g_n \, \dd \mu \qquad \text{and} \qquad
 	\int_\Omega f \, \dd \mu = \int_\Omega g \, \dd \mu.
 \]
 The result then follows by applying Theorem~\ref{th:monotone-convergence-I} to the functions $g_n$ and $g$.
@@ -42,7 +42,7 @@ Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence
 \]
 Then
 \[
-	\int_\Omega f \dd \mu \le \liminf_{n\to \infty} \int_\Omega f_n \dd \mu
+	\int_\Omega f\, \dd \mu \le \liminf_{n\to \infty} \int_\Omega f_n \,\dd \mu
 \]
 \end{theorem}
 
@@ -69,20 +69,20 @@ Here we used that $\inf_{k \ge n} f_k \le f_\ell$ for all $\ell \ge k$ and monot
 Armed with Fatou's lemma we can now prove one of the most useful convergence results for Lebesgue integrals.
 
 \begin{theorem}[Dominated convergence]\label{thm:dominated_convergence}
-Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of non-negative, measurable functions and let $f$ be a non-negative measurable functions such that $f_n \to f$ point-wise $\mu$-almost everywhere. Moreover, assume there exists a non-negative $\mu$-integrable function $g : \Omega \to [0,\infty]$ such that $|f_n| \le g$ $\mu$-almost everywhere. Then
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of non-negative, measurable functions and let $f$ be a non-negative measurable function such that $f_n \to f$ point-wise $\mu$-almost everywhere. Moreover, assume there exists a non-negative $\mu$-integrable function $g : \Omega \to [0,\infty]$ such that $|f_n| \le g$ $\mu$-almost everywhere. Then
 \[
-	\lim_{n \to \infty} \int_\Omega f_n \dd \mu = \int_\Omega f \dd \mu.
+	\lim_{n \to \infty} \int_\Omega f_n \,\dd \mu = \int_\Omega f \,\dd \mu.
 \]
 \end{theorem}
 
 \begin{proof}
-We will first proof the result for the case that both $|f_n| \le g$ and $f_n \to f$ hold everywhere.  
+We will first prove the result for the case that both $|f_n| \le g$ and $f_n \to f$ hold everywhere.  
 
 Consider the functions $f_n+g$, and note that $|f_n| \le g$ implies that these are non-negative. Fatou's lemma (Theorem~\ref{thm:fatou}) now implies that
 \[
 	\int_\Omega f + g \, \dd \mu \le \liminf_{n \to \infty} \int_\Omega f_n + g \, \dd \mu.
 \] 
-Using the additive property ot the integral we get
+Using the additive property of the integral we get
 \[
 	\int_\Omega f \, \dd \mu + \int_\Omega g \, \dd \mu 
 	\le \liminf_{n \to \infty} \int_\Omega f_n \, \dd \mu + \int_\Omega g \, \dd \mu.
@@ -156,7 +156,7 @@ Note that $|\sin(y)| \le |y|$ holds for all $y > 0$ and that for every $x$ we ha
 
 \section{Convergence of random variables}
 
-Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real number, we would like to have a notion of convergence of this sequence. In other words we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there is different ways to define the concept of convergence of random variables. In this section we will discuss three of them: convergence in distribution, convergence in probability and almost sure convergence. While the last one has a more straightforward definition (see ??) the other two rely on a notion of convergence of probability measures, which we will discuss first.
+Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real numbers, we would like to have a notion of convergence of this sequence. In other words, we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there are different ways to define the concept of convergence of random variables. In this section, we will discuss three of them: convergence in distribution, convergence in probability, and almost sure convergence. While the last one has a more straightforward definition (see ??) the other two rely on a notion of convergence of probability measures, which we will discuss first.
 
 \subsection{Weak convergence of probability measures}
 
@@ -631,12 +631,74 @@ See Problem~\ref{prb:almost_sure_implies_probability}.
 \begin{problem}\label{prb:reverse_fatou}
 Prove the reverse Fatou lemma:
 
+\textit{
 Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be non-negative, measurable functions such that $f_n \le f$ and $\int_\Omega f \, \dd \mu <\infty$. Then
 \[
 	\limsup_{n\to \infty} \int_\Omega f_n \dd \mu \le \int_\Omega \limsup_{n\to \infty} f_n \dd \mu.
 \]
-
+}
 \end{problem}
+
+\begin{problem}\label{pb:DCT-parametric-function}
+	Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f:\Omega\times(a,b)\to\bbR$ and that $\omega\mapsto f(\omega,t)$ is integrable with respect to $\mu$ for all fixed $t\in(a,b)$. Suppose there exists a $\mu$-integrable function $g$ such that $|f(\omega,t)|\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. 
+	\begin{enumerate}[label={(\alph*)}]
+		\item Fix $t_0\in(a,b)$. Show that if $\lim_{t\to t_0} f(\omega,t)=f(\omega,t_0)$ for all $\omega\in\Omega$, then
+		\[
+			\lim_{t\to t_0}\int_\Omega f(\omega,t)\,\mu(d\omega) = \int_\Omega f(\omega,t_0)\,\mu(d\omega).
+		\]
+		\item Deduce from (a) that if $f(\omega,\cdot)$ is continuous for all $\omega$, then the map
+		\[
+			(a,b)\ni t\mapsto F(t):=\int_\Omega f(\omega,t)\,\mu(d\omega)\quad\text{is continuous.}
+		\]
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+		Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f:\Omega\times(a,b)\to\bbR$ and that $\omega\mapsto f(\omega,t)$ is integrable with respect to $\mu$ for all fixed $t\in(a,b)$. Suppose $\partial f/\partial t$ exists on $(a,b)$ for all $\omega\in \Omega$, i.e.\ for every fixed $\omega\in\Omega$,
+		\[
+			\frac{\partial f}{\partial t}(\omega, t_0):=\lim_{t\to t_0} \frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} \quad\text{exists for all $t_0\in(a,b)$}.
+		\]
+		Furthermore, suppose that there is a $\mu$-integrable function $g$ such that $|\partial f/\partial t|(\omega,t)\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. Show that the map
+		\[
+			(a,b)\ni t\mapsto F(t) = \int_\Omega f(\omega,t)\,\mu(d\omega)\quad\text{is differentiable},
+		\]
+		and the following equality holds:
+		\[
+			\frac{d}{dt}\int_\Omega f(\omega,t)\,\mu(d\omega) = \int_\Omega \frac{\partial f}{\partial t}(\omega,t)\,\mu(d\omega).
+		\]
+		
+		\smallskip
+		
+		\noindent\textbf{Hint:} Make the following steps:
+		\begin{enumerate}[label={(\arabic*)}]
+			\item Show that $(\partial f/\partial t)(\cdot,t)$ is $(\mathcal{F},\mathcal{B})$-measurable and integrable for all $t\in(a,b)$.
+			\item Show that for $t_0\in(a,b)$ arbitrary
+			\[
+				\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le g(\omega)\quad\text{for any $t\in(a,b)$, $t\ne t_0$ and all $\omega\in\Omega$.}
+			\]
+			\item Conclude with the help of Problem~\ref{pb:DCT-parametric-function}.
+		\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	Compute the following limits and justify the computation
+	\begin{align*}
+		& \lim_{n\to\infty} \int_0^1 \frac{1 + n x^2}{(1 + x^2)^n}\,\dd x\,,\qquad\lim_{n\to\infty} \int_0^\infty \frac{x^{n-2}}{1+ x^n}\cos\left(\frac{\pi x}{n}\right) \dd x\,.
+	\end{align*}
+\end{problem}
+
+\begin{problem}[Generalized DCT] Prove the following generalization of DCT:
+
+\textit{
+	Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f_n$, $g_n$, $f$ and $g$ are $\mu$-integrable functions satisfying
+	\begin{enumerate}[label={(\roman*)}]
+		\item $f_n\to f$ and $g_n\to g$ $\mu$-almost everywhere,
+		\item $|f_n|\le g_n$ for all $n\in\bbN$ and $\int_\Omega g_n\,\dd\mu \to \int_\Omega g\,\dd\mu$ as $n\to \infty$.
+	\end{enumerate}
+	Then also $\int_\Omega f_n\,\dd\mu \to \int_\Omega f\,\dd\mu$ as $n\to\infty$.	
+}
+\end{problem}
+
 
 \begin{problem}\label{prb:dlim_not_plim}
 Give an example (with proof) of a sequence of random variables that converge in distribution but not in probability.

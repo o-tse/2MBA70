@@ -60,5 +60,5 @@
 \contentsline {paragraph}{\nonumberline Littlwood's first principle 1:}{72}{paragraph*.7}%
 \contentsline {paragraph}{\nonumberline Littlewood's second principle:}{73}{paragraph*.9}%
 \contentsline {paragraph}{\nonumberline Littlewood's third principle:}{74}{paragraph*.11}%
-\contentsline {section}{\numberline {6.6}Problems}{76}{section.6.6}%
+\contentsline {section}{\numberline {6.6}Problems}{75}{section.6.6}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

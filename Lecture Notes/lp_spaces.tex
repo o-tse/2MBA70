@@ -335,27 +335,26 @@ In other words, one can think of almost everywhere convergence as uniform conver
 
 The final result of this chapter is an important application of Lusin's theorem, which allows us to approximate any integrable function with continuous and bounded functions whenever $\mu$ is a finite measure. In other words, the following statement shows that the space of continuous and bounded functions $C_b(\bbR^d)$ is \emph{dense} in $L^1(\bbR^d,\mu)$. This fact is widely used in, e.g., Approximation Theory, Functional Analysis, Partial Differential Equations, and Stochastic Analysis.
 
-\begin{theorem}[Approximation in $L^1$]
-	Let $\mu$ be a finite measure on $(\bbR^d,\cB_{\bbR^d})$ and $f\in L^1(\bbR^d,\mu)$. Then for any $\varepsilon>0$, there is a continuous function $g\in L^1(\bbR^d,\mu)$ such that $\|f-g\|_1<\varepsilon$.
+\begin{theorem}[Approximation in $L^1$]\label{thm:L1-approximation}
+	Let $\mu$ be a finite measure on $(\bbR^d,\cB_{\bbR^d})$ and $f\in L^1(\bbR^d,\mu)$. Then for any $\varepsilon>0$, there is a bounded continuous function $g\in L^1(\bbR^d,\mu)$ such that $\|f-g\|_1<\varepsilon$.
 \end{theorem}
-\begin{proof}
-	Let $E_n:=\{\omega\in\bbR^d\,:\, |f(\omega)|\ge n\}$. Since $\mathbf{1}_{E_n}f \to 0$ as $n\to\infty$, and $\mathbf{1}_{E_n}|f|\le |f|$ for every $n\ge 1$, we can apply DCT to conclude that
-	\[
-		\int_{E_n} |f|\,\dd\mu = \int_{\bbR^d} \mathbf{1}_{E_n}|f|\,\dd\mu\;\longrightarrow\;0\quad\text{as $n\to\infty$}.
-	\]
-	Now pick some $n\ge 1$ such that $\int_{E_n} |f|\,\dd\mu <\varepsilon/3$ and define
-	\[
-		f_n(\omega):= \max\{-n,\min\{f(\omega),n\}\}, \qquad\omega\in\bbR^d,
-	\]
-	i.e., $f_n$ is a truncation of $f$. From Lusin's theorem, we find a continuous function $g$ such that $f_n\equiv g$ on a compact set $K\subset\bbR^d$ with $\mu(\bbR^d\backslash K)<(2\varepsilon)/(3n)$. We assume w.l.o.g.\ that $|g|\le n$, since otherwise, we can consider a truncation of $g$. Altogether, this yields
-	\begin{align*}
-		\int_{\bbR^d} |f-g|\,\dd\mu &= \int_{\bbR^d} |f-f_n|\,\dd\mu + \int_{\bbR^d} |f_n-g|\,\dd\mu \\
-		&= \int_{E_n} |f|\,\dd\mu + \int_{\bbR^d\backslash K} |f_n-g|\,\dd\mu \\
-		&\le \frac{\varepsilon}{3} + 2n\,\mu(\bbR^d\backslash K) \le  \varepsilon.
-	\end{align*}
-	Finally, $g\in L^1(\bbR^d,\mu)$ holds simply due to the triangle inequality.
-\end{proof}
-
+%\begin{proof}
+%	Let $E_n:=\{\omega\in\bbR^d\,:\, |f(\omega)|\ge n\}$. Since $\mathbf{1}_{E_n}f \to 0$ as $n\to\infty$, and $\mathbf{1}_{E_n}|f|\le |f|$ for every $n\ge 1$, we can apply DCT to conclude that
+%	\[
+%		\int_{E_n} |f|\,\dd\mu = \int_{\bbR^d} \mathbf{1}_{E_n}|f|\,\dd\mu\;\longrightarrow\;0\quad\text{as $n\to\infty$}.
+%	\]
+%	Now pick some $n\ge 1$ such that $\int_{E_n} |f|\,\dd\mu <\varepsilon/3$ and define
+%	\[
+%		f_n(\omega):= \max\{-n,\min\{f(\omega),n\}\}, \qquad\omega\in\bbR^d,
+%	\]
+%	i.e., $f_n$ is a truncation of $f$. From Lusin's theorem, we find a continuous function $g$ such that $f_n\equiv g$ on a compact set $K\subset\bbR^d$ with $\mu(\bbR^d\backslash K)<(2\varepsilon)/(3n)$. We assume w.l.o.g.\ that $|g|\le n$, since otherwise, we can consider a truncation of $g$. Altogether, this yields
+%	\begin{align*}
+%		\int_{\bbR^d} |f-g|\,\dd\mu &= \int_{\bbR^d} |f-f_n|\,\dd\mu + \int_{\bbR^d} |f_n-g|\,\dd\mu \\
+%		&= \int_{E_n} |f|\,\dd\mu + \int_{\bbR^d\backslash K} |f_n-g|\,\dd\mu \\
+%		&\le \frac{\varepsilon}{3} + 2n\,\mu(\bbR^d\backslash K) \le  \varepsilon.
+%	\end{align*}
+%	Finally, $g\in L^1(\bbR^d,\mu)$ holds simply due to the triangle inequality.
+%\end{proof}
 
 \begin{remark}
 	All three Littlewood principles can be generalized to inner and outer regular measures $\mu$ that are \emph{locally finite} on any measurable space $(\Omega,\cF)$, i.e., a measure for which every point $\omega\in\Omega$ has a neighborhood $N_\omega\in\cF$ such that $\mu(N_\omega)<+\infty$. 
@@ -365,5 +364,44 @@ The final result of this chapter is an important application of Lusin's theorem,
 
 \section{Problems}
 
+\begin{problem}
+		Let $(\Omega,\mathcal{F},\mu)$ be a measure space and $f\colon\Omega\to\bbR$ be an $(\mathcal{F},\mathcal{B}_\bbR)$-measurable function. Let $p_0,p_1\in[1,
+		\infty)$ be such that $p_0<p_1$ and let $\theta\in(0,1)$. Define $p_\theta$ by
+		\[
+			\frac{1}{p_\theta} = \frac{\theta}{p_0} + \frac{1-\theta}{p_1}.
+		\]
+		\begin{enumerate}[label={(\alph*)}]
+			\item Show that $\|f\|_{p_\theta}\le \|f\|_{p_0}^\theta\|f\|_{p_1}^{1-\theta}$.
+			\item Show that for all $p\in(p_0,p_1)$, there exists $\theta\in(0,1)$ such that $p=p_\theta$. Deduce from this that if $f\in L^{p_0}(\mu)\cap L^{p_1}(\mu)$, then also $f\in L^p(\mu)$ for all $p\in(p_0,p_1)$.
+		\end{enumerate}
+\end{problem}
 
-	
+\begin{problem}
+Let $(\mathcal{X},\mathcal{F},\mathbb{P})$ be a probability space and $X$ be a real-valued random variable.
+	\begin{enumerate}[label={(\alph*)}]
+		\item Show that if $X\in L^\infty(\mathbb{P})$, then $X\in L^p(\mathbb{P})$ for all $p\ge 1$.
+		\item Let $X$ be a Gaussian random variable with mean $0$ and variance $1$. Show that $X\in L^p(\mathbb{P})$ for all $p\ge 1$, but $X\notin L^\infty(\mathbb{P})$.
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	Let $(\Omega,\mathcal{F},\mu)$ be a finite measure space. For any $p\in[1,\infty)$ and $(\mathcal{F},\mathcal{B}_\mathbb{R})$-measurable function $f:\Omega\to\bbR$, let 
+	\[
+		\Phi_p(f) := \begin{cases}\displaystyle
+			\left(\frac{1}{\mu(\Omega)}\int_\Omega |f(\omega)|^p \mu(d\omega)\right)^{1/p} &\text{if $f\in L^p(\mu)$},\\
+			+\infty &\text{otherwise}.
+		\end{cases}
+	\]
+	\begin{enumerate}[label={(\alph*)}]
+		\item Show that $p\mapsto \Phi_p(f)$ is monotonically nondecreasing.
+		\item Show that if $f\in L^\infty(\mu)$, then
+		\[
+			\lim_{p\to\infty} \Phi_p(f) = \|f\|_\infty.
+		\]
+			\textbf{Hint:} Make use of Markov's inequality.
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	Prove Theorem~\ref{thm:L1-approximation}.
+\end{problem}

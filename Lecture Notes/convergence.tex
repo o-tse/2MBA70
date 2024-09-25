@@ -627,6 +627,7 @@ See Problem~\ref{prb:almost_sure_implies_probability}.
 \begin{problem}\label{prb:reverse_fatou}
 Prove the reverse Fatou lemma:
 
+\smallskip
 \textit{
 Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be non-negative, measurable functions such that $f_n \le f$ and $\int_\Omega f \, \dd \mu <\infty$. Then
 \[
@@ -636,7 +637,7 @@ Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be no
 \end{problem}
 
 \begin{problem}\label{pb:DCT-parametric-function}
-	Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f:\Omega\times(a,b)\to\bbR$ and that $\omega\mapsto f(\omega,t)$ is integrable with respect to $\mu$ for all fixed $t\in(a,b)$. Suppose there exists a $\mu$-integrable function $g$ such that $|f(\omega,t)|\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. 
+	Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f:\Omega\times(a,b)\to\bbR$ and that $\omega\mapsto f(\omega,t)$ is integrable with respect to $\mu$ for all fixed $t\in(a,b)$. Suppose there exists a non-negative $\mu$-integrable function $g$ such that $|f(\omega,t)|\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. 
 	\begin{enumerate}[label={(\alph*)}]
 		\item Fix $t_0\in(a,b)$. Show that if $\lim_{t\to t_0} f(\omega,t)=f(\omega,t_0)$ for all $\omega\in\Omega$, then
 		\[
@@ -654,7 +655,7 @@ Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be no
 		\[
 			\frac{\partial f}{\partial t}(\omega, t_0):=\lim_{t\to t_0} \frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} \quad\text{exists for all $t_0\in(a,b)$}.
 		\]
-		Furthermore, suppose that there is a $\mu$-integrable function $g$ such that $|\partial f/\partial t|(\omega,t)\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. Show that the map
+		Furthermore, suppose that there is a non-negative $\mu$-integrable function $g$ such that $|\partial f/\partial t|(\omega,t)\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. Show that the map
 		\[
 			(a,b)\ni t\mapsto F(t) = \int_\Omega f(\omega,t)\,\mu(d\omega)\quad\text{is differentiable},
 		\]
@@ -667,7 +668,7 @@ Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be no
 		
 		\noindent\textbf{Hint:} Make the following steps:
 		\begin{enumerate}[label={(\arabic*)}]
-			\item Show that $(\partial f/\partial t)(\cdot,t)$ is $(\mathcal{F},\mathcal{B})$-measurable and integrable for all $t\in(a,b)$.
+			\item Show that $(\partial f/\partial t)(\cdot,t)$ is measurable and integrable for all $t\in(a,b)$.
 			\item Show that for $t_0\in(a,b)$ arbitrary
 			\[
 				\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le g(\omega)\quad\text{for any $t\in(a,b)$, $t\ne t_0$ and all $\omega\in\Omega$.}

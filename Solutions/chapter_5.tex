@@ -42,3 +42,65 @@ As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t
 	\]
 \end{enumerate}
 
+
+\bigskip
+\textbf{Problem 5.3}
+
+\begin{enumerate}[label={(\alph*)}]
+	\item Note that the integrand $f_n(x)=\frac{1+n x^2}{(1+x^2)^n}$ is continuous on $[0, 1]$ and non-negative. Hence, the Riemann integral and Lebesgue integral coincide, i.e.,
+	\[
+		\int_0^1 f_n(x)\,\dd x = \int_{[0,1]} f_n\,\dd\lambda.
+	\] 
+	Observe that we have the following pointwise limit
+	\[
+		\lim_{n\to\infty} f_n(x) = \begin{cases}
+			1 &\text{if  $x=0$}, \\
+			0 &\text{if $x\in (0,1]$},
+		\end{cases}
+	\]
+	i.e., $\lim_{n\to\infty} f_n = 0$ $\lambda$-almost everywhere. Moreover, $f_n(x) \le 1$ for every $x\in[0,1]$ and $n\ge 1$. Since the constant function $g\equiv 1$ is $\lambda$-integrable on $[0,1]$, it is a valid dominator. Hence, the DCT gives
+	\[
+		\lim_{n\to\infty} \int_0^1 f_n(x)\,\dd x = \lim_{n\to\infty} \int_{[0,1]} f_n\,\dd \lambda = \int_{[0,1]} \lim_{n\to\infty} f_n\,\dd\lambda = 0
+	\]
+	
+	\item For the purpose of convergence, we consider $n\ge 3$. Note that the integrand $f_n(x)=\frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)$ is continuous on $(0, +\infty)$ with pointwise limit
+	\[
+		\lim_{n\to\infty} f_n(x) = \begin{cases}
+			0 & \text{if $x\in(0,1)$}, \\
+			1/2 & \text{if $x=1$}, \\
+			1/x^2 & \text{if $x>1$},
+		\end{cases}
+	\]
+	Setting the function
+	\[
+		g(x) = \begin{cases}
+			1 &\text{for $x\in(0,1)$},\\
+			\frac{1}{x^2} &\text{for $x\ge 1$},
+		\end{cases}
+	\]
+	we see that $f_n\le g$ $\lambda$-almost everywhere in $(0,+\infty)$ and for all $n\ge 3$. Indeed, for $x\ge 1$, we obtain
+	\[
+		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le \frac{x^{n-2}}{x^n} =\frac{1}{x^2},
+	\]
+	while for $x\in(0,1)$, we have
+	\[
+		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le 1.
+	\]
+	Notice that $g$ is non-negative and $\lambda$-integrable on $(0,+\infty)$. Indeed, using the MCT,
+	\begin{align*}
+		\int_{(0,+\infty)} g\,\dd\lambda &= \int_{(0,1)} g\,\dd\lambda + \int_{(1,+\infty)} g\,\dd\lambda = 1 + \lim_{n\to\infty} \int_{(1,n)} g\,\dd\lambda \\
+		&= 1 + \lim_{n\to\infty} \int_1^n \frac{1}{x^2}\,\dd x = 1 + \lim_{n\to\infty} \Bigl(1-\frac{1}{n} \Bigr) = 2 < +\infty.
+	\end{align*}
+	To conclude, we apply DCT to deduce that the limit is $1$.
+\end{enumerate}
+
+
+
+\bigskip
+\textbf{Problem 5.4}
+
+The proof follows verbatim to the proof of the Dominated Convergence Theorem.
+
+
+
+

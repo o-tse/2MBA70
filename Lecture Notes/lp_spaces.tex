@@ -338,23 +338,23 @@ The final result of this chapter is an important application of Lusin's theorem,
 \begin{theorem}[Approximation in $L^1$]\label{thm:L1-approximation}
 	Let $\mu$ be a finite measure on $(\bbR^d,\cB_{\bbR^d})$ and $f\in L^1(\bbR^d,\mu)$. Then for any $\varepsilon>0$, there is a bounded continuous function $g\in L^1(\bbR^d,\mu)$ such that $\|f-g\|_1<\varepsilon$.
 \end{theorem}
-%\begin{proof}
-%	Let $E_n:=\{\omega\in\bbR^d\,:\, |f(\omega)|\ge n\}$. Since $\mathbf{1}_{E_n}f \to 0$ as $n\to\infty$, and $\mathbf{1}_{E_n}|f|\le |f|$ for every $n\ge 1$, we can apply DCT to conclude that
-%	\[
-%		\int_{E_n} |f|\,\dd\mu = \int_{\bbR^d} \mathbf{1}_{E_n}|f|\,\dd\mu\;\longrightarrow\;0\quad\text{as $n\to\infty$}.
-%	\]
-%	Now pick some $n\ge 1$ such that $\int_{E_n} |f|\,\dd\mu <\varepsilon/3$ and define
-%	\[
-%		f_n(\omega):= \max\{-n,\min\{f(\omega),n\}\}, \qquad\omega\in\bbR^d,
-%	\]
-%	i.e., $f_n$ is a truncation of $f$. From Lusin's theorem, we find a continuous function $g$ such that $f_n\equiv g$ on a compact set $K\subset\bbR^d$ with $\mu(\bbR^d\backslash K)<(2\varepsilon)/(3n)$. We assume w.l.o.g.\ that $|g|\le n$, since otherwise, we can consider a truncation of $g$. Altogether, this yields
-%	\begin{align*}
-%		\int_{\bbR^d} |f-g|\,\dd\mu &= \int_{\bbR^d} |f-f_n|\,\dd\mu + \int_{\bbR^d} |f_n-g|\,\dd\mu \\
-%		&= \int_{E_n} |f|\,\dd\mu + \int_{\bbR^d\backslash K} |f_n-g|\,\dd\mu \\
-%		&\le \frac{\varepsilon}{3} + 2n\,\mu(\bbR^d\backslash K) \le  \varepsilon.
-%	\end{align*}
-%	Finally, $g\in L^1(\bbR^d,\mu)$ holds simply due to the triangle inequality.
-%\end{proof}
+\begin{proof}
+	Let $E_n:=\{\omega\in\bbR^d\,:\, |f(\omega)|\ge n\}$. Since $\mathbf{1}_{E_n}f \to 0$ as $n\to\infty$, and $\mathbf{1}_{E_n}|f|\le |f|$ for every $n\ge 1$, we can apply DCT to conclude that
+	\[
+		\int_{E_n} |f|\,\dd\mu = \int_{\bbR^d} \mathbf{1}_{E_n}|f|\,\dd\mu\;\longrightarrow\;0\quad\text{as $n\to\infty$}.
+	\]
+	Now pick some $n\ge 1$ such that $\int_{E_n} |f|\,\dd\mu <\varepsilon/3$ and define
+	\[
+		f_n(\omega):= \max\{-n,\min\{f(\omega),n\}\}, \qquad\omega\in\bbR^d,
+	\]
+	i.e., $f_n$ is a truncation of $f$. From Lusin's theorem, we find a continuous function $g$ such that $f_n\equiv g$ on a compact set $K\subset\bbR^d$ with $\mu(\bbR^d\backslash K)<(2\varepsilon)/(3n)$. We assume w.l.o.g.\ that $|g|\le n$, since otherwise, we can consider a truncation of $g$. Altogether, this yields
+	\begin{align*}
+		\int_{\bbR^d} |f-g|\,\dd\mu &= \int_{\bbR^d} |f-f_n|\,\dd\mu + \int_{\bbR^d} |f_n-g|\,\dd\mu \\
+		&= \int_{E_n} |f|\,\dd\mu + \int_{\bbR^d\backslash K} |f_n-g|\,\dd\mu \\
+		&\le \frac{\varepsilon}{3} + 2n\,\mu(\bbR^d\backslash K) \le  \varepsilon.
+	\end{align*}
+	Finally, $g\in L^1(\bbR^d,\mu)$ holds simply due to the triangle inequality.
+\end{proof}
 
 \begin{remark}
 	All three Littlewood principles can be generalized to inner and outer regular measures $\mu$ that are \emph{locally finite} on any measurable space $(\Omega,\cF)$, i.e., a measure for which every point $\omega\in\Omega$ has a neighborhood $N_\omega\in\cF$ such that $\mu(N_\omega)<+\infty$. 
@@ -403,5 +403,11 @@ Let $(\mathcal{X},\mathcal{F},\mathbb{P})$ be a probability space and $X$ be a r
 \end{problem}
 
 \begin{problem}
-	Prove Theorem~\ref{thm:L1-approximation}.
+	In this problem, we would like to refine Theorem~\ref{thm:L1-approximation}:
+	
+	Show that for any $\varepsilon>0$, we can find a bounded continuous function $g\in L^1(\bbR^d,\mu)$ with compact support, i.e., $g\in C_c(\bbR^d)$, such that the conclusion of Theorem~\ref{thm:L1-approximation} remains true.
 \end{problem}
+
+
+
+

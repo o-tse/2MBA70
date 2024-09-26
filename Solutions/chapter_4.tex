@@ -77,9 +77,25 @@ By linearity of the integral,
 \]
 Since $\mu$ is a finite measure, the right-hand side is finite, implying that $f$ is $\mu$-integrable.
 
+\bigskip
+\textbf{Problem 4.5}
+
+Observe that $\Omega = \bigcup_{n \in \bbN} \{|f| > n\}$. 
+
+We then get that
+\[
+	\sum_{n = 1}^\infty \int_{\{|f| > n\}} |f| \, \dd \mu = \int_\Omega |f| \, \dd \mu < \infty.
+\]
+
+This implies that for some $N$ and all $n \ge N$: $\int_{\{|f| > n\}} |f| \, \dd \mu < 1/n$ or else the sum cannot be finite.
+
+Now let $\varepsilon > 0$, take $M > \max\{N, 2/\varepsilon\}$ and $\delta = \varepsilon/(2M)$. Then
+\begin{align*}
+	\int_A |f| \, \dd \mu &= \int_A |f| \mathbf{1}_{|f|\le M} \, \dd \mu + \int_A |f| \mathbf{1}_{|f|> M} \, \dd \mu\\
+	&\le M \mu(A) + \frac{1}{M} \le M\delta + \frac{1}{M} < \varepsilon.
+\end{align*}
 
 \bigskip
->>>>>>> 6734bbef461f3cf1f37b2ba1c0f732f410c6fb0d
 \textbf{Problem 4.6}
 
 \begin{enumerate}[label=(\alph*)]
@@ -137,3 +153,11 @@ The proof for the negative part is similar.
 	&= \int_\bbR h \rho \, \dd \lambda &&\text{by part (c)}.
 \end{align*}
 \end{enumerate}   
+
+\bigskip
+\textbf{Problem 4.7}
+This follows from the following inequalities:
+\[
+	\int_\bbR |f|^p \, \dd \mu \ge \int_{\{|f| \ge t\}} |f|^p \, \dd \mu
+	\ge t^p \mu(\{|f| \ge t\}).
+\]

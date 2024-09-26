@@ -716,31 +716,30 @@ Write $\mu_n = (X_n)_\# \bbP_n$ and $\mu = X_\# \bbP$ and note that for any meas
 
 We will first prove the $\Rightarrow$ implication. 
 \begin{enumerate}[label={(\alph*)}]
-\item Let $t \in \bbR$. Find a measurable function $h_t$, such that $F_n(t) = \mu_n \ast h_t$ and $F(t) = \mu \ast h_t$.
+\item Let $t \in \bbR$. Find a measurable function $h_t$, such that $F_n(t) = \int_\bbR h_t \, \dd \mu_n$ and $F(t) = \int_\bbR h_t \, \dd \mu$.
 \item Show that $\mu(\cC_{h_t}) = 1$.
 \item Prove the $\Rightarrow$ implication. 
 \end{enumerate}
 
-For the other implication $\Leftarrow$ we will use the Portmanteau Theorem. Let $g$ be a bounded continuous function that is zero outside some interval $[-K,K]$, for some $K > 0$. You may use the fact that any continuous function that is non-zero on a bounded and closed set is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
+For the other implication $\Leftarrow$ let $g$ be a continuous function with compact support. Then there is some $K > 0$ such that $g$ is zero outside $[-K,K]$. You may use the fact that any continuous function with compact support is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
 \begin{enumerate}[label={(\alph*)}]
 \setcounter{enumi}{3}
-\item Construct a partition of $C$ into $T$ intervals $I_i = (a_i, b_i]$ such that for each $i \le T$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
+\item Let $\delta > 0$. Construct a partition of $C$ into $L$ intervals $I_i$ such that for each $\ell \le L$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
 \end{enumerate}
 
 We will now define an approximate function
 \[
-	\hat{g}(x) = \sum_{i = 1}^T \eta_i \mathbf{1}_{I_i},
+	\hat{g}(x) = \sum_{\ell = 1}^L h(\max_{x \in I_i} x) \mathbf{1}_{I_i}.
 \]
-where $\eta_i = h(b_i)$.
 
 \begin{enumerate}[label={(\alph*)}]
 \setcounter{enumi}{4}
-\item Show that there exists sequences $(\gamma_i)_{1 \le i \le m}$ and $(t_i)_{1 \le i \le m}$ such that
+\item Show that there exists an $M$ and sequences $(\beta_m)_{1 \le m \le M}$ and $(t_m)_{1 \le m \le M}$ such that
 \[
-	\hat{g}(x) = \sum_{i = 1}^m \gamma_i \mathbf{1}_{(-\infty, t_i]}.
+	\hat{g}(x) = \sum_{m = 1}^M \beta_m \mathbf{1}_{(-\infty, t_m]}.
 \]
-\item Prove that $\lim_{n \to \infty} \mu_n \ast \hat{g} = \mu \ast \hat{g}$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
-\item Prove that $\mu_n \ast g \to \mu \ast g$. [Hint: First use the previous result to show that $\|\mu_n \ast g(A) - \mu \ast g(A)\| \to 2\varepsilon$ by adding and subtracting $\mu_n \ast \hat{g}$ and $\mu \ast \hat{g}$.]
+\item Prove that $\lim_{n \to \infty} \bbE[\hat{g}(X_n)] = \bbE[\hat{g}(X)]$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
+\item Prove that $\bbE[g(X_n)] \to \bbE[g(X)]$. [Hint: First use the previous result to show that $\|\mu_n \ast g(A) - \mu \ast g(A)\| \to 2\varepsilon$ by adding and subtracting $\mu_n \ast \hat{g}$ and $\mu \ast \hat{g}$.]
 \item Conclude that $X_n \dlim X$.
 \end{enumerate}
 \end{problem}

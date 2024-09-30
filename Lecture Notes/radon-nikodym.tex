@@ -1,0 +1,175 @@
+\section{A General Radon-Nikodym Theorem}
+
+
+\begin{lemma}\label{lem:partial-radon-nikodym}
+	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ satisfying $\nu\le \mu$ on $\cF$, i.e.\ $\nu(A)\le \mu(A)$ for every $A\in\cF$. Then there exists an $(\cF,\cB_\bbR)$-measurable function $f_0$ with $0\le f_0\le 1$ such that
+	\[
+		\nu(E) = \int_E f_0\,\dd\mu\qquad\text{for all $E\in\cF$}.
+	\]
+\end{lemma}
+\begin{proof}
+	Let
+	\[
+		H := \left\{\text{$f$ measurable}\,:\, 0\le f\le 1,\; \int_E f\,\dd\mu \le \nu(E)\;\;\text{for all $E\in\cF$}\right\}.
+	\]
+	Note that $H\ne \emptyset$ since $0$ belongs to $H$. Moreover, when $f_1$, $f_2\in H$, also $\max\{f_1,f_2\}\in H$. Indeed, if $A=\{x\in\Omega\,:\, f_1(x)\ge f_2(x)\}$, then
+	\begin{align*}
+		\int_E \max\{f_1,f_2\}\,\dd\mu &= \int_{E\cap A} \max\{f_1,f_2\}\,\dd\mu + \int_{E\cap A^c} \max\{f_1,f_2\}\,\dd\mu \\
+		&= \int_{E\cap A} f_1\,\dd\mu + \int_{E\cap A^c} f_2\,\dd\mu \le \nu(E\cap A) + \nu(E\cap A^c) = \nu(E).
+	\end{align*}
+	
+	Now let $M=\sup\{\int_\Omega f\,\dd\mu\,:\,f\in H\}$. Then, $0\le M<+\infty$ and we find from the previous argument a sequence of measurable functions $(f_n)_{n\in\bbN}\subset H$ with $0\le f_1\le \cdots\le 1$ such that
+	\[
+		\int_\Omega f_n\,\dd\mu > M - \frac{1}{n}.
+	\] 
+	Define $f_0:= \lim_{n\to\infty} f_n$. Then $f_0$ is measurable. By the Monotone Convergence Theorem, $f_0\in H$ and $\int_\Omega f_0\,\dd\mu \ge M$. Hence, $\int_\Omega f_0\,\dd\mu = M$.
+	
+	To complete the proof, we show that $\nu(E)=\int_E f_0\,\dd\mu$ for all $E\in\cF$. Suppose otherwise, i.e.\ there is a set $E\in\cF$ for which $\nu(E)>\int_E f_0\,\dd\mu$. Then we can write $E=E_0\cup E_1$, where $E_1:= \{ x\in\Omega\,:\, f_0(x)=1\}$ and $E_0:= E\setminus E_1$. Since
+	\begin{align*}
+		\nu(E) = \nu(E_0) + \nu(E_1) > \int_E f_0\,\dd\mu = \int_{E_0} f_0\,\dd\mu + \mu(E_1) \ge \int_{E_0} f_0\,\dd\mu + \nu(E_1),
+	\end{align*}
+	it follows that $\nu(E_0)>\int_{E_0} f_0\,\dd\mu$. Let $F_n:= \{f_0<1-n^{-1}\}\cap E_0$, which gives a sequence of increasing measurable sets. Due to the continuity from below of $\nu$, we obtain
+	\[
+		\lim_{n\to\infty}\nu(F_n) = \nu\left(\bigcup_{n\ge 1} F_n\right) = \nu(E_0)>\int_{E_0} f_0\,\dd\mu.
+	\]
+	In particular, there exists some $n_0$ such that
+	\begin{align*}
+		\nu(F_{n_0}) &> \int_{E_0} f_0\,\dd\mu = \int_{F_{n_0}}f_0\,\dd\mu + \int_\Omega f_0\,\mathbf{1}_{\{f_0\ge 1-n_0^{-1}\}\cap E_0}\,\dd\mu \\
+		&\ge \int_{F_{n_0}}f_0\, \dd\mu + \bigl(1 + n_0^{-1}\bigr)\mu(\{f_0\ge 1-n_0^{-1}\}\cap E_0) \\
+		&= \int_{F_{n_0}}f_0 + \varepsilon\mathbf{1}_{F_{n_0}}\, \dd\mu,
+	\end{align*}
+	with $\varepsilon := \bigl(1 + n_0^{-1}\bigr)\mu(\{f_0\ge 1-n_0^{-1}\}\cap E_0)/\mu(F_{n_0}) >0$. Based on this fact, we claim the existence of a measurable set $F\subset F_{n_0}$ with $\mu(F)>0$ such that $f_0 + \varepsilon\mathbf{1}_F\in H$. If not, then every measurable set $F\subset F_{n_0}$ with $\mu(F)>0$ contains a measurable subset $G\subset F$ with $\int_G f_0 + \varepsilon \mathbf{1}_F\,\dd\mu > \nu(G)$. By an exhaustion argument, we can find a disjoint partition $\bigcup_{m\ge 1} G_m = F_{n_0}$ of $F_{n_0}$ such that $\int_{G_m} f_0 + \varepsilon \mathbf{1}_F\,\dd\mu > \nu(G_m)$ for all $m\ge 1$. Consequently,
+\[
+	\nu(F_{n_0}) > \int_{F_{n_0}}f_0 + \varepsilon\mathbf{1}_{F}\, \dd\mu = \sum_{m\ge 1} \int_{G_m} f_0 + \varepsilon \mathbf{1}_F\,d\mu > \sum_{m\ge 1} \nu(G_m) = \nu(F_{n_0}),
+\]
+which is a contradiction, i.e.\ such a measurable set $F\subset F_{n_0}$ must exist. 
+
+However, since $\int_\Omega f_0 + \varepsilon\mathbf{1}_F\,\dd\mu = M + \varepsilon\mu(F) > M$, this leads to another contradiction, and hence $\nu(E)=\int_E f_0\,\dd\mu$ for all $E\in\cF$ as desired.
+\end{proof}
+
+
+\begin{theorem}[Radon-Nikodym Theorem]\label{thm:radon-nikodym}
+	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$. Then there exists a $\mu$-null set $D\in\cF$ and a nonnegative $\mu$-integrable function $f_0$ such that
+	\[
+		\nu(E) = \nu(E\cap D) + \int_E f_0\,\dd\mu\qquad\text{for all $E\in\cF$}.
+	\]
+\end{theorem}
+\begin{proof}
+	Let $\lambda=\mu+\nu$. Then $0\le \nu\le \lambda$, so by Lemma~\ref{lem:partial-radon-nikodym}, there exists a measurable function $g$ with $0\le g\le 1$ such that $\nu(E)=\int_E g\,\dd\lambda$ for all $E\in\cF$. It follows that
+	$\mu(E) = \int_\Omega (1-g)\,\dd\lambda$ for all $E\in\cF$. Let $D=\{g=1\}$. Then $\mu(D) = 0$. 
+	
+	Moreover, since $\nu(E)=\int_E g\,\dd\nu + \int_E g\,\dd\mu$, we have $\int_E (1-g)\,\dd\nu = \int_E g\,\dd\mu$ for all $E\in\cF$. In particular, $\int_\Omega (1-g)f\,\dd\nu = \int_\Omega gf\,\dd\mu$ for all nonnegative measurable functions $f$. Taking $f=(1+g +\cdots g^n)\mathbf{1}_E$, we learn that
+	\[
+		\int_E (1-g^{n+1})\,\dd\nu = \int_E g(1+g\cdots+g^n)\,\dd\mu\qquad\text{for all $E\in\cF$ and $n\ge 1$}.
+	\]
+	Now since $0\le g <1$ on $D^c$, the Monotone Convergence Theorem yields
+	\begin{align*}
+		\nu(E\cap D^c) &= \lim_{n\to\infty} \int_{E\cap D^c} (1-g^{n+1})\,\dd\nu = \lim_{n\to\infty}\int_{E\cap D^c} g(1+g\cdots+g^n)\,\dd\mu \\
+		&=\int_{E\cap D^c} g(1-g)^{-1}\,\dd\mu = \int_E f_0\,d\mu,
+	\end{align*}
+	where $f_0:= g(1-g)^{-1}\mathbf{1}_{D^c}$, thus concluding the proof.
+\end{proof}
+
+\begin{definition}[Absolute continuity of measures]
+	Let $\mu$, $\nu$ be two measures on a measurable space $(\Omega, \cF)$.
+	We say that $\nu$ is \emph{absolutely continuous w.r.t.\ $\mu$}, if for every $E\in\cF$ with $\mu(E)=0$, we also have that $\nu(E)=0$, i.e.\ $\mu$-null sets are $\nu$-null sets. In this case, we write $\nu\ll\mu$.
+\end{definition}
+
+\begin{theorem}[Radon-Nikodym II] 
+	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ such that $\nu\ll \mu$. Then there exists a nonnegative $\mu$-integrable function $\dd\nu/\dd\mu$, called the \emph{Radon-Nikodym derivative of $\nu$ w.r.t.\ $\mu$} such that
+	\[
+		\nu(E) = \int_E \frac{\dd\nu}{\dd\mu}\,\dd\mu\qquad\text{for all $E\in\cF$}.
+	\]
+	The function $\dd\nu/\dd\mu$ is also often called the $\mu$-density of $\nu$.
+\end{theorem}
+\begin{proof}
+	We apply Theorem~\ref{thm:radon-nikodym} to obtain a $\mu$-measurable function $f_0$ such that
+	\[
+		\nu(E) = \nu(E\cap D) + \int_E f_0\,\dd\mu \qquad\text{for all $E\in\cF$},
+	\]
+	where $D$ is a $\mu$-null set. In particular, $E\cap D$ is a $\mu$-null set. Since $\nu\ll \mu$, we have also that $\nu(E\cap D)=0$. Setting $\dd\nu/\dd\mu:= f_0$, we then obtain the assertion.
+\end{proof}
+
+\begin{theorem}[Radon-Nikodym III] 
+	Let $\bbP$, $\bbQ$ be probability measures on $(\Omega,\cF)$ such that $\bbQ\ll \bbP$. Then there exists a nonnegative $\bbP$-integrable function $\frac{\dd\bbQ}{\dd\bbP}$ such that
+	\[
+		\bbQ(E) = \int_E \frac{\dd\bbQ}{\dd\bbP}\,\dd\bbP\qquad\text{for all $E\in\cF$}.
+	\]
+\end{theorem}
+
+
+\section{Conditional Expectation}
+
+As a first application of the Radon-Nikodym theorem, we may use it to construct the conditional expectation with respect to a sub-$\sigma$-algebra in probability theory.
+
+\begin{theorem}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $\mathcal{H}$ be a sub-$\sigma$-algebra of $\cF$. For every $\bbP$-integrable random variable $X$, there exists an $\mathcal{H}$-measurable random variable $\mathbb{E}[X|\mathcal{H}]$ such that
+\[
+\int_B \mathbb{E}[ X | \mathcal{H} ] \,\dd \bbP = \int_B X\, \dd \bbP\qquad\text{for every $B \in \mathcal{H}$}.
+\]
+\end{theorem}
+
+\begin{proof}
+Define the measure $\bbQ$ on the measurable space $(\Omega,\mathcal{H})$ by
+\[
+\bbQ(B) := \int_B X\, \dd \bbP \qquad \text{for every  $B \in \mathcal{H}$}.
+\]
+The measure $\bbQ$ is absolutely continuous with respect to the restriction of $\bbP$ to $\mathcal{H}$, which we denote by $\bbP|_{\mathcal{H}}$.
+By the Radon-Nikodym theorem, there exists an $\mathcal{H}$-measurable random variable, which we denote by $\mathbb{E}[X|\mathcal{H}] := \dd\bbQ/\dd\bbP$, such that for all $B \in \mathcal{H}$,
+\[
+\int_B X \,\dd \bbP = \bbQ(B) = \int_B \mathbb{E}[X | \mathcal{H}] \,\dd \bbP,
+\]
+thereby concluding the proof.
+\end{proof}
+
+\begin{definition}
+Let $(\Omega, \cF, \bbP)$ be a probability space, let $X,Y$ be random variables, where $X$ is $\bbP$-integrable. Then the conditional expectation of $X$ given $Y$ is defined as
+\[
+\mathbb{E}[X | Y] := \mathbb{E}[ X | \sigma(Y) ].
+\]	
+\end{definition}
+
+
+\section{Martingales}
+
+In this section we will say a few words about martingales. Martingales have very powerful applications inside and outside of probability theory. Unfortunately, we do not have the time to deeply go into the theory of martingales. This section is included since with all the work in the course up to now, we can finally give a \emph{definition} of a martingale and surrounding concepts. Moreover, with the language of measure theory developed, this definition is relatively clear and concise.
+
+Let $\mathcal{I}$ be some (possibly uncountable) index set. A \emph{filtered} probability space $(\Omega, \cF, \mathbb{F}, \bbP)$ is a measure space $(\Omega, \cF, \bbP)$ equipped with a filtration $\mathbb{F}=(\cF_\alpha)_{\alpha\in\mathcal{I}}$, where $\cF_\alpha$ is a sub-$\sigma$-algebra of $\cF$ for each $\alpha\in\mathcal{I}$.
+
+A \emph{stochastic process} $X=(X_\alpha)_{\alpha\in\mathcal{I}}$ is a family of random variables $X_\alpha : (\Omega, \cF, \bbP) \to \mathbb{R}$, $\alpha\in\mathcal{I}$. We say that a process $X$ is \emph{adapted} to the filtration $\mathbb{F}$ (or simply \emph{$\mathbb{F}$-adapted}) if the random variable $X_\alpha$ is $\cF_\alpha$-measurable for every $\alpha \in \mathcal{I}$. 
+
+We a say that a stochastic process $X$ is an \emph{$(\mathbb{F},\bbP)$-martingale} if
+\begin{enumerate}
+\item $X$ is $\mathbb{F}$-adapted
+\item $\mathbb{E}(|X_\alpha|) < \infty$ for all $\alpha \in \mathcal{I}$,
+\item For every $\alpha,\beta\in\mathcal{I}$ with $\beta\le \alpha$, $\mathbb{E}[X_\alpha | \cF_{\beta}] = X_{\beta}$ $\bbP$-almost surely.
+\end{enumerate}
+
+A function $\tau:\Omega \to \mathcal{I}$ is called an \emph{$\mathbb{F}$-stopping time} if for every $\alpha \in \mathcal{I}$, 
+\[
+	\bigl\{ \omega\in\Omega : \ \tau(\omega) \leq \alpha \bigr\}\qquad\text{is $\cF_\alpha$-measurable},
+\]
+or in other words, the stochastic process $(\mathbf{1}_{\{\tau\le \alpha\}})_{\alpha\in\mathcal{I}}$ is $\mathbb{F}$-adapted.
+
+
+\section{Problems}
+
+\begin{problem}
+	Let $\mu$, $\nu$ be two measures on $(\Omega, \cF)$ such that $\nu$ is absolutely continuous with respect to $\mu$. Show that for every $\epsilon > 0$ there exists a $\delta_\epsilon > 0$ such that for every $A \in \cF$:
+	\[
+		\mu(A) < \delta_\epsilon\;\;\Longrightarrow\;\; \nu(A) < \epsilon.
+	\]
+	\textbf{Hint:} Prove by contradiction.
+\end{problem}
+%\begin{proof}
+%	Suppose otherwise. Then, there exists an $\epsilon > 0$ and a sequence of measurable sets $A_i \in \cF$ such that $\mu(A_i) < 2^{-i}$ but $\nu(A_i) > \epsilon$. Setting 
+%	\[
+%	B_i := \bigcup_{j \geq i} A_j,
+%	\]
+%	we obtain a decreasing sequence $(B_i)_{i\in\bbN}$ of measurable sets. Now set 
+%	\[
+%	B:= \bigcap_{i=1}^\infty B_i.
+%	\]
+%	Then, $\lim_{i \to \infty } \mu(B_i ) = 0$ and $\lim_{i \to \infty } \nu(B_i) \ge \varepsilon$, which leads to a contradiction with the assumption that $\nu$ is absolutely continuous with respect to $\mu$.
+%\end{proof}
+

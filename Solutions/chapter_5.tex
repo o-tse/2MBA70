@@ -161,7 +161,27 @@ We have shown in (f) that the last term goes to zero as $n \to \infty$. Since $\
 \item This now follows from Theorem 5.2.7 (3).
 \end{enumerate}
 
+\bigskip
+\textbf{Problem 5.9}
+Suppose that $X_n \aslim X$. Then by Lemma 5.2.16 this is equivalent to $\bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0$ for all $\varepsilon > 0$. 
 
+For now fix an $\varepsilon > 0$ and write $A_n := \{\|X_n - X\| > \varepsilon\}$. Recall that
+\[
+	\{A_n \text{ i.o.}\} = \bigcap_{k = 1}^\infty \bigcup_{k \ge n} A_n
+\]
+and note two things:
+\begin{enumerate}[label={(\alph*)}]
+\item The sets $B_k := \bigcup_{n \ge k} A_n$ are non-increasing, i.e. $B_k \supset B_{k+1}$, and
+\item $\bbP(A_k) \le \bbP(\bigcup_{n \ge k} A_n) = \bbP(B_k)$.
+\end{enumerate}
+ 
+We then have that:
+\begin{align*}
+	0 &= \bbP(\{A_n \text{ i.o.}\}) &&\text{by assumption} \\
+	&= \bbP(\bigcap_{k =1}^\infty B_k) &&\text{by Lemma 5.2.16}\\
+	&= \lim_{k \to \infty} \bbP(B_k) &&\text{by continuity form above (Proposition 2.2.15)}\\
+	&\ge \lim_{k \to \infty} \bbP(A_k) &&\text{by (b)}.
+\end{align*}
 
 
 

@@ -129,7 +129,67 @@ Let $(\Omega, \cF, \bbP)$ be a probability space, let $X,Y$ be random variables,
 \]	
 \end{definition}
 
+\section{Conditional Probability}
 
+Armed with the notion of conditional expectation we can now define conditional probabilities. The key observation is that for any probability measure $\bbP$ on $(\Omega, \cF)$ and random variable $X$ we have that
+\[
+	\bbP(X \in A) = \int_\Omega \mathbf{1}_{X \in A} \, \dd \bbP = \bbE[\mathbf{1}_{X \in A}].
+\]
+
+\begin{definition}[Conditional probability]
+Let $(\Omega, \cF, \bbP)$ be a probability space, $\cH$ a sub-\sigalg/ of $\cF$, and $X$ a random variable. Then conditional probability of $X$ with respect to $\cH$ is define as
+\[
+	\bbP(X \in A | \cH) := \bbE[\mathbf{1}_{X \in A} | \cH].
+\]
+If $Y$ is another random variable we define
+\[
+	\bbP(X \in A | Y) := \bbP(X \in A | \sigma(Y)).
+\]
+\end{definition}
+
+
+A common formula given to you when considering discrete random variables $X$ and $Y$ was the following:
+\begin{equation}\label{eq:law_of_probability_discrete}
+	\bbP(X \in A) = \bbE[\bbP(X \in A | Y)] = \sum_{k \in \bbZ} \bbP(X \in A | Y= k) \bbP(Y = k). 
+\end{equation}
+This was referred to as the total law of probability. However, in the above expression it is not clear what $\bbP(X \in A | Y = k)$ is. The issue here is that we have a definition for the random variable $\bbP(X \in A | Y)$, which is a measurable function $\Omega \to \bbR$. But here we would like to consider $\bbP(X \in A | Y = k)$ as a function $\bbZ \to \bbR$. How would you define this? This is what the next lemma will help us with.
+
+\begin{lemma}\label{lem:condition_expectation_Y_y}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X,Y$ be two random variables with joint density $f : \bbR \times \bbR \to \bbR$. Further, let $f_Y$ denote the density of $Y$ and define
+\[
+	h(y) := \int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \dd \lambda
+\]
+Then
+\[
+	h(Y) = \bbE[X | Y].
+\]
+\end{lemma}
+
+\begin{proof}
+We need to show that for all $B \in \sigma(Y)$
+\[
+	\int_B h(Y) \, \dd \bbP = \int_B X \, \dd \bbP := \bbE[\mathbf{1}_B X]. 
+\]
+Note that it suffices to consider sets of the form $B = Y^{-1}(A)$ for some $A \in \cB$. Moreover $\mathbf{1}_B(\omega) = \mathbf{1}_B(Y(\omega))$. Hence
+\begin{align*}
+	\int_B h(Y) \, \dd \bbP &= \int_\Omega \mathbf{1}_{B} h(Y) \, \dd \bbP \\
+	&= \int_\Omega \mathbf{1}_{Y^{-1}(A)} h(Y) \, \dd \bbP \\
+	&= \int_\bbR \mathbf{1}_{A}(y) h(y) f_Y(Y) \, \lambda (\dd y) &&\text{by change of variables}\\
+	&= \int_\bbR \mathbf{1}_A(y) \left(\int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \lambda(\dd x)\right)
+		\, f_Y(y) \lambda(\dd y)\\
+	&= \iint_{\bbR^2} \mathbf{1}_A(y) x f(x,y) \, \lambda(\dd x) \lambda(\dd y)\\
+	&= \bbE[\mathbf{1}_A(Y) X]\\
+	&= \bbE[\mathbf{1}_B X] 
+\end{align*}
+\end{proof}
+
+The function
+\begin{equation}
+	g(x,y) := \frac{f(x,y)}{f_Y(y)},
+\end{equation}
+is referred to as the conditional density of $X$ given $Y = y$. We often write $f_{X|Y}(x|y) := g(x,y)$ to emphasize the conditioning on $Y = y$.
+
+The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. With this we can now formally establish~\eqref{eq:law_of_probability_discrete}, see Problem~\ref{prb:law_of_probability_discrete}.
 \section{Martingales}
 
 In this section we will say a few words about martingales. Martingales have very powerful applications inside and outside of probability theory. Unfortunately, we do not have the time to deeply go into the theory of martingales. This section is included since with all the work in the course up to now, we can finally give a \emph{definition} of a martingale and surrounding concepts. Moreover, with the language of measure theory developed, this definition is relatively clear and concise.
@@ -161,6 +221,7 @@ or in other words, the stochastic process $(\mathbf{1}_{\{\tau\le \alpha\}})_{\a
 	\]
 	\textbf{Hint:} Prove by contradiction.
 \end{problem}
+
 %\begin{proof}
 %	Suppose otherwise. Then, there exists an $\epsilon > 0$ and a sequence of measurable sets $A_i \in \cF$ such that $\mu(A_i) < 2^{-i}$ but $\nu(A_i) > \epsilon$. Setting 
 %	\[
@@ -173,3 +234,6 @@ or in other words, the stochastic process $(\mathbf{1}_{\{\tau\le \alpha\}})_{\a
 %	Then, $\lim_{i \to \infty } \mu(B_i ) = 0$ and $\lim_{i \to \infty } \nu(B_i) \ge \varepsilon$, which leads to a contradiction with the assumption that $\nu$ is absolutely continuous with respect to $\mu$.
 %\end{proof}
 
+\begin{problem}\label{prb:law_of_probability_discrete}
+Use Lemma~\ref{lem:condition_expectation_Y_y} to prove~\eqref{eq:law_of_probability_discrete}.
+\end{problem}

@@ -724,12 +724,12 @@ We will first prove the $\Rightarrow$ implication.
 For the other implication $\Leftarrow$ let $g$ be a continuous function with compact support. Then there is some $K > 0$ such that $g$ is zero outside $[-K,K]$. You may use the fact that any continuous function with compact support is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
 \begin{enumerate}[label={(\alph*)}]
 \setcounter{enumi}{3}
-\item Let $\delta > 0$. Construct a partition of $[-K,K]$ into $L$ intervals $I_i$ such that for each $\ell \le L$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
+\item Let $\delta > 0$. Construct a partition of $[-K,K]$ into $L$ intervals $I_\ell$ such that for each $\ell \le L$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
 \end{enumerate}
 
 We will now define an approximate function
 \[
-	\hat{g}(x) = \sum_{\ell = 1}^L h(\max_{x \in I_i} x) \mathbf{1}_{I_i}.
+	\hat{g}(x) = \sum_{\ell = 1}^L g(\max_{x \in I_i} x) \mathbf{1}_{I_i}.
 \]
 
 \begin{enumerate}[label={(\alph*)}]
@@ -739,7 +739,7 @@ We will now define an approximate function
 	\hat{g}(x) = \sum_{m = 1}^M \beta_m \mathbf{1}_{(-\infty, t_m]}.
 \]
 \item Prove that $\lim_{n \to \infty} \bbE[\hat{g}(X_n)] = \bbE[\hat{g}(X)]$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
-\item Prove that $\bbE[g(X_n)] \to \bbE[g(X)]$. [Hint: First use the previous result to show that $\|\mu_n \ast g(A) - \mu \ast g(A)\| \to 2\varepsilon$ by adding and subtracting $\mu_n \ast \hat{g}$ and $\mu \ast \hat{g}$.]
+\item Prove that $\bbE[g(X_n)] \to \bbE[g(X)]$. [Hint: First use the previous result to show that $\| \int g \, \dd \mu_n - \int g \, \dd \mu\| \to 2\varepsilon$ by adding and subtracting $\int \hat{g} \, \dd \mu_n$ and $\int \hat{g} \, \dd \mu$.]
 \item Conclude that $X_n \dlim X$.
 \end{enumerate}
 \end{problem}

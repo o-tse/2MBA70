@@ -141,29 +141,29 @@ Note that by a telescoping argument, for all $\ell \geq k$,
 \]
 Then
 \[
-\mu \left(\left\{ x \in \Omega : \ |g_{k+1}(\omega) - g_k(\omega) | 
+\mu \left(\left\{ \omega \in \Omega : \ |g_{k+1}(\omega) - g_k(\omega) | 
 > 2^{-k}  \right\} \right) < \frac{1}{2^{-k p} }\| g_{k+1} - g_k \|_{L^p(\Omega)}^p <2^{-kp}.
 \]
-In particular, by the Borel-Cantelli Lemma, for $\mu$-a.e. $x \in \Omega$, there is an $N \in \bbN$ such that
+In particular, by the Borel-Cantelli Lemma (cf.\ Lemma~\ref{lem:Borel-Cantelli}), for $\mu$-a.e. $\omega \in \Omega$, there is an $N_\omega \in \bbN$ such that
 \[
-|g_{k+1}(\omega) - g_k(\omega)| \leq 2^{-k}\qquad\text{for all $k > N$}.
+|g_{k+1}(\omega) - g_k(\omega)| \leq 2^{-k}\qquad\text{for all $k > N_\omega$}.
 \]
-For such $x$, the sequence $(g_k(\omega))_{k\in\bbN}$ is Cauchy. So by the completeness of $\bbR$, a limit exists, which we call $f(\omega)$.
+For such $\omega\in\Omega$, the sequence $(g_k(\omega))_{k\in\bbN}$ is Cauchy. So by the completeness of $\bbR$, a limit exists, which we call $f(\omega)$.
 
 By Fatou's Lemma,
 \[
 \| g_k - f\|_p \leq \liminf_{\ell \to \infty} \| g_k - g_\ell \|_p \leq 4^{-k}.
 \]
 To see that this implies that $f_n$ converges to $f$ in $L^p$, we take an arbitrary $\epsilon > 0$. 
-Since $f_n$ is a Cauchy sequence, there exists an $N_1 \in \bbN$ such that for all $m, n \geq N_1$,
+Since $f_n$ is a Cauchy sequence, there exists an $N \in \bbN$ such that for all $m, n \geq N$,
 \[
 \|f_{n} - f_m\|_{p} < \frac{\epsilon}{2}.
 \]
-Now there exists an $K \in \bbN$, with $K > N_1$ (and therefore $n_K > N_1$) such that for all $k \geq K$,
+Now there exists an $K \in \bbN$ with $n_K > N$ such that for all $k \geq K$,
 \[
 \|f_{n_k} - f \|_{p} < \frac{\epsilon}{2}.
 \]
-Set $N_2 := \max( N_1, n_{K} )$. Then, for $n \geq N_2$, we find
+Then, for $n \geq n_K$, we find
 \[
 \| f_n - f \|_{p} 
 \leq \| f_{n} - f_{n_{K}} \|_{p} + \|f_{n_K} - f\|_{L^p(\Omega)}  < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon,

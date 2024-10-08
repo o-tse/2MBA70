@@ -622,6 +622,37 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \aslim X$. Then
 See Problem~\ref{prb:almost_sure_implies_probability}.
 \end{proof}
 
+A useful tool for proving almost everywhere convergence is the following result.
+
+\begin{lemma}[Borel-Cantelli]\label{lem:Borel-Cantelli}
+	Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets. If
+	\[
+	\sum_{n=1}^\infty \mu(A_n) < \infty,
+	\]
+	then for $\mu$-almost every $\omega \in \Omega$, there are only finitely many $n \in \mathbb{N}$ such that $\omega \in A_n$.
+\end{lemma}
+\begin{proof}
+	Define the sets
+	\[
+		B_j := \bigcup_{i \ge j} A_i,\qquad j\in\bbN.
+	\]
+	Clearly the sequence $(B_j)_{j\in\bbN}$ is decreasing and $\{A_n \text{ i.o.}\}\subset B_j$ for every $j \in \mathbb{N}$. 
+	
+	By assumption, and the $\sigma$-subadditivity of $\mu$,
+	\[
+	\mu(B_1) = \mu\left(\bigcup_{i=1}^\infty A_i \right) \leq \sum_{i=1}^\infty \mu(A_i) < +\infty.
+	\]
+	Moreover, the summability also gives
+	\[
+		\lim_{j\to\infty}\mu(B_j) \leq \limsup_{j\to\infty}\sum_{i=j}^\infty \mu(A_i) = 0.
+	\]
+	Hence, by the continuity from above of $\mu$, we obtain
+	\[
+		\mu(\{A_n \text{ i.o.}\}) \le \mu\left(\bigcup_{j=1}^\infty B_j\right) = \lim_{j\to \infty} \mu(B_j) = 0,
+	\]
+	i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\mu$-almost every $\omega$ is in only finitely many $A_n$.
+\end{proof}
+
 \section{Problems}
 
 \begin{problem}\label{prb:reverse_fatou}

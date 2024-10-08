@@ -63,10 +63,12 @@
 \contentsline {section}{\numberline {6.6}Problems}{76}{section.6.6}%
 \contentsline {chapter}{\numberline {7}Fubini-Tonelli Theorem and Independence}{77}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Product measures and independent random variables}{77}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Fubini's Theorem and Tonelli's Theorem}{79}{section.7.2}%
-\contentsline {chapter}{\numberline {8}The Radon-Nikodym Theorem and Conditional Expectation}{82}{chapter.8}%
-\contentsline {section}{\numberline {8.1}A General Radon-Nikodym Theorem}{82}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conditional Expectation}{85}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Martingales}{85}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Problems}{86}{section.8.4}%
+\contentsline {section}{\numberline {7.2}Fubini's Theorem and Tonelli's Theorem}{80}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Problems}{82}{section.7.3}%
+\contentsline {chapter}{\numberline {8}The Radon-Nikodym Theorem and Conditional Expectation}{84}{chapter.8}%
+\contentsline {section}{\numberline {8.1}A General Radon-Nikodym Theorem}{84}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conditional Expectation}{87}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Conditional Probability}{87}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Martingales}{89}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Problems}{90}{section.8.5}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

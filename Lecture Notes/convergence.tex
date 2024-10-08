@@ -455,7 +455,7 @@ See Problem~\ref{prb:convergence_probability_classic}.
 \subsection{Convergence in probability}
 
 \begin{definition}[Convergence in probability]\label{def:convergence_probability}
-Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := \|X_n - X\|$. We say that $X_n$ \emph{converges in probability} to $X$ if
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := |X_n - X|$. We say that $X_n$ \emph{converges in probability} to $X$ if
 \[
 	(Y_n)_\# \bbP \Rightarrow 0_\# \bbP,
 \] 
@@ -463,10 +463,10 @@ where $0$ denotes the constant function $\omega \mapsto 0$. If this is the case,
 \end{definition}
 
 \begin{remark}
-Note that, unlike convergence in distribution, the concept of convergence in probability requires all random variables to be defined on the same probability space. This requirement can be relaxed a bit by having each $X_n$ be defined on a different probability space $(\Omega_n, \cF_n. \bbP_n)$ but have $X$ be defined on each of these spaces. From this perspective, we see that if we talk about convergence in probability to a constant $X_n \plim a \in \bbR$, then this is always true as constant random variables can be defined on any probability space.
+Note that, unlike convergence in distribution, the concept of convergence in probability requires all random variables to be defined on the same probability space. This requirement can be relaxed a bit by having each $X_n$ be defined on a different probability space $(\Omega_n, \cF_n, \bbP_n)$ but have $X$ be defined on each of these spaces. From this perspective, we see that if we talk about convergence in probability to a constant $X_n \plim a \in \bbR$, then this is always true as constant random variables can be defined on any probability space.
 \end{remark}
 
-Recall that for a random variable $X$ on a probability space $(\Omega, \cF, \bbP)$ we wrote $\bbP(X \le t)$ as a short hand notation for $X_\# \bbP ((-\infty,t])$, i.e. the cdf of $X$ at $t$, and $\bbP(X > t)$ for $X_\# \bbP ((t,\infty))$, i.e. the cdf of $X$ at $t$.
+Recall that for a random variable $X$ on a probability space $(\Omega, \cF, \bbP)$ we wrote $\bbP(X \le t)$ as a short hand notation for $X_\# \bbP ((-\infty,t])$, i.e., the cdf of $X$ at $t$, and $\bbP(X > t)$ for $X_\# \bbP ((t,\infty))$, i.e., $1$ minus the cdf of $X$ at $t$.
 
 The following result relates the definition of convergence in probability to a version that is presented in most probability courses.
 
@@ -489,7 +489,7 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \plim X$. Then 
 \end{lemma}
 
 \begin{proof}
-We will use the form of from Lemma~\ref{lem:convergence_probability_classical}. Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$ Let $t$ be a continuity point of $F_X$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
+We will use the form of from Lemma~\ref{lem:convergence_probability_classical}. Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$. Let $t$ be a continuity point of $F$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
 \begin{align*}
 	\bbP(X_n \le t)
 	&= \bbP(\{X_n \le t\} \cap \{|X_n - X| \le \varepsilon\}) + \bbP(\{X_n \le t\} \cap \{|X_n - X|>\varepsilon\})\\
@@ -506,7 +506,7 @@ since $X_n \plim X$ implies that
 	\limsup_{n \to \infty} \bbP(|X_n - X| > \varepsilon)
 	= \lim_{n \to \infty} \bbP(|X_n - X| > \varepsilon) = 0.
 \]
-Since $t$ is a continuity point of $F_X$ it follows that 
+Since $t$ is a continuity point of $F$ it follows that 
 \[
 	\lim_{\varepsilon \downarrow 0} \bbP(X \le t + \varepsilon) = \bbP(X \le t),
 \]
@@ -541,24 +541,24 @@ We will use the form of from Lemma~\ref{lem:convergence_probability_classical}. 
 \[
 	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0.
 \]
-Let $B_\varepsilon(a)$ denote the open ball of radius $\varepsilon$ around $a$ and consider the compliment $B_\varepsilon(a)^c := \mathbb{R} \backslash B_\varepsilon(a)$, which is a closed set. We then have
+Let $B_\varepsilon(a)$ denote the open ball of radius $\varepsilon$ around $a$ and consider the compliment $B_\varepsilon^c(a) := \mathbb{R} \backslash B_\varepsilon(a)$, which is a closed set. We then have
 \[
-	\bbP(|X_n-a|>\varepsilon) \le \bbP(|X_n-a|\ge\varepsilon) = \bbP(X_n \in B_\varepsilon(a)^c). 
+	\bbP(|X_n-a|>\varepsilon) \le \bbP(|X_n-a|\ge\varepsilon) = \bbP(X_n \in B_\varepsilon^c(a)). 
 \]
 In particular we have
 \[
 	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) \le \limsup_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
-	\le \limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon(a)^c).
+	\le \limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a)).
 \]
 Since $X_n \dlim a$, statement 3 in Theorem~\ref{thm:portmanteau} implies that 
 \[
-	\limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon(a)^c)
-	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon(a)^c) = 0,
+	\limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a))
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0,
 \]
 because obviously $a \notin B_\varepsilon(a)^c$. Therefore we conclude that
 \[
 	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
-	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon(a)^c) = 0
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0
 \]
 which implies that $\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0$.
 \end{proof}

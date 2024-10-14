@@ -69,8 +69,7 @@
 \contentsline {section}{\numberline {8.1}A General Radon-Nikodym Theorem}{84}{section.8.1}%
 \contentsline {section}{\numberline {8.2}Conditional Expectation}{87}{section.8.2}%
 \contentsline {section}{\numberline {8.3}Conditional Probability}{87}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Martingales}{89}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Problems}{90}{section.8.5}%
+\contentsline {section}{\numberline {8.4}Problems}{89}{section.8.4}%
 \contentsline {chapter}{\numberline {9}Appendix: From Riemann to Lebesgue}{91}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Recalling Riemann integration}{91}{section.9.1}%
 \contentsline {section}{\numberline {9.2}Riemann vs Lebesgue integration}{92}{section.9.2}%

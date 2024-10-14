@@ -190,26 +190,27 @@ The function
 is referred to as the conditional density of $X$ given $Y = y$. We often write $f_{X|Y}(x|y) := g(x,y)$ to emphasize the conditioning on $Y = y$.
 
 The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. With this we can now formally establish~\eqref{eq:law_of_probability_discrete}, see Problem~\ref{prb:law_of_probability_discrete}.
-\section{Martingales}
 
-In this section we will say a few words about martingales. Martingales have very powerful applications inside and outside of probability theory. Unfortunately, we do not have the time to deeply go into the theory of martingales. This section is included since with all the work in the course up to now, we can finally give a \emph{definition} of a martingale and surrounding concepts. Moreover, with the language of measure theory developed, this definition is relatively clear and concise.
-
-Let $\mathcal{I}$ be some (possibly uncountable) index set. A \emph{filtered} probability space $(\Omega, \cF, \mathbb{F}, \bbP)$ is a measure space $(\Omega, \cF, \bbP)$ equipped with a filtration $\mathbb{F}=(\cF_\alpha)_{\alpha\in\mathcal{I}}$, where $\cF_\alpha$ is a sub-$\sigma$-algebra of $\cF$ for each $\alpha\in\mathcal{I}$.
-
-A \emph{stochastic process} $X=(X_\alpha)_{\alpha\in\mathcal{I}}$ is a family of random variables $X_\alpha : (\Omega, \cF, \bbP) \to \mathbb{R}$, $\alpha\in\mathcal{I}$. We say that a process $X$ is \emph{adapted} to the filtration $\mathbb{F}$ (or simply \emph{$\mathbb{F}$-adapted}) if the random variable $X_\alpha$ is $\cF_\alpha$-measurable for every $\alpha \in \mathcal{I}$. 
-
-We a say that a stochastic process $X$ is an \emph{$(\mathbb{F},\bbP)$-martingale} if
-\begin{enumerate}
-\item $X$ is $\mathbb{F}$-adapted
-\item $\mathbb{E}(|X_\alpha|) < \infty$ for all $\alpha \in \mathcal{I}$,
-\item For every $\alpha,\beta\in\mathcal{I}$ with $\beta\le \alpha$, $\mathbb{E}[X_\alpha | \cF_{\beta}] = X_{\beta}$ $\bbP$-almost surely.
-\end{enumerate}
-
-A function $\tau:\Omega \to \mathcal{I}$ is called an \emph{$\mathbb{F}$-stopping time} if for every $\alpha \in \mathcal{I}$, 
-\[
-	\bigl\{ \omega\in\Omega : \ \tau(\omega) \leq \alpha \bigr\}\qquad\text{is $\cF_\alpha$-measurable},
-\]
-or in other words, the stochastic process $(\mathbf{1}_{\{\tau\le \alpha\}})_{\alpha\in\mathcal{I}}$ is $\mathbb{F}$-adapted.
+%\section{Martingales}
+%
+%In this section we will say a few words about martingales. Martingales have very powerful applications inside and outside of probability theory. Unfortunately, we do not have the time to deeply go into the theory of martingales. This section is included since with all the work in the course up to now, we can finally give a \emph{definition} of a martingale and surrounding concepts. Moreover, with the language of measure theory developed, this definition is relatively clear and concise.
+%
+%Let $\mathcal{I}$ be some (possibly uncountable) index set. A \emph{filtered} probability space $(\Omega, \cF, \mathbb{F}, \bbP)$ is a measure space $(\Omega, \cF, \bbP)$ equipped with a filtration $\mathbb{F}=(\cF_\alpha)_{\alpha\in\mathcal{I}}$, where $\cF_\alpha$ is a sub-$\sigma$-algebra of $\cF$ for each $\alpha\in\mathcal{I}$.
+%
+%A \emph{stochastic process} $X=(X_\alpha)_{\alpha\in\mathcal{I}}$ is a family of random variables $X_\alpha : (\Omega, \cF, \bbP) \to \mathbb{R}$, $\alpha\in\mathcal{I}$. We say that a process $X$ is \emph{adapted} to the filtration $\mathbb{F}$ (or simply \emph{$\mathbb{F}$-adapted}) if the random variable $X_\alpha$ is $\cF_\alpha$-measurable for every $\alpha \in \mathcal{I}$. 
+%
+%We a say that a stochastic process $X$ is an \emph{$(\mathbb{F},\bbP)$-martingale} if
+%\begin{enumerate}
+%\item $X$ is $\mathbb{F}$-adapted
+%\item $\mathbb{E}(|X_\alpha|) < \infty$ for all $\alpha \in \mathcal{I}$,
+%\item For every $\alpha,\beta\in\mathcal{I}$ with $\beta\le \alpha$, $\mathbb{E}[X_\alpha | \cF_{\beta}] = X_{\beta}$ $\bbP$-almost surely.
+%\end{enumerate}
+%
+%A function $\tau:\Omega \to \mathcal{I}$ is called an \emph{$\mathbb{F}$-stopping time} if for every $\alpha \in \mathcal{I}$, 
+%\[
+%	\bigl\{ \omega\in\Omega : \ \tau(\omega) \leq \alpha \bigr\}\qquad\text{is $\cF_\alpha$-measurable},
+%\]
+%or in other words, the stochastic process $(\mathbf{1}_{\{\tau\le \alpha\}})_{\alpha\in\mathcal{I}}$ is $\mathbb{F}$-adapted.
 
 
 \section{Problems}

@@ -1,0 +1,38 @@
+
+\textbf{Problem 8.2}
+First note that since $f-g$ is $\cH$-measurable, we have that $\{f \ge g\}, \{f < g\} \in \cH$. We then write
+\[
+	\int_\Omega \|f-g\| \, \dd \bbP = \int_{f \ge g} (f-g) \, \dd \bbP - \int_{f < g} (f-g) \, \dd \bbP.
+\]
+Since $\int_B f \, \dd \bbP = \int_B g \, \dd \bbP$ holds for all $B \in \cH$ both integrals on the right hand side are zero. 
+
+\bigskip
+\textbf{Problem 8.4}
+
+\begin{enumerate}[label={(\alph*)}]
+\item By definition we have that
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP,
+\]
+holds for all $B \in \cH$. Since by assumption both $\bbE[X | \cH]$ and $X$ are $\cH$-measurable, the result follows from problem 8.2.
+\item Note that $a \bbE[X | \cH]$ is $\cH$-measurable. Moreover,
+\[
+	\int_B a \bbE[X | \cH] \, \dd \bbP = a \int_B \bbE[X | \cH] \, \dd \bbP = a \int_B X \, \dd \bbP = \int_B aX \, \dd \bbP.
+\]
+This proves the claim.
+\item Similarly to the previous point, we first note that since $\bbE[X | \cH]$ and $\bbE[Y | \cH]$ are $\cH$-measurable so is $\bbE[X | \cH] + \bbE[Y | \cH]$. The result then follows because
+\begin{align*}
+	\int_B \bbE[X | \cH] + \bbE[Y | \cH] \, \dd \bbP 
+	&= \int_B \bbE[X | \cH] \, \dd \bbP + \int_B \bbE[Y | \cH] \, \dd \bbP \\
+	&= \int_B X \, \dd \bbP + \int_B Y \, \dd \bbP = \int_B X + Y \, \dd \bbP.
+\end{align*}
+\item First we observe that for any $B \in \cH$
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP \le \int_B Y \, \dd \bbP = \int_B \bbE[Y | \cH] \, \dd \bbP.
+\]
+Now consider the event $A := \{ \bbE[X | \cH] > \bbE[Y | \cH]\} \in \cH$. If this event has non-zero measure then it would follow that
+\[
+	\int_A \bbE[X | \cH] \, \dd \bbP > \int_A \bbE[Y | \cH] \, \dd \bbP,
+\]
+which is a contradiction. Hence we conclude that $\bbE[X | \cH] \le \bbE[Y | \cH]$ holds $\bbP$-almost everywhere.
+\end{enumerate}

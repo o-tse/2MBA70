@@ -234,6 +234,35 @@ or in other words, the stochastic process $(\mathbf{1}_{\{\tau\le \alpha\}})_{\a
 %	Then, $\lim_{i \to \infty } \mu(B_i ) = 0$ and $\lim_{i \to \infty } \nu(B_i) \ge \varepsilon$, which leads to a contradiction with the assumption that $\nu$ is absolutely continuous with respect to $\mu$.
 %\end{proof}
 
+\begin{problem}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $\cH$ be a sub-\sigalg/ of $\cF$. Let $f, g : \Omega \to \bbR$ be $\cH$-measurable functions such that
+\[
+	\int_B f \, \dd \bbP = \int_B g \, \dd \bbP,
+\]
+holds for all $B \in \cH$. 
+
+Prove that $f=g$ $\bbP$-almost everywhere, i.e.
+\[
+	\int_\Omega \|f - g\| \, \dd \bbP = 0.
+\]
+\end{problem}
+
+\begin{problem}
+Prove that the conditional expectation is unique $\bbP$-almost everywhere.
+\end{problem}
+
+\begin{problem}[Properties conditional expectation]
+The goal of this problem is to prove that the conditional expectation satisfies many of the same properties as the regular expectation. 
+
+Let $(\Omega, \cF, \bbP)$ be a probability space and $\cH$ be a sub-\sigalg/ of $\cF$. Furthermore, let $X, Y$ be random variables and $a \in \bbR$. Prove that the following statements hold $\bbP$-almost everywhere:
+\begin{enumerate}[label={(\alph*)}]
+\item If $X$ is $\cH$-measurable, then $\bbE[X | \cH] = X$.
+\item $\bbE[a X | \cH] = a \bbE[X | \cH]$.
+\item $\bbE[X + Y | \cH] = \bbE[X | \cH] + \bbE[Y | \cH]$.
+\item If $X \le Y$, then $\bbE[X | \cH] \le \bbE[Y | \cH]$.
+\end{enumerate}
+\end{problem}
+
 \begin{problem}\label{prb:law_of_probability_discrete}
 Use Lemma~\ref{lem:condition_expectation_Y_y} to prove~\eqref{eq:law_of_probability_discrete}.
 \end{problem}

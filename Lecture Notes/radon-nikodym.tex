@@ -24,27 +24,29 @@
 	\] 
 	Define $f_0:= \lim_{n\to\infty} f_n$. Then $f_0$ is measurable. By the Monotone Convergence Theorem, $f_0\in H$ and $\int_\Omega f_0\,\dd\mu \ge M$. Hence, $\int_\Omega f_0\,\dd\mu = M$.
 	
-	To complete the proof, we show that $\nu(E)=\int_E f_0\,\dd\mu$ for all $E\in\cF$. Suppose otherwise, i.e.\ there is a set $E\in\cF$ for which $\nu(E)>\int_E f_0\,\dd\mu$. Then we can write $E=E_0\cup E_1$, where $E_1:= \{ x\in\Omega\,:\, f_0(x)=1\}$ and $E_0:= E\setminus E_1$. Since
+	To complete the proof, we show that $\nu(E)=\int_E f_0\,\dd\mu$ for all $E\in\cF$. Suppose otherwise, i.e., there is a set $E\in\cF$ for which $\nu(E)>\int_E f_0\,\dd\mu$. Then we can write $E=E_0\cup E_1$, where $E_1:= \{ \omega\in\Omega\,:\, f_0(\omega)=1\}$ and $E_0:= E\backslash E_1$. Since
 	\begin{align*}
-		\nu(E) = \nu(E_0) + \nu(E_1) > \int_E f_0\,\dd\mu = \int_{E_0} f_0\,\dd\mu + \mu(E_1) \ge \int_{E_0} f_0\,\dd\mu + \nu(E_1),
+		\nu(E_0) + \nu(E_1) = \nu(E) > \int_E f_0\,\dd\mu = \int_{E_0} f_0\,\dd\mu + \mu(E_1) \ge \int_{E_0} f_0\,\dd\mu + \nu(E_1),
 	\end{align*}
 	it follows that $\nu(E_0)>\int_{E_0} f_0\,\dd\mu$. Let $F_n:= \{f_0<1-n^{-1}\}\cap E_0$, which gives a sequence of increasing measurable sets. Due to the continuity from below of $\nu$, we obtain
 	\[
-		\lim_{n\to\infty}\nu(F_n) = \nu\left(\bigcup_{n\ge 1} F_n\right) = \nu(E_0)>\int_{E_0} f_0\,\dd\mu.
+		\lim_{n\to\infty}\nu(F_n) = \nu\Biggl(\bigcup_{n\ge 1} F_n\Biggr) = \nu(E_0)>\int_{E_0} f_0\,\dd\mu.
 	\]
 	In particular, there exists some $n_0$ such that
 	\begin{align*}
 		\nu(F_{n_0}) &> \int_{E_0} f_0\,\dd\mu = \int_{F_{n_0}}f_0\,\dd\mu + \int_\Omega f_0\,\mathbf{1}_{\{f_0\ge 1-n_0^{-1}\}\cap E_0}\,\dd\mu \\
 		&\ge \int_{F_{n_0}}f_0\, \dd\mu + \bigl(1 + n_0^{-1}\bigr)\mu(\{f_0\ge 1-n_0^{-1}\}\cap E_0) \\
-		&= \int_{F_{n_0}}f_0 + \varepsilon\mathbf{1}_{F_{n_0}}\, \dd\mu,
+		&= \int_{F_{n_0}}f_0 + \varepsilon_0\mathbf{1}_{F_{n_0}}\, \dd\mu,
 	\end{align*}
-	with $\varepsilon := \bigl(1 + n_0^{-1}\bigr)\mu(\{f_0\ge 1-n_0^{-1}\}\cap E_0)/\mu(F_{n_0}) >0$. Based on this fact, we claim the existence of a measurable set $F\subset F_{n_0}$ with $\mu(F)>0$ such that $f_0 + \varepsilon\mathbf{1}_F\in H$. If not, then every measurable set $F\subset F_{n_0}$ with $\mu(F)>0$ contains a measurable subset $G\subset F$ with $\int_G f_0 + \varepsilon \mathbf{1}_F\,\dd\mu > \nu(G)$. By an exhaustion argument, we can find a disjoint partition $\bigcup_{m\ge 1} G_m = F_{n_0}$ of $F_{n_0}$ such that $\int_{G_m} f_0 + \varepsilon \mathbf{1}_F\,\dd\mu > \nu(G_m)$ for all $m\ge 1$. Consequently,
+	with $\varepsilon_0 := \bigl(1 + n_0^{-1}\bigr)\mu(F_0^c\cap E_0)/\mu(F_{n_0}) >0$. 
+	
+	Based on this fact, we claim the existence of a measurable set $F\subset F_{n_0}$ with $\mu(F)>0$ such that $f_0 + \varepsilon_0\mathbf{1}_F\in H$. Otherwise, every measurable set $F\subset F_{n_0}$ with $\mu(F)>0$ would contain a measurable subset $G\subset F$ with $\int_G f_0 + \varepsilon_0 \mathbf{1}_F\,\dd\mu > \nu(G)$. By an exhaustion argument, we can construct a disjoint partition $\bigcup_{m\ge 1} G_m = F_{n_0}$ of $F_{n_0}$ such that $\int_{G_m} f_0 + \varepsilon_0 \mathbf{1}_F\,\dd\mu > \nu(G_m)$ for all $m\ge 1$. Consequently,
 \[
-	\nu(F_{n_0}) > \int_{F_{n_0}}f_0 + \varepsilon\mathbf{1}_{F}\, \dd\mu = \sum_{m\ge 1} \int_{G_m} f_0 + \varepsilon \mathbf{1}_F\,d\mu > \sum_{m\ge 1} \nu(G_m) = \nu(F_{n_0}),
+	\nu(F_{n_0}) > \int_{F_{n_0}}f_0 + \varepsilon_0\mathbf{1}_{F}\, \dd\mu = \sum_{m\ge 1} \int_{G_m} f_0 + \varepsilon_0 \mathbf{1}_F\,d\mu > \sum_{m\ge 1} \nu(G_m) = \nu(F_{n_0}),
 \]
-which is a contradiction, i.e.\ such a measurable set $F\subset F_{n_0}$ must exist. 
+which is a contradiction, i.e., such a measurable set $F\subset F_{n_0}$ must exist. 
 
-However, since $\int_\Omega f_0 + \varepsilon\mathbf{1}_F\,\dd\mu = M + \varepsilon\mu(F) > M$, this leads to another contradiction, and hence $\nu(E)=\int_E f_0\,\dd\mu$ for all $E\in\cF$ as desired.
+However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varepsilon_0\mu(F) > M$, this leads to another contradiction, and hence $\nu(E)=\int_E f_0\,\dd\mu$ for all $E\in\cF$ as desired.
 \end{proof}
 
 
@@ -56,7 +58,7 @@ However, since $\int_\Omega f_0 + \varepsilon\mathbf{1}_F\,\dd\mu = M + \varepsi
 \end{theorem}
 \begin{proof}
 	Let $\lambda=\mu+\nu$. Then $0\le \nu\le \lambda$, so by Lemma~\ref{lem:partial-radon-nikodym}, there exists a measurable function $g$ with $0\le g\le 1$ such that $\nu(E)=\int_E g\,\dd\lambda$ for all $E\in\cF$. It follows that
-	$\mu(E) = \int_\Omega (1-g)\,\dd\lambda$ for all $E\in\cF$. Let $D=\{g=1\}$. Then $\mu(D) = 0$. 
+	$\mu(E) = \int_E (1-g)\,\dd\lambda$ for all $E\in\cF$. Let $D=\{g=1\}$. Then $\mu(D) = 0$. 
 	
 	Moreover, since $\nu(E)=\int_E g\,\dd\nu + \int_E g\,\dd\mu$, we have $\int_E (1-g)\,\dd\nu = \int_E g\,\dd\mu$ for all $E\in\cF$. In particular, $\int_\Omega (1-g)f\,\dd\nu = \int_\Omega gf\,\dd\mu$ for all nonnegative measurable functions $f$. Taking $f=(1+g +\cdots g^n)\mathbf{1}_E$, we learn that
 	\[
@@ -172,14 +174,13 @@ We need to show that for all $B \in \sigma(Y)$
 \]
 Note that it suffices to consider sets of the form $B = Y^{-1}(A)$ for some $A \in \cB$. Moreover $\mathbf{1}_B(\omega) = \mathbf{1}_B(Y(\omega))$. Hence
 \begin{align*}
-	\int_B h(Y) \, \dd \bbP &= \int_\Omega \mathbf{1}_{B} h(Y) \, \dd \bbP \\
-	&= \int_\Omega \mathbf{1}_{Y^{-1}(A)} h(Y) \, \dd \bbP \\
+	\int_B h(Y) \, \dd \bbP &= \int_\Omega \mathbf{1}_{B} h(Y) \, \dd \bbP 
+	= \int_\Omega \mathbf{1}_{Y^{-1}(A)} h(Y) \, \dd \bbP \\
 	&= \int_\bbR \mathbf{1}_{A}(y) h(y) f_Y(Y) \, \lambda (\dd y) &&\text{by change of variables}\\
 	&= \int_\bbR \mathbf{1}_A(y) \left(\int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \lambda(\dd x)\right)
 		\, f_Y(y) \lambda(\dd y)\\
 	&= \iint_{\bbR^2} \mathbf{1}_A(y) x f(x,y) \, \lambda(\dd x) \lambda(\dd y)\\
-	&= \bbE[\mathbf{1}_A(Y) X]\\
-	&= \bbE[\mathbf{1}_B X] 
+	&= \bbE[\mathbf{1}_A(Y) X] = \bbE[\mathbf{1}_B X] \qedhere
 \end{align*}
 \end{proof}
 
@@ -189,29 +190,7 @@ The function
 \end{equation}
 is referred to as the conditional density of $X$ given $Y = y$. We often write $f_{X|Y}(x|y) := g(x,y)$ to emphasize the conditioning on $Y = y$.
 
-The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. With this we can now formally establish~\eqref{eq:law_of_probability_discrete}, see Problem~\ref{prb:law_of_probability_discrete}.
-
-%\section{Martingales}
-%
-%In this section we will say a few words about martingales. Martingales have very powerful applications inside and outside of probability theory. Unfortunately, we do not have the time to deeply go into the theory of martingales. This section is included since with all the work in the course up to now, we can finally give a \emph{definition} of a martingale and surrounding concepts. Moreover, with the language of measure theory developed, this definition is relatively clear and concise.
-%
-%Let $\mathcal{I}$ be some (possibly uncountable) index set. A \emph{filtered} probability space $(\Omega, \cF, \mathbb{F}, \bbP)$ is a measure space $(\Omega, \cF, \bbP)$ equipped with a filtration $\mathbb{F}=(\cF_\alpha)_{\alpha\in\mathcal{I}}$, where $\cF_\alpha$ is a sub-$\sigma$-algebra of $\cF$ for each $\alpha\in\mathcal{I}$.
-%
-%A \emph{stochastic process} $X=(X_\alpha)_{\alpha\in\mathcal{I}}$ is a family of random variables $X_\alpha : (\Omega, \cF, \bbP) \to \mathbb{R}$, $\alpha\in\mathcal{I}$. We say that a process $X$ is \emph{adapted} to the filtration $\mathbb{F}$ (or simply \emph{$\mathbb{F}$-adapted}) if the random variable $X_\alpha$ is $\cF_\alpha$-measurable for every $\alpha \in \mathcal{I}$. 
-%
-%We a say that a stochastic process $X$ is an \emph{$(\mathbb{F},\bbP)$-martingale} if
-%\begin{enumerate}
-%\item $X$ is $\mathbb{F}$-adapted
-%\item $\mathbb{E}(|X_\alpha|) < \infty$ for all $\alpha \in \mathcal{I}$,
-%\item For every $\alpha,\beta\in\mathcal{I}$ with $\beta\le \alpha$, $\mathbb{E}[X_\alpha | \cF_{\beta}] = X_{\beta}$ $\bbP$-almost surely.
-%\end{enumerate}
-%
-%A function $\tau:\Omega \to \mathcal{I}$ is called an \emph{$\mathbb{F}$-stopping time} if for every $\alpha \in \mathcal{I}$, 
-%\[
-%	\bigl\{ \omega\in\Omega : \ \tau(\omega) \leq \alpha \bigr\}\qquad\text{is $\cF_\alpha$-measurable},
-%\]
-%or in other words, the stochastic process $(\mathbf{1}_{\{\tau\le \alpha\}})_{\alpha\in\mathcal{I}}$ is $\mathbb{F}$-adapted.
-
+The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability, we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. With this we can now formally establish~\eqref{eq:law_of_probability_discrete}, see Problem~\ref{prb:law_of_probability_discrete}.
 
 \section{Problems}
 
@@ -238,13 +217,11 @@ The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]
 \begin{problem}
 Let $(\Omega, \cF, \bbP)$ be a probability space and $\cH$ be a sub-\sigalg/ of $\cF$. Let $f, g : \Omega \to \bbR$ be $\cH$-measurable functions such that
 \[
-	\int_B f \, \dd \bbP = \int_B g \, \dd \bbP,
+	\int_B f \, \dd \bbP = \int_B g \, \dd \bbP\qquad\text{for all $B\in \cH$}.
 \]
-holds for all $B \in \cH$. 
-
 Prove that $f=g$ $\bbP$-almost everywhere, i.e.
 \[
-	\int_\Omega \|f - g\| \, \dd \bbP = 0.
+	\int_\Omega |f - g| \, \dd \bbP = 0.
 \]
 \end{problem}
 

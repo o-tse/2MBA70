@@ -69,7 +69,7 @@ The independence of events can also be expressed in the measure-theoretic langua
 The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
 
 \begin{lemma}\label{lem:independence_random_variables}
-Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Show that $X_1$ and $X_2$ are independent according to the above definition, if and only if 
+Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to the above definition, if and only if 
 	\[
 	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
 	\]
@@ -265,25 +265,25 @@ This second difficulty is somehow alleviated by Tonelli's theorem, stated next. 
 	Let $(\Omega_i, \cF_i, \mu_i)$, $i=1,2$ be two $\sigma$-finite measure spaces. 
 	Let $f : \Omega_1 \times \Omega_2 \to [0,+\infty]$ be measurable on the product space $(\Omega_1 \times \Omega_2, \cF_1 \otimes \cF_2, \mu_1 \otimes \mu_2)$. Then, for every $x \in \Omega_1$, the function $y \mapsto f(x, y)$ is $(\cF_2,\cB_{\overline\bbR})$-measurable. Moreover, the function 
 	\[
-	x \mapsto \int_{\Omega_2} f(x,y)\, \dd \mu_2(y)
+	x \mapsto \int_{\Omega_2} f(x,y)\, \mu_2(\dd y)
 	\]
 	is $(\cF_1,\cB_{\overline\bbR})$-measurable and
 	\[
 	\begin{split}
 	\int_{\Omega_1 \times \Omega_2} f\, \dd \mu_1 \otimes \mu_2 
 	&= \int_{\Omega_1} \left( \int_{\Omega_2 } f(x,  y ) \,\mu_2(\dd y) \right) \mu_1(\dd x)\\
-	&= \int_{\Omega_2} \left( \int_{\Omega_1} f(x, y)  \,\mu_1(x) \right) \mu_2(\dd y).
+	&= \int_{\Omega_2} \left( \int_{\Omega_1} f(x, y)  \,\mu_1(\dd x) \right) \mu_2(\dd y).
 	\end{split}
 	\] 
 \end{theorem}
 
-While both the Fubini Theorem and the Tonelli theorem tell us that when integrating with respect to the product measures, the order does not could, they are not yet as useful as you would like. For example both have the annoying property, that they do not hold for the Lebesgue measure, since for instance the Lebesgue measure on $\bbR^2$ is not the product of the Lebesgue measures on $\bbR$ (why?). Instead, the Lebesgue measure is given as the completion of the product measure defined on the completion of the Borel \sigalg/. Luckily, there are versions of Fubini's and Tonelli's theorems for complete measure spaces. Recall that for a given measure space $(\Omega, \cF, \mu)$ we denote its completion by $(\Omega, \overline{\cF}, \overline{\mu})$.
+While both the Fubini Theorem and the Tonelli theorem tell us that when integrating with respect to the product measures, the order does not matter, they are not yet as useful as you would like. For example, both have the annoying property, that they do not hold for the Lebesgue measure, since for instance the Lebesgue measure on $\bbR^2$ is not the product of the Lebesgue measures on $\bbR$ (why?). Instead, the Lebesgue measure is given as the completion of the product measure defined on the completion of the Borel \sigalg/. Luckily, there are versions of Fubini's and Tonelli's theorems for complete measure spaces. Recall that for a given measure space $(\Omega, \cF, \mu)$ we denote its completion by $(\Omega, \overline{\cF}, \overline{\mu})$.
 
 \begin{theorem}[Fubini, version for complete measure spaces]
 Let $(\Omega_i, \cF_i, \mu_i)$, $i=1,2$ be two complete measure spaces. 
 Let $f : \Omega_1 \times \Omega_2 \to \overline{\bbR}$ be integrable on the product space $(\Omega_1 \times \Omega_2, \overline{\cF_1 \otimes \cF_2}, \overline{\mu_1 \otimes \mu_2})$. Then, for $\mu_1$-almost every $x \in \Omega_1$, the function $y \mapsto f(x, y)$ is $(\cF_2,\cB_{\overline\bbR})$-measurable. Moreover, the function 
 \[
-x \mapsto \int_{\Omega_2} f(x,y)\, \dd \mu_2(y)
+x \mapsto \int_{\Omega_2} f(x,y)\, \mu_2(\dd y)
 \]
 is $(\cF_1,\cB_{\overline\bbR})$-measurable and
 \[
@@ -314,7 +314,7 @@ Note also that the function $y \mapsto f(x,y)$ is in general no longer measurabl
 	\] 	
 \end{theorem}
 
-The take-away of these four theorems is that if you have to integrate either with respect to the product measures or the completion of the product measures (as is the case for Lebesgue) then as long as your function is measurable this can be done by iterative integration and the order does not matter.
+The takeaway of these four theorems is that if you have to integrate either with respect to the product measures or the completion of the product measures (as is the case for the Lebesgue measure) then, as long as your function is integrable (in the case of Fubini) or measurable (in the case of Tonelli), this can be done by iterative integration and the order does not matter.
 
 %In the lecture, we will not go into the proofs of these theorems, because they are very technical. Just to be complete, I have included the proof in these lecture notes.
 

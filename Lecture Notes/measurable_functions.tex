@@ -407,7 +407,7 @@ In the course Probability and Modeling two types of random variables were define
 Let us make two observations here. The first is that the set above is simply the preimage $X^{-1}((-\infty,x])$. Secondly, the sets $(-\infty, x]$ generate the Borel \sigalg/. Thus it follows from Lemma~\ref{lem:measurable_condition_generator} that $X$ is a measurable function. This is actual the proper way to define a random variable.
 
 \begin{definition}[Random variable]
-A \emph{random variable} is a measurable function from some probability space $(\Omega,\cF, \bbP)$ to the (extended) real line.
+A \emph{random variable} is a measurable function from some probability space $(\Omega,\cF, \bbP)$ to the Borel space $(\bbR, \cB_{\bbR})$.
 \end{definition}
 
 It is important to observe that the definition of a random variable does not make any specific claims on what the probability space should be. 
@@ -426,7 +426,7 @@ The idea behind the cdf $F_X(t)$ is that it denotes the "probability" that $X \i
 In fact we can actually define, at a much more general level, random elements in any measurable space and put an associated probability measure on this space by a push-forward.
 
 \begin{definition}[Random elements]
-Let $(\Omega,\cF, \bbP)$ be a probability space and $(E,\cG)$ some measurable space. A \emph{random element} in $(E,\cG)$ is a measurable map $X : \Omega \to E$. It associated \emph{probability measure} is defined as the push forward of $\bbP$ under $X$, i.e.
+Let $(\Omega,\cF, \bbP)$ be a probability space and $(E,\cG)$ some measurable space. A \emph{random element} in $(E,\cG)$ is a measurable map $X : \Omega \to E$. It associated \emph{probability measure} is defined as the push forward $X_\# \bbP$ of $\bbP$ under $X$, i.e.
 \[
 	\bbP(X \in A) := \bbP(X^{-1}(A)) \quad \text{for every } A \in \cG.
 \]

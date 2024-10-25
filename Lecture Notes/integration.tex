@@ -371,11 +371,16 @@ We say that a random variable is discrete if $X(\omega) \in \bbZ$ for all $\omeg
 \]
 for some sequence $(p_j)_{j \in \bbZ}$ with $\sum_{j \in \bbZ} p_j = 1$. We can now define the \emph{probability mass function} (pmf) of $X$ as $p(j) = p_j$.
 
-In the course Probability and Modeling you have seen the following formula for the expectation of $h(X)$, where $h$ is a function and $X$ a discrete random variable:
+In the course Probability and Modeling you have seen the following definition of the expectation of $h(X)$, where $h$ is a function and $X$ a discrete random variable:
+\[
+	\bbE[h(X)] = \sum_{j \in \bbZ} j \bbP(h(X) = j).
+\]
+The following result, called the law of the unconscious statistician, expressed the expectation in terms of the probabilities pmf of $X$:
 \[
 	\bbE[h(X)] = \sum_{j \in \bbZ} h(j) p(j).
 \] 
-This was actually the definition of the expectation for a discrete random variable. The following result shows that this is correct, given the general definition for expectations in Definition~\ref{def:expectation_random_variable}.
+
+We will now use the change of variables proposition to prove this result, given the general definition for expectations in Definition~\ref{def:expectation_random_variable}.
 
 
 \begin{lemma}

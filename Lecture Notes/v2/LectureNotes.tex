@@ -1,0 +1,112 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\begin{titlepage}
+    \university{TU/e}
+    \courseid{2MBA70}
+    \title{Measure and Probability Theory}
+    \author{Pim van der Hoorn and Oliver Tse}
+    \version{Version 0.75 \today}
+    \maketitle
+\end{titlepage}
+
+\begin{chapquote}[30pt]{Emile Borel}
+The occurrence of any event where the chances are beyond one in ten followed by 50 zeros is an event that we can state with certainty will never happen, no matter how much time is allotted and no matter how many conceivable opportunities could exist for the event to take place.
+\end{chapquote}
+\vfill
+\noindent\textbf{Disclaimer:}
+%\vspace{0.5cm} 
+These are lecture notes for the course \emph{Measure and Probability Theory}. They are by no means a replacement for the lectures, instructions, and/or the books. Nor are they intended to cover every aspect of the field of measure theory or probability theory.
+
+Since these are lecture notes, they also include problems. Each chapter ends with a set of exercises that are designed to help you understand the contents of the chapter better and master the tools and concepts.
+
+These notes are still in progress and they almost surely contain small typos. If you see any or if you think that the presentation of some concepts is not yet crystal clear and might enjoy some polishing feel free to drop a line. The most efficient way is to send an email to us, \href{mailto:w.l.f.v.d.hoorn@tue.nl}{w.l.f.v.d.hoorn@tue.nl} or \href{mailto:o.t.c.tse@tue.nl}{o.t.c.tse@tue.nl}. Comments and suggestions are greatly appreciated.
+
+Finally, we hold the copyrights to this document and as such, their contents, either partially or as a whole, cannot be redistributed or used without our explicit consent.
+
+\newpage
+
+\tableofcontents
+
+\chapter{Introduction}
+\label{chapter:introduction}
+\input{introduction}
+
+\chapter{Measure Spaces ($\sigma$-Algebras and Measures)}
+\label{chapter:sigma_algebras}
+\input{sigma_algebras}
+
+\chapter{Measurable Functions and Stochastic Objects}
+\label{chapter:measurable_functions}
+\input{measurable_functions}
+
+\chapter{The Lebesgue Integral}
+\label{chapter:integration}
+\input{integration}
+
+\chapter{Convergence of Integrals and Functions}
+\label{chapter:convergence}
+\input{convergence}
+
+\chapter{$L^p$-Spaces}
+\label{chapter:lp_spaces}
+\input{lp_spaces}
+
+\chapter{Fubini-Tonelli Theorem and Independence}
+\label{chapter:fubini-tonelli}
+\input{fubini-tonelli}
+
+\chapter{The Radon-Nikodym Theorem and Conditional Expectation}
+\label{chapter:radon-nikodym}
+\input{radon-nikodym}
+
+
+%\appendix
+%\chapter{Appendix}
+%\label{chapter:appendix}
+%\input{appendix}
+\chapter{Appendix: From Riemann to Lebesgue}
+\label{chapter:appendix-2}
+\input{appendix-2}
+
+%\bibliography{references}
+
+\end{document}

@@ -1,0 +1,413 @@
+Let $(\Omega,\cF,\mu)$ be a measure space and $p\in[1,+\infty)$. Throughout this chapter, we denote
+\[
+	\|f\|_p := \left(\int_\Omega |f|^p\,\dd\mu\right)^{1/p}\qquad \text{for any measurable function $f:\Omega\to\bbR$}.
+\]
+For $p=+\infty$, we set
+\[
+\|f\|_{\infty} := \esssup \bigl\{ |f(\omega)| : \ \omega \in \Omega \bigr\} = \inf\bigl\{t \in [0,\infty) : \ \mu(\{ |f| > t\}) = 0 \bigr\}.
+\]
+
+\section{The H\"older inequality}
+
+\begin{proposition}[H\"older's inequality] Let $(\Omega,\cF,\mu)$ be a measure space and $p,q\in[1,+\infty]$ be conjugate exponents, i.e.\ $\frac{1}{p}+\frac{1}{q}=1$. Then,
+\[
+	\|f g \|_1 \leq \|f\|_p\|g\|_q\qquad\text{for all measurable functions $f,g:\Omega\to\bbR$.}
+\]
+\end{proposition}
+
+\begin{proof}
+If the right-hand side is $+\infty$, there is nothing to prove. 
+
+Now we will see a very important trick in proving inequalities like this. We note that it is enough to show the inequality for the case in which
+\[
+\int_\Omega |f|^p \,\dd \mu = \int_\Omega |g|^q \,\dd \mu = 1.
+\]
+By Young's inequality for conjugate exponents $p,q\in(1,+\infty)$,
+\[
+	ab \le \frac{1}{p}a^p + \frac{1}{q} b^q\qquad\text{for any $a,b\in[0,+\infty)$,}
+\] 
+we have for every $\omega \in \Omega$, that
+\[
+|f(\omega) g(\omega)| \leq \frac{1}{p}|f(\omega)|^p  + \frac{1}{q} |g(\omega)|^q.
+\]
+Hence
+\[
+\int_\Omega |fg|\,\dd \mu \leq \frac{1}{p} \int_\Omega |f|^p \,\dd \mu + \frac{1}{q} \int_\Omega |g|^q \,\dd \mu = 1.
+\]
+For the case $p=1$, $q=+\infty$, we easily get
+\[
+	\int_\Omega |fg|\,\dd\mu \le \int_\Omega |f|\|g\|_\infty\,\dd\mu = \|f\|_1\|g\|_\infty.\qedhere
+\]
+\end{proof}
+
+\section{The Minkowski inequality}
+
+\begin{proposition}
+	Let $(\Omega,\cF,\mu)$ be a measure space and $p\in[1,+\infty]$ be conjugate exponents. Then the `triangle inequality' holds:
+\[
+	\|f + g\|_p \leq \|f\|_p + \|g \|_p\qquad \text{for all measurable functions $f,g:\Omega\to\bbR$}.
+\]
+\end{proposition}
+\begin{proof}
+As before, if the right-hand side is $+\infty$, then there is nothing to prove. Now suppose that $\|f\|_p,\|g\|_p<+\infty$. Then from the binomial formula for $p
+\in[1,+\infty)$
+\[
+	|a+b|^p \le 2^{p-1}\bigl(|a|^p + |b|^p\bigr),
+\]
+we have that
+\[
+	\int_\Omega |f+g|^p\,\dd\mu \le 2^{p-1}\left(\int_\Omega |f|^p\,\dd\mu + \int_\Omega |g|^p\,\dd\mu\right),
+\]
+and hence $\|f+g\|_p<+\infty$. Next,
+\[
+\begin{split}
+\|f + g\|^p_{p}
+&= \int_\Omega |f + g|^p \,\dd \mu \\
+&= \int_\Omega |f + g| |f + g|^{p-1} \,\dd \mu \\
+&\leq \int_\Omega (|f| + |g|) |f + g|^{p-1} \,\dd \mu \\
+&= \int_\Omega |f| |f+g|^{p-1} \,\dd \mu + \int_\Omega |g | |f+g|^{p-1} \,\dd \mu.
+\end{split}
+\]
+Now we apply H\"older's inequality (with exponents $p$ and $p/(p-1)$) on both terms to obtain
+\[
+\|f+g\|^p_{L^p} \le \left(\int_\Omega |f|^p \dd \mu\right)^{1/p}  \|f+ g\|_p^{{p-1}} + \left(\int_\Omega |g|^p \dd \mu\right)^{1/p}  \|f+ g\|_p^{{p-1}}.
+\]
+Finally, we divide both sides by $\|f + g\|_p^{p-1}$ and find
+\[
+\|f+g\|_p \leq \|f\|_p + \|g\|_p.
+\]
+As for the case $p=+\infty$, we use the triangle inequality to obtain $|f+g|\le |f| + |g|$, and hence,
+\[
+	|f(\omega)+g(\omega)| \le \|f\|_\infty + \|g\|_\infty\qquad\text{for $\mu$-almost every $\omega\in\Omega$}.
+\]
+Taking the essential supremum then yields the required inequality.
+\end{proof}
+
+\section{Normed and semi-normed vector spaces}
+\label{se:normed-and-seminormed-spaces}
+
+Recall that a norm $\| \cdot \|$ on a vector space $V$ is a function $V \to [0,\infty)$ such that
+\begin{enumerate}
+\item $\|v\|= 0 \Leftrightarrow v = 0$ for all $v \in V$
+\item $\|\lambda v \| = |\lambda| \|v\|$ for all $\lambda \in \bbR$ and $v \in V$
+\item $\|v + w\| \leq \|v\| + \|w \|$ for all $v, w \in V$.
+\end{enumerate}
+If only the last two properties hold, $\|. \|$ is instead called a \emph{seminorm}.
+
+\medskip
+
+Let $(V, \|\cdot \|)$ be a semi-normed space. We say that a sequence $(v_n)_{n\in\bbN} \subset V$ is a Cauchy sequence if for every $\epsilon > 0$ there exists an $N \in \bbN$ such that for all $m, n \geq N$,
+\[
+\| v_m - v_n \| < \epsilon.
+\]
+We say that a semi-normed space is \emph{complete}, if and only if every Cauchy sequence converges, that is, for every Cauchy sequence $(v_n)_{n\in\bbN} \subset V$ there exists a $v \in V$ such that
+\[
+\lim_{n \to \infty} \|v_n - v\| = 0.
+\]
+
+To every semi-normed space $(V, \|\cdot\|)$ one can associate a normed linear space in a standard way. 
+One defines the equivalence relation $\sim$ by $v \sim w$ if and only if $\|v - w\| = 0$. Denote by $W$ the linear space of equivalence classes. One defines a norm on equivalence classes $[v]$ and $[w]$ in $W$ by $\|[w]-[v]\| = \|w - v\|$. If $(V, \|\cdot\|)$ is a complete semi-normed space, then $W$ is a \emph{Banach space}, which is a complete normed linear space.
+
+\medskip
+
+We have seen in Section~\ref{chapter:integration} that the set of $\mu$-integrable functions form a vector space (over $\bbR$). For $p \in [0,+\infty)$, we define the vector space $\bbL^p$ of integrable functions $f$ for which 
+\[
+	\| f \|_{p} < +\infty.
+\]
+By the Minkowski inequality, $\|\cdot\|_{p}$ is a seminorm on $\bbL^p$ for every $p \in [1,\infty]$.
+
+Clearly, the seminorm $\|. \|_p$ is not a norm on $\bbL^p$: indeed $\|f - g\|_p=0$ if and only if $f(\omega) = g(\omega)$, for $\mu$-almost every $\omega \in \Omega$. 
+We follow the standard construction described in Section \ref{se:normed-and-seminormed-spaces} to create an associated normed linear space. We say that $f \sim g$ if and only if $f$ is equal to $g$ $\mu$-almost everywhere. 
+We denote by $L^p$ the vector space of equivalence classes
+\[
+L^p := \bbL^p/\sim.
+\]
+
+\section{Completeness of $L^p$-spaces}
+
+\begin{theorem}[Completeness of $L^p$ spaces]
+The normed linear space $L^p$ is complete, and is thus a Banach space, for every $p \in [1,+\infty]$.	
+\end{theorem}
+
+\begin{proof}
+First let $p \in [1,\infty)$ and let $(f_n)_{n\in\bbN}$ be a Cauchy sequence. The trick is to select a subsequence $(f_{n_k})_{k\in\bbN}$ such that 
+\[
+\| f_{n_{k+1}} - f_{n_k} \|_{L^p(\Omega)} < 4^{-k-1}.
+\]
+For ease of notation we set $g_k := f_{n_{k}}$.
+Note that by a telescoping argument, for all $\ell \geq k$,
+\[
+\| g_\ell - g_k \|_{L^p(\Omega)} < 4^{-k}.
+\]
+Then
+\[
+\mu \left(\left\{ \omega \in \Omega : \ |g_{k+1}(\omega) - g_k(\omega) | 
+> 2^{-k}  \right\} \right) < \frac{1}{2^{-k p} }\| g_{k+1} - g_k \|_{L^p(\Omega)}^p <2^{-kp}.
+\]
+In particular, by the Borel-Cantelli Lemma (cf.\ Lemma~\ref{lem:Borel-Cantelli}), for $\mu$-a.e. $\omega \in \Omega$, there is an $N_\omega \in \bbN$ such that
+\[
+|g_{k+1}(\omega) - g_k(\omega)| \leq 2^{-k}\qquad\text{for all $k > N_\omega$}.
+\]
+For such $\omega\in\Omega$, the sequence $(g_k(\omega))_{k\in\bbN}$ is Cauchy. So by the completeness of $\bbR$, a limit exists, which we call $f(\omega)$.
+
+By Fatou's Lemma,
+\[
+\| g_k - f\|_p \leq \liminf_{\ell \to \infty} \| g_k - g_\ell \|_p \leq 4^{-k}.
+\]
+To see that this implies that $f_n$ converges to $f$ in $L^p$, we take an arbitrary $\epsilon > 0$. 
+Since $f_n$ is a Cauchy sequence, there exists an $N \in \bbN$ such that for all $m, n \geq N$,
+\[
+\|f_{n} - f_m\|_{p} < \frac{\epsilon}{2}.
+\]
+Now there exists an $K \in \bbN$ with $n_K > N$ such that for all $k \geq K$,
+\[
+\|f_{n_k} - f \|_{p} < \frac{\epsilon}{2}.
+\]
+Then, for $n \geq n_K$, we find
+\[
+\| f_n - f \|_{p} 
+\leq \| f_{n} - f_{n_{K}} \|_{p} + \|f_{n_K} - f\|_{L^p(\Omega)}  < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon,
+\]
+which gives the required convergence.
+
+The proof of completeness of $L^\infty(\Omega)$ follows similar lines but is in a way easier. Let again $(f_n)_{n\in\bbN}$ be a Cauchy sequence and select a subsequence $(f_{n_k})_{k\in\bbN}$ such that
+\[
+\| f_{n_{k+1}} - f_{n_k} \|_{L^\infty(\Omega)} < 4^{-k-1}.
+\]
+We define again $g_k = f_{n_k}$.
+Then
+\[
+\mu\left( \left\{ x \in \Omega : \ |g_{k+1}(\omega) - g_k(\omega) | \geq 4^{-k-1} \right\} \right) = 0.
+\]
+So, $(g_k(\omega))_{k\in\bbN}$ is a Cauchy-sequence for almost every $\omega \in \Omega$.
+For such $\omega$, the limit as $k \to \infty$ of $g_k(\omega)$ exists, and we denote it by $f(\omega)$.
+Moreover, 
+\[
+\mu\left( \left\{ x \in \Omega : |g_k(\omega) - f(\omega)|  \geq 4^{-k} \right\} \right) = 0.
+\]
+It follows that $g_k$ converges to $f$ in $L^\infty(\Omega)$ as $k \to \infty$, and therefore that $f_n$ converges to $f$ in $L^\infty(\Omega)$ as $n \to \infty$ using the same argument as above.
+\end{proof}
+
+\section{Littlewood's principles}
+
+In this section, we will discuss 3 principles---called Littlewood's principles---that provide practical ways of seeing measurable sets, almost everywhere convergence, and measurable functions. These principles hold for measures that are both inner and outer regular as defined in the following.
+
+\begin{definition}[Inner/Outer regularity]
+A measure $\mu$ on $(\bbR^d, \cB_{\bbR^d})$ is \emph{inner regular} if for all $A \in \cB_{\bbR^d}$ 
+\[
+	\mu(A) = \sup\bigl\{ \mu(K) : K\subset A\;\text{compact}\bigr\}.
+\]
+We say that a measure $\mu$ on $(\bbR^d, \cB_{\bbR^d})$ is \emph{outer regular} if for all $A \in \cB_{\bbR^d}$ 
+\[
+	\mu(A) = \inf \bigl\{ \mu(O): A\subset O\;\text{open}\bigr\}.
+\]
+\end{definition}
+
+Surprisingly, finite measures on $(\bbR^d, \cB_{\bbR^d})$ are always both inner and outer regular.
+
+\begin{theorem}\label{th:regularity-measure}
+	Every finite measure $\mu$ on $(\bbR^d, \cB_{\bbR^d})$ is both inner and outer regular.	
+\end{theorem}
+
+%The third principle, named after Lusin, provides a nice and practical way of seeing measurable functions. In particular, it allows us to show that 
+
+
+\paragraph{Littlwood's first principle 1:} 
+\begin{quotation}
+	\emph{Every measurable set is ``practically open"}.
+\end{quotation}
+
+This principle allows us to approximate arbitrary Borel measurable sets in $\bbR^d$ with a finite union of open rectangles.
+
+\begin{theorem}
+Let $\mu$ be a finite measure on $(\bbR^d, \cB_{\bbR^d})$.
+Let $A \in \cB_{\bbR^d}$ be a Borel measurable set. Then for any $\epsilon > 0$, there exists a set $O$ of a finite union of open rectangles in $\bbR^d$, such that the measure of the \emph{symmetric difference} $A \Delta O := (A \backslash O) \cup (O \backslash A)$ is smaller than $\epsilon$, that is
+\[
+\mu( A \Delta O  ) = \mu( A \backslash O ) + \mu( O \backslash A) < \epsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+	We make use of Theorem \ref{th:regularity-measure} for the proof.
+Let $\epsilon > 0$ be arbitrary. Then the inner regularity of $\mu$ provides a compact set $K \subset A$ such that
+\[
+\mu(K) > \mu(A) - \epsilon/2.
+\]	
+Moreover, the outer regularity of $\mu$ provides a family of open rectangles $(O_i)_{i\in\bbN}$ such that
+\[
+	K \subset \bigcup_{i=1}^\infty O_i\qquad\text{and}\qquad \sum_{i=1}^\infty \mu(O_i) \leq \mu(K) + \epsilon / 2.
+\]
+However, $K$ is compact and therefore there exists an $N \in \bbN$ such that
+\[
+K \subset \bigcup_{i=1}^N O_i =: O.
+\]
+Clearly,
+\[
+\sum_{i=1}^N \mu(O_i) \leq \sum_{i=1}^\infty \mu(O_i) \leq \mu(K) + \epsilon / 2,
+\]
+and hence
+\[
+\mu(A \Delta O) 
+= \mu(A \backslash O) + \mu(O \backslash A)
+\leq \mu(A \backslash K) + \mu(O \backslash K)
+ \leq  \epsilon /2 + \epsilon /2=\epsilon.\qedhere
+\]
+\end{proof}
+
+
+\paragraph{Littlewood's second principle:} 
+\begin{quotation}
+	\emph{Pointwise almost everywhere convergence is ``practically uniform convergence"}.
+\end{quotation}
+
+In other words, one can think of almost everywhere convergence as uniform convergence on a `smaller' set that can be chosen arbitrarily `close' to the full set. 
+
+\begin{theorem}[Egorov's Theorem]
+	Let $\mu$ be a finite measure on $(\bbR^d,\cB_{\bbR^d})$ and $(f_n)_{n\in\bbN}$ be a sequence of $\cB_{\bbR^d}$-measurable functions that converges $\mu$-almost everywhere to a function $f$. 
+	Then for all $\epsilon > 0$ there exists a set $E\in \cB_{\bbR^d}$ such that
+	$\mu(\bbR^d\backslash E) \le\epsilon$ and $f_n \to f$ uniformly on $E$.
+\end{theorem}
+
+\begin{proof}
+	Since $f_n\to f$\, $\mu$-almost everywhere, where exists a $\mu$-null set $N\subset\Omega$, i.e., $\mu(N)=0$, for which $f_n(x)\to f(x)$ for every $x\in \Omega:=\bbR^d\setminus N$. Consider the sets
+	\[
+		E_{\ell,n} := \bigcap_{k\ge n} \left\{ \omega\in \Omega\,:\, |f_k(\omega)-f(\omega)| < \frac{1}{\ell}\right\},\qquad n,\ell\ge 1
+	\]
+	It is not difficult to check that $E_{\ell,n}$ is measurable for every $\ell,n\ge 1$ and that $E_{\ell,n}\subset E_{\ell,m}$ for $n\le m$. Moreover, for each $\ell\ge 1$, we have that $\Omega = \cup_{n\ge 1} E_{\ell,n}$. Hence, by the continuity-from-below property of $\mu$, we obtain
+	\[
+		\mu(\Omega) = \mu\Bigl(\bigcup_{n\ge 1} E_{\ell,n}\Bigr) = \lim_{n\to\infty} \mu(E_{\ell,n}).
+	\]
+	Now choose $n_\ell\ge 1$ such that $\mu(\Omega\backslash E_{\ell,n_\ell}) \le \varepsilon\,2^{-\ell}$ and define the measurable set
+	\[
+		E := \bigcap_{\ell\ge 1} E_{\ell,n_\ell}.
+	\]
+	Then, by the subadditivity of $\mu$, we obtain
+	\[
+		\mu(\Omega\backslash E) = \mu\left(\bigcup_{\ell\ge 1}\bigl(\Omega\backslash E_{\ell,n_\ell}\bigr)\right) \le \sum_{\ell\ge 1} \mu\bigl(\Omega\backslash E_{\ell,n_\ell}\bigr) = \epsilon.
+	\]
+	Moreover, for every $k \in \bbN$ and every $x \in E$,
+	\[
+		|f_k(\omega) - f(\omega)| \leq \frac{1}{\ell}\qquad\text{for all $k\ge n_k$},
+	\]
+	thus implying that $f_n \to f$ uniformly on $E$.
+\end{proof}
+
+\begin{remark}
+	Given the inner regularity of $\mu$, one may choose $E$ compact in Egorov's Theorem. 
+\end{remark}
+
+\paragraph{Littlewood's third principle:} 
+\begin{quotation}
+	\emph{Every Borel measurable function is ``practically continuous"}.	
+\end{quotation}
+
+\begin{theorem}[Lusin's Theorem]\label{thm:lusin}
+    Let $\mu$ be a finite measure on the measurable space $(\bbR^d, \cB_{\bbR^d})$ and $f: \bbR^d \to \bbR$ be Borel measurable. 
+	Then for every $\epsilon > 0$ there exists a compact set $K \subset \bbR^d$ and a continuous function $g: \bbR^d \to \bbR$ such that $\mu(\bbR^d \backslash K) < \epsilon$ and $f \equiv g$ on $K$.
+\end{theorem}
+
+\begin{proof}
+	Let $\epsilon > 0$.
+	Define for $n \in \bbN$ and $k \in \bbZ$ the measurable sets
+	\[
+	A^n_k := \Bigl\{ \omega \in \bbR^d : \  (k-1) 2^{-n} < f(\omega) \leq k 2^{-n} \Bigr\}.
+	\]
+	Now there exist open sets $U^n_k \supset A^n_k$ and compact sets $K^n_k \subset A^n_k$ such that
+	\[
+		\mu(U_k^n \backslash A_k^n ) < \frac{1}{n 2^{|k|}} \qquad \mu(A_k^n \backslash K_k^n ) < \frac{1}{n 2^{|k|}}.
+	\]
+	We define the continuous functions $\varphi_k^n: \bbR^d \to \bbR$ such that $\varphi_k^n$ is compactly supported in $U_k^n$, satisfying $0 \leq \varphi_k^n \leq 1$ and $\varphi_k^n(\omega) = 1$ for $\omega \in K_k^n$. We set
+	\[
+		\varphi^n := \sum_{k = -2^n}^{2^n} k 2^{-n} \varphi_k^n.
+	\]
+	which is continuous for all $n\ge 1$. Since the functions $\varphi^n\to f$\, $\mu$-almost everywhere, by Egorov's Theorem, there is a compact set $K$ such that $\varphi^n$ converge to $f$ uniformly on $K$. Since uniform convergence preserves continuity, $f|_K$ is uniformly continuous on $K$.
+	
+	We now construct $g: \bbR^d \to \bbR$. Since $f|_K$ is uniformly continuous on $K$, there is a continuous increasing function $\eta: [0,\infty) \to [0,\infty)$ with $\eta(0)=0$ (also called the \emph{modulus of continuity}) such that
+	\[
+		|f(\omega) - f(\sigma)| \leq \eta( |\omega-\sigma|)\qquad \omega,\sigma\in K.
+	\]
+	Setting
+	\[
+		g(\omega) := \sup_{\sigma \in K} \Bigl\{f(\sigma) - \eta(|\omega-\sigma|)\Bigr\}.
+	\]
+	Note that $g$ is continuous on $\bbR^d$ and coincides with $f$ on $K$.
+\end{proof}
+
+The final result of this chapter is an important application of Lusin's theorem, which allows us to approximate any integrable function with continuous and bounded functions whenever $\mu$ is a finite measure. In other words, the following statement shows that the space of continuous and bounded functions $C_b(\bbR^d)$ is \emph{dense} in $L^1(\bbR^d,\mu)$. This fact is widely used in, e.g., Approximation Theory, Functional Analysis, Partial Differential Equations, and Stochastic Analysis.
+
+\begin{theorem}[Approximation in $L^1$]\label{thm:L1-approximation}
+	Let $\mu$ be a finite measure on $(\bbR^d,\cB_{\bbR^d})$ and $f\in L^1(\bbR^d,\mu)$. Then for any $\varepsilon>0$, there is a bounded continuous function $g\in L^1(\bbR^d,\mu)$ such that $\|f-g\|_1<\varepsilon$.
+\end{theorem}
+\begin{proof}
+	Let $E_n:=\{\omega\in\bbR^d\,:\, |f(\omega)|\ge n\}$. Since $\mathbf{1}_{E_n}f \to 0$ as $n\to\infty$, and $\mathbf{1}_{E_n}|f|\le |f|$ for every $n\ge 1$, we can apply DCT to conclude that
+	\[
+		\int_{E_n} |f|\,\dd\mu = \int_{\bbR^d} \mathbf{1}_{E_n}|f|\,\dd\mu\;\longrightarrow\;0\quad\text{as $n\to\infty$}.
+	\]
+	Now pick some $n\ge 1$ such that $\int_{E_n} |f|\,\dd\mu <\varepsilon/3$ and define
+	\[
+		f_n(\omega):= \max\{-n,\min\{f(\omega),n\}\}, \qquad\omega\in\bbR^d,
+	\]
+	i.e., $f_n$ is a truncation of $f$. From Lusin's theorem, we find a continuous function $g$ such that $f_n\equiv g$ on a compact set $K\subset\bbR^d$ with $\mu(\bbR^d\backslash K)<(2\varepsilon)/(3n)$. We assume w.l.o.g.\ that $|g|\le n$, since otherwise, we can consider a truncation of $g$. Altogether, this yields
+	\begin{align*}
+		\int_{\bbR^d} |f-g|\,\dd\mu &= \int_{\bbR^d} |f-f_n|\,\dd\mu + \int_{\bbR^d} |f_n-g|\,\dd\mu \\
+		&= \int_{E_n} |f|\,\dd\mu + \int_{\bbR^d\backslash K} |f_n-g|\,\dd\mu \\
+		&\le \frac{\varepsilon}{3} + 2n\,\mu(\bbR^d\backslash K) \le  \varepsilon.
+	\end{align*}
+	Finally, $g\in L^1(\bbR^d,\mu)$ holds simply due to the triangle inequality.
+\end{proof}
+
+\begin{remark}
+	All three Littlewood principles can be generalized to inner and outer regular measures $\mu$ that are \emph{locally finite} on any measurable space $(\Omega,\cF)$, i.e., a measure for which every point $\omega\in\Omega$ has a neighborhood $N_\omega\in\cF$ such that $\mu(N_\omega)<+\infty$. 
+	
+	In particular, the Littlewood principles hold also for the Lebesgue measure $\lambda$ on $(\bbR^d,\cB_{\bbR^d})$ since $\lambda(B_\omega(r))<+\infty$ for every $\omega\in\bbR^d$ and any $r>0$.
+\end{remark}
+
+\section{Problems}
+
+\begin{problem}
+		Let $(\Omega,\mathcal{F},\mu)$ be a measure space and $f\colon\Omega\to\bbR$ be an $(\mathcal{F},\mathcal{B}_\bbR)$-measurable function. Let $p_0,p_1\in[1,
+		\infty)$ be such that $p_0<p_1$ and let $\theta\in(0,1)$. Define $p_\theta$ by
+		\[
+			\frac{1}{p_\theta} = \frac{\theta}{p_0} + \frac{1-\theta}{p_1}.
+		\]
+		\begin{enumerate}[label={(\alph*)}]
+			\item Show that $\|f\|_{p_\theta}\le \|f\|_{p_0}^\theta\|f\|_{p_1}^{1-\theta}$.
+			\item Show that for all $p\in(p_0,p_1)$, there exists $\theta\in(0,1)$ such that $p=p_\theta$. Deduce from this that if $f\in L^{p_0}(\mu)\cap L^{p_1}(\mu)$, then also $f\in L^p(\mu)$ for all $p\in(p_0,p_1)$.
+		\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Let $(\mathcal{X},\mathcal{F},\mathbb{P})$ be a probability space and $X$ be a real-valued random variable.
+	\begin{enumerate}[label={(\alph*)}]
+		\item Show that if $X\in L^\infty(\mathbb{P})$, then $X\in L^p(\mathbb{P})$ for all $p\ge 1$.
+		\item Let $X$ be a Gaussian random variable with mean $0$ and variance $1$. Show that $X\in L^p(\mathbb{P})$ for all $p\ge 1$, but $X\notin L^\infty(\mathbb{P})$.
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	Let $(\Omega,\mathcal{F},\mu)$ be a finite measure space. For any $p\in[1,\infty)$ and $(\mathcal{F},\mathcal{B}_\mathbb{R})$-measurable function $f:\Omega\to\bbR$, let 
+	\[
+		\Phi_p(f) := \begin{cases}\displaystyle
+			\left(\frac{1}{\mu(\Omega)}\int_\Omega |f(\omega)|^p \mu(d\omega)\right)^{1/p} &\text{if $f\in L^p(\mu)$},\\
+			+\infty &\text{otherwise}.
+		\end{cases}
+	\]
+	\begin{enumerate}[label={(\alph*)}]
+		\item Show that $p\mapsto \Phi_p(f)$ is monotonically nondecreasing.
+		\item Show that if $f\in L^\infty(\mu)$, then
+		\[
+			\lim_{p\to\infty} \Phi_p(f) = \|f\|_\infty.
+		\]
+			\textbf{Hint:} Make use of Markov's inequality.
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	In this problem, we would like to refine Theorem~\ref{thm:L1-approximation}:
+	
+	Show that for any $\varepsilon>0$, we can find a bounded continuous function $g\in L^1(\bbR^d,\mu)$ with compact support, i.e., $g\in C_c(\bbR^d)$, such that the conclusion of Theorem~\ref{thm:L1-approximation} remains true.
+\end{problem}
+
+
+
+

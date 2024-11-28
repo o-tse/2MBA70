@@ -1,0 +1,780 @@
+  
+
+\section{Convergence Theorems}
+
+One of the motivations for developing a new theory of integration using measurable functions instead of continuous ones was that we would be able to change limits and integrals more often. We have already seen an example of such a result in the monotone convergence theorem, Theorem~\ref{th:monotone-convergence-I}. However, this required that the sequence $f_n$ of functions was monotone (i.e. non-decreasing) everywhere, which sounds a bit restrictive. That is why in this section we will use the monotone convergence theorem to derive other convergence results with less restrictive conditions.
+
+\subsection{Monotone convergence (continued)}
+
+Theorem~\ref{th:monotone-convergence-I} states that if we have a sequence of measurable functions $(f_n)_{n \in \bbN}$ from some measure space $(\Omega, \cF, \mu)$ to $[0,+\infty]$ such that $f_n \le f_{n+1}$, then we could interchange limits and integration so that
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \, \dd \mu = \int_\Omega \lim_{n \to \infty} f_n \, \dd \mu.
+\]
+It should be noted that the monotone properties requires that $f_n(\omega) \le f_{n+1}(\omega)$ for all $\omega \in \Omega$. However, from the definition of the Lebesgue integral we see that it is not affected by sets measure zero. Hence, we would expect that we can relax the monotone property to hold $\mu$-almost everywhere, i.e. the set where it does not hold has measure zero. This turns out to be the case, providing a slightly more general version of the monotone convergence theorem.
+
+\begin{theorem}[Monotone convergence II]\label{thm:monotone_convergence_ii}
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of non-negative, measurable functions and let $f$ be a non-negative measurable functions such that the following holds $\mu$-almost everywhere
+\begin{enumerate}[label={(\arabic*)}]
+	\item $f_n \le f_{n+1}$ for all $n \in \bbN$, and
+	\item $\lim_{n \to \infty} f_n = f$.
+\end{enumerate}
+Then
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \,\dd \mu = \int_\Omega f \,\dd \mu.
+\]
+\end{theorem}
+
+\begin{proof}
+As you might have expected, the proof will use the first monotone convergence theorem. For this we first note that by assumption there exists a $N \in \cF$ with $\mu(N) = 0$ such that properties 1 and 2 from theorem statement hold for all $\omega \in \Omega \backslash N$. Now define the function $g_n(\omega) = \max_{1 \le k \le n} f_k(\omega)$. Then $g_n(\omega) \le g_{n+1}(\omega)$ holds for \emph{all} $\omega \in \Omega$. We further define $g(\omega) := \lim_{n \to \infty} g_n(\omega)$. Here comes the key observation. For every $\omega \in \Omega\backslash N$ it holds that $g_n(\omega) = f_n(\omega)$ and $g(\omega) = f(\omega)$. Moreover, since $\mu(N) = 0$ we have that
+\[
+	\int_\Omega f_n \, \dd \mu = \int_\Omega g_n \, \dd \mu \qquad \text{and} \qquad
+	\int_\Omega f \, \dd \mu = \int_\Omega g \, \dd \mu.
+\]
+The result then follows by applying Theorem~\ref{th:monotone-convergence-I} to the functions $g_n$ and $g$.
+\end{proof}
+
+\subsection{Fatou's Lemma}
+
+\begin{theorem}[Fatou's lemma]\label{thm:fatou}
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of non-negative, measurable functions and define
+\[
+	f := \liminf_{n\to \infty} f_n = \lim_{n \to \infty} \inf_{k \ge n} f_k.
+\]
+Then
+\[
+	\int_\Omega f\, \dd \mu \le \liminf_{n\to \infty} \int_\Omega f_n \,\dd \mu.
+\]
+\end{theorem}
+
+\begin{proof}
+Our proof will use the monotone convergence theorem. There are however other proofs, based on first principles. 
+
+Define the function $g_n(\omega) := \inf_{k \ge n} f_k(\omega)$ and note that by Lemma~\ref{lem:limit_operations_measurable_functions} $g_n$ are measurable. Moreover, $g_n(\omega) \le g_{n+1}(\omega)$ for all $\omega \in \Omega$ and $\lim_{n \to \infty} g_n(\omega) = f(\omega)$. Hence, Theorem~\ref{thm:monotone_convergence_ii} implies that
+\[
+	\lim_{n \to \infty} \int_\Omega g_n \, \dd \mu = \int_\Omega \lim_{n \to \infty} g_n \, \dd \mu
+	= \int f \, \dd \mu. 
+\]
+Finally we observe that by definition $g_n \le f_n$ holds for all $n \in \bbN$ so that
+\begin{align*}
+	\int f \, \dd \mu = \lim_{n \to \infty} \int_\Omega g_n \, \dd \mu
+	&= \lim_{n \to \infty} \int_\Omega \inf_{k \ge n} f_k \, \dd \mu \\
+	&\le \lim_{n \to \infty} \inf_{\ell \ge n} \int_\Omega  f_\ell \, \dd \mu
+	= \liminf_{n \to \infty} \int_\Omega  f_\ell \, \dd \mu.
+\end{align*}
+Here, we used that $\inf_{k \ge n} f_k \le f_\ell$ for all $\ell \ge n$ and the monotonicity property of the integral (see Proposition~\ref{prop:properties-integral}).
+\end{proof}
+
+\subsection{Dominated Convergence}
+
+Armed with Fatou's lemma we can now prove one of the most useful convergence results for Lebesgue integrals.
+
+\begin{theorem}[Dominated convergence]\label{thm:dominated_convergence}
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of measurable functions and let $f$ be a measurable function such that $\lim_{n\to\infty}f_n = f$ $\mu$-almost everywhere. Moreover, assume there exists a non-negative $\mu$-integrable function $g : \Omega \to [0,\infty]$ such that $|f_n| \le g$ $\mu$-almost everywhere. Then
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \,\dd \mu = \int_\Omega f \,\dd \mu.
+\]
+\end{theorem}
+
+\begin{proof}
+We will first prove the result for the case that both $|f_n| \le g$ and $\lim_{n\to\infty} f_n =f$ hold everywhere.  
+
+Consider the functions $f_n+g$ and note that $|f_n| \le g$ implies that these are non-negative. Fatou's lemma (Theorem~\ref{thm:fatou}) now implies that
+\[
+	\int_\Omega f + g \, \dd \mu \le \liminf_{n \to \infty} \int_\Omega f_n + g \, \dd \mu.
+\] 
+Using the additive property of the integral we get
+\[
+	\int_\Omega f \, \dd \mu + \int_\Omega g \, \dd \mu 
+	\le \liminf_{n \to \infty} \int_\Omega f_n \, \dd \mu + \int_\Omega g \, \dd \mu.
+\]
+Since $\int_\Omega g \, \dd \mu < \infty$ this implies that
+\[
+	\int_\Omega f \, \dd \mu \le \liminf_{n \to \infty} \int_\Omega f_n \, \dd \mu.
+\]
+On the other hand, the condition $|f_n| \le g$ also implies that the functions $g - f_n$ are non-negative. Applying Fatou's lemma here yields
+\[
+	\int_\Omega g - f \, \dd \mu \le \liminf_{n \to \infty} \int_\Omega g - f_n \, \dd \mu.
+\]
+The additive property of integral now yields
+\[
+	\int_\Omega g \dd \mu - \int_\Omega f \, \dd \mu \le \int_\Omega g \, \dd \mu 
+	+ \liminf_{n \to \infty} \int_\Omega - f_n \, \dd \mu,
+\]
+which implies that 
+\[
+	\int_\Omega f \, \dd \mu \ge - \liminf_{n \to \infty} \int_\Omega - f_n \, \dd \mu 
+	= \limsup_{n \to \infty} \int_\Omega f_n \, \dd \mu.
+\]
+We thus conclude that
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \, \dd \mu = \int_\Omega f \, \dd \mu.
+\]
+
+Now let us consider the general case. Then there exists a $N \in \cF$ such that $\mu(N) = 0$ and both $|f_n| \le g$ and $f_n \to f$ hold for every $\omega \in \Omega \backslash N$. Let us now define the following functions
+\[
+	\hat{f}_n(\omega) = \begin{cases}
+		f_n(\omega) &\text{if } \omega \in \Omega \backslash N,\\
+		0 &\text{else,}
+	\end{cases}
+	\quad 
+	\hat{f}(\omega) = \begin{cases}
+		f(\omega) &\text{if } \omega \in \Omega \backslash N,\\
+		0 &\text{else,}
+	\end{cases}
+\]
+and
+\[
+	\hat{g}(\omega) = \begin{cases}
+		g(\omega) &\text{if } \omega \in \Omega \backslash N,\\
+		0 &\text{else.}
+	\end{cases}
+\]
+
+Then 
+\[
+	\int_\Omega \hat{f}_n \, \dd \mu = \int_\Omega f_n \, \dd \mu \quad \text{and} \quad
+	\int_\Omega \hat{f} \, \dd \mu = \int_\Omega f \, \dd \mu
+\]
+Moreover, $\hat{f}_n \le \hat{g}$ and $\hat{f}_n \to \hat{f}$ hold \emph{everywhere}. So using the first part of the proof we have that
+\[
+	\lim_{n \to \infty} \int_\Omega f_n \, \dd \mu = \lim_{n \to \infty} \int_\Omega \hat{f}_n \, \dd \mu
+	= \lim_{n \to \infty} \int_\Omega \hat{f} \, \dd \mu = \lim_{n \to \infty} \int_\Omega f \, \dd \mu.\qedhere
+\]
+\end{proof}
+
+\begin{example}
+Consider the sequence of functions $f_n(x) = \frac{n \sin(x/n)}{x(x^2+1)}$. We will use dominated convergence to determine $\lim_{n \to \infty} \int_\bbR f_n \, \dd \lambda$. Define $g(x) = \frac{1}{x^2 +1}$ and note that 
+\[
+	f_n(x) = \frac{\sin(x/n)}{x/n} g(x).
+\]
+Note that $|\sin(y)| \le |y|$ holds for all $y > 0$ and that for every $x$ we have that $\lim_{n \to \infty} \frac{\sin(x/n)}{x/n} = 1$. We thus conclude that $|f_n(x)| \le g(x)$ and $f_n \to g(x)$ holds for all $x \in \bbR \backslash \{0\}$. Since the set $\{0\}$ has Lebesgue measure zero, all the conditions of Theorem~\ref{thm:dominated_convergence} are satisfied. Hence (see Example~\ref{ex:computation_lebesgue_integral})
+\[
+	\lim_{n \to \infty} \int_\bbR \frac{n \sin(x/n)}{x(x^2+1)} \lambda(\dd x) 
+	= \int_\bbR \frac{1}{x^2 +1} \lambda(\dd x) = \pi.
+\]
+\end{example}
+
+\section{Convergence of random variables}
+
+Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real numbers, we would like to have a notion of convergence of this sequence. In other words, we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there are different ways to define the concept of convergence of random variables. In this section, we will discuss three of them: convergence in distribution, convergence in probability, and almost sure convergence. While the last one has a more straightforward definition (see Definition~\ref{def:almost_sure_convergence}) the other two rely on a notion of convergence of probability measures, which we will discuss first.
+
+\subsection{Weak convergence of probability measures}
+
+\begin{definition}
+Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. We say that $\mu_n$ \emph{converges weakly} (or \emph{narrowly}) to $\mu$ if for every continuous bounded function $h\in C_b(\bbR)$ it holds that
+\[
+	\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu.
+\]
+If this is the case we write $\mu_n \Rightarrow \mu$.
+\end{definition}
+
+The definition of weak convergence asks us to verify the convergence of the $\mu_n$ integral of $h$ for any $h\in C_b(\bbR)$. In some cases that can be a cumbersome task. Hence it would be helpful if we would have some equivalent conditions for weak convergence. The beauty here is that there are many equivalent definitions. They are often summarized in what is known as the Portmanteau lemma (or theorem). We provide one version of it below.
+
+%We will first prove an important technical lemma, needed for the proof of this theorem. For any function $h\colon \bbR \to \bbR$ we denote by $\cC_h \subset \bbR$ the set of continuity points of $h$, i.e. the set of all points $x\in \bbR$ at which $h$ is continuous. 
+
+\medskip
+
+We first mention an important technical lemma needed for the proof of this theorem. For any function $h\colon \bbR \to \bbR$, we denote by $\cC_h \subset \bbR$ the set of continuity points of $h$, i.e., the set of all points $x\in \bbR$ at which $h$ is continuous. The following technical lemma, which can be deduced from Lusin's theorem (cf.~Theorem~\ref{thm:lusin}), allows us to approximate measurable functions by continuous ones, with arbitrary precision in terms of the integrals. 
+
+\begin{lemma}
+Consider a probability measure $\mu$ on $(\bbR, \cB_\bbR)$ and bounded measurable function $h\in B_b(\bbR)$ with $\mu(\cC_h) = 1$. Then for every $\varepsilon > 0$, there exist continuous bounded functions $h^-_\varepsilon$ and $h^+_\varepsilon$ such that
+\begin{enumerate}[label={(\arabic*)}]
+\item $h^-_\varepsilon \le h \le h^+_\varepsilon$ and
+\item $\int_\bbR h^+_\varepsilon \, \dd \mu - \int_\bbR h^-_\varepsilon \, \dd \mu < \varepsilon$.
+\end{enumerate} 
+\end{lemma}
+%\begin{proof}
+%For $k \in \bbN$ define the functions
+%\[
+%	g_k := \inf_{y \in \bbR} h(y) + k\|x-y\| \quad G_k := \sup_{y \in \bbR} h(y) - k\|x-y\|.
+%\]
+%We then observe that for any $k \in \bbN$, $g_k \le g_{k + 1}$, $G_{k+1} \le G_k$ and $g_k \le h \le G_k$. Hence
+%\[
+%	g_1 \le g_2 \le \dots \le h \le \dots \le G_2 \le G_1.
+%\]
+%Moreover, since for any fixed $x \in \bbR$ the sequences $(g_k(x))_{k \ge 1}$ and $(G_k(x))_{k \ge 1}$ are bounded we get that their limits as $k \to \infty$ exist and
+%\[
+%	\lim_{k \to \infty} g_k(x) \le h(x) \le \lim_{k \to \infty} G_k(x).
+%\]
+%
+%We now claim that for every $k \ge 1$ the functions $g_k$ and $M_k$ are continuous and bounded. The last part follows from directly from the definitions. For the continuity we note that
+%\begin{align*}
+%	g_k(x) = \inf_{y \in \bbR} h(y) + k \|x-y\|
+%	\le \inf_{y \in \bbR} h(y) + k \|z-y\| +k \|x-z\|
+%	= g_k(z) + k\|x-z\|,
+%\end{align*}
+%which implies that $\|g_k(x) - g_k(y)\| \le k \|x-y\|$. A similar argument works for $G_k$.
+%
+%Now, let $x \in \cC_h$, i.e. $x$ is a continuity point of $h$, and fix $\varepsilon > 0$. Then there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|h(x) - h(y)\| < \varepsilon$. If we then define
+%\[
+%	r =  \left \lceil \frac{h(x) - \inf_{z \in \bbR} h(z)}{\delta} \right \rceil,
+%\]
+%then
+%\begin{align*}
+%	\lim_{k \to \infty} g_k(x) &\ge g_r(x)\\
+%	&= \min\{ \inf_{\|x-y\| \ge \delta} h(y) + r\|x-y\| + \inf_{\|x-y\| < \delta} h(y) + r\|x-y\|\}\\
+%	&\ge \min\{h(x) - \varepsilon, \, \inf_{z \in \bbR} h(z) + (h(x) - \inf_{z \in \bbR} h(z))\delta/\delta\} \\
+%	&= h(x) - \varepsilon.
+%\end{align*}
+%Similarly, we get that $\lim_{k \to \infty} G_K(x) \le h(x) + \varepsilon$. Since $\mu(\cC_h) = 1$ this then implies that
+%\[
+%	\int_\bbR \lim_{k \to \infty} g_k \, \dd \mu  = \int_\bbR h \, \dd \mu 
+%	= \int_\bbR \lim_{k \to \infty} G_k \, \dd \mu. 
+%\]
+%
+%Applying Theorem~\ref{thm:monotone_convergence_ii} to $g_k$ and to $-G_k$ we get that
+%\[
+%	\lim_{k \to \infty} \int_\bbR g_k \, \dd \mu = \int_\bbR h \, \dd \mu
+%	= \lim_{k \to \infty} \int_\bbR G_k \, \dd \mu.
+%\]
+%Finally, since $g_k$ is non-decreasing and $G_k$ is non-increasing, for every $\varepsilon$ there must exist an $K$ such that for all $k \ge K$
+%\[
+%	\int_\bbR (G_k - g_k) \, \dd \mu = \int_\bbR (G_k - h) \, \dd \mu + \int_\bbR (h - g_k) \, \dd \mu \le \varepsilon. 
+%\]
+%So we can take
+%\[
+%	h^-_\varepsilon := g_K \quad \text{and} \quad h^+_\varepsilon := G_K.\qedhere
+%\]
+%\end{proof}
+
+%Recall that a set $A \subset \bbR^d$ is open if for every $x \in A$ there exists an $r > 0$ such that $B_x(r) \subset A$. In addition, a set $B\subset \bbR^d$ is called \emph{closed} if $B = \bbR^d \backslash A$ for some open set $A$.
+
+For a set $A \subset \bbR$ denote by $\bar{A}$ the smallest closed set that contains $A$ and by $A^\circ$ the largest open set that is contained in $A$. The sets $\bar{A}$ and $A^\circ$ are called the \emph{closure} and \emph{interior} of $A$, respectively. We now define the \emph{boundary} of $A$ as $\partial A := \bar{A} \backslash A^\circ$. Given a measure $\mu$ on $(\bbR, \cB_\bbR)$, a set $A$ is called a \emph{$\mu$-continuity set} if $\mu(\partial A) = 0$.
+
+\begin{definition}[$\mu$-continuity set]
+	Let $A\in\cB_\bbR$. Given a measure $\mu$ on $(\bbR, \cB_\bbR)$, a set $A$ is called a \emph{$\mu$-continuity set} if $\mu(\partial A) = 0$.
+\end{definition}
+
+We can now state a list of equivalent definitions for weak convergence of probability measures.
+
+\begin{theorem}[Portmanteau Theorem]\label{thm:portmanteau}
+Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. Then the following statements are equivalent:
+\begin{enumerate}[label={(\arabic*)}]
+\item $\mu_n \Rightarrow \mu$.
+\item $\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu$ for all $h\in B_b(\bbR)$ with $\mu(\cC_h) = 1$.
+\item $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ for all continuous functions with compact support $g\in C_c(\bbR)$, i.e., functions $g\in C_b(\bbR)$ that are zero outside an interval $[-K,K]$ for some $K > 0$.
+\item $\limsup_{n \to \infty} \mu_n(B) \le \mu(B)$ for all closed sets $B \subset \bbR$.
+\item $\liminf_{n \to \infty} \mu_n(A) \ge \mu(A)$ for all open sets $A \subset \bbR$.
+\item $\lim_{n \to \infty} \mu(C) = \mu(C)$ for all $\mu$-continuity sets $C$.
+\end{enumerate}
+\end{theorem} 
+
+\begin{proof}
+We will prove the following implication chain: 5$\iff$4 $\Rightarrow$ 1 $\Rightarrow$ 2 $\Rightarrow$ 6 $\Rightarrow$ 4 and 1$\iff$3. 
+
+\textbf{5$\iff$4:} This follows directly since every closed set $B$ is the complement of an open set $A$, i.e., $B = \bbR\backslash A$ and thus
+\[
+	\limsup_{n \to \infty} \mu_n(B) = \limsup_{n \to \infty} 1 - \mu_n(A) = 1 - \liminf_{n \to \infty} \mu_n(A).
+\]
+
+\textbf{4 $\Rightarrow$ 1:} Let $h$ be a continuous bounded function. Then, without loss of generality, we may assume that $0 \le h < 1$. Now fix some $k \in \bbN$ and define the following sets:
+\[
+	B_j := \left\{x \in \bbR \, : \, \frac{j}{k} \le h(x)\right\} \qquad \text{for } j = 0, 1, \dots, k.
+\]
+Note that since $h$ is continuous these are closed sets. Also note that $\mu(B_0) = 1$ and $\mu(B_k) = 0$.
+
+We further observe that $h(x) = \sum_{j = 1}^k h(x) \mathbf{1}_{B_{j-1} \cap B_j^c}$, where $B_j^c = \bbR \backslash B_j$. Hence, we can obtain the following bounds:
+\begin{equation}\label{eq:portmanteau_1}
+	\sum_{j = 1}^k \frac{j-1}{k} \mu(B_{j - 1} \cap B_j^c) \le \int_\bbR h \, \dd \mu \le \sum_{j = 1}^k \frac{j}{k} \mu(B_{j - 1} \cap B_j^c).
+\end{equation}
+Using that $B_{j-1} \supset B_{j}$ we get
+\[
+	\mu(B_{j - 1}) = \mu(B_{j-1} \cap B_j^c) + \mu(B_{j-1} \cap B_j) = \mu(B_{j-1} \cap B_j^c) + \mu(B_j)
+\]
+so that
+\[
+	\mu(B_{j-1} \cap B_j^c) = \mu(B_{j-1}) - \mu(B_j)
+\]
+Plugging this into the sum on the right-hand side in Equation~\eqref{eq:portmanteau_1}, we get
+\begin{align*}
+	\sum_{j = 1}^k \frac{j}{k} \mu(B_{j - 1} \cap B_j^c) &= \sum_{j = 1}^k \frac{j}{k} (\mu(B_{j-1}) - \mu(B_j))\\
+	&= \frac{1}{k} \left(\mu(B_0) + \sum_{j = 1}^{k-1} (j+1) \mu(B_j) - \sum_{j = 1}^k \mu(B_j)\right) \\
+	&= \frac{1}{k} \left(1 + \sum_{j = 1}^{k-1} \mu(B_j) - k \mu(b_k)\right)\\
+	&= \frac{1}{k} + \frac{1}{k} \sum_{j = 2}^{k} \mu(B_j),
+\end{align*}
+where we used that $\mu(B_0) = 1$ and $\mu(B_k) = 0$.
+
+In a similar fashion, the sum on the left-hand side in Equation~\eqref{eq:portmanteau_1} equals
+\[
+	\frac{1}{k} \sum_{j = 1}^k \mu(B_j).
+\]
+We thus conclude that for any $k \ge 1$,
+\begin{equation}
+	\frac{1}{k} \sum_{j = 1}^k \mu(B_j) \le \int_\bbR h \, \dd \mu \le
+	\frac{1}{k} + \frac{1}{k} \sum_{j = 2}^{k} \mu(B_j).
+\end{equation}
+Moreover, the same inequalities hold for the measures $\mu_n$.
+
+Applying (4) we then get
+\begin{align*}
+	\limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n
+	&\le  \limsup_{n \to \infty} \left(\frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \mu_n(B_j) \right)\\
+	&\le \frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \limsup_{n \to \infty} \mu_n(B_j)\\
+	&\le \frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \mu(B_j) \\
+	&\le \frac{1}{k} + \int_\bbR h \, \dd \mu.
+\end{align*}
+So that by taking $k \to \infty$ we obtain
+\[
+	\limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n \le \int_\bbR h \, \dd \mu.
+\]
+
+Apply this conclusion to the function $-h$, which is also continuous and bounded, we get
+\[
+	\int_\bbR h \, \dd \mu \le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n,
+\]
+from which it follows that $\lim_{n \to \infty} \int_\bbR h \, \dd \mu_n = \int_\bbR h \, \dd \mu$ for any bounded continuous function.
+
+\textbf{1 $\Rightarrow$ 2:} Fix $\varepsilon > 0$ and let $h^-_\varepsilon$ and $h^+_\varepsilon$ be the function from Lemma [REF]. Then
+\[
+	\int_\bbR h \, \dd \mu \le \int_\bbR h^+_\varepsilon \, \dd \mu 
+	= \int_\bbR h^+_\varepsilon \, \dd \mu - \int_\bbR h^-_\varepsilon \, \dd \mu
+	+ \int_\bbR h^-_\varepsilon \, \dd \mu,
+\]
+which implies that
+\[
+	 \int_\bbR h \, \dd \mu -\varepsilon \le \int_\bbR h^-_\varepsilon \, \dd \mu.
+\]
+
+In a similar way we obtain that
+\[
+	\int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
+\]
+
+Now we employ condition 1 for the functions $h^-_\varepsilon$ and $h^+_\varepsilon$ to get
+\begin{align*}
+	\int_\bbR h \, \dd \mu -\varepsilon &\le \int_\bbR h^-_\varepsilon \, \dd \mu\\
+	&= \lim_{n \to \infty} \int_\bbR h^-_\varepsilon \, \dd \mu_n\\
+	&\le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n \\
+	&\le \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n\\
+	&\le \int_\bbR h^+_\varepsilon \, \dd \mu_n\\
+	&= \int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
+\end{align*}
+From this it follows that
+\[
+	\int_\bbR h \, \dd \mu -\varepsilon \le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n
+	\le \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n \le \int_\bbR h \, \dd \mu +\varepsilon.
+\]
+And since $\varepsilon > 0$ was arbitrary we conclude that
+\[
+	\liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n = \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n,
+\]
+which then implies that $\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu$.
+
+\textbf{2 $\Rightarrow$ 6:} Let $C$ be a $\mu$-continuity set and consider the function $h(x) = \mathbf{1}_{C}$. Then clearly $h$ is measurable and bounded. Moreover, the function $h$ is discontinuous precisely on the boundary $\partial C$ and hence
+\[
+	\mu(\cC_h) =\mu(\bbR \backslash \partial C) = 1 - \mu(\partial C) = 1-0 = 1.
+\]
+Hence the function $h$ satisfies the conditions of 2 and thus
+\[
+	\mu_n(C) = \int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu = \mu(C).
+\]
+
+
+\textbf{6 $\Rightarrow$ 4:} Let $B$ be a closed set, take $\delta > 0$ and consider the sets
+\[
+	A_\delta = \{x \in \bbR \, : \, \|x - B\| < \delta\},
+\]
+where $\|x - B\| = \inf_{y \in B} \|x - y\|$ denotes the distance from $x$ to the set $B$. Note that $A_\delta$ is an open set in $\bbR$, and hence $A_\delta^\circ = A_\delta$.
+
+Next we observe that $A_\delta \subset \{x \in \bbR \, : \, \|x-B\| \le \delta\}$ where the latter sets are closed. It then follows that
+\[
+	\partial A_\delta = \bar{A_\delta} \backslash A_\delta \subset \{x \in \bbR \, : \, \|x-B\| \le \delta\} \backslash A_\delta = \{x \in \bbR \, : \, \|x-B\| = \delta\}.
+\]
+It then follows that $\partial A_\delta \cap \partial A_{\delta^\prime} = \emptyset$ for all $\delta \ne \delta^\prime$. Since $\mu$ is a probability measure, there can be only a countable number of disjoint sets with positive measure. From this we conclude that there exists a sequence $(\delta_k)_{k \ge 1}$ with $\delta_k \to 0$ such that $\mu(\partial A_{\delta_k}) = 0$ for all $k \ge 1$. Let us write $B_k := A_{\delta_k}$. Then each $B_k$ is a $\mu$-continuity set, $B_k \supset B_{k + 1}$ and $B_k \downarrow B$ because $B$ is closed.
+
+We then have that
+\[
+	\limsup_{n \to \infty} \mu_n(B) \le \limsup_{n \to \infty} \mu_n(B_k) = \mu(B_k),
+\]
+where the last equality is due to 6, which implies that $\mu_n(B_k) \to \mu(B_k)$.
+
+Taking $k \to \infty$ now yields 4.
+
+\textbf{1$\iff$3:} The implication $1 \Rightarrow 3$ is trivial. So assume that $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ holds for all continuous bounded functions with compact support and let $f\colon \bbR \to \bbR$ be a continuous bounded function with $|f(x)| \le M$ for all $x \in \bbR$. We will show that for any $\varepsilon > 0$
+\[
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| \le \varepsilon,
+\]
+which then implies the result.
+
+So let $\varepsilon > 0$ be fixed and observe that there exists an $\alpha > 0$ such that $\mu(\bbR \backslash [-\alpha, \alpha]) < \varepsilon/(2M)$. Also observe that we can define a non-negative continuous function $g$ such that $g = 1$ on $[-\alpha, \alpha]$ and $g = 0$ on $\bbR \backslash (-(\alpha+1),\alpha+1)$. Observe that $g$ is a non-negative continuous bounded function that is zero outside the interval $[-(\alpha+1), \alpha+1]$, and thus we can apply (3). We now have that
+\begin{align*}
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right|
+	&= \left|\int_\bbR f (1-g) \, \dd \mu_n\right| \le M \int_\bbR (1-g) \, \dd \mu_n \\
+	&\le M \int_\bbR (1-g) \, \dd \mu_n = M\left(1-\int_\bbR g \, \dd \mu_n\right)
+\end{align*}
+Since the later term converges to $\int_\bbR g \, \dd \mu$ by our assumption we get that
+\begin{align*}
+	\limsup_{n \to \infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right|
+	&\le M \int_\bbR (1-g) \, \dd \mu \le M \mu(\bbR \backslash [-\alpha,\alpha]) < \frac{\varepsilon}{2}.
+\end{align*}
+The same conclusion holds true for $\left|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\right|$.
+
+If we now write
+\begin{align*}
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| &\le \left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right| + \left|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\right|\\ &\hspace{10pt}+ \left|\int_\bbR fg \, \dd \mu_n - \int_\bbR fg \, \dd \mu\right|
+\end{align*}
+we see that the first two terms converge to $\varepsilon/2$ (by the computation above) while the term on the second line converges to zero by our assumption since $fg$ is also a continuous bounded function that is zero outside the interval $[-(\alpha+1),\alpha+1]$. 
+\end{proof}
+
+\subsection{Convergence in distribution}
+
+Convergence in distribution of a sequence $(X_n)_{n \ge 1}$ is defined as weak convergence of the corresponding probability measures.
+
+\begin{definition}[Convergence in distribution]\label{def:convergence_distribution}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces with probability measures $\bbP_n$ and $\bbP$, respectively. We say that $X_n$ \emph{converges in distribution} to $X$ if
+\[
+	(X_n)_\# \bbP_n \Rightarrow X_\# \bbP.
+\]
+If this is the case write we $X_n \stackrel{d}{\rightarrow} X$.
+\end{definition}
+
+Note that convergence in distribution of random variables is simply defined as weak convergence of their push-forward measures on $(\bbR, \cB_\bbR)$. This might seem strange to those who have encountered the \emph{more standard} definition used in courses on Probability Theory. There $X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$, with $F_n$ and $F$ denoting the cdfs of $X_n$ and $X$ respectively.
+
+But fear not; this definition is yet another equivalent statement for Definition~\ref{def:convergence_distribution}. 
+
+
+\begin{lemma}\label{lem:convergence_distribution_cdfs}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables and denote by, respectively, $F_n$ and $F$ their associated cdfs. Then
+$X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:convergence_probability_classic}.
+\end{proof}
+
+
+
+\subsection{Convergence in probability}
+
+\begin{definition}[Convergence in probability]\label{def:convergence_probability}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := |X_n - X|$. We say that $X_n$ \emph{converges in probability} to $X$ if
+\[
+	(Y_n)_\# \bbP \Rightarrow 0_\# \bbP,
+\] 
+where $0$ denotes the constant function $\omega \mapsto 0$. If this is the case, we write $X_n \stackrel{\bbP}{\rightarrow} X$.
+\end{definition}
+
+\begin{remark}
+Note that, unlike convergence in distribution, the concept of convergence in probability requires all random variables to be defined on the same probability space. This requirement can be relaxed a bit by having each $X_n$ be defined on a different probability space $(\Omega_n, \cF_n, \bbP_n)$ but have $X$ be defined on each of these spaces. From this perspective, we see that if we talk about convergence in probability to a constant $X_n \plim a \in \bbR$, then this is always true as constant random variables can be defined on any probability space.
+\end{remark}
+
+Recall that for a random variable $X$ on a probability space $(\Omega, \cF, \bbP)$ we wrote $\bbP(X \le t)$ as a short hand notation for $X_\# \bbP ((-\infty,t])$, i.e., the cdf of $X$ at $t$, and $\bbP(X > t)$ for $X_\# \bbP ((t,\infty))$, i.e., $1$ minus the cdf of $X$ at $t$.
+
+The following result relates the definition of convergence in probability to a version that is presented in most probability courses.
+
+\begin{lemma}\label{lem:convergence_probability_classical}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space. Then $X_n \stackrel{\bbP}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} \bbP(\|X_n - X\| > \varepsilon) = 0 \quad \text{for every } \varepsilon > 0.
+\]
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:convergence_probability_classic}
+\end{proof}
+
+
+The notion of convergence in probability is a stronger condition than convergence in distribution. In particular, the first statement implies the second. 
+
+\begin{lemma}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \plim X$. Then $X_n \dlim X$.
+\end{lemma}
+
+\begin{proof}
+We will use the form of from Lemma~\ref{lem:convergence_probability_classical}. Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$. Let $t$ be a continuity point of $F$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
+\begin{align*}
+	\bbP(X_n \le t)
+	&= \bbP(\{X_n \le t\} \cap \{|X_n - X| \le \varepsilon\}) + \bbP(\{X_n \le t\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X \le t + \varepsilon) + \bbP(|X_n - X| > \varepsilon).
+\end{align*}
+Taking the limsup on both sides yields
+\[
+	\limsup_{n \to \infty} \bbP(X_n \le t)
+	\le \bbP(X \le t + \varepsilon) + \limsup_{n \to \infty} \bbP(\|X_n - X| > \varepsilon)
+	= \bbP(X \le t + \varepsilon),
+\]
+since $X_n \plim X$ implies that
+\[
+	\limsup_{n \to \infty} \bbP(|X_n - X| > \varepsilon)
+	= \lim_{n \to \infty} \bbP(|X_n - X| > \varepsilon) = 0.
+\]
+Since $t$ is a continuity point of $F$ it follows that 
+\[
+	\lim_{\varepsilon \downarrow 0} \bbP(X \le t + \varepsilon) = \bbP(X \le t),
+\]
+which implies that $\limsup_{n \to \infty} \bbP(X_n \le t) \le \bbP(X \le t)$.
+
+To prove the result, it now suffices to show that $\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t)$.
+We shall do this in a way that is similar to the case with the limsup. First observe that $X \le t - \varepsilon$ and $|X_n - X| \le \varepsilon$ implies that $X_n \le t$. This way we get
+\begin{align*}
+	\bbP(X \le t - \varepsilon)
+	&= \bbP(\{X \le t - \varepsilon\} \cap \{|X_n -X|\le \varepsilon\}) + \bbP(\{X \le t - \varepsilon\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X_n \le t) + \bbP(|X_n - X| > \varepsilon).
+\end{align*}
+Taking the liminf on both sides gives
+\[
+	\bbP(X \le t - \varepsilon)
+	\le \liminf_{n \to \infty} \bbP(X_n \le t),
+\]
+and using that $t$ is a continuity point of $F_X$ we conclude that 
+\[
+	\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t).\qedhere
+\]
+\end{proof}
+
+While convergence in probability implies convergence in distribution, the other implication is not true in general (see Problem~\ref{prb:dlim_not_plim}). However, if $X$ is constant (deterministic instead of random) then both notions of convergence are equivalent.
+
+\begin{lemma}{}\label{lem:dlim_constant_plim}
+Let $(X_n)_{n \ge 1}$ be a sequence of random variables such that $X_n \dlim a$ for some constant $a \in \mathbb{R}$. Then we also have that $X_n \plim a$.
+\end{lemma}
+
+\begin{proof}
+We will use the form of from Lemma~\ref{lem:convergence_probability_classical}. Fix some $\varepsilon > 0$. We have to show that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0.
+\]
+Let $B_\varepsilon(a)$ denote the open ball of radius $\varepsilon$ around $a$ and consider the compliment $B_\varepsilon^c(a) := \mathbb{R} \backslash B_\varepsilon(a)$, which is a closed set. We then have
+\[
+	\bbP(|X_n-a|>\varepsilon) \le \bbP(|X_n-a|\ge\varepsilon) = \bbP(X_n \in B_\varepsilon^c(a)). 
+\]
+In particular we have
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) \le \limsup_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a)).
+\]
+Since $X_n \dlim a$, statement 3 in Theorem~\ref{thm:portmanteau} implies that 
+\[
+	\limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a))
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0,
+\]
+because obviously $a \notin B_\varepsilon(a)^c$. Therefore we conclude that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0
+\]
+which implies that $\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0$.
+\end{proof}
+
+
+\subsection{Almost-sure convergence}
+
+The final notion of convergence we will discuss is \emph{almost-sure convergence}, which looks much more natural than the previous two notions and requires less notation.
+
+\begin{definition}[Almost-sure convergence]\label{def:almost_sure_convergence}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. We say that $X_n$ \emph{converges almost-surely} to $X$ if
+\[
+	\bbP(\{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}) = 1.
+\] 
+In this case we write $X_n \aslim X$.
+\end{definition} 
+
+The definition of almost-sure convergence says that the probability that the set for which $X$ is \emph{not} the limit of $X_n$ must have probability zero. This is why it is also often referred to as \emph{convergence with probability $1$}.
+
+There is a different way to characterize \emph{almost-sure} convergence which is often useful. This requires the concept of \emph{infinitely often}.
+
+\begin{definition}[Infinitely often]
+Let $(\Omega, \cF, \bbP)$ be a probability space and consider a sequence $(A_n)_{n \ge 1}$ of measurable sets. We then define the event $\{A_n \text{ i.o.}\}$ ($A_n$ happens infinitely often) as
+\[
+	\{A_n \text{ i.o.}\} := \bigcap_{k = 1}^\infty \bigcup_{n \ge k} A_n.
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:almost_sure_alternative}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. Then
+\[
+	X_n \aslim X \iff \bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0 \quad \text{for all } \varepsilon > 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $A_n(\varepsilon) :=  \{\|X_n - X\| > \varepsilon\}$ and $A = \{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}$. We first observe that
+\[
+	\Omega\backslash A = \bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}.
+\]
+
+Now suppose that $X_n \aslim X$ and let $\varepsilon > 0$. Then $\bbP(A) = 1$ and there exist a $m \in \bbN$ such that $\{A_n(\varepsilon) \text{ i.o.}\} \subset \{A_n(1/m) \text{ i.o}\}$. Thus
+\[
+	\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) \le \bbP(\{A_n(1/m) \text{ i.o.}\}) \le \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) = \bbP(\Omega \backslash A) = 0.
+\]
+
+For the other implication suppose that $\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) = 0$ for all $\varepsilon > 0$. Then clearly the same holds for all $\varepsilon = 1/m$ with $m \in \bbN$. Hence
+\[
+	\bbP(\Omega\backslash A) = \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) \le \sum_{m \in \bbN} \bbP(\{A_n(1/m) \text{ i.o.}\}) = 0,
+\]
+which implies that $\bbP(A) = 1$.
+\end{proof}
+
+While this notion of convergence looks very natural, it turn out it is the strongest of the three notions. In practice proving almost-sure convergence is often much harder than proving convergence in probability or distribution.
+
+\begin{lemma}\label{lem:almost_sure_implies_probability}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \aslim X$. Then $X_n \plim X$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:almost_sure_implies_probability}.
+\end{proof}
+
+A useful tool for proving almost everywhere convergence is the following result.
+
+\begin{lemma}[Borel-Cantelli]\label{lem:Borel-Cantelli}
+	Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets. If
+	\[
+	\sum_{n=1}^\infty \mu(A_n) < \infty,
+	\]
+	then for $\mu$-almost every $\omega \in \Omega$, there are only finitely many $n \in \mathbb{N}$ such that $\omega \in A_n$.
+\end{lemma}
+\begin{proof}
+	Define the sets
+	\[
+		B_j := \bigcup_{i \ge j} A_i,\qquad j\in\bbN.
+	\]
+	Clearly the sequence $(B_j)_{j\in\bbN}$ is decreasing and $\{A_n \text{ i.o.}\}\subset B_j$ for every $j \in \mathbb{N}$. 
+	
+	By assumption, and the $\sigma$-subadditivity of $\mu$,
+	\[
+	\mu(B_1) = \mu\left(\bigcup_{i=1}^\infty A_i \right) \leq \sum_{i=1}^\infty \mu(A_i) < +\infty.
+	\]
+	Moreover, the summability also gives
+	\[
+		\lim_{j\to\infty}\mu(B_j) \leq \limsup_{j\to\infty}\sum_{i=j}^\infty \mu(A_i) = 0.
+	\]
+	Hence, by the continuity from above of $\mu$, we obtain
+	\[
+		\mu(\{A_n \text{ i.o.}\}) \le \mu\left(\bigcup_{j=1}^\infty B_j\right) = \lim_{j\to \infty} \mu(B_j) = 0,
+	\]
+	i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\mu$-almost every $\omega$ is in only finitely many $A_n$.
+\end{proof}
+
+\section{Problems}
+
+\begin{problem}\label{prb:reverse_fatou}
+Prove the reverse Fatou lemma:
+
+\smallskip
+\textit{
+Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be non-negative, measurable functions such that $f_n \le f$ and $\int_\Omega f \, \dd \mu <\infty$. Then
+\[
+	\limsup_{n\to \infty} \int_\Omega f_n \dd \mu \le \int_\Omega \limsup_{n\to \infty} f_n \dd \mu.
+\]
+}
+\end{problem}
+
+\begin{problem}\label{pb:DCT-parametric-function}
+	Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f:\Omega\times(a,b)\to\bbR$ and that $\omega\mapsto f(\omega,t)$ is integrable with respect to $\mu$ for all fixed $t\in(a,b)$. Suppose there exists a non-negative $\mu$-integrable function $g$ such that $|f(\omega,t)|\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. 
+	\begin{enumerate}[label={(\alph*)}]
+		\item Fix $t_0\in(a,b)$. Show that if $\lim_{t\to t_0} f(\omega,t)=f(\omega,t_0)$ for all $\omega\in\Omega$, then
+		\[
+			\lim_{t\to t_0}\int_\Omega f(\omega,t)\,\mu(d\omega) = \int_\Omega f(\omega,t_0)\,\mu(d\omega).
+		\]
+		\item Deduce from (a) that if $f(\omega,\cdot)$ is continuous for all $\omega$, then the map
+		\[
+			(a,b)\ni t\mapsto F(t):=\int_\Omega f(\omega,t)\,\mu(d\omega)\quad\text{is continuous.}
+		\]
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+		Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f:\Omega\times(a,b)\to\bbR$ and that $\omega\mapsto f(\omega,t)$ is integrable with respect to $\mu$ for all fixed $t\in(a,b)$. Suppose $\partial f/\partial t$ exists on $(a,b)$ for all $\omega\in \Omega$, i.e.\ for every fixed $\omega\in\Omega$,
+		\[
+			\frac{\partial f}{\partial t}(\omega, t_0):=\lim_{t\to t_0} \frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} \quad\text{exists for all $t_0\in(a,b)$}.
+		\]
+		Furthermore, suppose that there is a non-negative $\mu$-integrable function $g$ such that $|\partial f/\partial t|(\omega,t)\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. Show that the map
+		\[
+			(a,b)\ni t\mapsto F(t) = \int_\Omega f(\omega,t)\,\mu(d\omega)\quad\text{is differentiable},
+		\]
+		and the following equality holds:
+		\[
+			\frac{d}{dt}\int_\Omega f(\omega,t)\,\mu(d\omega) = \int_\Omega \frac{\partial f}{\partial t}(\omega,t)\,\mu(d\omega).
+		\]
+		
+		\smallskip
+		
+		\noindent\textbf{Hint:} Make the following steps:
+		\begin{enumerate}[label={(\arabic*)}]
+			\item Show that $(\partial f/\partial t)(\cdot,t)$ is measurable and integrable for all $t\in(a,b)$.
+			\item Show that for $t_0\in(a,b)$ arbitrary
+			\[
+				\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le g(\omega)\quad\text{for any $t\in(a,b)$, $t\ne t_0$ and all $\omega\in\Omega$.}
+			\]
+			\item Conclude with the help of Problem~\ref{pb:DCT-parametric-function}.
+		\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	Compute the following limits and justify the computation
+	\begin{align*}
+		& \lim_{n\to\infty} \int_0^1 \frac{1 + n x^2}{(1 + x^2)^n}\,\dd x\,,\qquad\lim_{n\to\infty} \int_{(0,+\infty)} \frac{x^{n-2}}{1+ x^n}\cos\left(\frac{\pi x}{n}\right) \lambda(\dd x) \,.
+	\end{align*}
+\end{problem}
+
+\begin{problem}[Generalized DCT] Prove the following generalization of DCT:
+
+\textit{
+	Let $(\Omega,\mathcal{F},\mu)$ be a measure space. Assume that $f_n$, $g_n$, $f$ and $g$ are $\mu$-integrable functions satisfying
+	\begin{enumerate}[label={(\roman*)}]
+		\item $f_n\to f$ and $g_n\to g$ $\mu$-almost everywhere,
+		\item $|f_n|\le g_n$ for all $n\in\bbN$ and $\int_\Omega g_n\,\dd\mu \to \int_\Omega g\,\dd\mu$ as $n\to \infty$.
+	\end{enumerate}
+	Then also $\int_\Omega f_n\,\dd\mu \to \int_\Omega f\,\dd\mu$ as $n\to\infty$.	
+}
+\end{problem}
+
+
+\begin{problem}\label{prb:dlim_not_plim}
+Give an example (with proof) of a sequence of random variables that converge in distribution but not in probability.
+\end{problem}
+
+\begin{problem}\label{prb:convergence_probability_classic}
+Prove Lemma~\ref{lem:convergence_probability_classical}.
+\end{problem}
+
+\begin{problem}\label{prb:convergence_distribution}
+The goal of this problem is to prove Lemma~\ref{lem:convergence_distribution_cdfs}. That is
+\[
+	X_n \stackrel{d}{\rightarrow} X \iff F_n(t) \to F(t) \quad \text{for all } t \in \cC_F,
+\]
+where $F_n$ and $F$ denote the cdfs of the random variables $X_n$ and $X$, respectively.
+
+Write $\mu_n = (X_n)_\# \bbP_n$ and $\mu = X_\# \bbP$ and note that for any measurable function $f$, $\bbE[f(X_n)] = \int f \, \dd \mu_n$ and $\bbE[f(X)] = \int f \, \dd \mu$.
+
+We will first prove the $\Rightarrow$ implication. 
+\begin{enumerate}[label={(\alph*)}]
+\item Let $t \in \bbR$. Find a measurable function $h_t$, such that $F_n(t) = \int_\bbR h_t \, \dd \mu_n$ and $F(t) = \int_\bbR h_t \, \dd \mu$.
+\item Show that $\mu(\cC_{h_t}) = 1$.
+\item Prove the $\Rightarrow$ implication. 
+\end{enumerate}
+
+For the other implication $\Leftarrow$ let $g$ be a continuous function with compact support. Then there is some $K > 0$ such that $g$ is zero outside $[-K,K]$. You may use the fact that any continuous function with compact support is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
+\begin{enumerate}[label={(\alph*)}]
+\setcounter{enumi}{3}
+\item Let $\delta > 0$. Construct a partition of $[-K,K]$ into $L$ intervals $I_\ell$ such that for each $\ell \le L$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
+\end{enumerate}
+
+We will now define an approximate function
+\[
+	\hat{g}(x) = \sum_{\ell = 1}^L g(\max_{x \in I_i} x) \mathbf{1}_{I_i}.
+\]
+
+\begin{enumerate}[label={(\alph*)}]
+\setcounter{enumi}{4}
+\item Show that there exists an $M$ and sequences $(\beta_m)_{1 \le m \le M}$ and $(t_m)_{1 \le m \le M}$ such that
+\[
+	\hat{g}(x) = \sum_{m = 1}^M \beta_m \mathbf{1}_{(-\infty, t_m]}.
+\]
+\item Prove that $\lim_{n \to \infty} \bbE[\hat{g}(X_n)] = \bbE[\hat{g}(X)]$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
+\item Prove that $\bbE[g(X_n)] \to \bbE[g(X)]$. [Hint: First use the previous result to show that $\| \int g \, \dd \mu_n - \int g \, \dd \mu\| \to 2\varepsilon$ by adding and subtracting $\int \hat{g} \, \dd \mu_n$ and $\int \hat{g} \, \dd \mu$.]
+\item Conclude that $X_n \dlim X$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:almost_sure_implies_probability}
+Prove Lemma~\ref{lem:almost_sure_implies_probability}. [Hint: use the alternative definition of Lemma~\ref{lem:almost_sure_alternative} and reverse Fatou from Problem~\ref{prb:reverse_fatou}.]
+\end{problem}

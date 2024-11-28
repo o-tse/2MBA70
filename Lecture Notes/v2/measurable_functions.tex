@@ -1,0 +1,712 @@
+
+Now that we have defined measure spaces $(\Omega, \cF, \mu)$, through \sigalgs/ and measures and studied properties of both these objects, it is time to look at functions that preserve the measurable structure of the spaces involved, called \emph{measurable functions}. We do this first in a general setting and then move to functions that map to the real line $\bbR$. We end this chapter by using the notion of measurable function to properly define (general) random objects and prove a general theorem to construct any random variable from a given distribution function.
+
+\section{Measurable functions}
+
+%The main object in analysis were \emph{continuous} function $f : \bbR^d \to \bbR^m$. This property was important, as it allowed us to differentiate the function and perform integration. 
+
+\subsection{Definition and properties}
+
+We want to consider functions $f : \Omega \to E$ between measurable spaces $(\Omega, \cF)$ and $(E, \cG)$ that preserve the measurable structure, as imposed by the \sigalgs/. It turns out that it the best way to do this it to look at the preimage of measurable sets in $E$.
+
+\begin{definition}[Measurable function]\label{def:measurable_function}
+Let $(\Omega, \cF)$ and $(E, \cG)$ be two measurable spaces. A function $f: \Omega \to E$ is said to be \emph{$(\cF, \cG)$-measurable} if $f^{-1}(B) \in \cF$ for every $B \in \cG$.
+\end{definition}
+
+It is important to note that whether a function is measurable or not depends on the \sigalgs/ we consider in each of the measurable spaces. This means that a function $f : \Omega \to E$ might be $(\cF, \cG)$-measurable but not $(\cF^\prime, \cG)$-measurable for a different sigma algebra $\cF^\prime$ on $\Omega$. This is different from the notion of continuity of functions on $\bbR^d$. 
+
+We will often omit the explicit reference to the \sigalgs/ in the definition of a measurable function if it is clear which \sigalgs/ are considered. That is, we will simply say that the function $f$ between the two measurable spaces $(\Omega, \cF)$ and $(E, \cG)$ is \emph{measurable}. We will sometimes make the choice of \sigalgs/ explicit by saying that $f: (\Omega, \cF) \to (E, \cG)$ is measurable.
+
+We will provide an important example of measurable functions to $\bbR$, the indicator functions.
+
+\begin{example}[Indicator functions are measurable]
+Let $(\Omega,\cF)$ be a measurable space, $A \in \cF$ and $f : \Omega \to \bbR$ be defined as $f = \mathbf{1}_A$, that is 
+\[
+	f(\omega) = \begin{cases}
+		1 &\text{if } \omega \in A,\\
+		0 &\text{otherwise.}
+	\end{cases}
+\]
+Then $f$ is measurable.
+
+To see this, first note that $f^{-1}(\{1\}) = A \in \cF$ and $f^{-1}(\{0\}) = \Omega\setminus A \in \cF$. This implies that for any set $B \in \cB_\bbR$ we have that $f^{-1}(B \cap \{x\}) \in \cF$ with $x = 0, 1$. Hence
+\[
+	f^{-1}(B) = f^{-1}(B \cap \{0\}) \cup f^{-1}(B \cap \{1\}) \in \cF.
+\]
+\end{example}
+
+The fact that measurability of $f$ depends on the \sigalgs/ involved mean we need to take a bit of care when considering operations on functions, as these might destroy the measurability. The most natural operation we should check first is composition, as we would like to be able to compose measurable functions into measurable functions. Luckily this is possible.
+
+\begin{proposition}[Composition of measurable functions]
+Let $(\Omega_i, \cF_i)$, for $i = 1,2,3$ be three measurable spaces and $f : \Omega_1 \to \Omega_2$, $g : \Omega_2 \to \Omega_3$ be two measurable functions. Then the composition $h := g \circ f : \Omega_1 \to \Omega_3$ is measurable.
+\end{proposition}
+
+\begin{proof}
+By definition, we need to show that for every $A \in \cF_3$ the preimage $h^{-1}(A) \in \cF_1$. First note that
+\begin{align*}
+	h^{-1}(A) = (g\circ f)^{-1}(A) &= \{x \in \Omega \, : \, g(f(x)) \in A\} \\
+	&= \{x \in \Omega \, : \, f(x) \in g^{-1}(A) \} = f^{-1}(g^{-1}(A)).
+\end{align*}
+Since $g$ is $(\cF_2, \cF_3)$-measurable, $g^{-1}(A) \in \cF_2$. Then, using that $f$ is $(\cF_1, \cF_2)$-measurable, we conclude that $h^{-1}(A) = f^{-1}(g^{-1}(A)) \in \cF_1$ as was required to show.
+\end{proof}
+
+The next result shows that we can also restrict a measurable function $f : \Omega \to E$ to a measurable subset $A \subset \Omega$, as long as we consider the appropriate (and natural) \sigalg/.
+
+\begin{lemma}[Restriction of measurable functions]
+Let $f: (\Omega, \cF) \to (E, \cG)$ be a measurable function and let $A \in \cF$ be non-empty. Then the restriction map $f|_A : A \to E$ is $(\cF_A, \cG)$-measurable.
+%Moreover, if $g_A : A \to E$ is $(\cF_A, \cG)$-measurable, and $p \in E$, then the extension
+%\[
+%	g(\omega) := \begin{cases}
+%		g_A(\omega) &\text{if } \omega \in A,\\
+%		p &\text{if } \omega \notin A,
+%	\end{cases}
+%\]
+%is $(\cF, \cG)$-measurable.
+\end{lemma}
+
+\begin{proof}
+Recall that $\cF_A = \{A \cap B \, : \, B \in \cF\}$. Take $C \in \cG$, then
+\[
+	f|_A^{-1}(C) = \{\omega \in \, A : \, f(\omega) \in C\} = f^{-1}(C) \cap A \in \cF_A.\qedhere
+\]
+\end{proof}
+
+At this stage these are the only general properties of measurable function we can consider. However, if the measurable space a function maps to has more structure we can see if this structure also respect the measurability. For example, we will see later in Section~\ref{sec:measurable_functions_real_line} that for measurable functions $f, g : \Omega \to \bbR$ their product and sum are also measurable, as well as many other operations.
+
+\subsection{Checking for measurability}
+
+Given any function $f : \Omega \to E$ between two measurable spaces $(\Omega, \cF)$ and $(E, \cG)$, when is this measurable? Definition~\ref{def:measurable_function} tells us that to answer this question we need to check that the preimage of any measurable set is again measurable. But this can be a cumbersome exercise. Or even impossible when we do not have an explicit description of the sigma algebra. This can happen, for example, when $\cG$ is generated by some collection of sets $\cA$, which is the case for the important Borel \sigalg/. 
+
+Fortunately, the definition of measurability works very well with generated \sigalgs/. In particular, to show that a function is measurable, it suffices to only consider sets from the generator set $\cA$, instead of the entire \sigalg/ $\sigma(\cA)$.
+
+\begin{lemma}\label{lem:measurable_condition_generator}
+Let $(\Omega, \cF)$ and $(E, \cG)$ be two measurable spaces such that $\cG = \sigma(\cA)$. Let $f: \Omega \to E$ be a function such that $f^{-1}(A) \in \cF$ for all $A \in \cA$. Then $f$ is $(\cF, \cG)$-measurable.
+\end{lemma}
+
+\begin{proof}
+Consider the following collection of subsets:
+\[
+	\cH := \{B \subset \cG \, : \, f^{-1}(B) \in \cF\}.
+\]
+We claim that $\cH$ is a \sigalg/ on $E$. Suppose this is indeed true. Then, since by construction $\cA \subseteq \cH$, it follows from Lemma~\ref{lem:inclusion_sigalgs} that $\cG = \sigma(\cA) \subseteq \cH$. But this then implies that $f^{-1}(B) \in \cF$ for each $B \in \cG$ which means that $f$ is $(\cF, \cG)$-measurable.
+
+So let's prove that $\cH$ is a \sigalg/. First we note that $f^{-1}(\emptyset) = \emptyset \in \cF$ and $f^{-1}(E) = \Omega \in \cF$. So $\emptyset, E \in \cH$. 
+
+Next, let $B \in \cH$. Then
+\[
+	f^{-1}(E\setminus B) = \Omega \setminus f^{-1}(B) \in \cF,
+\]
+since by definition $f^{-1}(B) \in \cF$. So $E\setminus B \in \cH$.
+
+Finally, if $(B_i)_{i \in \bbN}$ is a sequence of sets in $\cH$, then
+\[
+	f^{-1}\left(\bigcup_{i = 1}^\infty B_i\right) = \bigcup_{i = 1}^\infty f^{-1}(B_i) \in \cF,
+\]
+which shows that $\bigcup_{i = 1}^\infty B_i \in \cH$, completing the proof that $\cH$ is a \sigalg/.
+\end{proof}
+
+We thus see that at least. But that still requires us to check if any given function is measurable. For example, is the function $f : \bbR \to \bbR$ given by $f(x) = e^x$, measurable? It would be much better if we have a more familiar criteria that would imply measurability. Continuity does exactly this. 
+
+\pagebreak
+
+\begin{proposition}
+Every continuous map $f : \bbR^d \to \bbR^m$ is $(\cB_{\bbR^d}, \cB_{\bbR^m})$-measurable.
+\end{proposition}
+
+\begin{proof}
+Recall from analysis that a map $f : \bbR^d \to \bbR^m$ is continuous if for every $x \in \bbR^d$ and $\varepsilon > 0$, there exists an $r = r(x,\varepsilon)$ such that 
+\[
+	\|f(x) - f(y)\| < \varepsilon \quad \text{for every } y \in B_x(r).
+\]
+The key step for this proof is to show that this is equivalent to the following condition\footnote{Actually, the definition we state here using open sets is the general definition for continuous functions in the mathematical field of topology.}:
+\[
+	\text{for every open set } O \subset \bbR^m \quad f^{-1}(O) \text{ is open}.
+\]
+If this is true then, since the Borel \sigalg/ is generated by the open sets, it follows that $f^{-1}(O) \in \cB_{\bbR^d}$ for each open set $O \subset \bbR^m$. Lemma~\ref{lem:measurable_condition_generator} then implies that $f$ is measurable.
+
+So we are left to show the equivalence of the two conditions for continuity. First, assume that $f$ is continuous and take an arbitrary open set $O \subset \bbR^m$. We need to show that $f^{-1}(O)$ is open, which means that for every $x \in f^{-1}(O)$ we should find an $r$ such that $B_x(r) \subset f^{-1}(O)$. Since $O$ is open, there exists a $\varepsilon > 0$ such that $B_{f(x)}(\varepsilon) \subset O$. Continuity of $f$ now implies the existence of an $r$ such that $\|f(x) - f(y)\| < \varepsilon$ for all $y \in B_x(r)$. But this simply means that $f(y) \in B_{f(x)}(\varepsilon) \subset O$ for every $y \in B_x(r)$, which implies that $B_x(r) \in f^{-1}(O)$.
+
+Now assume that $f^{-1}(O)$ is open in $\bbR^d$, for every open set $O \in \bbR^m$ and take $x \in \bbR^d$ and $\varepsilon > 0$. Then the ball $B_{f(x)}(\varepsilon)$ is open in $\bbR^m$, so that by assumption $f^{-1}(B_{f(x)}(\varepsilon))$ is open in $\bbR^d$. Since $x \in f^{-1}(B_{f(x)}(\varepsilon))$ there now must exist an $r > 0$ such that $B_x(r) \subset f^{-1}(B_{f(x)}(\varepsilon))$. But this then implies that for every $y \in B_x(r)$, $f(y) \in B_{f(x)}(\varepsilon)$, which is equivalent to $\|f(x) - f(y)\| < \varepsilon$.
+\end{proof}
+
+With this result we have a vast world of measurable functions $f : \bbR^d \to \bbR^m$ at our disposal. It should also be noted that the space of measurable functions is larger than that of continuous functions. For example, the indicator functions are measurable but not continuous.
+
+So on the Borel space $(\bbR^d, \cB_{\bbR^d})$ we have a large class of measurable functions. However, when dealing with functions that map to measurable spaces that are not the Borel space, we still need to carefully check if it is measurable. But what if we can simply construct a \sigalg/ such that it makes a function measurable?
+
+\subsection{\sigalgs/ generated by measurable functions}
+
+Suppose we have a function $f : \Omega \to E$ from a set $\Omega$ to some measurable space $E, \cG)$. If we want to study the function $f$ in the framework of measure theory, we need to turn $\Omega$ into a measurable space $(\Omega, \cF)$ and have $f$ be $(\cF, \cG)$-measurable. The good news is that we can construct a minimal \sigalg/ that does the job for us. It can even be done for multiple functions at the same time.
+
+\begin{proposition}\label{prop:sigalg_generated_functions}
+Let $(\Omega_i, \cF_i)$, for $i \in I$ be measurable spaces and $(f_i)_{i \in I}$ be a family of functions $f_i : \Omega \to \Omega_i$. Then the smallest \sigalg/ on $\Omega$ that makes all $f_i$ simultaneously measurable is
+\[
+	\sigma(f_i \, : \, i \in I):=\sigma\left(\bigcup_{i \in I} f_i^{-1}(\cF_i)\right).
+\] 
+\end{proposition}
+
+\begin{remark}
+	The collection of sets $\bigcup_{i \in I} f_i^{-1}(\cF_i)$ may be equivalently expressed as
+	\[
+		\Bigl\{f_i^{-1}(B) : i\in I,\; B\in \cF_i\Bigr\}.
+	\]
+\end{remark}
+
+
+\begin{proof}[Proof of Proposition~\ref{prop:sigalg_generated_functions}]
+First note that by Proposition~\ref{prop:generated_sigalg}, $\sigma(f_i \, : \, i \in I)$ is a \sigalg/. We will show that any \sigalg/ that makes each $f_i$ measurable much contain $\sigma(f_i \, : \, i \in I)$. So let $\cF$ be such a \sigalg/. Then in particular, for any $i\in I$ and $B \in \cF_i$ we have that $f_i^{-1}(B) \in \cF$. This implies that
+\[
+	\bigcup_{i \in I} f_i^{-1}(\cF_i) \subseteq \cF.
+\]
+Now since $\sigma(f_i \, : \, i \in I)$ is generated by the collection on the left hand side, Lemma~\ref{lem:inclusion_sigalgs} implies that 
+\[
+	\sigma(f_i \, : \, i \in I):=\sigma\left(\bigcup_{i \in I} f_i^{-1}(\cF_i)\right) \subset \sigma(\cF) = \cF.\qedhere
+\]
+\end{proof}
+
+Similar to Lemma~\ref{lem:measurable_condition_generator}, when $\cF_i = \sigma(\cA_i)$ it turns out that to construct $\sigma(f_i \, : \, i \in I)$ it suffices to consider only preimages of the generator sets $\cA_i$.
+
+\begin{proposition}\label{prop:extension_measurable_function}
+Let $(\Omega, \cF)$ and $(\Omega_i, \cF_i)$, for $i \in I$ be measurable spaces such that $\cF_i = \sigma(\cA_i)$. Let $(f_i)_{i \in I}$ be a family of functions $f_i : \Omega \to \Omega_i$. Then 
+\[
+	\sigma(f_i \, : \, i \in I) = \sigma\left(\bigcup_{i \in I} f_i^{-1}(\cA_i)\right).
+\] 
+\end{proposition}
+
+\begin{proof}
+Let us write $\cG_1 = \sigma(f_i \, : \, i \in I)$ and $\cG_2 = \sigma\left(\bigcup_{i \in I} f_i^{-1}(\cA_i)\right)$. From the definition, it is clear that $\cG_2 \subseteq \cG_1$. Moreover, each $f_i$ is $(\cG_2, \cF_i)$-measurable by Lemma~\ref{lem:measurable_condition_generator}. But by Proposition~\ref{prop:sigalg_generated_functions} $\cG_1$ is the smallest \sigalg/ that makes all $f_i$ $(\cG_1, \cF_i)$-measurable and hence $\cG_1 \subseteq \cG_2$, which implies the result.
+\end{proof}
+
+We end this section by going back to the product \sigalg/ given in Definition~\ref{def:product_sigalg}. There is an alternative way to construct it using functions. Let $(\Omega_1, \cF_1)$ and $(\Omega_2, \cF_2)$ be two measurable spaces and consider the functions $\pi_i : \Omega_1 \times \Omega_2 \to \Omega_i$, defined by 
+\[
+	\pi_1(x,y) = x \quad \pi_2(x,y) = y.
+\]
+These are called the \emph{canonical projections}. Following Proposition~\ref{prop:sigalg_generated_functions} we can construct the \sigalg/ $\sigma(\pi_1, \pi_2)$ on $\Omega_1 \times \Omega_2$, which makes both canonical projections measurable. It now follows that, see Problem~\ref{prb:product_sigalg_equivalence},
+\begin{equation}\label{eq:product_sigalg_equivalence}
+	\cF_1 \otimes \cF_2 = \sigma(\pi_1, \pi_2),
+\end{equation}
+which shows that the original construction of the product \sigalg/ is equal to the one using projection maps.
+
+%With this result we can now easily extend the characterization of the Borel \sigalg/ on $\bbR$ to the general $d$-dimension case.
+%
+%\begin{proposition}\label{prop:characterization_borel_sigalg}
+%The Borel \sigalg/ on $\bbR^d$ is the \sigalg/ generated by any of the following family of sets:
+%\begin{enumerate}
+%\item $\{(a_1, b_1) \times \dots \times (a_d, b_d)\}$,
+%\item $\{(a_1, b_1] \times \dots \times (a_d, b_d]\}$,
+%\item $\{[a_1, b_1) \times \dots \times [a_d, b_d)\}$,
+%\item $\{(-\infty,a_1] \times \dots \times (-\infty, a_d]\}$,
+%\item $\{(-\infty,a_1) \times \dots \times (-\infty, b_d)\}$,
+%\item $\{[a_1, \infty) \times \dots \times [a_d, \infty)\}$,
+%\item $\{(a_1,\infty) \times \dots \times (a_d,\infty)\}$,
+%\end{enumerate}
+%where $a_i, b_i \in \bbQ,$ or $a_i, b_i \in \bbR$ for $i = 1, \dots, d.$
+%\end{proposition}
+%
+%\begin{proof}
+%See Problem~\ref{prb:characterization_borel_sigalg}.
+%\end{proof}
+
+\subsection{Push forward measure}
+
+Given a measure space $(\Omega, \cF, \mu)$ and measurable function $f : \Omega \to E$ to a measurable space $(E,\cG)$ we can construct a measure on $(E,\cG)$ using $f$ and $\mu$. This measure is called the \emph{push-forward measure}, as it can be thought of a pushing $\mu$ to $\cG$ via the function $f$.
+
+\begin{proposition}[Push-forward measure]\label{prop:push_forward_measure}
+Let $(\Omega, \cF, \mu)$ be a measure space, $(E, \cG)$ a measurable space and $f : \Omega \to E$ a measurable function. Then the set function $f_\# \mu$ defined as
+\[
+	f_\# \mu (B) = \mu(f^{-1}(B)) \text{ for every } B \in \cG,
+\]
+is a measure on $(E, \cG)$ called the \emph{push-forward measure} of $\mu$ under $f$. Moreover, if $\mu$ is a probability measure, so if $f_\# \mu$.
+\end{proposition}
+
+The proof of this result is elementary and left as an exercise, see Problem~\ref{prb:push_forward_measure}. 
+
+Push-forward measures play an important role in measure theory, and especially in probability theory. For example, they come up for example when we apply a change of variables in integrals. More importantly, we will see in Section~\ref{sec:random_variables} that the cumulative distribution function of a random variable is actually defined as the push-forward measure of some probability measure $\bbP$ under a suitable measurable function.
+
+\section{Measurable functions on the real line}\label{sec:measurable_functions_real_line}
+
+When studying properties of measurable function we could only do a few things for general measurable spaces. So in this section we will focus on a specific measurable space: the real line $(\bbR, \cB_\bbR)$. We will see that most of the natural operations we can apply to function in a point-wise manner, such as addition and multiplication, preserve their measurability. But we will do even better. We will show that taking point-wise limit operations, such as taking a supremum of a family of measurable functions, preserves measurability as well. This makes the class of measurable functions much more powerful then that of continuous functions, as point-wise limits of continuous functions are not guaranteed to be continuous again. All thes properties will be useful when we introduce the concept of integration of measurable functions in Chapter [REF] and develop limit theorems for integrals in Chapter [REF].
+
+To properly study limit operations on measurable functions, that could diverge, we need to have $+\infty$ be a part of the real line (which it is not). So we first extend the real line to include both $+\infty$ and $-\infty$.
+
+\subsection{Extended real line}
+
+We define $\overline{\bbR} := [-\infty,+\infty]$ as the \emph{extended real line}. We impose the natural ordering on $\overline{\bbR}$, inherited from $\bbR$, with the addition that $-\infty < x$ and $x < +\infty$ for all $x \in \bbR$. The extended real line also has the same operations of addition and multiplications, which are extended to include the two new elements $\pm \infty$:
+\begin{enumerate}
+\item for every $x\in \bbR$, $x + (+\infty) = (+\infty) + x = +\infty$ and $x + (-\infty) = (-\infty) + x = -\infty$,
+\item $(+\infty) + (+\infty) = +\infty$ and $(-\infty) + (-\infty) = -\infty$,
+\item for every $x \in (0,+\infty)$, $x (+\infty) = +\infty$,\; $x(-\infty) = -\infty$,
+\item $0 (\pm \infty) = (\pm \infty) 0 = 0$ and $1/\pm \infty = 0$.
+\end{enumerate}
+To turn $\overline{\bbR}$ into a measurable space we extend the Borel \sigalg/ to include $\pm \infty$.
+
+\begin{definition}[Extended real line]
+The Borel \sigalg/ $\overline{\cB}$ of the extended real line $\overline{\bbR}$ is defined by
+\[
+	\overline{\cB} := \{A \cup S \, :\, A \in \cB_\bbR \text{ and } S \in \{\emptyset, \{-\infty\}, \{\infty\}, \{-\infty, \infty\}\}
+\]
+\end{definition}
+
+The following result, whose proof is left as an exercise, relates $\overline{\cB}$ to $\cB_\bbR$.
+
+\begin{lemma}\label{lem:characterization_extended_borel}
+The extended Borel \sigalg/ $\overline{\cB}$ satisfies
+\[
+	\cB_\bbR = \overline{\cB}_{\bbR}\;\;\text{(i.e., the restriction of $\cB$ to $\bbR$ according to Lemma~\ref{lem:restriction_sigma_algebra})}
+\]
+It is generated by sets of the form $[a,\infty]$, with $a \in \bbQ$ (or $(a,\infty]$, $[-\infty,a)$, $[-\infty,a]$).
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:characterization_extended_borel}
+\end{proof}
+
+\subsection{Basic operations}
+
+For the rest of this section, for any set $A$ we will write $\{f \in A\}$ as a shorthand notation for the set $\{\omega \in \Omega \, :\, f(\omega) \in A\}$. In addition, we write $\{f \le a\}$ for the set $\{f \in (-\infty, a]\}$ and similarly for $<$, $\ge$, $>$, $=$ and $\ne$.
+
+\begin{lemma}\label{lem:measurable_set_real_line}
+Let $f : (\Omega, \cF) \to \bbR$ be measurable and take $a \in \bbR$. Then the following sets 
+\[
+	\{f < a\},\; \{f \le a\},\; \{f > a\},\; \{f \ge a\},\; \{f = a\} \text{ and } \{f \ne a\},
+\]
+are also measurable.
+\end{lemma}
+
+\begin{proof}
+Since $f$ is measurable, it follows immediately from Proposition~\ref{prop:characterization_borel_sigalg_1d} and Lemma~\ref{lem:measurable_condition_generator} that $\{f < a\}, \{f \le a\},\{f > a\}, \{f \ge a\} \in \cF$. This then implies the other two claims since $\{f = a\} = \{f \le a\} \setminus \{f < a\}$ and $\{f \ne a\} = \Omega \setminus \{f = a\}$.
+\end{proof}
+
+\begin{lemma}\label{lem:basic_properties_measurable_functions}
+Let $f, g : (\Omega, \cF) \to \bbR$ be measurable. Then the following functions (where operations are always taken point-wise) are measurable as well:
+\begin{enumerate}[label=(\arabic*)]
+\item $f + g$,
+\item $f \vee g := \max\{f,g\}$,
+\item $f \wedge g := \min\{f,g\}$,
+\item $f g$, and
+\item $f/g$ if $g \ne 0$ on $\Omega$.
+\end{enumerate} 
+\end{lemma}
+
+\begin{proof}
+We will prove (2) and (4). The other parts are left as an exercise, see Problem~\ref{prb:basic_properties_measurable_functions}.
+
+\paragraph{(2)} We first note that the sets $\{f > g\}$, $\{g > f\}$, $\{f=g\}$ are measurable. This follows from Lemma~\ref{lem:measurable_set_real_line} and the fact that
+\[
+	\{f > g\} = \bigcup_{q \in \bbQ} \{f \ge q\} \cap \{g < q\},\qquad \{g > f\} = \bigcup_{q \in \bbQ} \{g \ge q\} \cap \{f < q\}.
+\]
+Next, we observe that for any set $A \subset \bbR$
+\[
+	(f \vee g)^{-1}(A) = \left(f^{-1}(A) \cap \{f > g\}\right) \cup \left(g^{-1}(A) \cap \{g > f\}\right) \cup \{f=g\},
+\]
+which implies that $(f \vee g)^{-1}(A) \in \cF$ for any $A \in \cB_\bbR$.
+
+Lemma~\ref{lem:characterization_extended_borel} $\overline{\cB}$ is generated by the sets $[a,\infty]$, for $a \in \bbQ$. Hence, by Lemma~\ref{lem:measurable_condition_generator} it suffices to show that 
+\[
+	(fg)^{-1}([a,\infty]) = \{\omega \in \Omega \, : \, f(\omega) g(\omega) \in [a, \infty]\} \in \cF.
+\]
+
+\paragraph{(4)} This proof requires several steps, so please bear with us. We first write
+\[
+	\{fg \in (-\infty, t]\} = \{fg \in (-\infty, t \wedge 0)\} \cup \{fg = 0\} \cup \{fg \in (0,t \vee 0]\},
+\]
+were we will disregard the set $\{fg = 0\}$ if $t < 0$. Our goal is to show that each of these three sets is measurable which will then imply the result.
+
+First note $\{fg = 0\} = \{f = 0\} \cup \{g = 0\} \in \cF$ by Lemma~\ref{lem:measurable_set_real_line}.
+
+Now assume that $t > 0$ so that $\{fg \in (0,t \vee 0]\} \ne \emptyset$. Then
+\[
+	\{fg \in (0,t \vee 0]\} = \bigcup_{q \in \bbQ_{>0}} \{f \in (0,q]\} \cap \{g \in (0,t/q]\}.
+\]
+Since for any $x >0$, $(0,x) = (-\infty,x] \setminus (-\infty,0] \in \cB_\bbR$ and the union above is over a countable number of elements ($\bbQ$ is countable) it follows that $\{fg \in (0,t \vee 0]\} \in \cF$.
+
+We are thus left to show that $\{fg \in (-\infty, t \wedge 0)\}$ is measurable. First, we observe that
+\[
+	\{fg \in (-\infty, t \wedge 0)\} = \bigcup_{q \in \bbQ_{>0}} \{fg \in (-\infty,-q)\},
+\]
+and hence it suffices to show that $\{fg \in (-\infty,-q)\}$ is measurable for any $q \in \bbQ_{>0}$. To achieve this we further split this event as follows:
+\[
+	\left(\{fg \in (-\infty,-q)\} \cap \{f < 0\} \cap \{g > 0\}\right) 
+	\cup \left(\{fg \in (-\infty,-q)\} \cap \{f > 0\} \cap \{g < 0\}\right),
+\]
+and observe that due to the symmetry on the right-hand side, it is enough to show that $\{fg \in (-\infty,-q)\} \cap \{f < 0\} \cap \{g > 0\}$ is measurable. For this, we note that
+\[
+	\{fg \in (-\infty,-q)\} \cap \{f < 0\} \cap \{g > 0\} 
+	= \bigcup_{p \in \bbQ_{>0}} \{f \in (-\infty, -p)\} \cap \{g \in (0, q/p)\}.
+\]
+Since this is a countable union of measurable sets, it is indeed measurable, and thus so is $\{fg \in (-\infty, t \wedge 0)\}$. This concludes the proof of 4.
+\end{proof}
+
+\subsection{Limit operations}
+
+In addition to the fact that most of the obvious point-wise operations on measurable functions yields another measurable function, it turns out that this also holds for limit operations. 
+
+\begin{lemma}\label{lem:limit_operations_measurable_functions}
+Let $(f_n)_{n \ge 1}$ be a family of measurable functions from $(\Omega, \cF)$ to  $(\overline{\bbR}, \overline{\cB})$. Then the following functions are also measurable (where again operations are taken point wise):
+\begin{enumerate}
+\item $\sup_{n \ge 1} f_n$,
+\item $\inf_{n \ge 1} f_n$,
+\item $\limsup_{n \to \infty} f_n$, and
+\item $\liminf_{n \to \infty} f_n$.
+\end{enumerate}
+
+Moreover, if the limit $\lim_{n \to \infty} f_n$ exists it is also measurable. 
+\end{lemma}
+
+\begin{proof}
+We will prove 1 and leave the other parts as an exercise, see Problem~\ref{prb:limit_operations_measurable_functions}. 
+
+To this end, we will show that for any $x \in \bbR$
+\begin{equation}\label{eq:limit_operations}
+	\left\{\sup_{n \ge 1} f_n > x\right\} = \bigcup_{n \ge 1} \{f_n > x\}.
+\end{equation}
+Note that if this holds then $\{\sup_{n \ge 1} f_n > x\} \in \cF$ since each set $\{f_n > x\}$ is measurable by Lemma~\ref{lem:measurable_set_real_line} and hence $\sup_{n \ge 1} f_n$ is a measurable function (check this yourself, see Problem~\ref{prb:limit_operations_measurable_functions}).
+
+Since $x < f_n(\omega) \le \sup_{n \ge 1} f_n(\omega)$ holds for any $\omega$ we get the inclusion $\supset$ for the above two sets. For the other inclusion $\subset$ we will argue by contradiction. Suppose that $f_n(\omega) \le x$ for all $n \ge 1$, then also $\sup_{n \ge 1} f_n(\omega) \le x$. This implies that
+\[
+	\left\{\sup_{n \ge 1} f_n \le x\right\} \supset \bigcap_{n \ge 1} \{f_n \le x\},
+\] 
+where each side is the complement of the sets in~\eqref{eq:limit_operations}.
+\end{proof}
+
+Although the proof makes the content of Lemma~\ref{lem:limit_operations_measurable_functions} look rather trivial, it is actually very important. In particular, it shows the power of the class of measurable functions. In contrast, the class of continuous functions is not stable under point-wise limit operations. 
+
+\begin{example}[Point-wise limits of continuous functions are not continuous]
+Consider the sequence of functions $(f_n)_{n \ge 1}$ defined by $f_n(x) = \arctan(xn)$. Each $f_n$ is clearly continuous. So let us consider the point-wise limit $f(x) = \lim_{n \to \infty} f_n(x)$. For any $x > 0$ we have that
+\[
+	f(-x) = \lim_{n \to \infty} \arctan(-x n) = -\frac{\pi}{2},
+\]
+while
+\[
+	f(x) = \lim_{n \to \infty} \arctan(x n) = \frac{\pi}{2}.
+\]
+Moreover, $f(0) = \arctan(0) = 0$. We thus conclude that the point-wise limit of $f_n$ is given by
+\[
+	f(x) = \begin{cases}
+		-\frac{\pi}{2} &\text{if } x < 0,\\
+		0 &\text{if } x = 0,\\
+		\frac{\pi}{2} &\text{if } x >0,
+	\end{cases}
+\]
+which is clearly not continuous. However, by Lemma~\ref{lem:limit_operations_measurable_functions} it is measurable.
+\end{example}
+
+The fact that point-wise limits of continuous functions are not necessary continuous is the reason why one has to be careful when, for example, exchanging limits and integration. Here the notion of uniform continuity is often needed. In contrast, as we will see later, this is not an issue for measurable functions and once we have defined the notion of integration of these functions we obtain a powerful set of limit results for such integrals.
+
+For now we will move from the general setting of measurable functions to their application in the field of probability theory, in particular the concept of random variables.
+
+\section{Random variables and general stochastic objects}\label{sec:random_variables}
+
+% Random variables   
+
+\subsection{Definition}
+
+In the course Probability and Modeling two types of random variables were defined: discrete and continuous. Recall that a random variable was defined as a function $X : \Omega \to \bbR$ for some probability space $(\Omega, \cF, \bbP)$ such that
+\[
+	\{\omega \in \Omega \, : \, X(\omega) \le x\} \in \cF \quad \text{for all } x \in \bbR.
+\]
+Let us make two observations here. The first is that the set above is simply the preimage $X^{-1}((-\infty,x])$. Secondly, the sets $(-\infty, x]$ generate the Borel \sigalg/. Thus it follows from Lemma~\ref{lem:measurable_condition_generator} that $X$ is a measurable function. This is actual the proper way to define a random variable.
+
+\begin{definition}[Random variable]
+A \emph{random variable} is a measurable function from some probability space $(\Omega,\cF, \bbP)$ to the Borel space $(\bbR, \cB_{\bbR})$.
+\end{definition}
+
+It is important to observe that the definition of a random variable does not make any specific claims on what the probability space should be. 
+
+Let $X$ be a random variable and recall that its \emph{cumulative distribution function} $F_X : \bbR \to [0,1]$ is defined as
+\[
+	F_X(t) = \bbP(X \le t).
+\] 
+The fact that we use $\bbP$ here, which is the probability measure on the space $(\Omega, \cF)$ is not a coincidence.
+
+The idea behind the cdf $F_X(t)$ is that it denotes the "probability" that $X \in (-\infty ,t]$. From the perspective of measure theory, this means we need to assign a measure to the preimage of $(-\infty, t]$ under the measurable function $X$. For this, the only things we have at our disposal is the probability measure $\bbP$ and the measurable function $X$. Now recall from Proposition~\ref{prop:push_forward_measure} that we can always construct a measure from this, the push-forward measure. That is exactly what the cummulative distribution is,
+\[
+	F_X(t) := X_\# \bbP((-\infty, t]) = \bbP(X^{-1}((-\infty,t])).
+\]
+
+In fact we can actually define, at a much more general level, random elements in any measurable space and put an associated probability measure on this space by a push-forward.
+
+\begin{definition}[Random elements]
+Let $(\Omega,\cF, \bbP)$ be a probability space and $(E,\cG)$ some measurable space. A \emph{random element} in $(E,\cG)$ is a measurable map $X : \Omega \to E$. It associated \emph{probability measure} is defined as the push forward $X_\# \bbP$ of $\bbP$ under $X$, i.e.
+\[
+	\bbP(X \in A) := \bbP(X^{-1}(A)) \quad \text{for every } A \in \cG.
+\]
+\end{definition}
+
+Sometimes we use the term \emph{stochastic} instead of \emph{random}. 
+
+With this general definition we can now easily define random vectors, random matrices, random functions and so one. The only thing we need is to start with the appropriate space (vectors, matrices, functions) and turn it into a measurable space by endowing it with a suitable \sigalg/. 
+
+\begin{example}[Random elements]
+\hfill
+\begin{enumerate}[label=(\alph*)]
+\item A random vector in $\bbR^d$ is a random element in $(\bbR^d, \cB_{\bbR^d})$.
+\item A random $n \times m$ matrix is a random element in $(\bbR^n \times \bbR^m, \cB_{\bbR^n} \otimes \cB_{\bbR^m})$.
+\end{enumerate}
+\end{example}
+
+While these are somewhat straightforward examples, there are also more involved ones that are important in probability theory.
+
+\begin{example}[Stochastic processes]
+Let $(\Omega,\cF,\bbP)$ be a probability space, $(S,\cS)$ a measurable space and $T$ some index set. Then we denote by $S^T$ the set of all functions $f : T \to S$. For any $t \in T$, denote by $\pi_t : S^T \to S$ the \emph{evaluation function} $\pi_t(f) = f(t)$. Then we endow the space $S^T$ with the \sigalg/ $\cS^T := \sigma(\pi_t \, : \, t\in T)$. A \emph{stochastic process} on $(S,\cS)$ is then defined as a measurable function $X : (\Omega,\cF) \to (S^T, \cS^T)$.
+
+The space $(S,\cS)$ is often called the \emph{state space} of the stochastic process. Often, the index set is taken to be $\bbN$ or $\bbR_{\ge 0}$. However, the construction above allows for more exotic index sets (although this might impact the properties of the associated stochastic processes).
+\end{example}
+
+\subsection{Constructing random variables}
+
+Now that we know what random variables are, there is one problem. In order to define an random variable we need to formally define a probability space $(\Omega, \cF, \bbP)$ and measurable function $X: \Omega \to \bbR$. This is different from how we are used to work with random variables. Here we simply present a cdf $F$ and say that $X$ is a random variable with $\bbP(X \le t) = F(t)$, without worrying about a probability space or the measurability if $X$ as a function. It turns out that this way of working with random variables is valid, as for any cdf $F$ we can construct a probability space $(\Omega, \cF, \bbP)$ and measurable function $X$ such that $X_\# \bbP = F$. We will start this construction for a specific random variable and then use it to construct a random variable with any cumulative distribution function.
+
+One of the first random variables you encounter in any course in probability theory is the \emph{standard uniform random variable}. This is a random variable $U$ that takes values in $[0,1]$ such that its cdf satisfies $F(t) = t$ for all $0\le t \le 1$. In the course Probability and Modeling this description would be enough to work with. But now that we know what a random variable actually is, we need a bit more. More precisely, we have to construct a probability space $(\Omega,\cF, \bbP)$ and a measurable function $U : \Omega \to \bbR$ such that 
+\begin{equation}\label{eq:cdf_uniform_rv}
+	\bbP\left(U^{-1}((-\infty,t])\right) = \begin{cases}
+		0 &\text{if } t < 0,\\
+		t &\text{if } 0 \le t\le 1,\\
+		1 &\text{if } t > 1.
+	\end{cases}
+\end{equation}
+
+The following result shows that this is indeed possible. Moreover, in its proof we see a first nice usage of the Lebesgue measure.
+
+\begin{proposition}[Uniform random variable]\label{prop:uniform_random_variable}
+There exist a probability space $(\Omega,\cF, \bbP)$ and random variable $U$, such that $\bbP\left(U^{-1}((-\infty,t])\right)$ satisfies~\eqref{eq:cdf_uniform_rv}.
+\end{proposition}
+
+\begin{proof}
+Consider the space $\Omega = [0,1]$ together with the restricted Borel \sigalg/ $\cF = \cB_{[0,1]}$ and as probability measure the restricted Lebesgue measure $\bbP := \lambda|_{[0,1]}$. Now consider the function $U(t) = \mathbf{1}_{(0,1]} \, t$. Then, it follows that
+\[
+	U^{-1}((-\infty,t]) = \begin{cases}
+		\emptyset &\text{if } t \le 0,\\
+		(0,t] &\text{if } 0 < t \le 1, \\
+		[0,1] &\text{if } t > 1.
+	\end{cases}
+\]
+Since by Theorem~\ref{thm:lebesgue_measure}
+\[
+	\lambda|_{[0,1]}((0,t]) = \lambda((0,t]) = t,
+\]
+for any $0 < t \le 1$ we have
+\[
+	\bbP\left(U^{-1}((-\infty,t])\right) := \lambda|_{[0,1]}\left(U^{-1}((-\infty,t])\right)
+	= \begin{cases}
+		0 &\text{if } t < 0,\\
+		t &\text{if } 0 \le t\le 1,\\
+		1 &\text{if } t > 1.
+	\end{cases}\qedhere
+\]
+\end{proof}
+
+The standard uniform random variable is extremely important, as it is the base from which we can construct any other random variable. To illustrate this let us first consider the case of an \emph{exponential random variable} with rate $\lambda > 0$. This is a random variable $X$ with cdf
+\[
+	F_X(t) = \begin{cases}
+		0 &\text{if } t \le 0,\\
+		1-e^{-\lambda t} &\text{if } t > 0.
+	\end{cases}
+\]
+
+For $u \in (0,1)$, write $H(u) := F_X^{-1}(u)$ and note that
+\[
+	H(u) = \frac{1}{\lambda} \log\left(\frac{1}{1-u}\right).
+\]
+Now let $U$ be a standard uniform normal random variable and consider the composition $H \circ U : [0,1] \to \bbR$. First, we note that since cdf $F_X(x)$ is strictly monotonic increase, so is $H$. In particular, it follows that for any $t > 0$,
+\[
+	H^{-1}((-\infty,t]) = (-\infty, H^{-1}(t)] = (-\infty, F_X(t)].
+\]
+While $H^{-1}((-\infty,t]) = \emptyset$ if $t \le 0$.
+
+Hence we get
+\begin{align*}
+	(H \circ U)^{-1}((-\infty, t]) = U^{-1}(H^{-1}((-\infty, t]))
+	&= \begin{cases}
+		U^{-1}(\emptyset) &\text{if } t \le 0,\\
+		U^{-1}((-\infty, F_X(t)]) &\text{if } t > 0.
+	\end{cases}
+\end{align*}
+From this it follows that 
+\[
+	\bbP\left((H \circ U)^{-1}((-\infty, t])\right) = \begin{cases}
+			0 &\text{if } t \le 0,\\
+			1-e^{-\lambda t} &\text{if } t > 0,
+		\end{cases}
+\]
+from which we conclude that $H \circ U$ is a way to construct an exponential random variable with rate $\lambda$.
+
+The main point of the construction above is to consider the inverse of the cdf $F^{-1}$ and evaluate this on a standard uniform random variable. However, when extending this to the more general case we have to deal with the fact that not every cdf has an inverse. For example, consider a Bernoulli random variable with success probability $0 < p < 1$. Then
+\[
+	F(t) = \begin{cases}
+		0 &\text{if } t < 0, \\
+		1-p &\text{if } 0 \le t < 1, \\
+		1 &\text{if } t \ge 1,
+	\end{cases}
+\] 
+which does not have an inverse as for any $y \in (0,1-p)$ there is no $t$ such that $F(t) = y$.
+
+Nevertheless, it does hold that any cdf $F$ is non-decreasing and right continuous. For these types of functions, there exists the notion of a \emph{generalized inverse}, defined as
+\begin{equation}
+	\overleftarrow{F}(u) := \inf\{ x \in \bbR \, : \, F(x) \ge y\}. 
+\end{equation}
+The construction we used for the exponential random variable can now be generalized by using $\overleftarrow{F}$ instead of $F^{-1}$. This results in the following theorem on the existence of random variables with a given cdf.
+
+\begin{theorem}[Constructing random variables]\label{thm:construction_random_variable}
+Let $F : \bbR \to [0,1]$ be a right continuous, non-decreasing function with 
+\[
+	\lim_{x \to -\infty} F(x) = 0 \quad \text{and} \quad \lim_{x \to \infty} F(x) = 1.
+\]
+Then there exists a probability space  $(\Omega,\cF, \bbP)$ and random variable $X$, such that 
+\[
+	\bbP\left(X \in (-\infty,t]\right) := \bbP\left(X^{-1}((-\infty,t])\right) = F(t).
+\]
+In other words, $X$ is a random variable with cdf $F$.
+
+Moreover, $(\Omega,\cF, \bbP)$ can be chosen as $([0,1], \cB_{[0,1]}, \lambda|_{[0,1]})$ and $X = \overleftarrow{F}\circ U$, where $U$ is the standard uniform random variable.
+\end{theorem}
+
+\begin{proof}
+We start with the following important observation: 
+\[
+	\overleftarrow{F}(u) \le x \iff F(x) \ge u.
+\]
+The implication from right to left is by definition of $\overleftarrow{F}$ and the fact that $F$ is non-decreasing. The implication from left to right is because $F$ is right continuous.
+
+
+Now let $(\Omega,\cF, \bbP)$ be a probability space and $U$ a standard normal random variable. We will show that $X = \overleftarrow{F} \circ U$ is a random variable with the right probability measure. Since we can construct a standard uniform random variable on the probability $([0,1], \cB_{[0,1]}, \lambda|_{[0,1]})$ this also implies the last part. 
+
+Consider the preimage of $(-\infty, t]$ under $X$. Then, using the above observation, we have
+\begin{align*}
+	X^{-1}((-\infty,t]) &= \{\omega \in \Omega \, : \, \overleftarrow{F}(U(\omega)) \in (-\infty,t]\}\\
+	&= \{\omega \in \Omega \, :\ , U(\omega) \in (-\infty, F(t)]\} = U^{-1}((-\infty, F(t)]) \in \cB_{[0,1]}.
+\end{align*}
+Hence, $X$ is measurable. Finally, the above computation, together with Proposition~\ref{prop:uniform_random_variable}, also implies that
+\[
+	\bbP\left(X^{-1}((-\infty,t])\right) = \bbP\left(U^{-1}((-\infty, F(t)])\right) = F(t),
+\]
+which finished the proof.
+\end{proof}
+
+We end this section with an important remark for working with random variables, and random objects in general.
+
+\begin{remark}[Probability spaces are implicit!]
+It is important to note that even though we used a very explicit probability space to construct a standard uniform random variable and the random variable $X$ in the proof of Theorem~\ref{thm:construction_random_variable}, in general the probability space will often be \emph{implicit}. That is, if we say that $X$ is a random variable, we assume there is some probability space $(\Omega,\cF, \bbP)$ that makes $X$ into a measurable function with the right cdf. Theorem~\ref{thm:construction_random_variable} actually says that this is okay as we can always construct an appropriate probability space and measurable function to achieve the needed cdf.
+
+Actually, when considering general random objects in $(E, \cG)$ we often also do not explicitly state or define the probability space. Since the relevant measure is defined through the push-forward we often only have to worry about taking the right measurable space $(E, \cG)$.
+
+There are, however, some cases where one should be cautious about the probability space that is used. For example when considering the notion of \emph{convergence in probability} or \emph{almost sure convergence}. Or when constructing joint distributions of random variables. 
+\end{remark}
+
+%\subsection{Joint distributions and couplings}
+
+\section{Problems}
+
+\begin{problem}
+\hfil
+\begin{enumerate}[label=(\alph*)]
+\item Let $(E, \cG)$ be a measurable space and $f : \Omega \to E$ be constant, i.e. there exists $e \in E$ such that $f(w) = e$ for all $\omega \in \Omega$. Show that $f$ is measurable with respect to the trivial \sigalg/ on $\Omega$.  
+\end{enumerate}
+
+Now suppose that the measurable space $(E, \cG)$ has the following property: for any $x,y\in E$ there exist $A, B \in \cG$ with $x \in A$, $y \in B$ and $A \cap B = \emptyset$.
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Suppose $f : \Omega \to E$ is measurable with respect to the trivial \sigalg/ on $\Omega$. Show that $f$ is constant.
+\item Construct an example of a function $f : \Omega \to (E,\cG)$ for some measurable space $(E, \cG)$ that is measurable with respect to the trivial \sigalg/ but is not constant.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Equivalence of product \sigalg/]\label{prb:product_sigalg_equivalence}
+Prove equation~\eqref{eq:product_sigalg_equivalence}.
+\end{problem}
+
+%\begin{problem}\label{prb:characterization_borel_sigalg}
+%Use equation~\eqref{eq:product_sigalg_equivalence} and Proposition~\ref{prop:characterization_borel_sigalg_1d} to prove Proposition~\ref{prop:characterization_borel_sigalg}.
+%\end{problem}
+
+\begin{problem}[Push-forward measure]\label{prb:push_forward_measure}
+Prove Proposition~\ref{prop:push_forward_measure}.
+\end{problem}
+
+\begin{problem}\label{prb:characterization_extended_borel}
+Prove Lemma~\ref{lem:characterization_extended_borel}.
+\end{problem}
+
+\begin{problem}\label{prb:basic_properties_measurable_functions}
+The goal of this problem is to prove points 1, 3, and 5 of Lemma~\ref{lem:basic_properties_measurable_functions}.
+\begin{enumerate}[label=(\alph*)]
+\item Based on the proofs of points 2 and 4 of Lemma~\ref{lem:basic_properties_measurable_functions}, explain the general idea behind the proof.
+\item Prove point 1 of Lemma~\ref{lem:basic_properties_measurable_functions}.
+\item Prove that for any $a \in \bbR$, the constant function $f : \Omega \to \bbR$, $f(\omega) = a$ for all $\omega \in \bbR$ is measurable.
+\item Prove point 3 of Lemma~\ref{lem:basic_properties_measurable_functions} (You can do this directly or use the above result and point 2 of the lemma).
+\item Prove that if $g : \Omega \to \bbR$ is measurable and $g(\omega) \ne 0$ for all $\omega \in \Omega$, then $1/g$ is measurable.
+\item Prove point 5 of Lemma~\ref{lem:basic_properties_measurable_functions}.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:limit_operations_measurable_functions}
+\hfil
+\begin{enumerate}[label=(\alph*)]
+\item Conclude that if~\eqref{eq:limit_operations} holds then $\sup_{n \ge 1} f_n$ is a measurable function.
+\item Prove points 2-4 of Lemma~\ref{lem:limit_operations_measurable_functions}. [Hint: What is the relation between $\inf$ and $\sup$ and what is the definition of $\liminf, \limsup$ in terms of the infimum and supremum?]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Truncation]\label{pb:truncation}
+	Let $f:\Omega\to\overline\bbR$ be a function. For a real number $M>0$, we define the \emph{truncation} of $f$ to be the function $f_M:\Omega\to \bbR$ defined by
+	\[
+		f_M(\omega) := \max\bigl\{ -M, \min\bigl\{ f(\omega),M\bigr\}\bigr\} = \begin{cases}
+			M & \text{if $f(\omega)\ge M$,} \\
+			f(\omega) & \text{otherwise}, \\
+			-M & \text{if $f(\omega)< -M$.}
+		\end{cases}
+	\]
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that if $f$ is $\mathcal{F}$-measurable, then $f_M$ is also $\mathcal{F}$-measurable.
+		
+		\item Now suppose that $f_M$ is $\mathcal{F}$-measurable for all $M>0$, show that $f$ is $\mathcal{F}$-measurable.
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Let $X,Y$ be two random variables with cdfs $F_X$ and $F_Y$, respectively. 
+\begin{enumerate}[label=(\alph*)]
+\item Prove that if $F_X(t) = F_Y(t)$ for every $t \in \bbR$, then $X_\# \bbP = Y_\# \bbP$. 
+\end{enumerate}
+The above relation is often denoted as $X \stackrel{d}{=} Y$ ($X$ is equal to $Y$ in distribution). Basically, this definition says that two random variables are considered equal if their distribution functions are the same, which is implied by the equality of their cdfs. However, the use of the equality sign can be slightly misleading.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Let $X$ be a random variable. Construct a random variable $Y$ such that $X_\# \bbP = Y_\# \bbP$, but $X \ne Y$ as functions $\Omega \to \bbR$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+In this problem we will	explicitly construct two random variables $X$ and $Y$ such that $X$ is \emph{Poisson} distributed with parameter $\lambda>0$, and $Y$ is \emph{Cauchy} distributed with parameter $\gamma>0$. 
+
+For this we define the Poisson probability mass function (pmf)
+\begin{equation}
+	f_\lambda(n) := \frac{e^{-\lambda}\lambda^n}{n!},\qquad \forall\,n\in\bbN,
+\end{equation}
+and the Cauchy cumulative distribution function (cdf)
+\begin{equation}
+	H_\gamma(z) := \frac{1}{\pi}\arctan\left(\frac{z}{\gamma}\right) + \frac{1}{2},\qquad \forall\,z\in\bbR.
+\end{equation}
+
+We will first construct the Cauchy random variable.
+\begin{enumerate}
+\item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide an explicit formula for the function $Y\colon \Omega\to\bbR$ such that $Y_\# \bbP = H_\gamma$.
+\item Show that the function from 1 is measurable.
+\end{enumerate}
+
+For the Poisson random variable we first need to go from the pmf to its cdf.
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item Express the cumulative distribution function $F_\lambda$ for a Poisson random variable in terms of the pmf $f_\lambda$.
+\item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide a formula for the function $X\colon \Omega\to\bbR$ such that $X_\# \bbP = F_\lambda$.
+\item Show that the function from 4 is measurable.
+\item Show that for any $n \in \bbN$ $X_\# \bbP (\{n\}) = f_\lambda(n)$.
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}\label{prb:discrete_random_variable}
+Let $X$ be a random variable that only takes values in $\bbZ$, i.e. $X(\omega) \in \bbZ$ for all $\omega$. Show that there exists a sequence $(p_j)_{j \in \bbZ}$ with $0 \le p_j \le 1$ and $\sum_{j \in \bbZ} p_j = 1$ such that for any Borel measurable set $A$
+\[
+	\bbP(X \in A) = \sum_{j \in \bbZ} p_n \delta_n(A).
+\]
+\end{problem}

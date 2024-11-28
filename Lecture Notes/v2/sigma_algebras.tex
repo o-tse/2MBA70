@@ -1,0 +1,557 @@
+
+%\section{Recalling basic probability theory}\label{sec:recalling_probability_theory}
+%
+
+
+At the core of measure theory are two things: 1) the objects we want to measure and 2), a way to assign a measure (value) to these objects. The objects are subsets of some given space that satisfy certain properties, which we call \emph{\sigalgs/} (sigma-algebras). The structure of these \sigalgs/ allows us to define the notion of a measure on them, which is a map that assigns to each set a value in $[0,\infty)$. Of course, we will not consider any such map but impose a few properties which will imply many interesting properties of measures and allow us later on to define a general notion of integration. This chapter is concerned with the two basic notions, \sigalgs/ and measures. We will provide the definitions, important properties, and some key examples that will be fundamental for the remainder of this course.
+
+
+\section{Sigma-algebras}
+
+
+% Definition sigma algebra
+
+\subsection{Definition and examples}
+
+We begin this section with introducing the general structure needed on a collection of sets to be able to assign a notion of measurement to them. Such a collection is called a sigma-algebra, often written as $\sigma$-algebra.
+
+\begin{definition}[Sigma Algebra]\label{def:sigma_algebra}
+A \emph{$\sigma$-algebra} $\cF$ on a set $\Omega$ is a collection of subsets of $\Omega$ with the following properties:
+\begin{enumerate}
+\item $\emptyset \in \cF$ and $\Omega \in \cF$;
+\item For every $A \in \cF$, it holds that $A^c := \Omega \setminus A \in \cF$;
+\item For every sequence $A_1, A_2, \dots \in \cF$, it holds that $\bigcup_{i = 1}^\infty A_i \in \cF$.
+\end{enumerate}
+A set $A \in \cF$ is called \emph{$\cF$-measurable}, or simply \emph{measurable} if it is clear which \sigalg/ is meant.
+\end{definition}
+
+This definition might look very familiar. In the course Probability and Modeling you have been introduced to the concept of an \emph{event space}. It turns out that these concepts are actually the same, see Problem~\ref{prb:event_space_are_sigma_algebras}.
+
+Before we give some examples, we first provide a result that states that any \sigalg/ is closed under countable intersections. The proof is left as an exercise to the reader.
+
+\begin{lemma}\label{lem:sigma_algebra_closed_intersections}
+Let $\cF$ be a \sigalg/ on $\Omega$ and let $A_1, A_2, \dots \in \cF$. Then it holds that $\bigcap_{i = 1}^\infty A_i \in \cF$
+\end{lemma}
+\begin{proof}
+See Problem~\ref{prb:sigma_algebra_closed_intersections}.
+\end{proof}
+
+We now give some examples and non-examples of \sigalgs/.
+
+\begin{example}[(Non-)Examples of $\sigma$-algebras]\label{example:sigma_algebras}
+\hfil
+\begin{enumerate}[label=(\alph*)]
+\item The collection $\cF = \{\emptyset, \Omega\}$ is a $\sigma$-algebra. This is called the \emph{trivial $\sigma$-algebra} or the \emph{minimal} $\sigma$-algebra on $\Omega$.
+\item For any subset $A \subset \Omega$ we have that $\cF := \{\emptyset, A, \Omega\setminus A, \Omega\}$ is a $\sigma$-algebra.
+\item The \emph{power set} $\cP(\Omega)$ (the collection of all possible subsets of $\Omega$) is a $\sigma$-algebra. This is sometimes called the \emph{maximal $\sigma$-algebra} on $\Omega$.
+\item For any subset $A \subset \Omega$, $A \ne \emptyset, \Omega$, we have that $\cF := \{\emptyset, A, \Omega\}$ is \textbf{not} a $\sigma$-algebra.
+\item Let $\Omega = [0,1]$ and $\cF$ be the collections of finite unions of intervals of the form $[a,b]$, $[a,b)$, $(a,b]$ and $(a,b)$ for $0 \le a < b \le 1$. Then $\cF$ is \textbf{not} a $\sigma$-algebra.
+\item Let $f : \Omega \to \Omega^\prime$ and let $cF^\prime$ be a \sigalg/ on $\Omega^\prime$. Then the collection
+\[
+	\cF := f^{-1}(\cF^\prime) = \{f^{-1}(A^\prime) \, : \, A^\prime \in \cF^\prime\},
+\]
+is a \sigalg/. The converse to this is not always true, see Problem~\ref{prb:converse_preimage_sigma_algebra}.
+\end{enumerate}
+Proving these claims is left as an exercise, see Problem~\ref{prb:example_sigalgs}.
+\end{example}
+
+\medskip
+
+The idea of measure theory is that one can assign a measure to each set in a $\sigma$-algebra. In line with this, a pair $(\Omega, \cF)$ where $\Omega$ is a set and $\cF$ a \sigalg/ on $\Omega$ is called a \emph{measurable space}. 
+
+\subsection{Constructing \sigalgs/}\label{ssec:construction_sigalgs}
+
+We now know what a \sigalg/ is and have seen some examples and some non-examples. But the examples we have seen are still quite uninspiring. We will actually discuss a very important \sigalg/ in the next section. But for now, we will describe several ways to construct \sigalgs/. The first is restricting an existing \sigalg/ to a given set.
+
+\begin{lemma}[Restriction of a \sigalg/]\label{lem:restriction_sigma_algebra}
+Let $(\Omega, \cF)$ be a measurable space and $A \subset \Omega$. Then the collection defined by 
+\[
+	\cF_A := \{A \cap B \, : \, B \in \cF\},
+\]
+is a \sigalg/ on $A$, called the \emph{restriction of $\cF$ to $A$}.
+\end{lemma}
+
+\begin{proof}
+We need to check all three properties.
+\begin{enumerate}
+\item Since $A \cap \Omega = A$ and $A \cap \emptyset = \emptyset$, it follows that $A, \emptyset \in \cF_A$.
+\item Consider a set $C \in \cF_A$. Then by definition $C = A \cap B$ for some $B \in \cF$. Next, we note
+\[
+	A \setminus C = A \setminus (A \cap B) = A \cap (\Omega \setminus B).
+\]
+Since $\cF$ is a \sigalg/, it follows that $\Omega \setminus B \in \cF$ and so $A \setminus C \in \cF_A$.
+\item Let $C_1, C_2, \dots$ be sets in $\cF_A$. Then there are $B_1, B_2, \dots \in \cF$ such that $C_i = A \cap B_i$. Hence
+\[
+	\bigcup_{i=1}^\infty C_i = \bigcup_{i=1}^\infty A \cap B_i = A \cap \bigcup_{i=1}^\infty B_i \in \cF_A,
+\]
+since $\bigcup_{i=1}^\infty B_i \in \cF$ because this is a \sigalg/. \qedhere
+\end{enumerate}
+\end{proof}
+
+While it is nice to be able to take a given \sigalg/ and create a possibly smaller one by restricting it to a given set, we might also want to start with a given collection of sets $\cA$ and then create a \sigalg/ that contains this collection. Of course, the powerset $\cP(\Omega)$ will always work. However, it is not always desirable to take this maximal \sigalg/. It would be much better if we could create the smallest \sigalg/ that contains $\cA$. It turns out that this can be done and the resulting \sigalg/ is said to be \emph{generated by $\cA$}. 
+
+\begin{proposition}[Generated \sigalg/]\label{prop:generated_sigalg}
+Let $\cA$ be a collection of subsets of $\Omega$ and denote by $\Sigma_\cA$ the collection of all \sigalgs/ on $\Omega$ that contain $\cA$. Then the collection defined by
+\[
+	\sigma(\cA) := \bigcap_{\cF \in \Sigma_\cA} \cF\qquad\text{is a \sigalg/.}
+\]
+It is called the \emph{\sigalg/ generated by $\cA$}. Equivalently, $\cA$ is called the \emph{generator of $\sigma(\cA)$}.
+
+Moreover, $\sigma(\cA)$ is the smallest \sigalg/ that contains $\cA$. If $\cF$ is a \sigalg/ on $\Omega$ and $\cA$ is a collection of subsets such that $\cF = \sigma(\cA)$, we call $\cA$ the \emph{generator of $\cF$}. 
+\end{proposition}
+
+\begin{proof}
+If we can show that $\sigma(\cA)$ is a \sigalg/, then the claim about it being the smallest \sigalg/ that contains $\cA$ follows from its definition. So we will prove that $\sigma(\cA)$ is a \sigalg/.
+
+Similar to Lemma~\ref{lem:restriction_sigma_algebra} we need to check all the requirements.
+\begin{enumerate}
+\item Since $\emptyset, \Omega \in \cF$ holds for every $\cF \in \Sigma_\cA$ it follows that $\emptyset, \Omega \in \sigma(\cA)$. In particular, we note that $\sigma(\cA)$ is not empty.
+\item Take $A \in \sigma(\cA)$. Then $A \in \cF$ for each $\cF \in \Sigma_\cA$. Since $\cF$ is a \sigalg/ it holds that $\Omega \setminus A \in \cF$ for each $\cF \in \Sigma_\cA$. This then implies that $\Omega \setminus A \in \sigma(\cA)$.
+\item Let $(A_i)_{i \in \bbN}$ be a sequence of sets in $\sigma(\cA)$. Then by definition $A_i \in \cF$ for each $\cF \in \Sigma_\cA$. Hence
+\[
+	\bigcup_{i \in \bbN} A_i \in \cF,
+\] 
+holds for each $\cF \in \Sigma_\cA$ and thus it follows that $\bigcup_{i \in \bbN} A_i \in \sigma(\cA)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+The nice thing about this construction of \sigalgs/ is that it respects inclusions.
+
+\begin{lemma}[Inclusion property of \sigalgs/]\label{lem:inclusion_sigalgs}
+If $\cA \subset \cB \subset \cC$ are collection of subsets of $\Omega$, then also $\sigma(\cA) \subset \sigma(\cB) \subset \sigma(\cC)$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:inclusion_sigalgs}
+\end{proof}
+
+An example of a generated \sigalg/ is to construct products of measurable spaces.
+
+\begin{definition}[Product \sigalg/]\label{def:product_sigalg}
+Let $(\Omega, \cF)$ and $(\Omega^\prime, \cF^\prime)$ be two measurable spaces. Then we define $\cF \otimes \cF^\prime$ to be the \sigalg/ on $\Omega \times \Omega^\prime$ generated by sets of the form $A \times B$, with $A \in \cF$ and $B \in \cF^\prime$.
+\end{definition}
+
+However, there is a much more important \sigalg/ that is constructed from a generator set.
+
+\subsection{Borel \sigalg/}
+
+The Euclidean space $\bbR^d$ is omnipresent in mathematics and hence pops up in many bachelor courses as well. In particular, the concept of random variables, as given in the course Probability and Modeling, is mainly concerned with objects that have values in $\bbR$. Based on this, the need to impose a measurable structure on this space, by means of a \sigalg/, should not come as a surprise. It turns out that there is a canonical \sigalg/ which is called the \emph{Borel \sigalg/} and is named after the French mathematician \'{E}mile Borel, one of the pioneers of measure theory.
+
+In order to define the Borel \sigalg/ we need the notion of an open set in $\bbR^d$. For any $x \in \bbR$ and $r >0$, we denote by $B_x(r) := \{y \in \bbR^d \, : \, \|x-y\|<r\}$ the open ball of radius $r$ around $x$. A set $U \subset \bbR^d$ is called \emph{open} if and only if for every $x \in U$, there exists an $r > 0$ such that $B_x(r) \subset U$.
+
+\begin{definition}[Borel \sigalg/]
+The \emph{Borel \sigalg/} on $\bbR^d$, denoted by $\cB_{\bbR^d}$, is the \sigalg/ generated by all open sets in $\bbR^d$. Elements of $\cB_{\bbR^d}$ are called \emph{Borel sets}.
+\end{definition}
+
+\begin{remark}
+From the definition, it should be clear that one can define a \emph{Borel \sigalg/} on any metric space. In fact, we can define it in any topological space. However, this requires the notion of a topology which is beyond the scope of this course. [ADD REFERENCES]
+\end{remark}
+
+While this is a perfectly fine definition, it is often cumbersome to work with. It is, therefore, convenient that $\cB_{\bbR^d}$ is generated by other, more compact, collections of sets. At this point, we state the result for the one-dimensional Borel \sigalg/. 
+
+\begin{proposition}\label{prop:characterization_borel_sigalg_1d}
+The Borel \sigalg/ on $\bbR$ is the \sigalg/ generated by any of the following family of sets, 
+\begin{enumerate}[label={(\arabic*)}]
+\item $\{(a, b)\}$,
+\item $\{(a, b]\}$,
+\item $\{[a, b)\}$,
+\item $\{(-\infty,a]\}$,
+\item $\{(-\infty,a)\}$,
+\item $\{[a, \infty)\}$,
+\item $\{(a,\infty)\}$,
+\end{enumerate}
+where $a, b \in \bbQ,$ or $a, b \in \bbR$
+\end{proposition}
+
+\begin{proof}
+See Problem~\ref{prb:borel_sigalg_1d}.
+\end{proof}
+
+\section{Measures}
+
+\subsection{Definition and examples}
+In the previous section, we have seen how we can define and construct collections of sets that we would like to be able to measure. It turned out that this collection should satisfy some properties. Likewise, when defining the notion of a \emph{measure} we also will require it to have certain properties.
+
+The main property we require is called \emph{$\sigma$-additive}. Consider any collection $\cC$ of subsets of some set $\Omega$. Then a set function $\mu : \cC \to [0,\infty]$ is called \emph{$\sigma$-additive} if for any countable family $(A_i)_{i \in \bbN}$ of pairwise disjoint sets in $\cC$
+\[
+	\mu\left(\bigcup_{i \in \bbN} A_i\right) = \sum_{i = 1}^\infty \mu(A_i).
+\]
+
+\begin{definition}[Measure]\label{def:measure}
+Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\infty]$ is called a \emph{measure on $(\Omega, \cF)$} if the following holds:
+\begin{enumerate}[label={(\arabic*)}]
+\item $\mu(\emptyset) = 0$ and,
+\item $\mu$ is $\sigma$-additive.
+\end{enumerate}
+\end{definition}
+
+A triple $(\Omega, \cF, \mu)$, consisting of a measurable space $(\Omega, \cF)$ and a measure $\mu$ on that space is called a \emph{measure space}. If the $\mu(\Omega) < \infty$ we say that $\mu$ is $\sigma$-finite and call the associated measure space a \emph{$\sigma$-finite measure space}. If $\mu(\Omega) = 1$ we call $\mu$ a \emph{probability measure} and the associated measure space a \emph{probability space}.
+
+Let us give some simple examples of measures.
+
+\begin{example}[Examples of measures]
+\hfil
+\begin{enumerate}
+\item \textit{(Trivial measures)} Let $(\Omega, \cF)$ be a measurable space. Then the following two set functions are measures:
+\[
+	\mu(A) = \begin{cases}
+		0 &\text{if } A = \emptyset, \\
+		\infty &\text{otherwise.}
+	\end{cases}
+	\quad \text{and} \quad
+	\mu(A) = 0 \quad \text{for all } A \in \cF.
+\]
+\item \textit{(Dirac measure)} Let $(\Omega, \cF)$ be a measurable space and $x \in \Omega$. Then the function
+\[
+	\delta_x(A) = \begin{cases}
+		1 &\text{if } x \in A, \\
+		0 &\text{otherwise},
+	\end{cases}
+\]
+is a measure called the \emph{Dirac delta measure} or \emph{unit mass} at $x$.
+\item \textit{(Counting measure)} Let $(\Omega, \cF)$ be a measurable space. Then the function defined as
+\[
+	\mu(A) = \begin{cases}
+		|A| &\text{if $A$ is a finite set},\\
+		\infty &\text{otherwise}, 
+	\end{cases}
+\]
+is a measure called the \emph{counting measure}.
+\item \textit{(Discrete measure)} Let $\Omega = \{\omega_1, \omega_2, \dots\}$ be a countable set and consider the measurable space $(\Omega, \cP(\Omega))$. Take any sequence of $(a_i)_{i \in \bbN}$ such that $\sum_{i = 1}^\infty a_i < \infty$. Then the function
+\[
+	\mu(A) = \sum_{j = 1}^\infty a_j \delta_{\omega_j}(A),
+\]
+is a measure called the \emph{discrete measure}. If the $a_i$ are such that $\sum_{i = 1}^\infty a_i = 1$ we call this the \emph{discrete probability measure}.
+\end{enumerate}
+\end{example}
+
+However, there is a measure, not included above, that plays a fundamental role in measure theory and especially probability theory.
+
+\subsection{Null sets, complete measure spaces and the Lebesgue measure}
+
+It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. In particular, we want the measure of the rectangle, say in $\bbR^2$, to be independent of where it is, i.e., we want the measure to be translational and rotational invariant.
+
+Fortunately, it turns out that such a measure does exist. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was the architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
+
+However, to formally state the theorem we need to introduce the concept of \emph{null sets} and \emph{complete measure spaces}.
+
+\begin{definition}[Null set and complete measure space]
+Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
+
+We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
+\end{definition}
+
+It is important to note that a null set does not have to be measurable, i.e., be in $\cF$. 
+
+\medskip
+
+Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \overline{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction as \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
+
+We can now state the main result that proves the existence of the Lebesgue measure and its important properties. 
+
+\begin{theorem}[Lebesgue measure]\label{thm:lebesgue_measure}
+There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique measure $\lambda$ such that $(\bbR^d, \cL^d, \lambda)$ is complete and satisfies the following properties for any $B \in \cB_{\bbR^d}$:
+\begin{enumerate}
+\item For any half-open rectangle $I := [a_1, b_1) \times \dots \times [a_d, b_d)$ it holds that 
+	\[
+		\lambda(I) = \prod_{i = 1}^d (b_i-a_i);
+	\]
+\item For any $x \in \bbR^d$, $\lambda(B+x) = \lambda(B)$, where $B + x = \{y+x \, : \, y \in B\}$;
+\item For any combination of translation, rotation and reflection $R$, $\lambda(R^{-1}(B)) = \lambda(B)$;
+\item For any invertible matrix $M \in \bbR^{d \times d}$, $\lambda(M^{-1}(B)) = |\mathrm{det} M|^{-1} \lambda(B)$.
+\end{enumerate}
+\end{theorem}
+
+The proof of this theorem is involved and relies on a more abstract approach to constructing measures. The interested student is referred to the Appendix, where we provide the full details.  
+
+It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure formally defined on a larger \sigalg/ $\cL^d$ than the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
+
+\begin{remark}[Lebesgue vs Borel measurable]
+It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable (eg.\ subsets of the Cantor set).
+\end{remark}
+
+
+We end this section by looking at some important general properties of measures.
+
+
+\subsection{Important properties}
+
+Although the number of properties a measure needs to satisfy is very limited, they actually imply a great number of other important properties. We will start with the basic ones, which relate the measure of a set that is obtained from a given set operation on two sets $A, B$ to the measure of these sets.
+
+\begin{proposition}[Basic properties of measures]\label{prop:basic_properties_measures}
+Let $(\Omega, \cF, \mu)$ be a measure space and $A, B \in \cF$. Then the following properties hold for $\mu$:
+\begin{enumerate}
+\item (finitely additive) If $A \cap B = \emptyset$, then $\mu(A \cup B) = \mu(A) + \mu(B)$.
+\item (monotone) If $A \subseteq B$, then $\mu(A) \le \mu(B)$.
+\item (exclusion) If in addition $\mu(A) < \infty$, then $\mu(B \setminus A) = \mu(B) - \mu(A)$.
+\item (strongly additive) $\mu(A \cup B) + \mu(A \cap B) = \mu(A) + \mu(B)$.
+\item (subadditive) $\mu(A \cup B) \le \mu(A) + \mu(B)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\hfil
+\begin{enumerate}
+\item Let $A_1 = A$, $A_2 = B$ and $A_i = \emptyset$ for all $i \ge 3$. Then this property follows directly from the fact that $\mu$ is $\sigma$-additive.
+\item Since $A \subseteq B$ we have that $B = A \cup (B \setminus A)$, with $A$ and $B \setminus A$ disjoint sets. It then follows from property 1 that $\mu(B) = \mu(A) + \mu(B \setminus A)$ and thus $\mu(A) \le \mu(B)$.
+\item Since $\mu(A) < \infty$ we can subtract $\mu(A)$ from both sides of the equation $\mu(B) = \mu(A) + \mu(B \setminus A)$ to obtain the desired result.
+\item See Problem~\ref{prb:strongly_additive}. 
+\item Property 4 implies that $\mu(A) + \mu(B) = \mu(A \cup B) + \mu(A \cap B) \ge \mu(A \cup B)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+The subadditive property can actually be extended to any countable family of sets.
+
+\begin{lemma}[Measures are $\sigma$-subadditive]\label{lem:sigma_subadditive}
+Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be a family of sets in $\cF$. Then
+\[
+	\mu\left(\bigcup_{i \in \bbN} A_i\right) \le \sum_{i = 1}^\infty \mu(A_i),
+\]
+and the measure $\mu$ is said to be \emph{$\sigma$-subadditive}.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:sigma_subadditive}
+\end{proof}
+
+In addition to properties relating a measure $\mu$ to set operations, we also want to understand what happens if we take a limit of the measures of an infinite family of sets. Let $(A_i)_{i \in \bbN}$ be a family of measurable sets. We say this family is \emph{increasing} if $A_i \subset A_{i+1}$ holds for all $i \in \bbN$. Because a measure is monotone it follows that the sequence $(\mu(A_i))_{i \in \bbN}$ is a monotone sequence in $[0,\infty]$. So a natural question would be: what is the limit of this sequence? It turns out that this can be expressed as the measure of the union of all sets.
+
+\begin{proposition}[Continuity from below]\label{prop:continuity_measure_below}
+Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an increasing family of measurable sets. Then
+\[
+	\lim_{i \to \infty} \mu(A_i) = \mu\left(\bigcup_{i \in \bbN} A_i\right).
+\]
+\end{proposition}
+
+\begin{proof}
+Define the sets $E_1 = A_1$ and $E_i = A_{i+1}\setminus A_i$, for all $i \ge 2$. Then $(E_i)_{i \in \bbN}$ is a family of mutually disjoint measurable sets with the following properties:
+\[
+	A = \bigcup_{i = 1}^\infty E_i \quad \text{and} \quad A_k = \bigcup_{i = 1}^k E_i.
+\]
+Therefore, using $\sigma$-additivity we get
+\[
+	\mu(A) = \sum_{i = 1}^\infty \mu(E_i) = \lim_{k \to \infty} \sum_{i = 1}^k \mu(E_k)
+	= \lim_{k \to \infty} \mu(\bigcup_{i = 1}^k E_i) = \lim_{k \to \infty} \mu(A_k).\qedhere
+\]
+\end{proof}
+
+A similar property holds for any \emph{decreasing} family of sets. That is, a family $(A_i)_{i \in \bbN}$ of measurable sets such that $A_i \supset A_{i+1}$ holds for all $i \in \bbN$. Here we do have to make an assumption on the measure of the biggest set $A_1$.
+
+\begin{proposition}[Continuity from above]\label{prop:continuity_measure_above}
+Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an decreasing family of measurable sets such that $\mu(A_1) < \infty$. Then
+\[
+	\lim_{i \to \infty} \mu(A_i) = \mu\left(\bigcap_{i \in \bbN} A_i\right).
+\]
+\end{proposition}
+
+\begin{proof}
+See Problem~\ref{prb:proof_continuity_above}.
+\end{proof}
+
+In addition to being useful in determining the limits of the measure of families of sets, these continuity properties are actually powerful enough to characterize a measure. 
+
+\begin{theorem}[Alternative definition of a measure]
+Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\infty]$ is a measure if, and only if,
+\begin{enumerate}
+\item $\mu(\emptyset) = 0$,
+\item $\mu(A \cup B) = \mu(A) + \mu(B)$, for any two disjoint sets $A, B \in \cF$, and
+\item for any increasing family $(A_i)_{i \in \bbN}$ of measurable sets such that $A_\infty := \bigcup_{i \in \bbN} A_i \in \cF$, it holds that
+\[
+	\mu(A_\infty) = \lim_{i \to \infty} \mu(A_i) \quad (= \sup_{i \in \bbN} \mu(A_i)).
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The fact that any measure satisfies these three properties follows from the definition and Propositions~\ref{prop:basic_properties_measures} and~\ref{prop:continuity_measure_below}. So let us now assume that we have a set function $\mu$ that satisfies the three properties listed above. Then to show that $\mu$ is a measure we only have to prove that it is $\sigma$-additive.
+
+To this end, let $(A_i)_{i \in \bbN}$ be a family of pairwise disjoint measurable sets. Now define $B_k = \bigcup_{i = 1}^k A_i$ and note that $B_k \in \cF$ for all $k \in \bbN$ and
+\[
+	B_\infty := \bigcup_{k \in \bbN} B_k = \bigcup_{i \in \bbN} A_i.
+\]
+Using property 2. we get that $\mu(B_k) = \sum_{i = 1}^k \mu(A_i)$ while property 3. now implies that
+\[
+	\mu(B_\infty) = \lim_{k \to \infty} \mu(B_k) = \lim_{k \to \infty} \sum_{i = 1}^k \mu(A_i) = \sum_{i = 1}^\infty \mu(A_i). \qedhere
+\]
+\end{proof}
+
+Finally, let us discuss a uniqueness result for measures. In Section~\ref{ssec:construction_sigalgs} we discussed how to construct \sigalgs/ from a generator set $\cA$. Suppose now that we have two measures $\mu_1$ and $\mu_2$ agree on $\cA$, that is $\mu_1(A) = \mu_2(A)$ for all $A \in \cA$. Then we would intuitively expect that they should agree on the entire \sigalg/ $\sigma(\cA)$. This turns out to be true, under some small conditions on the generator set.
+
+\begin{theorem}[Uniqueness of measures]\label{thm:uniqueness_measures}
+Let $(\Omega ,\cF)$ be a measurable space where $\cF = \sigma(\cA)$ with $\cA$ satisfying the following properties:
+\begin{enumerate}
+\item for any $A, B \in \cA$, $A \cap B \in \cA$, and
+\item there exists a sequence $(A_i)_{i \in \bbN}$ with $\Omega = \bigcup_{i \in \bbN} A_i$.
+\end{enumerate}
+Then any two measure $\mu_1$ and $\mu_2$ that are equal on $\cA$ and are finite on every element of the sequence $(A_i)_{i \in \bbN}$ are equal on the entire \sigalg/ $\cF = \sigma(\cA)$.
+\end{theorem}
+
+The proof of this theorem is covered in the Appendix, as it is requires another more technical result. What is important is the implication of Theorem~\ref{thm:uniqueness_measures}: to study a measure on $\sigma(\cA)$ it suffices to look at what it does on the generator $\cA$.
+
+
+
+\section{Problems}
+
+\begin{problem}\label{prb:event_space_are_sigma_algebras}
+Recal that an \emph{event space} is a collection $\cF$ of subsets of $\Omega$ such that
+\begin{enumerate}
+\item $\cF$ is non-empty;
+\item If $A \in \cF$, then $A^c := \Omega \setminus A \in \cF$;
+\item If $A_1, A_2, \dots \in \cF$, then $\bigcup_{i = 1}^\infty A_i \in \cF$.
+\end{enumerate}
+Show that the definition of an \emph{event space} is equivalent to that of a $\sigma$-algebra as given in Definition~\ref{def:sigma_algebra}.
+\end{problem}
+
+\begin{problem}\label{prb:sigma_algebra_closed_intersections}
+Prove Lemma~\ref{lem:sigma_algebra_closed_intersections}. [Hint: how are intersections related to the other operations used in the definition of a \sigalg/?]
+\end{problem}
+
+\begin{problem}\label{prb:example_sigalgs}
+Prove the claims made in Example~\ref{example:sigma_algebras}.
+\end{problem}
+
+\begin{problem}\label{prb:converse_preimage_sigma_algebra}
+Provide a counter example to the statement: if $(\Omega, \cF)$ is a measurable space and $f : \Omega \to \Omega^\prime$. Then $f(\cF)$ is a \sigalg/ on $\Omega^\prime$.
+\end{problem}
+
+\begin{problem}\label{prb:inclusion_sigalgs}
+Prove Lemma~\ref{lem:inclusion_sigalgs}.
+\end{problem}
+
+\begin{problem}\label{prb:strongly_additive}
+Prove the \emph{strongly additive} property of Proposition~\ref{prop:basic_properties_measures}. [Hint: write $A \cup B$ as the union of three disjoint sets.]
+\end{problem}
+
+\begin{problem}\label{prb:sigma_subadditive}
+Prove Lemma~\ref{lem:sigma_subadditive}. [Hint: Construct a new family of sets and use properties $\sigma$-additive and monotone] 
+\end{problem}
+
+\begin{problem}\label{prb:proof_continuity_above}
+Prove Proposition~\ref{prop:continuity_measure_above}. [Hint: The proof is very similar to that of Proposition~\ref{prop:continuity_measure_below}.]
+\end{problem}
+
+\begin{problem}\label{prb:borel_sigalg_1d}
+The goal of this problem is to prove Proposition~\ref{prop:characterization_borel_sigalg_1d}. We will do this in several stages. First we will show point 1, that the Borel \sigalg/ $\cB_\bbR$ is generated by eitherh the family $\cA_1 := \{(a, b), a,b \in \bbQ\}$ or $\cA_1^\prime := \{(a, b), a,b \in \bbR\}$.
+
+\begin{enumerate}
+\item Prove that $\sigma(\cA_1) \subset \sigma(\cA_1^\prime) \subset \cB_\bbR$. [Hint: what is the relation between an interval $(a,b)$ and an open set?]
+\item We will now focus on the intervals with rational endpoints. Show that for any open set $O \subset \bbR$
+\[
+	O = \bigcup_{I \in \cA_1, I \subset O} I
+\]
+\item Prove that $\sigma(\cA_1) = \cB_\bbR$. [Hint: You only need one inclusion, for which you can use 2 and the fact that $\bbQ$ is countable.]
+\item Prove that $\cB_\bbR = \sigma(\cA_1^\prime)$.
+\end{enumerate}
+
+We now move to the other family of sets. By symmetry of 2 and 3 it suffices to prove only 2, the other proof will be almost identical.
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item Show that for any $a < b \in \bbR$
+\[
+	(a,b] = \bigcap_{j \in \bbN} (a, b+\frac{1}{j}).
+\]
+\item Show that for any $a < b \in \bbR$
+\[
+	(a,b) = \bigcup_{j \in \bbN} (a,b-\frac{1}{j}].
+\]
+\item Prove that $\cB_\bbR = \sigma(\cA_2^\prime) = \sigma(\cA_2)$, where $\cA_2 = \{(a,b] \, : \, a,b \in \bbQ\}$ and $\cA_2^\prime = \{(a,b] \, : \, a,b \in \bbR\}$.
+\end{enumerate}
+
+This basically covers the full set of ideas to prove the rest of Proposition~\ref{prop:characterization_borel_sigalg_1d}. We invite you to work these out yourself to practice with these kind of arguments. For this problem however we will ask you to explain the idea for the proofs.
+\begin{enumerate}
+\setcounter{enumi}{7}
+\item Explain what changes in the proof of point 3 of Proposition~\ref{prop:characterization_borel_sigalg_1d} from the proof of point 2 of this proposition outlined above.
+\item Describe the proof strategy to get points 4-8 of Proposition~\ref{prop:characterization_borel_sigalg_1d} using 1-4.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:completion_measure_space}
+The goal of this problem is to complete a given measure space. To this end, let $(\Omega, \cF, \mu)$ be a measure space. Let $\cN$ be the family of null sets of $\mu$ and define the family of sets $\overline{\cF}$ as
+\[
+	\overline{\cF} := \{A \cup N \, : \, A \in \cF \text{ and } N \in \cN\}.
+\]
+\begin{enumerate}
+\item Show that $\overline{\cF}$ is a \sigalg/ that contains $\cF$.
+\end{enumerate}
+Define the set function $\bar{\mu} : \overline{\cF} \to [0,\infty]$ as
+\[
+	\bar{\mu}(A \cup N) := \mu(A).
+\]
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Prove that $\bar{\mu}$ is a measure on $\overline{\cF}$.
+\item Show that $\bar{\mu}|_\cF = \mu$.
+\item Conclude that $(\Omega, \overline{\cF}, \bar{\mu})$ is a complete measure space.
+\end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%												Clippings																	%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%But in order to state and prove this result we need to introduce a few concepts as well as a powerful theorem, called the monotone class theorem.
+%
+%We start with the definition of an algebra.
+%
+%\begin{definition}[Algebra's of sets]
+%A collection $\cA$ of subsets of $\Omega$ is called an \emph{algebra} if
+%\begin{enumerate}
+%\item $\emptyset \in \cA$,
+%\item $\Omega \setminus A \in \cA$ for all $A \in \cA$, and
+%\item $A \cup B \in \cA$ for every $A, B \in \cA$.
+%\end{enumerate}
+%\end{definition}
+%
+%Observe that, as the name suggests, every \sigalg/ is indeed and algebra. However, in addition to the properties of an algebra, \sigalgs/ where also closed under countable unions and intersections. We will actually take these properties on their own and define any collection of subsets that have these two properties a monotone class.
+%
+%\begin{definition}[Monotone classes]
+%A collection $\cM$ of subsets of $\Omega$ is called a \emph{monotone class} if
+%\begin{enumerate}
+%\item $\bigcup_{i \in \bbN} A_i \in \cM$ holds for any increasing family of sets $(A_i)_{i \in \bbN}$ in $\cM$, and
+%\item $\bigcap_{i \in \bbN} A_i \in \cM$ holds for any decreasing family of sets $(A_i)_{i \in \bbN}$ in $\cM$
+%\end{enumerate}
+%\end{definition}
+%
+%As we already remarked, any \sigalg/ is a monotone class. However, there are monotone classes that are not algebras and vise versa, there are algebras that are not monotone classes. However, suppose we start with an algebra $\cA$ and we want to turn this into a \sigalg/. Then we at least need to ensure it is also a monotone class. Similar to the construction of $\sigma(\cA)$ we can construct the smallest monotone class that contains $\cA$. Moreover, it turns out, maybe not surprisingly, that the resulting collection is \sigalg/. Even better, it is exactly $\sigma(\cA)$. This is the content of the monotone class theorem. 
+%
+%\begin{theorem}[Monotone class theorem]
+%Let $\cA$ be an algebra on $\Omega$ and let $\Xi_\cA$ denote the collection of all monotone classes that contain $\cA$. Then 
+%\begin{enumerate}
+%\item the collection defined by
+%\[
+%	\cM(\cA) = \bigcup_{\cM \in \Xi_\cA} \cM,
+%\]
+%is a monotone class, and moreover
+%\item $\cM(\cA)$ is the smallest \sigalg/ containing $\cA$, i.e. $\cM(\cA) = \sigma(\cA)$.
+%\end{enumerate}
+%\end{theorem}
+%
+%The proof of this theorem is left as an structured exercise, see Problem [REF].
+%
+%We will leverage the full power of this result to show that, in particular, any two measure that agree on the basis of a \sigalg/ are the same on the entire \sigalg/. The result we state is actually more general.
+%
+%\begin{theorem}[Uniqueness of measures]
+%Let $(\Omega, \cF)$ be a measureable space and let $\cA \subset \cF$ be an algebra. In addition, let $\mu_1$ and $\mu_2$ be finite measures on $(\Omega, \cF)$ such that $\mu_1 = \mu_2$ on $\cA$, i.e. $\mu_1(A) = \mu_2(A)$ for every $A \in \cA$. Then $\mu_1 = \mu_2$ on $\sigma(\cA)$.
+%\end{theorem}
+%
+%\begin{proof}
+%Define the collection
+%\[
+%	\cM := \left\{A \in \cF \, : \, \mu_1(A) = \mu_2(A)\right\}.
+%\]
+%The goal of the proof is to show that this is a monotone class. If that is true then, since $\cA \subset \cM$, the monotone class theorem (Theorem [REF]) implies that $\sigma(\cA) = \cM(\cA) \subset \cM$ and hence $\mu_1 = \mu_2$ on $\sigma(\cA)$.
+%
+%To show that $\cM$ is a monotone class let $(A_i)_{i \in \bbN}$ be an increasing sequence in $\cM$. Since by definition, $\mu_1(A_i) = \mu_2(A_i)$ for all $i \in \bbN$, continuity from below (Proposition [REF]) implies that
+%\[
+%	\mu_1\left(\bigcup_{i \in \bbN} A_i\right) = \lim_{i \to \infty} \mu_1(A_i) 
+%	= \lim_{i \to \infty} \mu_2(A_i) = \mu_2\left(\bigcup_{i \in \bbN} A_i\right),
+%\]
+%which implies that $\bigcup_{i \in \bbN} A_i \in \cM$.
+%
+%Similarly, now let $(A_i)_{i \in \bbN}$ be a decreasing sequence. Again, by definition $\mu_1(A_i) = \mu_2(A_i)$ for all $i \in \bbN$ and moreover $\mu_1(A_1) = \mu(A_1) < \infty$ since both measures are finite. Hence continuity from above (Proposition [REF]) implies that
+%\[
+%	\mu_1\left(\bigcap_{i \in \bbN} A_i\right) = \lim_{i \to \infty} \mu_1(A_i) 
+%	= \lim_{i \to \infty} \mu_2(A_i) = \mu_2\left(\bigcap_{i \in \bbN} A_i\right).
+%\]
+%It then follows that $\bigcap_{i \in \bbN} A_i \in \cM$ which shows that $\cM$ is indeed a monotone class.
+%\end{proof}

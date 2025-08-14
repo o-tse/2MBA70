@@ -653,6 +653,27 @@ A useful tool for proving almost everywhere convergence is the following result.
 	i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\mu$-almost every $\omega$ is in only finitely many $A_n$.
 \end{proof}
 
+\begin{theorem}[Borel-Cantelli Lemma II]
+	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, and let $A_i \in \cF$, $i \in \mathbb{N}$ be a sequence of independent events such that
+	\[
+		\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+	\]
+	Then
+	\[
+	\mathbb{P} \left( \bigcap_{m = 1}^\infty \bigcup_{i=m}^\infty A_i \right) = 1,
+	\]
+	i.e., infinitely many of the events occur almost surely.
+\end{theorem}
+\begin{proof}
+	Let $m \in \mathbb{N}$. Note that
+	\begin{align*}
+	\mathbb{P}\left(\bigcap_{i=m}^{\infty} (\Omega \backslash A_i) \right) &= 
+	\prod_{i=m}^\infty (1 - \mathbb{P}(A_i)) \\
+	&\leq \prod_{i=m}^\infty \exp(- \mathbb{P}(A_i)) 
+	= \exp\left(- \sum_{i=m}^\infty \mathbb{P}(A_i)\right) = 0.\qedhere
+	\end{align*}
+\end{proof}
+
 \section{Problems}
 
 \begin{problem}\label{prb:reverse_fatou}

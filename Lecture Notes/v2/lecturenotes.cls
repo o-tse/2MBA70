@@ -73,7 +73,7 @@
 
 % Set counter for boxed theorem environments
 \newcounter{theo}[chapter] \setcounter{theo}{0}
-\renewcommand{\thetheo}{\arabic{chapter}.\arabic{section}.\arabic{theo}}
+\renewcommand{\thetheo}{\arabic{chapter}.\arabic{theo}}
 
 %Theorem
 \renewenvironment{theorem}[1][]{%

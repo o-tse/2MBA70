@@ -7,17 +7,17 @@ Now that we have defined measure spaces $(\Omega, \cF, \mu)$, through \sigalgs/ 
 
 \subsection{Definition and properties}
 
-We want to consider functions $f : \Omega \to E$ between measurable spaces $(\Omega, \cF)$ and $(E, \cG)$ that preserve the measurable structure, as imposed by the \sigalgs/. It turns out that it the best way to do this it to look at the preimage of measurable sets in $E$.
+We want to consider functions $f : \Omega \to E$ between measurable spaces $(\Omega, \cF)$ and $(E, \cG)$ that preserve the measurable structure, as imposed by the \sigalgs/. It turns out that the best way to do this it to look at the preimage of measurable sets in $E$.
 
 \begin{definition}[Measurable function]\label{def:measurable_function}
 Let $(\Omega, \cF)$ and $(E, \cG)$ be two measurable spaces. A function $f: \Omega \to E$ is said to be \emph{$(\cF, \cG)$-measurable} if $f^{-1}(B) \in \cF$ for every $B \in \cG$.
 \end{definition}
 
-It is important to note that whether a function is measurable or not depends on the \sigalgs/ we consider in each of the measurable spaces. This means that a function $f : \Omega \to E$ might be $(\cF, \cG)$-measurable but not $(\cF^\prime, \cG)$-measurable for a different sigma algebra $\cF^\prime$ on $\Omega$. This is different from the notion of continuity of functions on $\bbR^d$. 
+It is important to note that whether a function is measurable or not depends on the \sigalgs/ we consider in each of the measurable spaces. This means that a function $f : \Omega \to E$ might be $(\cF, \cG)$-measurable but not $(\cF^\prime, \cG)$-measurable for a different sigma algebra $\cF^\prime$ on $\Omega$. 
 
 We will often omit the explicit reference to the \sigalgs/ in the definition of a measurable function if it is clear which \sigalgs/ are considered. That is, we will simply say that the function $f$ between the two measurable spaces $(\Omega, \cF)$ and $(E, \cG)$ is \emph{measurable}. We will sometimes make the choice of \sigalgs/ explicit by saying that $f: (\Omega, \cF) \to (E, \cG)$ is measurable.
 
-We will provide an important example of measurable functions to $\bbR$, the indicator functions.
+An important example of measurable functions to $\bbR$ are the indicator functions.
 
 \begin{example}[Indicator functions are measurable]
 Let $(\Omega,\cF)$ be a measurable space, $A \in \cF$ and $f : \Omega \to \bbR$ be defined as $f = \mathbf{1}_A$, that is 
@@ -35,7 +35,7 @@ To see this, first note that $f^{-1}(\{1\}) = A \in \cF$ and $f^{-1}(\{0\}) = \O
 \]
 \end{example}
 
-The fact that measurability of $f$ depends on the \sigalgs/ involved mean we need to take a bit of care when considering operations on functions, as these might destroy the measurability. The most natural operation we should check first is composition, as we would like to be able to compose measurable functions into measurable functions. Luckily this is possible.
+The fact that measurability of $f$ depends on the \sigalgs/ involved means we need to take a bit of care when considering operations on functions, as these might destroy the measurability. The most natural operation we should check first is composition, as we would like to be able to compose measurable functions into measurable functions. Luckily this is possible.
 
 \begin{proposition}[Composition of measurable functions]
 Let $(\Omega_i, \cF_i)$, for $i = 1,2,3$ be three measurable spaces and $f : \Omega_1 \to \Omega_2$, $g : \Omega_2 \to \Omega_3$ be two measurable functions. Then the composition $h := g \circ f : \Omega_1 \to \Omega_3$ is measurable.
@@ -71,11 +71,11 @@ Recall that $\cF_A = \{A \cap B \, : \, B \in \cF\}$. Take $C \in \cG$, then
 \]
 \end{proof}
 
-At this stage these are the only general properties of measurable function we can consider. However, if the measurable space a function maps to has more structure we can see if this structure also respect the measurability. For example, we will see later in Section~\ref{sec:measurable_functions_real_line} that for measurable functions $f, g : \Omega \to \bbR$ their product and sum are also measurable, as well as many other operations.
+At this stage these are the only general properties of measurable function we can consider. However, if the measurable space a function maps to has more structure we can see if this structure also respect the measurability. For example, we will see later in Section~\ref{sec:measurable_functions_real_line} that for measurable functions $f, g : \Omega \to \bbR$ their point-wise product and sum are also measurable, as well as many other operations.
 
 \subsection{Checking for measurability}
 
-Given any function $f : \Omega \to E$ between two measurable spaces $(\Omega, \cF)$ and $(E, \cG)$, when is this measurable? Definition~\ref{def:measurable_function} tells us that to answer this question we need to check that the preimage of any measurable set is again measurable. But this can be a cumbersome exercise. Or even impossible when we do not have an explicit description of the sigma algebra. This can happen, for example, when $\cG$ is generated by some collection of sets $\cA$, which is the case for the important Borel \sigalg/. 
+Given any function $f : \Omega \to E$ between two measurable spaces $(\Omega, \cF)$ and $(E, \cG)$, when is this measurable? Definition~\ref{def:measurable_function} tells us that to answer this question we need to check that the preimage of any measurable set is again measurable. But this can be a cumbersome exercise, or even outright impossible, when we do not have an explicit description of the sigma algebra. This can happen, for example, when $\cG$ is generated by some collection of sets $\cA$, which is the case for the important Borel \sigalg/. 
 
 Fortunately, the definition of measurability works very well with generated \sigalgs/. In particular, to show that a function is measurable, it suffices to only consider sets from the generator set $\cA$, instead of the entire \sigalg/ $\sigma(\cA)$.
 
@@ -105,9 +105,7 @@ Finally, if $(B_i)_{i \in \bbN}$ is a sequence of sets in $\cH$, then
 which shows that $\bigcup_{i = 1}^\infty B_i \in \cH$, completing the proof that $\cH$ is a \sigalg/.
 \end{proof}
 
-We thus see that at least. But that still requires us to check if any given function is measurable. For example, is the function $f : \bbR \to \bbR$ given by $f(x) = e^x$, measurable? It would be much better if we have a more familiar criteria that would imply measurability. Continuity does exactly this. 
-
-\pagebreak
+We thus see that at least for generated \sigalgs/ we do not need to consider the preimage of every measurable set to check for measurability of a function. However, that still requires some check on preimages to conclude that a given function is measurable, which can still be cumbersome. For example, is the function $f : \bbR \to \bbR$ given by $f(x) = e^x$, measurable? It would be much better if we have a more familiar criteria that would imply measurability. Continuity is exactly such a criteria. 
 
 \begin{proposition}
 Every continuous map $f : \bbR^d \to \bbR^m$ is $(\cB_{\bbR^d}, \cB_{\bbR^m})$-measurable.
@@ -129,13 +127,13 @@ So we are left to show the equivalence of the two conditions for continuity. Fir
 Now assume that $f^{-1}(O)$ is open in $\bbR^d$, for every open set $O \in \bbR^m$ and take $x \in \bbR^d$ and $\varepsilon > 0$. Then the ball $B_{f(x)}(\varepsilon)$ is open in $\bbR^m$, so that by assumption $f^{-1}(B_{f(x)}(\varepsilon))$ is open in $\bbR^d$. Since $x \in f^{-1}(B_{f(x)}(\varepsilon))$ there now must exist an $r > 0$ such that $B_x(r) \subset f^{-1}(B_{f(x)}(\varepsilon))$. But this then implies that for every $y \in B_x(r)$, $f(y) \in B_{f(x)}(\varepsilon)$, which is equivalent to $\|f(x) - f(y)\| < \varepsilon$.
 \end{proof}
 
-With this result we have a vast world of measurable functions $f : \bbR^d \to \bbR^m$ at our disposal. It should also be noted that the space of measurable functions is larger than that of continuous functions. For example, the indicator functions are measurable but not continuous.
+With this result we gained access to a vast world of measurable functions $f : \bbR^d \to \bbR^m$. It should also be noted that the space of measurable functions is larger than that of continuous functions. For example, the indicator functions are measurable but not continuous.
 
 So on the Borel space $(\bbR^d, \cB_{\bbR^d})$ we have a large class of measurable functions. However, when dealing with functions that map to measurable spaces that are not the Borel space, we still need to carefully check if it is measurable. But what if we can simply construct a \sigalg/ such that it makes a function measurable?
 
 \subsection{\sigalgs/ generated by measurable functions}
 
-Suppose we have a function $f : \Omega \to E$ from a set $\Omega$ to some measurable space $E, \cG)$. If we want to study the function $f$ in the framework of measure theory, we need to turn $\Omega$ into a measurable space $(\Omega, \cF)$ and have $f$ be $(\cF, \cG)$-measurable. The good news is that we can construct a minimal \sigalg/ that does the job for us. It can even be done for multiple functions at the same time.
+Suppose we have a function $f : \Omega \to E$ from a set $\Omega$ to some measurable space $(E, \cG)$. If we want to study the function $f$ in the framework of measure theory, we need to turn $\Omega$ into a measurable space $(\Omega, \cF)$ and have $f$ be $(\cF, \cG)$-measurable. The good news is that we can construct a minimal \sigalg/ that does the job for us. It can even be done for multiple functions at the same time.
 
 \begin{proposition}\label{prop:sigalg_generated_functions}
 Let $(\Omega_i, \cF_i)$, for $i \in I$ be measurable spaces and $(f_i)_{i \in I}$ be a family of functions $f_i : \Omega \to \Omega_i$. Then the smallest \sigalg/ on $\Omega$ that makes all $f_i$ simultaneously measurable is
@@ -224,7 +222,7 @@ Push-forward measures play an important role in measure theory, and especially i
 
 \section{Measurable functions on the real line}\label{sec:measurable_functions_real_line}
 
-When studying properties of measurable function we could only do a few things for general measurable spaces. So in this section we will focus on a specific measurable space: the real line $(\bbR, \cB_\bbR)$. We will see that most of the natural operations we can apply to function in a point-wise manner, such as addition and multiplication, preserve their measurability. But we will do even better. We will show that taking point-wise limit operations, such as taking a supremum of a family of measurable functions, preserves measurability as well. This makes the class of measurable functions much more powerful then that of continuous functions, as point-wise limits of continuous functions are not guaranteed to be continuous again. All thes properties will be useful when we introduce the concept of integration of measurable functions in Chapter [REF] and develop limit theorems for integrals in Chapter [REF].
+When studying properties of measurable function we could only do a few things for general measurable spaces. So in this section we will focus on a specific measurable space: the real line $(\bbR, \cB_\bbR)$. We will see that most of the natural operations we can apply to function in a point-wise manner, such as addition and multiplication, preserve their measurability. But we will do even better. We will show that taking point-wise limit operations, such as taking a supremum of a family of measurable functions, preserves measurability as well. This makes the class of measurable functions much more powerful then that of continuous functions, as point-wise limits of continuous functions are not guaranteed to be continuous again. All these properties will be useful when we introduce the concept of integration of measurable functions in Chapter~\ref{chapter:integration} and develop limit theorems for integrals in Chapter~\ref{chapter:convergence}.
 
 To properly study limit operations on measurable functions, that could diverge, we need to have $+\infty$ be a part of the real line (which it is not). So we first extend the real line to include both $+\infty$ and $-\infty$.
 
@@ -251,9 +249,9 @@ The following result, whose proof is left as an exercise, relates $\overline{\cB
 \begin{lemma}\label{lem:characterization_extended_borel}
 The extended Borel \sigalg/ $\overline{\cB}$ satisfies
 \[
-	\cB_\bbR = \overline{\cB}_{\bbR}\;\;\text{(i.e., the restriction of $\cB$ to $\bbR$ according to Lemma~\ref{lem:restriction_sigma_algebra})}
+	\cB_\bbR = \overline{\cB}_{\bbR}\;\;\text{(i.e., the restriction of $\cB$ to $\bbR$ according to Lemma~\ref{lem:restriction_sigma_algebra})}.
 \]
-It is generated by sets of the form $[a,\infty]$, with $a \in \bbQ$ (or $(a,\infty]$, $[-\infty,a)$, $[-\infty,a]$).
+Moreover, it is generated by sets of the form $[a,\infty]$, with $a \in \bbQ$ (or $(a,\infty]$, $[-\infty,a)$, $[-\infty,a]$).
 \end{lemma}
 
 \begin{proof}
@@ -275,6 +273,8 @@ are also measurable.
 \begin{proof}
 Since $f$ is measurable, it follows immediately from Proposition~\ref{prop:characterization_borel_sigalg_1d} and Lemma~\ref{lem:measurable_condition_generator} that $\{f < a\}, \{f \le a\},\{f > a\}, \{f \ge a\} \in \cF$. This then implies the other two claims since $\{f = a\} = \{f \le a\} \setminus \{f < a\}$ and $\{f \ne a\} = \Omega \setminus \{f = a\}$.
 \end{proof}
+
+With this result we can now show that point-wise operations on measurable functions again yield measurable functions.
 
 \begin{lemma}\label{lem:basic_properties_measurable_functions}
 Let $f, g : (\Omega, \cF) \to \bbR$ be measurable. Then the following functions (where operations are always taken point-wise) are measurable as well:
@@ -349,7 +349,7 @@ Let $(f_n)_{n \ge 1}$ be a family of measurable functions from $(\Omega, \cF)$ t
 \item $\liminf_{n \to \infty} f_n$.
 \end{enumerate}
 
-Moreover, if the limit $\lim_{n \to \infty} f_n$ exists it is also measurable. 
+Moreover, if the point-wise limit $\lim_{n \to \infty} f_n$ exists it is also measurable. 
 \end{lemma}
 
 \begin{proof}
@@ -368,7 +368,7 @@ Since $x < f_n(\omega) \le \sup_{n \ge 1} f_n(\omega)$ holds for any $\omega$ we
 where each side is the complement of the sets in~\eqref{eq:limit_operations}.
 \end{proof}
 
-Although the proof makes the content of Lemma~\ref{lem:limit_operations_measurable_functions} look rather trivial, it is actually very important. In particular, it shows the power of the class of measurable functions. In contrast, the class of continuous functions is not stable under point-wise limit operations. 
+Although the proof makes the content of Lemma~\ref{lem:limit_operations_measurable_functions} look rather trivial, it is actually very important. In particular, it shows the power of the class of measurable functions as it is stable under point-wise limit operations. In contrast, the class of continuous functions is not. 
 
 \begin{example}[Point-wise limits of continuous functions are not continuous]
 Consider the sequence of functions $(f_n)_{n \ge 1}$ defined by $f_n(x) = \arctan(xn)$. Each $f_n$ is clearly continuous. So let us consider the point-wise limit $f(x) = \lim_{n \to \infty} f_n(x)$. For any $x > 0$ we have that

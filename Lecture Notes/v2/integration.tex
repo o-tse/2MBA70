@@ -1,58 +1,155 @@
-We now arrive at one of our main characters in Measure Theory: The Lebesgue integral. Unlike the Riemann integral, the Lebesgue integral can be constructed on any measure space $(\Omega,\cF,\mu)$. The construction will be done in multiple steps, starting with simple functions.
+We have now arrived at arguably the core aspect of Measure Theory: The Lebesgue integral. Unlike the Riemann integral, the Lebesgue integral can be constructed on any measure space $(\Omega,\cF,\mu)$ and facilitates many powerful limit results. The construction will be done in multiple steps, starting with simple functions.
 
 \section{The integral of a simple function}\label{sec:integral_simple_functions}
 
-\begin{definition}
-	A function $f: \Omega \to \bbR$ is called \emph{simple} if it takes the form
-	\[
-	f = \sum_{i=1}^N a_i \mathbf{1}_{A_i}
-	\]
-	for some positive integer $N \in \bbN$, disjoint measurable sets $A_1, \ldots, A_N \in \cF$ and constants $a_1, \dots, a_N  \in \bbR$. We define the \emph{$\mu$-integral} of a simple function $f$ by
-	\[
-		\int_\Omega f\, \dd \mu = \int_\Omega f(\omega)\,\mu(\dd\omega) := \sum_{i = 1}^N a_i \mu(A_i).
-	\]
+\begin{definition}\label{def:simple_function}
+A function $f: \Omega \to \bbR$ is called \emph{simple} if it takes the form
+\[
+f = \sum_{i=1}^N a_i \mathbf{1}_{A_i}
+\]
+for some positive integer $N \in \bbN$, disjoint measurable sets $A_1, \ldots, A_N \in \cF$ and constants $a_1, \dots, a_N  \in \bbR$.
 \end{definition}
 
-A priori there could be different representations of the same simple function, so we should check that the integral of a simple function is well-defined. 
-This follows, however, because $f$ actually has a unique representation 
+Sometimes, the definition of a simple function will not require the sets to be disjoint. When this is the case, it is referred to as a \emph{standard representation} of a simple functions. But this distinction does not matter.
+
+\begin{lemma}\label{lem:simple_function}
+Let $f: \Omega \to \bbR$ be a measurable function that attains only finitely many values, i.e. $f(\Omega) = \{a_1, \dots, a_m\}$ with $m < \infty$. Then there exist a finite collection of measurable set $A_1, \dots, A_m$ such that 
 \[
-	f = \sum_{i=1}^M b_i \mathbf{1}_{B_i},\qquad \text{for which $b_i < b_{i+1}$}.
+	f = \sum_{i = 1}^m a_i \mathbf{1}_{A_i}.
 \]
-By the finite additivity of the measure $\mu$,
+In particular, $f$ is simple.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:standard_representation_simple}.
+\end{proof}
+
+As a consequence of Lemma~\ref{lem:simple_function} any function of the form
 \[
-\sum_{i=1}^N a_i \mu(A_i) = \sum_{i=1}^M b_i \mu(B_i).
+	f = \sum_{i=1}^N a_i \mathbf{1}_{A_i},
+\]
+with $a_i \in \bbR$ and $A_1, \dots, A_N$ measurable but necessarily disjoint sets, is simple. 
+
+We can now define the Lebesgue integral of a simple function.
+
+\begin{definition}\label{def:Lebesgue_integral_simple}
+Let $f: \Omega \to \bbR_+$ be a non-negative simple function of the form
+\[
+	f = \sum_{i=1}^N a_i \mathbf{1}_{A_i}.
+\] 
+Then we define the \emph{$\mu$-integral} of $f$ by
+\[
+	\int_\Omega f\, \dd \mu = \int_\Omega f(\omega)\,\mu(\dd\omega) := \sum_{i = 1}^N a_i \mu(A_i).
+\]
+\end{definition}
+
+Although this seems like a reasonable definition for an integral of a simple function, one has to be a bit careful. The potential problem is that the value of the integral is defined using the set $A_i$ and values $a_i$ in the representation of the simple function $f$, which might not be unique. Luckily it turns out that the value of their sum is.
+
+\begin{lemma}\label{lem:lebesgue_simple_welldefined}
+Let $f: \Omega \to \bbR_+$ be a non-negative simple function such that
+\[
+	\sum_{i = 1}^N a_i \mathbf{1}_{A_i} = f = \sum_{j = 1}^M b_j \mathbf{1}_{B_j},
+\]
+for two collections $a_i, b_j \in \bbR$ and two families of mutually disjoint measurable sets $A_i, B_j$. Then
+\[
+	\sum_{i = 1}^N a_i \mu(A_i)= \sum_{j = 1}^M b_j \mu(B_j).
+\]
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:lebesgue_simple_welldefined}
+\end{proof}
+
+This lemma shows that the Lebesgue integral for simple functions given in Definition~\ref{def:Lebesgue_integral_simple} is well-defined. With that, we have made the first important step toward the definition of the Lebesgue integral for general functions. Before we can continue, we will show that any positive measurable function $f : \Omega \to \bbR$ can be approximated by simple functions.
+
+\begin{lemma}\label{lem:linearity_lebesgue_simple}
+Let $f, g: \Omega \to \bbR_+$ be two non-negative simple functions. Then $f+g$ is again a non-negative simple function and moreover,
+\[
+	\int_\Omega f + g \, \dd \mu = \int_\Omega f\, \dd \mu + \int_\Omega g\, \dd \mu
+\]
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+%\begin{remark}
+%	In case $(\Omega, \cF, \bbP)$ is a probability space, and $X$ is a simple, real-valued random variable on $\Omega$ having the representation
+%\[
+%	X = \sum_{i=1}^N a_i \mathbf{1}_{A_i},
+%\]
+%with mutually disjoint $A_i \in \cF$ and $a_i \in \bbR$, the integral is usually called the \emph{expectation} value of $X$ and is written as
+%\[
+%	\ex{X} := \int_\Omega X(\omega)\, \bbP(\dd\omega) = \sum_{i=1}^N a_i \prob{A_i}.
+%\]
+%
+%\end{remark}
+
+\section{Approximation by simple functions}
+\label{sec:simple-approximation}
+
+\begin{proposition}[Approximation by simple functions]\label{prop:approximation_simple}
+Let $(\Omega, \cF)$ be a measurable space and $f : \Omega \to [0,\infty]$ a measurable function. Then there exist a sequence $(f_n)_{n \ge 1}$ of positive simple functions such that for any $\omega \in \Omega$
+\[
+	\lim_{n \to \infty} f_n(\omega) = f(\omega).
+\]
+Moreover, the functions $f_n$ form a point-wise non-decreasing sequence and hence $f(\omega) = \sup_{n \ge 1} f_n(\omega)$.
+\end{proposition}
+
+\begin{proof}
+Fix $n \ge 1$, set $N_n = n 2^n$ and define the sets
+\[
+	A_k^n = \begin{cases}
+		\{ k 2^{-n} \le f < (k+1) 2^{-n}\} &\text{for } k = 0,1, \dots, N_n - 1,\\
+		\{ f \ge n\} &\text{for } k = N_n,
+	\end{cases}
+\]
+which are measurable due to Lemma~\ref{lem:measurable_set_real_line} and mutually disjoint.
+
+We then define the function
+\[
+	f_n = 2^n\mathbf{1}_{\{f=+\infty\}} + \sum_{k=0}^{N_n} k \, 2^{-n} \mathbf{1}_{A_k^n}.
+\]
+From this representation, we easily deduce that $f_n$ is measurable and simple for every $n \ge 1$. Also note that $f_n(\omega) = k 2^{-n} \iff \omega \in A_k^n \text{ and } f(\omega) < +\infty$. 
+
+The first observation we make is that $f_n(\omega) \le f(\omega)$ holds for all $n \ge 1$. Moreover, if $f(\omega) < n$ then $f(w) - f_n(\omega) \le 2^{-n}$. 
+
+We will now show that $f_n(\omega) \to f(\omega)$ holds for any $\omega \in \Omega$. Let us fix a $\omega \in \Omega$. Then if $f(\omega) = +\infty$ we get that $f_n(\omega) = 2^n$ holds for all $n \ge 1$ and hence $\lim_{n \to \infty} f_n(\omega) = +\infty = f(\omega)$. So assume that $f(\omega) < +\infty$. Then there exists an $M \in \bbN$ such that $f(\omega) < M$. Hence, for all $n \ge M$ we have that 
+\[
+	\|f_n(\omega) - f(\omega)\| = f(\omega) - f_n(\omega) \le 2^{-n},
+\]
+which implies that $\lim_{n \to \infty} f_n(\omega) = f(\omega)$.
+
+For the final part we need to show that for any $\omega \in \Omega$, $f_n(\omega) \le f_{n+1}(\omega)$ holds for all $n \ge 1$. So fix $n \ge 1$ and $\omega \in \Omega$. Clearly, if $f(\omega) = +\infty$ there is nothing to prove. So let's assume that $f(\omega) < +\infty$. Then $\omega \in A_k^n$ for some $0 \le k \le N_n = n 2^n$. 
+
+We will first consider the case that $k < n 2^n$, so that $k 2^{-n} \le f(\omega) < (k+1) 2^{-n}$ holds. Note that this  interval can be split into two intervals as follows:
+\[
+	[k 2^{-n}, (k+1) 2^{-n}) = [(2k) 2^{-(n+1)}, (2k +1)2^{-(n+1)}) \cup [(2k +1)2^{-(n+1)}, (2k + 2)2^{-(n+1)}).
+\] 
+Hence, we conclude that either $\omega \in A_{2k}^{n+1}$ or $\omega \in A_{2k+1}^{n+1}$. In both case we get that 
+\[
+	f_n(\omega) = k2^{-n} = 2k n^{-(n+1)} \le f_{n+1}(\omega).
 \]
 
-\begin{remark}
-	In case $(\Omega, \cF, \bbP)$ is a probability space, and $X$ is a simple, real-valued random variable on $\Omega$ having the representation
+Now let us consider the case that $k = n 2^n$, so that $f(\omega) \ge n$. Then, if $f(\omega) \ge n + 1$ it follows that $f_n(\omega) = n < n + 1 = f_{n+1}(\omega)$. If, on the other hand, $n \le f(\omega) < n + 1$ there exists an $2n \, 2^n \le \ell \le (2n+2) \, 2^n$ such that $\omega \in A_\ell^{n+1}$, which then implies that 
 \[
-	X = \sum_{i=1}^N a_i \mathbf{1}_{A_i},
+	f_n(\omega) = n = (2n 2^{n}) \, 2^{-(n+1)} \le f_{n+1}(\omega).
 \]
-with mutually disjoint $A_i \in \cF$ and $a_i \in \bbR$, the integral is usually called the \emph{expectation} value of $X$ and is written as
-\[
-	\ex{X} := \int_\Omega X(\omega)\, \bbP(\dd\omega) = \sum_{i=1}^N a_i \prob{A_i}.
-\]
+\end{proof}
 
-\end{remark}
+We will often use the notation $[f]_n$ to denote the simple functions that approximate a given function $f$.
 
 \section{The Lebesgue integral of nonnegative functions}
 
 We now extend the $\mu$-integral from non-negative simple functions to arbitrary non-negative $\cF$-measurable functions.
 
-\begin{definition}
+\begin{definition}\label{def:lebesgue_non_negative}
 	The \emph{$\mu$-integral} of a $(\cF,\cB_{[0,+\infty]})$-measurable function $f:\Omega\to[0,+\infty]$ is defined by
 \[
 	\int_\Omega f\, \dd \mu = \int_\Omega f(\omega)\,\mu(\dd\omega) := \sup\left\{ \int_\Omega g\, \dd \mu : \ g \text{ simple},\; 0 \leq g  \leq f \right\}.
 \]
 The function $f$ is said to be \emph{$\mu$-integrable} if its $\mu$-integral is finite.
 \end{definition}
-
-\begin{remark}
-If $X$ is a nonnegative random variable on a probability space $(\Omega, \cF, \bbP)$, we call the integral the expectation value of $X$ and often write instead
-\[
-	\ex{X} := \int_\Omega X \dd \bbP.
-\]
-\end{remark}
 
 For a measurable set $A \in \cF$, we use the following notation and definition for integration of $f$ over the set $A$
 \[
@@ -67,9 +164,11 @@ Similarly, if $f_A:(A, \cF_A) \to ([0,+\infty],\cB_{[0,+\infty]})$ is measurable
 	\int_A f\,\dd \mu = \int_A f_A\, d \mu_A.
 \]
 
-\begin{lemma}[Properties of the Lebesgue integral of nonnegative functions]
+The following lemma summarize some basic properties of the Lebesgue integral for non-negative functions.
+
+\begin{lemma}[Properties of the Lebesgue integral of non-negative functions]
 	\label{pr:properties-integral-nonneg}
-	Let $f$, $g$ be two nonnegative, measurable functions and $\alpha \geq 0$ be a constant.
+	Let $(\Omega, \cF, \mu)$ be a measure space, $f, g : \Omega \to \bbR_+$ two non-negative, measurable functions and $\alpha \geq 0$ be a constant. The the following holds:
 	\begin{enumerate}
 		\item (absolute continuity) If $B \in \cF$ satisfies $\mu(B) = 0$, then
 		\[
@@ -86,12 +185,24 @@ Similarly, if $f_A:(A, \cF_A) \to ([0,+\infty],\cB_{[0,+\infty]})$ is measurable
 	\end{enumerate}
 \end{lemma}
 
+It should be noted that one key property seems to be missing from the above lemma, namely
+\[
+	\int_\Omega f + g \, \dd \mu = \int_\Omega f\, \dd \mu + \int_\Omega g\, \dd \mu.
+\]
+We know that the Riemann integral is linear and hence, if the aim of the Lebesgue integral is to extend it, it should at the very least also be linear. The main issue is that it is difficult to proof this directly using Definition~\ref{def:lebesgue_non_negative}, due to the supremum. However, recall that we did have linearity for the Lebesgue integral of simple functions, see Lemma~\ref{lem:linearity_lebesgue_simple}. So how do we use this to show that also the integral of non-negative functions is linear? This is where we first make use of the approximation of non-negative functions by simple functions. Here is how we envision this to go.
+\begin{align*}
+	\int_\Omega (f+g) \, \dd \mu &= \int_\Omega \lim_{n \to \infty} ([f]_n + [g]_n) \, \dd \mu \\
+	&= \lim_{n \to \infty} \int_\Omega [f]_n + [g]_n \, \dd \mu \\
+	&= \lim_{n \to \infty} \int_\Omega [f]_n \, \dd \mu + \lim_{n \to \infty} \int_\Omega [g]_n \, \dd \mu \\
+	&= \int_\Omega \lim_{n \to \infty} [f]_n \, \dd \mu + \int_\Omega \lim_{n \to \infty} [g]_n \, \dd \mu \\
+	&= \int_\Omega f \, \dd \mu + \int_\Omega g \, \dd \mu.
+\end{align*}
+The problem with this argument is that in both the second and fourth line, we exchanged the limit and the integral. This is something that is not generally possible, at least for Riemann integration, and needs a proof. For this we will use one of the classical limit theorems for Lebesgue integrals: the Monotone Convergence Theorem.
 
 \section{The monotone convergence theorem}
 \label{sec:monotone_convergence}
 
-We now arrive at the first convergence result telling us that the point-wise limit of monotone sequences of $\mu$-integrable functions is again $\mu$-integrable, highlighting the difference with Riemann integration.
-
+This first convergence result tells us essentially that the point-wise limit of monotone sequences of $\mu$-integrable functions is again $\mu$-integrable, highlighting the difference with Riemann integration.
 
 \begin{theorem}[Monotone convergence theorem I]
 	\label{th:monotone-convergence-I}
@@ -159,61 +270,41 @@ We now arrive at the first convergence result telling us that the point-wise lim
 	\]	
 \end{proof}
 
-\section{Intermezzo: Approximation by simple functions}
-\label{sec:simple-approximation}
 
-In this section, we will give a few explicit approximations to arbitrary measurable functions. 
-First consider a nonnegative measurable function $f : (\Omega, \cF) \to ([0,\infty], \cB_{[0,\infty]})$. We define the function $(f_n)_{n\in\bbN}$ by setting $f_n(\omega) = 0$ if $f(\omega) = 0$,
-\[
-	f_n(\omega) := k\, 2^{-n}\qquad \text{if}\quad f(\omega)\in [k\,2^{-n},(k+1)\,2^{-n}),
-\]
-for some $k \in \bbN\cup\{0\}$ and setting $f_n(\omega) = +\infty$ if $f(\omega) = +\infty$. Note that we can write
-\[
-	f_n = +\infty \mathbf{1}_{\{f=+\infty\}} + \sum_{k=0}^\infty k\, 2^{-n} \mathbf{1}_{\{k\,2^{-n}\le f < (k+1)\,2^{-n}\}} ,\qquad n\in\bbN
-\]
-and easily deduce that $f_n$ is measurable for every $n\in\bbN$.
-
-The advantage of the approximation $f_n$ to $f$ is most clearly seen when $f(\omega) < +\infty$ for all $\omega \in \Omega$. In this case, $f_n$ converges to $f$ uniformly: In fact
-\[
-|f_n(\omega) - f(\omega)| \leq 2^{-n}
-\]
-for all $n \in \bbN$ and all $\omega \in \Omega$.
-
-The disadvantage of the approximation $f_n$ is that if $f$ is unbounded, the approximation $f_n$ is not simple. To remedy this, we truncate $f_n$ to get the approximation
-\[
-	[f]_n := \min( 2^n, f_n ).
-\]
-The function $[f]_n$ is indeed simple.
-
-Both the approximations $f_n$ and $[f]_n$ are nondecreasing in $n$. Moreover, they are pointwise approximations of the functions $f$. In particular, the function $f_n$ converges uniformly to $f$ on the set where $f$ is finite, and the functions $[f]_n$ converge uniformly to $f$ on any set on which $f$ is bounded.
 
 
 \section{Additivity of the Lebesgue integral of nonnegative functions}
 
-A fundamental property that we need for a good notion of an integral is linearity.
+Armed with monotone convergence, we can now proof that the Lebesgue integral of non-negative functions is linear.
 
 \begin{lemma}[Additivity of the Lebesgue integral of nonnegative functions]
 	\label{pr:additivity-integral-nonneg}
-	Let $f$, $g$ be two nonnegative $(\cF,\cB_{[0,+\infty]})$-measurable functions. Then,
+	Let $f$, $g$ be two non-negative $(\cF,\cB_{[0,+\infty]})$-measurable functions. Then,
 	\[
 		\int_\Omega (f + g)\, \dd \mu = \int_\Omega f\, \dd \mu + \int_\Omega g\, \dd \mu.
 	\]	
 \end{lemma}
 \begin{proof}
-	For simple functions, the additivity of the integral is easy to check. Therefore, 
+	For simple functions, the additivity of the integral follows from Lemma~\ref{lem:linearity_lebesgue_simple}. Therefore, 
 	\[
 	\int_\Omega ([f]_n + [g]_n)\, \dd \mu = \int_\Omega [f]_n\, \dd \mu + \int_\Omega [g]_n\, \dd \mu\qquad\text{for every $n \in \bbN$.}
 	\]
-	We now take the limit on both sides of the equation. On one hand, the functions $[f]_n + [g]_n$ are increasing in $n$, and converge pointwise to $(f + g)$. By the monotone convergence theorem,
+	We now take the limit on both sides of the equation. On one hand, the functions $[f]_n + [g]_n$ are increasing in $n$, and converge point-wise to $(f + g)$. Hence, by the monotone convergence theorem (Theorem~\ref{th:monotone-convergence-I}),
 	\[
 	\lim_{n \to \infty} \int_\Omega ([f]_n + [g]_n)\, \dd \mu = 
 	\int_\Omega ( f + g)\, \dd \mu.
 	\]
-	On the other hand, by a limit theorem and Problem~\ref{prb:simple-approx-integral}, we know that 
+	On the other hand, by linearity of limits we know that 
 	\[
-	\lim_{n \to \infty} \left( \int_\Omega [f]_n\, \dd \mu + \int_\Omega [g]_n\, \dd \mu \right) = \int_\Omega f\, \dd \mu + \int_\Omega g\, \dd \mu.
+	\lim_{n \to \infty} \left( \int_\Omega [f]_n\, \dd \mu + \int_\Omega [g]_n\, \dd \mu \right) 
+		= \lim_{n \to \infty} \int_\Omega [f]_n\, \dd \mu + \lim_{n \to \infty} \int_\Omega [g]_n\, \dd \mu.
 	\]
-	Therefore,
+	Since both $[f]_n$ and $[g]_n$ are increasing and converge point-wise to $f$ and $g$, respectively, monotone convergence implies that
+	\[
+		\lim_{n \to \infty} \int_\Omega [f]_n\, \dd \mu = \int_\Omega f\, \dd \mu, \text{ and }
+		\lim_{n \to \infty} \int_\Omega [g]_n\, \dd \mu = \int_\Omega g\, \dd \mu.
+	\]
+	Therefore, we conclude that
 	\[
 	\int_\Omega (f + g)\, \dd \mu = \int_\Omega f\, \dd \mu + \int_\Omega g\, \dd \mu.\qedhere
 	\]
@@ -222,9 +313,9 @@ A fundamental property that we need for a good notion of an integral is linearit
 
 \section{Integrable functions}\label{sec:integrable}
 
-The next goal is to define the integral of functions $f$ that are not necessarily nonnegative. We can only do this if the integral of $|f|$ is finite.
+The final step we need to take is to define the integral of functions $f$ that are not necessarily non-negative. We can only do this if the integral of $|f|$ is finite.
 
-\begin{definition}
+\begin{definition}\label{def:lebesgue_integral_general}
 	A $(\cF,\cB_\bbR)$-measurable function $f: \Omega \to \bbR$ is \emph{$\mu$-integrable} if 
 	\[
 	\int_\Omega |f|\, \dd \mu < +\infty.	
@@ -236,13 +327,16 @@ The next goal is to define the integral of functions $f$ that are not necessaril
 \]
 It follows that $f = f^+ - f^-$ and $|f| = f^+ + f^-$.
 
-	The \emph{Lebesgue integral} of a $\mu$-integrable function $f: \Omega \to \bbR$ is
+	The \emph{Lebesgue integral} of a $\mu$-integrable function $f: \Omega \to \bbR$ is then defined as
 	\[
 		\int_\Omega f\,\dd \mu := \int_\Omega f^+\, \dd \mu - \int_\Omega f^-\, \dd \mu.
 	\]
 \end{definition}
 
-As in the case of non-negative measurable functions, we have the following properties for $\mu$-integrable functions.
+We say that a measurable function $f\colon(\Omega, \cF) \to (\bbR, \cB_\bbR)$ is integrable on a set $A \in \cF$ if the function $\mathbf{1}_A f$ is integrable on $\Omega$. Equivalently, we say that $f$ is integrable on $A$ if the restriction $f|_A$ is integrable on the measure space $(A, \cF_A, \mu|_A)$. 
+
+
+As in the case for non-negative measurable functions, we have the following properties for $\mu$-integrable functions.
 
 \begin{proposition}\label{prop:properties-integral}
 	Let $f$, $g$ be two $\mu$-integrable functions and $\alpha \in \bbR$ be a constant.
@@ -267,9 +361,7 @@ As in the case of non-negative measurable functions, we have the following prope
 	\end{enumerate}
 \end{proposition}
 
-\begin{definition}
-We say that a measurable function $f\colon(\Omega, \cF) \to (\bbR, \cB_\bbR)$ is integrable on a set $A \in \cF$ if the function $\mathbf{1}_A f$ is integrable on $\Omega$. Equivalently, we say that $f$ is integrable on $A$ if the restriction $f|_A$ is integrable on the measure space $(A, \cF_A, \mu|_A)$. 
-\end{definition}
+
 
 \section{Riemann vs Lebesgue integration}
 
@@ -290,7 +382,7 @@ We state an important result, which we will not prove, but will be essential for
 \begin{example}\label{ex:computation_lebesgue_integral}
 	Let us determine the value $\displaystyle \int_\bbR \frac{1}{x^2+1}\,\lambda(\dd x)$.
 	
-	\noindent To do so, we set $g(x):= \frac{1}{x^2+1}\ge 0$ and let $g_n:= g\mathbf{1}_{[-n,n]}$. Then clearly, $g_n\to g$ point-wise monotonically. By the MCT, we have that
+	\noindent To do so, we set $g(x):= \frac{1}{x^2+1}\ge 0$ and let $g_n:= g\mathbf{1}_{[-n,n]}$. Then clearly, $g_n$ is monotone and $g_n\to g$ point-wise. Thus, by monotone convergence we have that
 \[
 	\lim_{n\to\infty} \int_\bbR g_n\,\dd\lambda = \int_\bbR g\,\dd\lambda.
 \]
@@ -305,18 +397,32 @@ where the second equality follows from the fact that $g$ is continuous on the co
 thus implying that $g$ is $\lambda$-integrable.
 \end{example}
 
+\begin{remark}
+The main take-away is that when considering a measurable functions $f : \mathbb{R}^d \to \mathbb{R}$ that is Riemann integrable, the Lebesgue integral is simply the same as the Riemann integral. The difference is that the Lebesgue integral is applicable to any measurable space and a much larger class of functions.
+\end{remark}
+
 \section{Change of variables formula}
 \label{sec:change-of-variables}
 
-\begin{proposition}
+A key tool for computing Riemann integrals was the so-called change of variables formula 
+\[
+	\int_a^b f(g(x)) g^\prime(x) \, \dd x = \int_{g(a)}^{g(b)} f(y) \, \dd y.
+\]
+This allowed one to pick a different parametrization of the function in terms of its variables to compute the integral. As you might expect by now, we also have this for the Lebesgue integral. Here we encounter the push-forward measure, see Proposition~\ref{prop:push_forward_measure}.
+
+
+\begin{proposition}\label{prop:change_of_variables}
 Let $(\Omega, \cF, \mu)$ be a measure space and $(E,\cG)$ be a measurable space. Further, let $f\colon \Omega \to E$ and $h\colon E \to [0,+\infty]$ be $(\cF,\cG)$- and $(\cG,\cB_{[0,+\infty]})$-measurable maps respectively. Then,
 \[
 \int_\Omega h \circ f\,\dd \mu = \int_E h \, \dd (f_\# \mu).
 \]
+In particular, $h \circ f$ is integrable with respect to $\mu$ if and only if $h$ is integrable with respect to $f_\# \mu$.
 \end{proposition}
 
 \begin{proof}
-We first show the statement when $h$ is simple and nonnegative, i.e.,
+The idea of the proof is to first prove the statement for the case where $h$ is simple and nonnegative. Then we use the approximation result, Proposition~\ref{prop:approximation_simple}, and monotone convergence to prove the statement for general non-negative functions $h$. Finally, we use linearity of the integral to prove it for general functions.
+
+Following this strategy, we first prove the statement when $h$ is simple and nonnegative, i.e.,
 \[
 h = \sum_{i=1}^N a_i \mathbf{1}_{A_i}
 \]
@@ -335,29 +441,52 @@ It follows that
 \]
 which shows the proposition in the case when $h$ is simple and nonnegative. 
 
-We now turn to the case in which $h$ is a general, nonnegative measurable function. Note that $[h]_n \circ f$ is a nondecreasing sequence of functions, which converges pointwise to $h \circ f$. By the monotone convergence theorem,
+We now turn to the case in which $h$ is a general, nonnegative measurable function. Note that $[h]_n \circ f$ is a nondecreasing sequence of functions, which converges pointwise to $h \circ f$. Thus, by the monotone convergence theorem,
 \[
 \int_\Omega h \circ f\, \dd \mu 
 = \lim_{n \to \infty} \int_\Omega [h]_n \circ f\, \dd \mu 
 = \lim_{n \to \infty} \int_E [h]_n \, \dd (f_\# \mu) 
-= \int_E h \, \dd (f_\# \mu).\qedhere
+= \int_E h \, \dd (f_\# \mu).
 \]
+
+Finally, let $h: \Omega \to \bbR$ be a general measurable function and denote by $h^+$ and $h^-$ its positive and negative part, respectively. Then, since each of these is non-negative and $h \circ f = h^+ \circ f - h^- \circ f$, we get
+\begin{align*}
+	\int_\Omega h \circ f\, \dd \mu &= \int_\Omega h^+ \circ f\, \dd \mu - \int_\Omega h^- \circ f\, \dd \mu\\
+	&= \int_E h^+ \, \dd (f_\# \mu) - \int_E h^- \, \dd (f_\# \mu) = \int_E h \, \dd (f_\# \mu).\qedhere
+\end{align*}
 \end{proof}
 
-\bigskip
+\begin{remark}[General proof strategy]
+The architecture of the above proof is prototypical for many statements concerning Lebesgue integration. That is, we first proof it for simple non-negative functions. Then we extend this to general non-negative functions using monotone convergence and finally to general functions using linearity. Within this scheme, proving the required result for simple functions will be the main step, and hence the one that requires the most work.
+\end{remark}
 
-As a direct consequence, we have the following proposition.
-\begin{proposition}
-Let $(\Omega, \cF, \mu)$ be a measure space and $(E,\cG)$ be a measurable space. Further, let $f\colon \Omega \to E$ and $h\colon E \to \bbR$ be $(\cF,\cG)$- and $(\cG,\cB_\bbR)$-measurable maps respectively. Then $h \circ f$ is integrable with respect to $\mu$ if and only if $h$ is integrable with respect to $f_\# \mu$, in which case,
-\[
-\int_\Omega h \circ f\, \dd \mu = \int_E h \, \dd (f_\# \mu).
-\]
-\end{proposition}
+%As a direct consequence, we have the following proposition.
+%\begin{proposition}
+%Let $(\Omega, \cF, \mu)$ be a measure space and $(E,\cG)$ be a measurable space. Further, let $f\colon \Omega \to E$ and $h\colon E \to \bbR$ be $(\cF,\cG)$- and $(\cG,\cB_\bbR)$-measurable maps respectively. Then $h \circ f$ is integrable with respect to $\mu$ if and only if $h$ is integrable with respect to $f_\# \mu$, in which case,
+%\[
+%\int_\Omega h \circ f\, \dd \mu = \int_E h \, \dd (f_\# \mu).
+%\]
+%\end{proposition}
 
 
 
 
 \section{Problems}
+
+\begin{problem}\label{prb:standard_representation_simple}
+
+
+\begin{proof}
+Define $A_i = \{f = a_i\}$, which are measurable due to Lemma~\ref{lem:measurable_set_real_line}. Moreover, these sets are mutually disjoint. Finally, since $f(x) = y_i \iff x \in A_i$ by definition, it follows that
+\[
+	f = \sum_{i = 1}^m a_i \mathbf{1}_{A_i}.
+\]
+\end{proof}
+\end{problem}
+
+\begin{problem}\label{prb:lebesgue_simple_welldefined}
+Prove Lemma~\ref{lem:lebesgue_simple_welldefined}.
+\end{problem}
 
 \begin{problem}
 	Consider the measure space $(\bbN,2^{bbN},\mu)$, where $\mu$ is the counting measure on $\bbN$. Show that for any function $f:\bbN\to[0,+\infty]$,

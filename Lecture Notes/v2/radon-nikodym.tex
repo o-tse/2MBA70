@@ -100,97 +100,7 @@ However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varep
 \end{theorem}
 
 
-\section{Conditional Expectation}
 
-As a first application of the Radon-Nikodym theorem, we may use it to construct the conditional expectation with respect to a sub-$\sigma$-algebra in probability theory.
-
-\begin{theorem}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $\mathcal{H}$ be a sub-$\sigma$-algebra of $\cF$. For every $\bbP$-integrable random variable $X$, there exists an $\mathcal{H}$-measurable random variable $\mathbb{E}[X|\mathcal{H}]$ such that
-\[
-\int_B \mathbb{E}[ X | \mathcal{H} ] \,\dd \bbP = \int_B X\, \dd \bbP\qquad\text{for every $B \in \mathcal{H}$}.
-\]
-\end{theorem}
-
-\begin{proof}
-Define the measure $\bbQ$ on the measurable space $(\Omega,\mathcal{H})$ by
-\[
-\bbQ(B) := \int_B X\, \dd \bbP \qquad \text{for every  $B \in \mathcal{H}$}.
-\]
-The measure $\bbQ$ is absolutely continuous with respect to the restriction of $\bbP$ to $\mathcal{H}$, which we denote by $\bbP|_{\mathcal{H}}$.
-By the Radon-Nikodym theorem, there exists an $\mathcal{H}$-measurable random variable, which we denote by $\mathbb{E}[X|\mathcal{H}] := \dd\bbQ/\dd\bbP$, such that for all $B \in \mathcal{H}$,
-\[
-\int_B X \,\dd \bbP = \bbQ(B) = \int_B \mathbb{E}[X | \mathcal{H}] \,\dd \bbP,
-\]
-thereby concluding the proof.
-\end{proof}
-
-\begin{definition}
-Let $(\Omega, \cF, \bbP)$ be a probability space, let $X,Y$ be random variables, where $X$ is $\bbP$-integrable. Then the conditional expectation of $X$ given $Y$ is defined as
-\[
-\mathbb{E}[X | Y] := \mathbb{E}[ X | \sigma(Y) ].
-\]	
-\end{definition}
-
-\section{Conditional Probability}
-
-Armed with the notion of conditional expectation we can now define conditional probabilities. The key observation is that for any probability measure $\bbP$ on $(\Omega, \cF)$ and random variable $X$ we have that
-\[
-	\bbP(X \in A) = \int_\Omega \mathbf{1}_{X \in A} \, \dd \bbP = \bbE[\mathbf{1}_{X \in A}].
-\]
-
-\begin{definition}[Conditional probability]
-Let $(\Omega, \cF, \bbP)$ be a probability space, $\cH$ a sub-\sigalg/ of $\cF$, and $X$ a random variable. Then conditional probability of $X$ with respect to $\cH$ is defined as
-\[
-	\bbP(X \in A | \cH) := \bbE[\mathbf{1}_{X \in A} | \cH].
-\]
-If $Y$ is another random variable we define
-\[
-	\bbP(X \in A | Y) := \bbP(X \in A | \sigma(Y)).
-\]
-\end{definition}
-
-
-A common formula given to you when considering discrete random variables $X$ and $Y$ was the following:
-\begin{equation}\label{eq:law_of_probability_discrete}
-	\bbP(X \in A) = \bbE[\bbP(X \in A | Y)] = \sum_{k \in \bbZ} \bbP(X \in A | Y= k) \bbP(Y = k). 
-\end{equation}
-This was referred to as the total law of probability. However, in the above expression it is not clear what $\bbP(X \in A | Y = k)$ is. The issue here is that we have a definition for the random variable $\bbP(X \in A | Y)$, which is a measurable function $\Omega \to \bbR$. But here we would like to consider $\bbP(X \in A | Y = k)$ as a function $\bbZ \to \bbR$. How would you define this? This is what the next lemma will help us with.
-
-\begin{lemma}\label{lem:condition_expectation_Y_y}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $X,Y$ be two random variables with joint density $f : \bbR \times \bbR \to \bbR$. Further, let $f_Y$ denote the density of $Y$ and define
-\[
-	h(y) := \int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \dd \lambda
-\]
-Then
-\[
-	h(Y) = \bbE[X | Y].
-\]
-\end{lemma}
-
-\begin{proof}
-We need to show that for all $B \in \sigma(Y)$
-\[
-	\int_B h(Y) \, \dd \bbP = \int_B X \, \dd \bbP := \bbE[\mathbf{1}_B X]. 
-\]
-Note that it suffices to consider sets of the form $B = Y^{-1}(A)$ for some $A \in \cB$. Moreover $\mathbf{1}_B(\omega) = \mathbf{1}_B(Y(\omega))$. Hence
-\begin{align*}
-	\int_B h(Y) \, \dd \bbP &= \int_\Omega \mathbf{1}_{B} h(Y) \, \dd \bbP 
-	= \int_\Omega \mathbf{1}_{Y^{-1}(A)} h(Y) \, \dd \bbP \\
-	&= \int_\bbR \mathbf{1}_{A}(y) h(y) f_Y(Y) \, \lambda (\dd y) &&\text{by change of variables}\\
-	&= \int_\bbR \mathbf{1}_A(y) \left(\int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \lambda(\dd x)\right)
-		\, f_Y(y) \lambda(\dd y)\\
-	&= \iint_{\bbR^2} \mathbf{1}_A(y) x f(x,y) \, \lambda(\dd x) \lambda(\dd y)\\
-	&= \bbE[\mathbf{1}_A(Y) X] = \bbE[\mathbf{1}_B X] \qedhere
-\end{align*}
-\end{proof}
-
-The function
-\begin{equation}
-	g(x,y) := \frac{f(x,y)}{f_Y(y)},
-\end{equation}
-is referred to as the conditional density of $X$ given $Y = y$. We often write $f_{X|Y}(x|y) := g(x,y)$ to emphasize the conditioning on $Y = y$.
-
-The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability, we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. With this we can now formally establish~\eqref{eq:law_of_probability_discrete}, see Problem~\ref{prb:law_of_probability_discrete}.
 
 \section{Problems}
 
@@ -225,22 +135,4 @@ Prove that $f=g$ $\bbP$-almost everywhere, i.e.
 \]
 \end{problem}
 
-\begin{problem}
-Prove that the conditional expectation is unique $\bbP$-almost everywhere.
-\end{problem}
 
-\begin{problem}[Properties conditional expectation]
-The goal of this problem is to prove that the conditional expectation satisfies many of the same properties as the regular expectation. 
-
-Let $(\Omega, \cF, \bbP)$ be a probability space and $\cH$ be a sub-\sigalg/ of $\cF$. Furthermore, let $X, Y$ be random variables and $a \in \bbR$. Prove that the following statements hold $\bbP$-almost everywhere:
-\begin{enumerate}[label={(\alph*)}]
-\item If $X$ is $\cH$-measurable, then $\bbE[X | \cH] = X$.
-\item $\bbE[a X | \cH] = a \bbE[X | \cH]$.
-\item $\bbE[X + Y | \cH] = \bbE[X | \cH] + \bbE[Y | \cH]$.
-\item If $X \le Y$, then $\bbE[X | \cH] \le \bbE[Y | \cH]$.
-\end{enumerate}
-\end{problem}
-
-\begin{problem}\label{prb:law_of_probability_discrete}
-Use Lemma~\ref{lem:condition_expectation_Y_y} to prove~\eqref{eq:law_of_probability_discrete}.
-\end{problem}

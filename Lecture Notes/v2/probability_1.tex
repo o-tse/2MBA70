@@ -3,6 +3,8 @@
 
 % Random variables   
 
+\XXX{ph}{ph}{TODO: write short intro}
+
 \subsection{Definition}
 
 In the course Probability and Modeling two types of random variables were defined: discrete and continuous. Recall that a random variable was defined as a function $X : \Omega \to \bbR$ for some probability space $(\Omega, \cF, \bbP)$ such that
@@ -23,7 +25,7 @@ Let $X$ be a random variable and recall that its \emph{cumulative distribution f
 \] 
 The fact that we use $\bbP$ here, which is the probability measure on the space $(\Omega, \cF)$ is not a coincidence.
 
-The idea behind the cdf $F_X(t)$ is that it denotes the "probability" that $X \in (-\infty ,t]$. From the perspective of measure theory, this means we need to assign a measure to the preimage of $(-\infty, t]$ under the measurable function $X$. For this, the only things we have at our disposal is the probability measure $\bbP$ and the measurable function $X$. Now recall from Proposition~\ref{prop:push_forward_measure} that we can always construct a measure from this, the push-forward measure. That is exactly what the cummulative distribution is,
+The idea behind the cdf $F_X(t)$ is that it denotes the "probability" that $X \in (-\infty ,t]$. From the perspective of measure theory, this means we need to assign a measure to the preimage of $(-\infty, t]$ under the measurable function $X$. For this, the only things we have at our disposal are the probability measure $\bbP$ and the measurable function $X$. Now recall from Proposition~\ref{prop:push_forward_measure} that we can always construct a measure from this: the \emph{push-forward measure}. That is exactly what the cumulative distribution is,
 \[
 	F_X(t) := X_\# \bbP((-\infty, t]) = \bbP(X^{-1}((-\infty,t])).
 \]
@@ -39,7 +41,7 @@ Let $(\Omega,\cF, \bbP)$ be a probability space and $(E,\cG)$ some measurable sp
 
 Sometimes we use the term \emph{stochastic} instead of \emph{random}. 
 
-With this general definition we can now easily define random vectors, random matrices, random functions and so one. The only thing we need is to start with the appropriate space (vectors, matrices, functions) and turn it into a measurable space by endowing it with a suitable \sigalg/. 
+With this general definition we can now easily define random vectors, random matrices, random functions and so one. The only thing we need is to start with the appropriate space (vectors, matrices, functions) and turn it into a measurable space by endowing it with a suitable \sigalg/. Here are some examples:
 
 \begin{example}[Random elements]
 \hfill
@@ -197,39 +199,103 @@ Actually, when considering general random objects in $(E, \cG)$ we often also do
 There are, however, some cases where one should be cautious about the probability space that is used. For example when considering the notion of \emph{convergence in probability} or \emph{almost sure convergence}. Or when constructing joint distributions of random variables. 
 \end{remark}
 
+\section{Discrete and continuous random variables}
+
+Most basic courses in probability theory make a distinction between two classes of random variables: \emph{discrete} and \emph{continuous}. In this section we will put these concepts into the framework of measure theory and provide definitions for the probability mass function and the probability density function.
+
+\subsection{Discrete random variables}
+We say that a random variable $X$ is discrete if there exists a countable (possibly infinite) set $N \subset \bbR$ such that $X(\omega) \in N$ for all $\omega \in \Omega$. 
+
+In practice, and throughout these lecture notes, we only consider discrete random variables $X$ whose outcomes are in $\bbZ$. In Problem~\ref{prb:discrete_rv_on_Z} you can show that this can be done without loss of generality. 
+
+A key concept for discrete random variables is the \emph{probability mass function} (pmf), which is often defined as $f(j) = \bbP(X = j)$ for $j \in \bbZ$. The next result shows that any discrete random variable has a pmf.
+
+\begin{lemma}[Probability mass function]\label{lem:existence_pmf}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X$ a discrete random variable, i.e. $X(\omega) \in \bbZ$ for all $\omega \in \Omega$. Then there exists a sequence $(p_j)_{j \in \bbZ}$ with $\sum_{j \in \bbZ} p_j = 1$ that for any measurable set $A$,
+\[
+	\bbP(X \in A) = \sum_{j \in \bbZ} \delta_j(A) p_j.
+\]
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:discrete_rv_has_pmf}.
+\end{proof}
+
+With this result, we can now formally define the \emph{probability mass function} (pmf) of $X$ as a function $f : \bbZ \to [0,1]$ given by $f(j) = p_j$.
+
+Note that with this definition we indeed have
+\[
+	F(t) = \sum_{j = -\infty}^t p_j
+\]
+and that
+\[
+	f(j) = \bbP(X = j).
+\]
+
+Below are some examples of some classical discrete random variables.
+
+\begin{example}\hfill
+\begin{enumerate}[label=(\alph*)]
+\item \textit{Bernoulli}: Let $p \in [0,1]$. A random variable $X : \Omega \to \{0,1\}$ with $\bbP(X = 1) = p$ is called a \emph{Bernoulli random variable} with success probability $p$.
+\item \textit{Binomial}: Let $n \in \mathbb{N}$ and $p \in [0,1]$. A random variable $X : \Omega \to \mathbb{N}_0$ with $\bbP(X = j) = \binom{n}{j} p^j (1-p)^{n-j}$ is called a \emph{Binomial random variable} with $n$ trials and success probability $p$
+\item \textit{Poisson}: Let $\lambda > 0$. A random variable $X : \Omega \to \mathbb{N}_0$ with $\bbP(X = j) = \frac{\lambda^j}{j!} e^{-\lambda}$ is called a \emph{Poisson random variable} with mean $\lambda$.
+\end{enumerate}
+\end{example}
+
+\subsection{Continuous random variables}
+
+In contrast to discrete random variables, we say a random variable $X$ is \emph{continuous} if there exist a family  $(\mathcal{I}_i)_{i \in I}$ of pairwise disjoint intervals such that $\mathrm{im}(X) = \bigcup_{i \in I} \mathcal{I}_i$.
+A concept for continuous random variables related to that of the probability mass function is the probability density function. 
+
+\begin{definition}[Probability density function]\label{def:pdf}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X$ a continuous random variable. We say that $X$ has a \emph{probability density function} (pdf) $\rho : \bbR \to [0,\infty)$, if for every $t \in \bbR$,
+\[
+	X_\# \bbP((-\infty , t]) = \int_{(-\infty,t]} \rho \, \dd \lambda.
+\]
+In particular, a probability density function must be integrable.
+\end{definition}
+
+Note that unlike a probability mass function, a probability density function can yield values larger than $1$. An example of this is the pdf for a continuous uniform random variable on $[0,1/2]$, which is given by $\rho(x) = 2 \mathbf{1}_{x \in [0,1/2]}$.
+
+Technically, the notion of a probability density can be defined for any random variable $X$. However, unlike the pmf for discrete random variables, not all random variables, including continuous ones, have a pdf (see Problem~\ref{prb:no_pdf}).
+
+The following classical examples of continuous random variables do all have a pdf.
+
+\begin{example}\hfill
+\begin{enumerate}[label=(\alph*)]
+\item \textit{Exponential}: Let $\lambda > 0$. A random variable $X : \Omega \to \bbR_+$ with pdf $\rho(x) = \lambda e^{-\lambda x}$ is called an \emph{Exponential random variable} with rate $\lambda$.
+\item \textit{Normal}: Let $\mu \in \bbR$ and $\sigma > 0$. A random variable $X : \Omega \to \bbR_+$ with pdf $\rho(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-(x - \mu)^2/(2\sigma^2)}$ is called a \emph{Normal random variable} with mean $\mu$ and variance $\sigma^2$.
+\item \textit{Pareto}: Let $\xi, \alpha > 0$. A random variable $X : \Omega \to [\xi, \infty)$ with pdf $\rho(x) = \frac{\alpha \xi^\alpha}{x^{\alpha +1}}$ is called a \emph{Pareto random variable} with scale $\xi$ and shape $\alpha$.
+\end{enumerate} 
+\end{example}
+
 \section{Multi-variate random variables}
 
 [TODO]
 
-\section{Expectation of random variables}
+\section{Expected value of random variables}
 
-[REWRITE]
+One of the first things you learn to compute for a random variable is its \emph{expected value}, often denoted as $\bbE[X]$. Armed with the definition of random variables and the notion of integration we can formally define what the expected value of a random variable is.
 
-Now that we have a notion of integration we can formally define what the expected value of a random variables is.
-
-\begin{definition}\label{def:expectation_random_variable}
+\begin{definition}[Expected value]\label{def:expectation_random_variable}
 Let $(\Omega. \cF, \bbP)$ be a probability space and $X$ and random variable. Then
 \[
 	\bbE[X] := \int_\Omega X \, \dd \bbP.
 \]
 \end{definition}
 
-We say that a random variable is discrete if $X(\omega) \in \bbZ$ for all $\omega \in \Omega$. It then follows (see Problem~\ref{prb:discrete_random_variable}) that 
-\[
-	\bbP(X \in A) = \sum_{j \in \bbZ} \delta_j(A) p_j,
-\]
-for some sequence $(p_j)_{j \in \bbZ}$ with $\sum_{j \in \bbZ} p_j = 1$. We can now define the \emph{probability mass function} (pmf) of $X$ as $p(j) = p_j$.
 
-In the course Probability and Modeling you have seen the following definition of the expectation of $h(X)$, where $h$ is a function and $X$ a discrete random variable:
+
+In the course Probability and Modeling you have seen the following definition of the expected value of $h(X)$, where $h$ is a function and $X$ a discrete random variable:
 \[
 	\bbE[h(X)] = \sum_{j \in \bbZ} j \bbP(h(X) = j).
 \]
-The following result, called the law of the unconscious statistician, expressed the expectation in terms of the probabilities pmf of $X$:
+The following result, called the law of the unconscious statistician, expressed this in terms of the probabilities pmf of $X$:
 \[
 	\bbE[h(X)] = \sum_{j \in \bbZ} h(j) p(j).
 \] 
 
-We will now use the change of variables proposition to prove this result, given the general definition for expectations in Definition~\ref{def:expectation_random_variable}.
+We will now use the change of variables proposition to prove this result, given the general definition for the expected value in Definition~\ref{def:expectation_random_variable}.
 
 
 \begin{lemma}
@@ -269,21 +335,13 @@ Since $h\circ X$ is $\bbP$-integrable if and only if it positive and negative pa
 \]
 \end{proof}
 
-Let us now turn to the other class of random variables, continuous random variables. Here the notion of a \emph{probability density function} $\rho$ was introduce so that $F(t)$ was equal to the integral of $\rho$ on $(-\infty,t]$. Expressed formally in the language of measure theory we have the following
+Let us now turn to the other class of random variables: continuous random variables. Here we introduced the notion of a \emph{probability density function} $\rho$ so that $F(t)$ was equal to the integral of $\rho$ on $(-\infty,t]$. 
 
-\begin{definition}[Probability density function]
-Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X$ a continuous random variable. We say that $X$ has a \emph{probability density function} $\rho : \bbR \to [0,\infty)$, if for every $t \in \bbR$,
-\[
-	X_\# \bbP((-\infty , t]) = \int_{(-\infty,t]} \rho \, \dd \lambda.
-\]
-In particular, a probability density function must be integrable.
-\end{definition}
-
-Now recall that in the case of a continuous random variable $Y$ with a probability density $\rho$, there was also a formula for its expectation,
+Now recall that in the case of a continuous random variable $Y$ with a probability density $\rho$, there was also a formula for the expected value,
 \[
 	\bbE[h(Y)] = \int_\bbR h(x) \rho(x) \, \dd x.
 \]
-Again, this formula is correct and follows from Definition~\ref{def:expectation_random_variable} after applying a change of variables. The proof of this result is left as an exercise.
+Again, this formula is correct (under some mild obvious conditions) and follows from Definition~\ref{def:expectation_random_variable} after applying a change of variables. The proof of this result is left as an exercise.
 
 \begin{lemma}\label{lem:expectation_continuous_random_variable}
 Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ a continuous random variable with probability density $\rho$ and let $h : \bbR \to \bbR$ be a measurable function such that $h \rho$ is Lebesgue integrable. Then
@@ -349,13 +407,13 @@ and the Cauchy cumulative distribution function (cdf)
 \end{equation}
 
 We will first construct the Cauchy random variable.
-\begin{enumerate}
+\begin{enumerate}[label=(\alph*)]
 \item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide an explicit formula for the function $Y\colon \Omega\to\bbR$ such that $Y_\# \bbP = H_\gamma$.
 \item Show that the function from 1 is measurable.
 \end{enumerate}
 
 For the Poisson random variable we first need to go from the pmf to its cdf.
-\begin{enumerate}
+\begin{enumerate}[label=(\alph*)]
 \setcounter{enumi}{2}
 \item Express the cumulative distribution function $F_\lambda$ for a Poisson random variable in terms of the pmf $f_\lambda$.
 \item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide a formula for the function $X\colon \Omega\to\bbR$ such that $X_\# \bbP = F_\lambda$.
@@ -365,11 +423,42 @@ For the Poisson random variable we first need to go from the pmf to its cdf.
 
 \end{problem}
 
-\begin{problem}\label{prb:discrete_random_variable}
-Let $X$ be a random variable that only takes values in $\bbZ$, i.e. $X(\omega) \in \bbZ$ for all $\omega$. Show that there exists a sequence $(p_j)_{j \in \bbZ}$ with $0 \le p_j \le 1$ and $\sum_{j \in \bbZ} p_j = 1$ such that for any Borel measurable set $A$
-\[
-	\bbP(X \in A) = \sum_{j \in \bbZ} p_n \delta_n(A).
-\]
+\begin{problem}\label{prb:discrete_rv_on_Z}
+Here you will show that without loss of generality we can consider discrete random variables as measurable functions $X: \Omega \to \bbZ$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $N_1 \subset [0,\infty)$ be a countable set. Construct a subset $Z_1 \subseteq \bbZ_{\ge 0}$ and a bijection $\phi_1 : N_1 \to \bbZ_{\ge 0}$.
+\item Let $N_2 \subset (-\infty,0)$ be a countable set. Construct a subset $Z_2 \subseteq \bbZ_{< 0}$ and a bijection $\phi_2 : N_2 \to \bbZ_{< 0}$.
+\item Conclude that for any countable set $N \subset \bbR$ there exists a $Z \subseteq \bbZ$ and a bijection $\phi : N \to Z$. 
+\item Prove that this bijection is measurable.
+\item Now let $Y : \Omega \to \bbZ$ be defined as $Y(\omega) = \phi(X(\omega))$. Show that $Y$ is a discrete random variable and that its cdf completely determines the cdf of $X$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:discrete_rv_has_pmf}
+Prove Lemma~\ref{lem:existence_pmf}
+\end{problem}
+
+\begin{problem}\label{prb:no_pdf}
+In this exercise we will see that not all random variables have probability density functions. We start with a very simple case.
+\begin{enumerate}[label=(\alph*)]
+\item Let $X : \Omega \to \bbZ$ be a discrete random variable. Prove that $X$ does not have a pdf.
+\end{enumerate}
+
+You might be inclined to think that the problem with existence of pdfs lies with the discrete nature. Suppose the following two properties are satisfied:
+\begin{enumerate}
+\item There exists a uncountable set $C \subset [0,1]$ that has Lebesgue measure zero,
+\item There exists a function continuous increasing function $F: [0,1] \to [0,1]$ that is constant outside $C$, $f(c) = 0$ for all $c \in C$, $F(0) = 0$ and $F(1) = 1$.
+\end{enumerate}
+
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{1}
+\item Let $X : \Omega \to [0,1]$ be a random variable with cdf given by the function $F$ described above. Show that $X$ does not have a pdf.
+\end{enumerate}
+
+The setting we described above does occur and is a classical example for a continuous random variable in $\bbR$ that does not have a pdf. The set $C$ is called the Cantor set and the function $F$ is constructed using the so-called the Cantor function. 
+
+Simple example of continuous stochastic objects without pdfs exist for higher dimensions, for example $\bbR^2$. And we will come back to this in a later chapter [REF].
 \end{problem}
 
 \begin{problem}\label{prb:expectation_continuous_random_variable}

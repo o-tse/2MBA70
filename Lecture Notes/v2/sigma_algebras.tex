@@ -185,6 +185,8 @@ Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\inf
 \end{enumerate}
 \end{definition}
 
+Any set function $\mu : \mathcal{C} \to [0,\infty]$ on a collection $\cC$ of subsets of some set $\Omega$ that satisfies the two properties in Definition~\ref{def:measure} is called a \emph{pre-measure}.
+
 A triple $(\Omega, \cF, \mu)$, consisting of a measurable space $(\Omega, \cF)$ and a measure $\mu$ on that space is called a \emph{measure space}. If the $\mu(\Omega) < \infty$ we say that $\mu$ is $\sigma$-finite and call the associated measure space a \emph{$\sigma$-finite measure space}. If $\mu(\Omega) = 1$ we call $\mu$ a \emph{probability measure} and the associated measure space a \emph{probability space}.
 
 Let us give some simple examples of measures.
@@ -225,15 +227,62 @@ is a measure called the \emph{discrete measure}. If the $a_i$ are such that $\su
 \end{enumerate}
 \end{example}
 
-However, there is a measure, not included above, that plays a fundamental role in measure theory and especially probability theory.
+It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure.
 
-\subsection{Null sets, complete measure spaces and the Lebesgue measure}
+\subsection{Construction of measures}
 
-It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure. More specifically, consider the Borel space $(\bbR^d, \cB_{\bbR^d})$. Then how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, the measure of any rectangle is simply its volume, which seems like a very natural property to ask for. In particular, we want the measure of the rectangle, say in $\bbR^2$, to be independent of where it is, i.e., we want the measure to be translational and rotational invariant.
+
+
+\begin{definition}[semi-Algebra]
+A family $\mathcal{S}$ of subsets of $\Omega$ is called a \emph{semi-algebra} if the following holds:
+\begin{enumerate}
+\item $\emptyset \in \mathcal{S}$;
+\item For any $A, B \in \mathcal{S}$ we have $A \cap B \in \mathcal{S}$;
+\item For any $A, B \in \mathcal{S}$, there exists a finite family of mutually disjoint sets $C_1, \dots, C_m \in \mathcal{S}$ such that $A \setminus B = \bigcup_{i = 1}^m C_i$.
+\end{enumerate}
+\end{definition}
+
+A simple example of a semi-algebra is the set of singletons $\mathcal{S} = \{\{\omega\} \in \Omega\} \cup \{\emptyset, \Omega\}$ for any finite set $\Omega$. A more important example in the case of $\bbR$ is the collection of right-closed intervals
+\begin{equation}\label{def:right_closed_intervals}
+	\mathcal{S} = \{(a,b] \, : \, a\le b, a, b \in \bbR\} \cup \{(a,\infty) \, : \, a \in \bbR\} \cup \{\bbR\},
+\end{equation}
+see Problem~\ref{prb:right_closed_intervals}. Finally, as the name might suggest, any \sigalg/ is also a semi-algebra (see Problem~\ref{prb:sigalg_is_semialg}).
+
+The utility of this somewhat seemingly abstract notion of a semi-algebra is that it serves as the starting point to construct measures. Let $\mu : \mathcal{S} \to [0,\infty]$ be a pre-measure on a semi-algebra $\mathcal{S}$, i.e it satisfies the two properties of a measure as given in Definition~\ref{def:measure} but $\mathcal{S}$ does not have to be a \sigalg/. Then it is possible to extended $\mu$ to a proper, and often unique, measure on the generated \sigalg/ $\sigma(\mathcal{S})$.
+
+\begin{theorem}[Carath\'{e}odory Extention Theorem]\label{thm:caratheodory}
+Let $\mathcal{S}$ be a semi-algebra on $\Omega$ and let $\mu : \mathcal{S} \to [0,\infty]$ be a pre-measure on $\mathcal{S}$. Then there exists a measure $\mu^\ast$ on $\sigma(\mathcal{S})$ that is an extension of $\mu$, i.e. $\mu^\ast|_\mathcal{S} = \mu$. Moreover, if $\mu$ is $\sigma$-finite the measure $\mu^\ast$ is unique.
+\end{theorem}
+
+The proof of this theorem is outside the scope of this course and will not be covered in these lecture notes. The interested student can look at [REF Appendix] for the details.
+
+Theorem~\ref{thm:caratheodory} is powerful, as it allows us to create measures on the \sigalg/ $\sigma(\mathcal{S})$ by only describing a pre-measure on the semi-algebra $\mathcal{S}$ that generates it. This is especially useful if there is no direct description of the $\sigma(\mathcal{S})$. 
+
+To see it in action, let us revisit the product spaces, see Definition~\ref{def:product_sigalg}. Here we started with two measurable spaces $(\Omega_1, \cF_1)$ and $(\Omega_2, \cF_2)$ and turn them into a new space by taking a ``product". The question is now if we can do the same for two measure spaces $(\Omega_1, \cF_1, \mu_1)$ and $(\Omega_2, \cF_2, \mu_2)$. The only thing we need to do is to define a measure on the product \sigalg/ $\cF_1 \otimes \cF_2$. Of course, we would like to have our product measure relate to measures $\mu_1$ and $\mu_2$. One natural case would be that $\mu_1 \otimes \mu_2 (A \times B) =\mu_1(A) \mu_2(B)$, for all $A \in \cF_1$ and $B \in \cF_2$. However, the sets $A \times B$ only make up the generator set of $\cF_1 \otimes \cF_2$. 
+
+The following theorem states that such a measure does exist, and is unique. It does require one small condition on the individual measure spaces. Recall that a measure space $(\Omega, \cF, \mu)$ is called $\sigma$-finite if there exist a growing sequence $(A_n)_{n \ge 1}$ of measurable sets such that $\bigcup_{n \ge 1} A_n = \Omega$ and $\mu(A_n) < \infty$ holds for all $n \ge 1$. 
+
+\begin{theorem}[Construction of product measure]\label{th:construction-product-measure}
+Let $(\Omega_i, \cF_i, \mu_i)$, for $i = 1, 2$,  be two $\sigma$-finite measure spaces. Let $\cF_1 \otimes \cF_2$ denote the product $\sigma$-algebra. Then there exists a unique measure $\mu_1 \otimes \mu_2$ on $(\Omega_1 \times \Omega_2, \cF_1 \otimes \cF_2)$ such that 
+\[
+	(\mu_1 \otimes \mu_2)(A \times B ) = \mu_1(A) \cdot \mu_2(B)
+\]
+for all $A \in \cF_1$ and $B \in \cF_2$.
+\end{theorem}
+
+\begin{proof}
+The idea is to use the
+\end{proof}
+
+We will see another application of Theorem~\ref{thm:caratheodory} later in Section [REF] for constructing random variables. However, its most crucial application is to construct a measure on the Borel sigma-algebra, which will be the key object for defining a new notion of integration.
+
+\subsection{The Lebesgue measure}
+
+The Borel space $(\bbR^d, \cB_{\bbR^d})$ plays a central role in the development of a new theory of integration. However, for this we need to first to turn it into a measure space. This requires us to define a measure on $\cB_{\bbR^d}$. But how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, the measure of any rectangle should be simply its volume, which seems like a very natural property to ask for. Moreover, it also seems natural to require that the measure of any rectangle is independent of where it is, i.e., we want the measure to be translational and rotational invariant.
 
 Fortunately, it turns out that such a measure does exist. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was the architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
 
-However, to formally state the theorem we need to introduce the concept of \emph{null sets} and \emph{complete measure spaces}.
+To formally state the theorem we need to introduce the concept of \emph{null sets} and \emph{complete measure spaces}.
 
 \begin{definition}[Null set and complete measure space]
 Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
@@ -243,7 +292,6 @@ We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $
 
 It is important to note that a null set does not have to be measurable, i.e., be in $\cF$. 
 
-\medskip
 
 Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \overline{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction as \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
 
@@ -262,17 +310,15 @@ There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique me
 \end{enumerate}
 \end{theorem}
 
-The proof of this theorem is involved and relies on a more abstract approach to constructing measures. The interested student is referred to the Appendix, where we provide the full details.  
+At its hearth, the proof of this theorem relies on the Carath\'{e}odory Extention Theorem (Theorem~\ref{thm:caratheodory}) applied to the set of right-closed intervals in $\bbR^d$ (see~\eqref{def:right_closed_intervals} for the one-dimensional setting). Some additional work is needed to make it complete and then check the four properties. The interested student is referred to the Appendix, where we provide the full details.  
 
-It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure formally defined on a larger \sigalg/ $\cL^d$ than the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
+It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure is formally defined on a larger \sigalg/ $\cL^d$ than the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
 
 \begin{remark}[Lebesgue vs Borel measurable]
 It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable (eg.\ subsets of the Cantor set).
 \end{remark}
 
-
-We end this section by looking at some important general properties of measures.
-
+Having established the most important measure for this course, we end this section by looking at some important general properties of measures.
 
 \subsection{Important properties}
 
@@ -393,7 +439,7 @@ The proof of this theorem is covered in the Appendix, as it is requires another 
 \section{Problems}
 
 \begin{problem}\label{prb:event_space_are_sigma_algebras}
-Recal that an \emph{event space} is a collection $\cF$ of subsets of $\Omega$ such that
+Recall that an \emph{event space} is a collection $\cF$ of subsets of $\Omega$ such that
 \begin{enumerate}
 \item $\cF$ is non-empty;
 \item If $A \in \cF$, then $A^c := \Omega \setminus A \in \cF$;
@@ -410,6 +456,8 @@ Prove Lemma~\ref{lem:sigma_algebra_closed_intersections}. [Hint: how are interse
 Prove the claims made in Example~\ref{example:sigma_algebras}.
 \end{problem}
 
+
+
 \begin{problem}\label{prb:converse_preimage_sigma_algebra}
 Provide a counter example to the statement: if $(\Omega, \cF)$ is a measurable space and $f : \Omega \to \Omega^\prime$. Then $f(\cF)$ is a \sigalg/ on $\Omega^\prime$.
 \end{problem}
@@ -418,20 +466,12 @@ Provide a counter example to the statement: if $(\Omega, \cF)$ is a measurable s
 Prove Lemma~\ref{lem:inclusion_sigalgs}.
 \end{problem}
 
-\begin{problem}\label{prb:strongly_additive}
-Prove the \emph{strongly additive} property of Proposition~\ref{prop:basic_properties_measures}. [Hint: write $A \cup B$ as the union of three disjoint sets.]
-\end{problem}
-
-\begin{problem}\label{prb:sigma_subadditive}
-Prove Lemma~\ref{lem:sigma_subadditive}. [Hint: Construct a new family of sets and use properties $\sigma$-additive and monotone] 
-\end{problem}
-
 \begin{problem}\label{prb:proof_continuity_above}
 Prove Proposition~\ref{prop:continuity_measure_above}. [Hint: The proof is very similar to that of Proposition~\ref{prop:continuity_measure_below}.]
 \end{problem}
 
 \begin{problem}\label{prb:borel_sigalg_1d}
-The goal of this problem is to prove Proposition~\ref{prop:characterization_borel_sigalg_1d}. We will do this in several stages. First we will show point 1, that the Borel \sigalg/ $\cB_\bbR$ is generated by eitherh the family $\cA_1 := \{(a, b), a,b \in \bbQ\}$ or $\cA_1^\prime := \{(a, b), a,b \in \bbR\}$.
+The goal of this problem is to prove Proposition~\ref{prop:characterization_borel_sigalg_1d}. We will do this in several stages. First we will show point 1, that the Borel \sigalg/ $\cB_\bbR$ is generated by either the family $\cA_1 := \{(a, b), a,b \in \bbQ\}$ or $\cA_1^\prime := \{(a, b), a,b \in \bbR\}$.
 
 \begin{enumerate}
 \item Prove that $\sigma(\cA_1) \subset \sigma(\cA_1^\prime) \subset \cB_\bbR$. [Hint: what is the relation between an interval $(a,b)$ and an open set?]
@@ -443,7 +483,7 @@ The goal of this problem is to prove Proposition~\ref{prop:characterization_bore
 \item Prove that $\cB_\bbR = \sigma(\cA_1^\prime)$.
 \end{enumerate}
 
-We now move to the other family of sets. By symmetry of 2 and 3 it suffices to prove only 2, the other proof will be almost identical.
+We now move to the other family of sets. By symmetry of the families in 2 and 3 it suffices to prove only 2, the other proof will be almost identical.
 \begin{enumerate}
 \setcounter{enumi}{4}
 \item Show that for any $a < b \in \bbR$
@@ -465,6 +505,18 @@ This basically covers the full set of ideas to prove the rest of Proposition~\re
 \end{enumerate}
 \end{problem}
 
+\begin{problem}\label{prb:right_closed_intervals}
+Prove that the collection of right-closed intervals:
+\[
+	\mathcal{S} = \{(a,b] \, : \, a\le b, a, b \in \bbR\} \cup \{(a,\infty) \, : \, a \in \bbR\} \cup \{\bbR\}
+\]
+is a semi-algebra.
+\end{problem}
+
+\begin{problem}\label{prb:sigalg_is_semialg}
+Prove that any \sigalg/ is a semi-algebra.
+\end{problem}
+
 \begin{problem}\label{prb:completion_measure_space}
 The goal of this problem is to complete a given measure space. To this end, let $(\Omega, \cF, \mu)$ be a measure space. Let $\cN$ be the family of null sets of $\mu$ and define the family of sets $\overline{\cF}$ as
 \[
@@ -484,6 +536,18 @@ Define the set function $\bar{\mu} : \overline{\cF} \to [0,\infty]$ as
 \item Conclude that $(\Omega, \overline{\cF}, \bar{\mu})$ is a complete measure space.
 \end{enumerate}
 \end{problem}
+
+\begin{problem}\label{prb:strongly_additive}
+Prove the \emph{strongly additive} property of Proposition~\ref{prop:basic_properties_measures}. [Hint: write $A \cup B$ as the union of three disjoint sets.]
+\end{problem}
+
+\begin{problem}\label{prb:sigma_subadditive}
+Prove Lemma~\ref{lem:sigma_subadditive}. [Hint: Construct a new family of sets and use properties $\sigma$-additive and monotone] 
+\end{problem}
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %												Clippings																	%

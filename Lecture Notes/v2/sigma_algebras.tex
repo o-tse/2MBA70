@@ -187,7 +187,11 @@ Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\inf
 
 Any set function $\mu : \mathcal{C} \to [0,\infty]$ on a collection $\cC$ of subsets of some set $\Omega$ that satisfies the two properties in Definition~\ref{def:measure} is called a \emph{pre-measure}.
 
-A triple $(\Omega, \cF, \mu)$, consisting of a measurable space $(\Omega, \cF)$ and a measure $\mu$ on that space is called a \emph{measure space}. If the $\mu(\Omega) < \infty$ we say that $\mu$ is $\sigma$-finite and call the associated measure space a \emph{$\sigma$-finite measure space}. If $\mu(\Omega) = 1$ we call $\mu$ a \emph{probability measure} and the associated measure space a \emph{probability space}.
+A triple $(\Omega, \cF, \mu)$, consisting of a measurable space $(\Omega, \cF)$ and a measure $\mu$ on that space is called a \emph{measure space}. We will often work with measure spaces that have an addition property.
+
+\begin{definition}[$\sigma$-finite measure space]\label{def:sigma-finite}
+A measure space $(\Omega, \cF, \mu)$ is called \emph{$\sigma$-finite} if there exists a family $(A_i)_{i \ge 1}$ of measurable sets such that $\mu(A_i) < \infty$ for all $i \ge 1$ and $\bigcup_{i \ge 1} A_i = \Omega$.
+\end{definition}
 
 Let us give some simple examples of measures.
 
@@ -229,97 +233,6 @@ is a measure called the \emph{discrete measure}. If the $a_i$ are such that $\su
 
 It should be noted that, outside maybe the discrete measure, the examples listed above do not include any interesting measure.
 
-\subsection{Construction of measures}
-
-
-
-\begin{definition}[semi-Algebra]
-A family $\mathcal{S}$ of subsets of $\Omega$ is called a \emph{semi-algebra} if the following holds:
-\begin{enumerate}
-\item $\emptyset \in \mathcal{S}$;
-\item For any $A, B \in \mathcal{S}$ we have $A \cap B \in \mathcal{S}$;
-\item For any $A, B \in \mathcal{S}$, there exists a finite family of mutually disjoint sets $C_1, \dots, C_m \in \mathcal{S}$ such that $A \setminus B = \bigcup_{i = 1}^m C_i$.
-\end{enumerate}
-\end{definition}
-
-A simple example of a semi-algebra is the set of singletons $\mathcal{S} = \{\{\omega\} \in \Omega\} \cup \{\emptyset, \Omega\}$ for any finite set $\Omega$. A more important example in the case of $\bbR$ is the collection of right-closed intervals
-\begin{equation}\label{def:right_closed_intervals}
-	\mathcal{S} = \{(a,b] \, : \, a\le b, a, b \in \bbR\} \cup \{(a,\infty) \, : \, a \in \bbR\} \cup \{\bbR\},
-\end{equation}
-see Problem~\ref{prb:right_closed_intervals}. Finally, as the name might suggest, any \sigalg/ is also a semi-algebra (see Problem~\ref{prb:sigalg_is_semialg}).
-
-The utility of this somewhat seemingly abstract notion of a semi-algebra is that it serves as the starting point to construct measures. Let $\mu : \mathcal{S} \to [0,\infty]$ be a pre-measure on a semi-algebra $\mathcal{S}$, i.e it satisfies the two properties of a measure as given in Definition~\ref{def:measure} but $\mathcal{S}$ does not have to be a \sigalg/. Then it is possible to extended $\mu$ to a proper, and often unique, measure on the generated \sigalg/ $\sigma(\mathcal{S})$.
-
-\begin{theorem}[Carath\'{e}odory Extention Theorem]\label{thm:caratheodory}
-Let $\mathcal{S}$ be a semi-algebra on $\Omega$ and let $\mu : \mathcal{S} \to [0,\infty]$ be a pre-measure on $\mathcal{S}$. Then there exists a measure $\mu^\ast$ on $\sigma(\mathcal{S})$ that is an extension of $\mu$, i.e. $\mu^\ast|_\mathcal{S} = \mu$. Moreover, if $\mu$ is $\sigma$-finite the measure $\mu^\ast$ is unique.
-\end{theorem}
-
-The proof of this theorem is outside the scope of this course and will not be covered in these lecture notes. The interested student can look at [REF Appendix] for the details.
-
-Theorem~\ref{thm:caratheodory} is powerful, as it allows us to create measures on the \sigalg/ $\sigma(\mathcal{S})$ by only describing a pre-measure on the semi-algebra $\mathcal{S}$ that generates it. This is especially useful if there is no direct description of the $\sigma(\mathcal{S})$. 
-
-To see it in action, let us revisit the product spaces, see Definition~\ref{def:product_sigalg}. Here we started with two measurable spaces $(\Omega_1, \cF_1)$ and $(\Omega_2, \cF_2)$ and turn them into a new space by taking a ``product". The question is now if we can do the same for two measure spaces $(\Omega_1, \cF_1, \mu_1)$ and $(\Omega_2, \cF_2, \mu_2)$. The only thing we need to do is to define a measure on the product \sigalg/ $\cF_1 \otimes \cF_2$. Of course, we would like to have our product measure relate to measures $\mu_1$ and $\mu_2$. One natural case would be that $\mu_1 \otimes \mu_2 (A \times B) =\mu_1(A) \mu_2(B)$, for all $A \in \cF_1$ and $B \in \cF_2$. However, the sets $A \times B$ only make up the generator set of $\cF_1 \otimes \cF_2$. 
-
-The following theorem states that such a measure does exist, and is unique. It does require one small condition on the individual measure spaces. Recall that a measure space $(\Omega, \cF, \mu)$ is called $\sigma$-finite if there exist a growing sequence $(A_n)_{n \ge 1}$ of measurable sets such that $\bigcup_{n \ge 1} A_n = \Omega$ and $\mu(A_n) < \infty$ holds for all $n \ge 1$. 
-
-\begin{theorem}[Construction of product measure]\label{th:construction-product-measure}
-Let $(\Omega_i, \cF_i, \mu_i)$, for $i = 1, 2$,  be two $\sigma$-finite measure spaces. Let $\cF_1 \otimes \cF_2$ denote the product $\sigma$-algebra. Then there exists a unique measure $\mu_1 \otimes \mu_2$ on $(\Omega_1 \times \Omega_2, \cF_1 \otimes \cF_2)$ such that 
-\[
-	(\mu_1 \otimes \mu_2)(A \times B ) = \mu_1(A) \cdot \mu_2(B)
-\]
-for all $A \in \cF_1$ and $B \in \cF_2$.
-\end{theorem}
-
-\begin{proof}
-The idea is to use the
-\end{proof}
-
-We will see another application of Theorem~\ref{thm:caratheodory} later in Section [REF] for constructing random variables. However, its most crucial application is to construct a measure on the Borel sigma-algebra, which will be the key object for defining a new notion of integration.
-
-\subsection{The Lebesgue measure}
-
-The Borel space $(\bbR^d, \cB_{\bbR^d})$ plays a central role in the development of a new theory of integration. However, for this we need to first to turn it into a measure space. This requires us to define a measure on $\cB_{\bbR^d}$. But how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, the measure of any rectangle should be simply its volume, which seems like a very natural property to ask for. Moreover, it also seems natural to require that the measure of any rectangle is independent of where it is, i.e., we want the measure to be translational and rotational invariant.
-
-Fortunately, it turns out that such a measure does exist. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was the architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
-
-To formally state the theorem we need to introduce the concept of \emph{null sets} and \emph{complete measure spaces}.
-
-\begin{definition}[Null set and complete measure space]
-Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
-
-We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
-\end{definition}
-
-It is important to note that a null set does not have to be measurable, i.e., be in $\cF$. 
-
-
-Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \overline{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction as \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
-
-We can now state the main result that proves the existence of the Lebesgue measure and its important properties. 
-
-\begin{theorem}[Lebesgue measure]\label{thm:lebesgue_measure}
-There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique measure $\lambda$ such that $(\bbR^d, \cL^d, \lambda)$ is complete and satisfies the following properties for any $B \in \cB_{\bbR^d}$:
-\begin{enumerate}
-\item For any half-open rectangle $I := [a_1, b_1) \times \dots \times [a_d, b_d)$ it holds that 
-	\[
-		\lambda(I) = \prod_{i = 1}^d (b_i-a_i);
-	\]
-\item For any $x \in \bbR^d$, $\lambda(B+x) = \lambda(B)$, where $B + x = \{y+x \, : \, y \in B\}$;
-\item For any combination of translation, rotation and reflection $R$, $\lambda(R^{-1}(B)) = \lambda(B)$;
-\item For any invertible matrix $M \in \bbR^{d \times d}$, $\lambda(M^{-1}(B)) = |\mathrm{det} M|^{-1} \lambda(B)$.
-\end{enumerate}
-\end{theorem}
-
-At its hearth, the proof of this theorem relies on the Carath\'{e}odory Extention Theorem (Theorem~\ref{thm:caratheodory}) applied to the set of right-closed intervals in $\bbR^d$ (see~\eqref{def:right_closed_intervals} for the one-dimensional setting). Some additional work is needed to make it complete and then check the four properties. The interested student is referred to the Appendix, where we provide the full details.  
-
-It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure is formally defined on a larger \sigalg/ $\cL^d$ than the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
-
-\begin{remark}[Lebesgue vs Borel measurable]
-It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable (eg.\ subsets of the Cantor set).
-\end{remark}
-
-Having established the most important measure for this course, we end this section by looking at some important general properties of measures.
-
 \subsection{Important properties}
 
 Although the number of properties a measure needs to satisfy is very limited, they actually imply a great number of other important properties. We will start with the basic ones, which relate the measure of a set that is obtained from a given set operation on two sets $A, B$ to the measure of these sets.
@@ -360,41 +273,75 @@ and the measure $\mu$ is said to be \emph{$\sigma$-subadditive}.
 See Problem~\ref{prb:sigma_subadditive}
 \end{proof}
 
-In addition to properties relating a measure $\mu$ to set operations, we also want to understand what happens if we take a limit of the measures of an infinite family of sets. Let $(A_i)_{i \in \bbN}$ be a family of measurable sets. We say this family is \emph{increasing} if $A_i \subset A_{i+1}$ holds for all $i \in \bbN$. Because a measure is monotone it follows that the sequence $(\mu(A_i))_{i \in \bbN}$ is a monotone sequence in $[0,\infty]$. So a natural question would be: what is the limit of this sequence? It turns out that this can be expressed as the measure of the union of all sets.
+In addition to properties relating a measure $\mu$ to set operations, we also want to understand what happens if we take a limit of the measures of an infinite family of sets. Let $(A_i)_{i \in \bbN}$ be a family of measurable sets. We say this family is \emph{increasing} if $A_i \subset A_{i+1}$ holds for all $i \in \bbN$. Because a measure is monotone it follows that the sequence $(\mu(A_i))_{i \in \bbN}$ is a monotone sequence in $[0,\infty]$. So a natural question would be: what is the limit of this sequence? A similar question can be asked about a \emph{decreasing} sequence, i.e. $A_{i+1} \subseteq A_i$. It turns out that in both cases, the limit can be expressed as the measure of the union or intersection of all sets, respectively.
 
-\begin{proposition}[Continuity from below]\label{prop:continuity_measure_below}
-Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an increasing family of measurable sets. Then
+\begin{proposition}[Continuity of measures]\label{prop:continuity_measure}
+Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an family of measurable sets. 
+
+\begin{enumerate}
+\item If $(A_i)_{i \in \bbN}$ is an increasing family then
 \[
 	\lim_{i \to \infty} \mu(A_i) = \mu\left(\bigcup_{i \in \bbN} A_i\right).
 \]
-\end{proposition}
-
-\begin{proof}
-Define the sets $E_1 = A_1$ and $E_i = A_{i+1}\setminus A_i$, for all $i \ge 2$. Then $(E_i)_{i \in \bbN}$ is a family of mutually disjoint measurable sets with the following properties:
-\[
-	A = \bigcup_{i = 1}^\infty E_i \quad \text{and} \quad A_k = \bigcup_{i = 1}^k E_i.
-\]
-Therefore, using $\sigma$-additivity we get
-\[
-	\mu(A) = \sum_{i = 1}^\infty \mu(E_i) = \lim_{k \to \infty} \sum_{i = 1}^k \mu(E_k)
-	= \lim_{k \to \infty} \mu(\bigcup_{i = 1}^k E_i) = \lim_{k \to \infty} \mu(A_k).\qedhere
-\]
-\end{proof}
-
-A similar property holds for any \emph{decreasing} family of sets. That is, a family $(A_i)_{i \in \bbN}$ of measurable sets such that $A_i \supset A_{i+1}$ holds for all $i \in \bbN$. Here we do have to make an assumption on the measure of the biggest set $A_1$.
-
-\begin{proposition}[Continuity from above]\label{prop:continuity_measure_above}
-Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an decreasing family of measurable sets such that $\mu(A_1) < \infty$. Then
+\item If $(A_i)_{i \in \bbN}$ is an decreasing family and $\mu(A_1) < \infty$, then
 \[
 	\lim_{i \to \infty} \mu(A_i) = \mu\left(\bigcap_{i \in \bbN} A_i\right).
 \]
+\end{enumerate}
 \end{proposition}
+
+The first property in Proposition~\ref{prop:continuity_measure} is called \emph{continuity from below}, while the second one is called \emph{continuity from above}.
 
 \begin{proof}
 See Problem~\ref{prb:proof_continuity_above}.
 \end{proof}
+%
+%\begin{proposition}[Continuity from below]\label{prop:continuity_measure_below}
+%Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an increasing family of measurable sets. Then
+%\[
+%	\lim_{i \to \infty} \mu(A_i) = \mu\left(\bigcup_{i \in \bbN} A_i\right).
+%\]
+%\end{proposition}
+%
+%\begin{proof}
+%Define the sets $E_1 = A_1$ and $E_i = A_{i+1}\setminus A_i$, for all $i \ge 2$. Then $(E_i)_{i \in \bbN}$ is a family of mutually disjoint measurable sets with the following properties:
+%\[
+%	A = \bigcup_{i = 1}^\infty E_i \quad \text{and} \quad A_k = \bigcup_{i = 1}^k E_i.
+%\]
+%Therefore, using $\sigma$-additivity we get
+%\[
+%	\mu(A) = \sum_{i = 1}^\infty \mu(E_i) = \lim_{k \to \infty} \sum_{i = 1}^k \mu(E_k)
+%	= \lim_{k \to \infty} \mu(\bigcup_{i = 1}^k E_i) = \lim_{k \to \infty} \mu(A_k).\qedhere
+%\]
+%\end{proof}
+%
+%A similar property holds for any \emph{decreasing} family of sets. That is, a family $(A_i)_{i \in \bbN}$ of measurable sets such that $A_i \supset A_{i+1}$ holds for all $i \in \bbN$. Here we do have to make an assumption on the measure of the biggest set $A_1$.
+%
+%\begin{proposition}[Continuity from above]\label{prop:continuity_measure_above}
+%Let $(\Omega, \cF, \mu)$ be a measure space and let $(A_i)_{i \in \bbN}$ be an decreasing family of measurable sets such that $\mu(A_1) < \infty$. Then
+%\[
+%	\lim_{i \to \infty} \mu(A_i) = \mu\left(\bigcap_{i \in \bbN} A_i\right).
+%\]
+%\end{proposition}
+%
+%\begin{proof}
+%See Problem~\ref{prb:proof_continuity_above}.
+%\end{proof}
 
-In addition to being useful in determining the limits of the measure of families of sets, these continuity properties are actually powerful enough to characterize a measure. 
+These continuity properties are actually powerful enough to characterize a measure. Below we provide one such alternative characterization. We refer to problem [??] for more versions. 
+
+%\begin{theorem}[Alternative definition of a measure]
+%Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\infty]$ is a measure if, and only if,
+%\begin{enumerate}
+%\item $\mu(\emptyset) = 0$,
+%\item $\mu(A \cup B) = \mu(A) + \mu(B)$, for any two disjoint sets $A, B \in \cF$, and
+%\item for any increasing family $(A_i)_{i \in \bbN}$ of measurable sets such it holds that
+%\[
+%	\lim_{i \to \infty} \mu(A_i) = \mu\left(\bigcup_{i \in \bbN} A_i\right).
+%\]
+%\end{enumerate}
+%\end{theorem}
+
 
 \begin{theorem}[Alternative definition of a measure]
 Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\infty]$ is a measure if, and only if,
@@ -409,7 +356,7 @@ Let $(\Omega, \cF)$ be a measurable space. A set function $\mu : \cF \to [0,\inf
 \end{theorem}
 
 \begin{proof}
-The fact that any measure satisfies these three properties follows from the definition and Propositions~\ref{prop:basic_properties_measures} and~\ref{prop:continuity_measure_below}. So let us now assume that we have a set function $\mu$ that satisfies the three properties listed above. Then to show that $\mu$ is a measure we only have to prove that it is $\sigma$-additive.
+The fact that any measure satisfies these three properties follows from the definition and Propositions~\ref{prop:basic_properties_measures} and~\ref{prop:continuity_measure}. So let us now assume that we have a set function $\mu$ that satisfies the three properties listed above. Then to show that $\mu$ is a measure we only have to prove that it is $\sigma$-additive.
 
 To this end, let $(A_i)_{i \in \bbN}$ be a family of pairwise disjoint measurable sets. Now define $B_k = \bigcup_{i = 1}^k A_i$ and note that $B_k \in \cF$ for all $k \in \bbN$ and
 \[
@@ -433,6 +380,101 @@ Then any two measure $\mu_1$ and $\mu_2$ that are equal on $\cA$ and are finite 
 \end{theorem}
 
 The proof of this theorem is covered in the Appendix, as it is requires another more technical result. What is important is the implication of Theorem~\ref{thm:uniqueness_measures}: to study a measure on $\sigma(\cA)$ it suffices to look at what it does on the generator $\cA$.
+
+
+\subsection{Construction of measures}
+
+
+
+\begin{definition}[semi-Algebra]
+A family $\mathcal{S}$ of subsets of $\Omega$ is called a \emph{semi-algebra} if the following holds:
+\begin{enumerate}
+\item $\emptyset \in \mathcal{S}$;
+\item For any $A, B \in \mathcal{S}$ we have $A \cap B \in \mathcal{S}$;
+\item For any $A, B \in \mathcal{S}$, there exists a finite family of mutually disjoint sets $C_1, \dots, C_m \in \mathcal{S}$ such that $A \setminus B = \bigcup_{i = 1}^m C_i$.
+\end{enumerate}
+\end{definition}
+
+A simple example of a semi-algebra is the set of singletons $\mathcal{S} = \{\{\omega\} \in \Omega\} \cup \{\emptyset, \Omega\}$ for any finite set $\Omega$. A more important example in the case of $\bbR$ is the collection of right-closed intervals
+\begin{equation}\label{def:right_closed_intervals}
+	\mathcal{S} = \{(a,b] \, : \, a\le b, a, b \in \bbR\} \cup \{(a,\infty) \, : \, a \in \bbR\} \cup \{\bbR\},
+\end{equation}
+see Problem~\ref{prb:right_closed_intervals}. Finally, as the name might suggest, any \sigalg/ is also a semi-algebra (see Problem~\ref{prb:sigalg_is_semialg}).
+
+The utility of this somewhat seemingly abstract notion of a semi-algebra is that it serves as the starting point to construct measures. Let $\mu : \mathcal{S} \to [0,\infty]$ be a pre-measure on a semi-algebra $\mathcal{S}$, i.e it satisfies the two properties of a measure as given in Definition~\ref{def:measure} but $\mathcal{S}$ does not have to be a \sigalg/. Then it is possible to extended $\mu$ to a proper, and often unique, measure on the generated \sigalg/ $\sigma(\mathcal{S})$.
+
+In addition to this, the measure will be defined on a slightly larger \sigalg/ that has some nice properties. To formally state this we need to introduce the concept of \emph{null sets} and \emph{complete measure spaces}.
+
+\begin{definition}[Null set and complete measure space]
+Let $(\Omega, \cF, \mu)$ be a measure space. A set $N \subset \Omega$ is called a \emph{null set} if there exists a $A \in \cF$ such that $N \subset A$ and $\mu(A) = 0$.
+
+We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $N \in \cF$. 
+\end{definition}
+
+It is important to note that a null set does not have to be measurable, i.e., be in $\cF$. 
+
+Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \overline{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction as \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
+
+With this setup we can not state the main result that allows us to extend pre-measures to complete measures.
+
+\begin{theorem}[Carath\'{e}odory Extention Theorem]\label{thm:caratheodory}
+Let $\mathcal{S}$ be a semi-algebra on $\Omega$ and let $\mu : \mathcal{S} \to [0,\infty]$ be a pre-measure on $\mathcal{S}$. Then there exists a measure $\mu^\ast$ on $\overline{\sigma(\mathcal{S})}$ (the completed version of $\sigma(\mathcal{S})$) that is an extension of $\mu$, i.e. $\mu^\ast|_\mathcal{S} = \mu$. Moreover, if $\mu$ is $\sigma$-finite the measure $\mu^\ast$ is unique.
+\end{theorem}
+
+The proof of this theorem is outside the scope of this course and will not be covered in these lecture notes. The interested student can look at [REF Appendix] for the details.
+
+Theorem~\ref{thm:caratheodory} is powerful, as it allows us to create measures on the \sigalg/ $\sigma(\mathcal{S})$ by only describing a pre-measure on the semi-algebra $\mathcal{S}$ that generates it. This is especially useful if there is no direct description of the $\sigma(\mathcal{S})$. 
+
+%To see it in action, let us revisit the product spaces, see Definition~\ref{def:product_sigalg}. Here we started with two measurable spaces $(\Omega_1, \cF_1)$ and $(\Omega_2, \cF_2)$ and turn them into a new space by taking a ``product". The question is now if we can do the same for two measure spaces $(\Omega_1, \cF_1, \mu_1)$ and $(\Omega_2, \cF_2, \mu_2)$. The only thing we need to do is to define a measure on the product \sigalg/ $\cF_1 \otimes \cF_2$. Of course, we would like to have our product measure relate to measures $\mu_1$ and $\mu_2$. One natural case would be that $\mu_1 \otimes \mu_2 (A \times B) =\mu_1(A) \mu_2(B)$, for all $A \in \cF_1$ and $B \in \cF_2$. However, the sets $A \times B$ only make up the generator set of $\cF_1 \otimes \cF_2$. 
+%
+%The following theorem states that such a measure does exist, and is unique. It does require one small condition on the individual measure spaces. Recall that a measure space $(\Omega, \cF, \mu)$ is called $\sigma$-finite if there exist a growing sequence $(A_n)_{n \ge 1}$ of measurable sets such that $\bigcup_{n \ge 1} A_n = \Omega$ and $\mu(A_n) < \infty$ holds for all $n \ge 1$. 
+%
+%\begin{theorem}[Construction of product measure]\label{th:construction-product-measure}
+%Let $(\Omega_i, \cF_i, \mu_i)$, for $i = 1, 2$,  be two $\sigma$-finite measure spaces. Let $\cF_1 \otimes \cF_2$ denote the product $\sigma$-algebra. Then there exists a unique measure $\mu_1 \otimes \mu_2$ on $(\Omega_1 \times \Omega_2, \cF_1 \otimes \cF_2)$ such that 
+%\[
+%	(\mu_1 \otimes \mu_2)(A \times B ) = \mu_1(A) \cdot \mu_2(B)
+%\]
+%for all $A \in \cF_1$ and $B \in \cF_2$.
+%\end{theorem}
+%
+%\begin{proof}
+%The idea is to use the
+%\end{proof}
+
+We will an application of Theorem~\ref{thm:caratheodory} later in Section [REF] for constructing random variables and in Section~\ref{se:product-measures} for constructing products of measure spaces. However, its most crucial application is to construct a measure on the Borel sigma-algebra, which will be the key object for defining a new notion of integration.
+
+\subsection{The Lebesgue measure}
+
+The Borel space $(\bbR^d, \cB_{\bbR^d})$ plays a central role in the development of a new theory of integration. However, for this we need to first to turn it into a measure space. This requires us to define a measure on $\cB_{\bbR^d}$. But how can we construct a non-trivial measure on this space? The problem is that the Borel \sigalg/ is only defined in terms of its generator. Hence if we want to define what $\mu(A)$ is for any $A \in \cB_{\bbR^d}$ we first have to get a better handle on the full \sigalg/. That might seem daunting, and it really is. The problem becomes even more challenging when we want the measure on $(\bbR^d, \cB_{\bbR^d})$ to have additional properties. For example, the measure of any rectangle should be simply its volume, which seems like a very natural property to ask for. Moreover, it also seems natural to require that the measure of any rectangle is independent of where it is, i.e., we want the measure to be translational and rotational invariant.
+
+Fortunately, it turns out that such a measure does exist. This fundamental measure is called the \emph{Lebesgue measure}, named after the French mathematician Henri Lebesgue who was the architect of the modern notion of integration we will cover in this course. Moreover, in addition to the measure of any rectangle being equal to its volume, the Lebesgue measure has several other strong features. 
+
+
+We can now state the main result that proves the existence of the Lebesgue measure and its important properties. 
+
+\begin{theorem}[Lebesgue measure]\label{thm:lebesgue_measure}
+There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique measure $\lambda$ such that $(\bbR^d, \cL^d, \lambda)$ is complete and satisfies the following properties for any $B \in \cB_{\bbR^d}$:
+\begin{enumerate}
+\item For any half-open rectangle $I := [a_1, b_1) \times \dots \times [a_d, b_d)$ it holds that 
+	\[
+		\lambda(I) = \prod_{i = 1}^d (b_i-a_i);
+	\]
+\item For any $x \in \bbR^d$, $\lambda(B+x) = \lambda(B)$, where $B + x = \{y+x \, : \, y \in B\}$;
+\item For any combination of translation, rotation and reflection $R$, $\lambda(R^{-1}(B)) = \lambda(B)$;
+\item For any invertible matrix $M \in \bbR^{d \times d}$, $\lambda(M^{-1}(B)) = |\mathrm{det} M|^{-1} \lambda(B)$.
+\end{enumerate}
+\end{theorem}
+
+At its hearth, the proof of this theorem relies on the Carath\'{e}odory Extention Theorem (Theorem~\ref{thm:caratheodory}) applied to the set of right-closed intervals in $\bbR^d$ (see~\eqref{def:right_closed_intervals} for the one-dimensional setting). Some additional work is needed to make it complete and then check the four properties. The interested student is referred to the Appendix, where we provide the full details.  
+
+It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure is formally defined on a larger \sigalg/ $\cL^d$ than the Borel \sigalg/. This \sigalg/ is called the \emph{Lebesgue \sigalg/} and functions that are $\cL^d$-measurable are called \emph{Lebesgue measurable}. The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\lambda$ to the Borel \sigalg/. 
+
+\begin{remark}[Lebesgue vs Borel measurable]
+It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable (eg.\ subsets of the Cantor set).
+\end{remark}
+
+Having established the most important measure for this course, we end this section by looking at some important general properties of measures.
+
 
 
 

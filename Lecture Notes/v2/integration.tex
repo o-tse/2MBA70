@@ -13,7 +13,7 @@ for some positive integer $N \in \bbN$, disjoint measurable sets $A_1, \ldots, A
 Sometimes, the definition of a simple function will not require the sets to be disjoint. When this is the case, it is referred to as a \emph{standard representation} of a simple functions. But this distinction does not matter.
 
 \begin{lemma}\label{lem:simple_function}
-Let $f: \Omega \to \bbR$ be a measurable function that attains only finitely many values, i.e. $f(\Omega) = \{a_1, \dots, a_m\}$ with $m < \infty$. Then there exist a finite collection of measurable set $A_1, \dots, A_m$ such that 
+Let $f: \Omega \to \bbR$ be a measurable function that attains only finitely many values, i.e. $f(\Omega) = \{a_1, \dots, a_m\}$ with $m < \infty$. Then there exist a finite collection of measurable and mutually disjoint sets $A_1, \dots, A_m$ such that 
 \[
 	f = \sum_{i = 1}^m a_i \mathbf{1}_{A_i}.
 \]
@@ -97,44 +97,45 @@ Moreover, the functions $f_n$ form a point-wise non-decreasing sequence and henc
 \end{proposition}
 
 \begin{proof}
-Fix $n \ge 1$, set $N_n = n 2^n$ and define the sets
-\[
-	A_k^n = \begin{cases}
-		\{ k 2^{-n} \le f < (k+1) 2^{-n}\} &\text{for } k = 0,1, \dots, N_n - 1,\\
-		\{ f \ge n\} &\text{for } k = N_n,
-	\end{cases}
-\]
-which are measurable due to Lemma~\ref{lem:measurable_set_real_line} and mutually disjoint.
-
-We then define the function
-\[
-	f_n = 2^n\mathbf{1}_{\{f=+\infty\}} + \sum_{k=0}^{N_n} k \, 2^{-n} \mathbf{1}_{A_k^n}.
-\]
-From this representation, we easily deduce that $f_n$ is measurable and simple for every $n \ge 1$. Also note that $f_n(\omega) = k 2^{-n} \iff \omega \in A_k^n \text{ and } f(\omega) < +\infty$. 
-
-The first observation we make is that $f_n(\omega) \le f(\omega)$ holds for all $n \ge 1$. Moreover, if $f(\omega) < n$ then $f(w) - f_n(\omega) \le 2^{-n}$. 
-
-We will now show that $f_n(\omega) \to f(\omega)$ holds for any $\omega \in \Omega$. Let us fix a $\omega \in \Omega$. Then if $f(\omega) = +\infty$ we get that $f_n(\omega) = 2^n$ holds for all $n \ge 1$ and hence $\lim_{n \to \infty} f_n(\omega) = +\infty = f(\omega)$. So assume that $f(\omega) < +\infty$. Then there exists an $M \in \bbN$ such that $f(\omega) < M$. Hence, for all $n \ge M$ we have that 
-\[
-	\|f_n(\omega) - f(\omega)\| = f(\omega) - f_n(\omega) \le 2^{-n},
-\]
-which implies that $\lim_{n \to \infty} f_n(\omega) = f(\omega)$.
-
-For the final part we need to show that for any $\omega \in \Omega$, $f_n(\omega) \le f_{n+1}(\omega)$ holds for all $n \ge 1$. So fix $n \ge 1$ and $\omega \in \Omega$. Clearly, if $f(\omega) = +\infty$ there is nothing to prove. So let's assume that $f(\omega) < +\infty$. Then $\omega \in A_k^n$ for some $0 \le k \le N_n = n 2^n$. 
-
-We will first consider the case that $k < n 2^n$, so that $k 2^{-n} \le f(\omega) < (k+1) 2^{-n}$ holds. Note that this  interval can be split into two intervals as follows:
-\[
-	[k 2^{-n}, (k+1) 2^{-n}) = [(2k) 2^{-(n+1)}, (2k +1)2^{-(n+1)}) \cup [(2k +1)2^{-(n+1)}, (2k + 2)2^{-(n+1)}).
-\] 
-Hence, we conclude that either $\omega \in A_{2k}^{n+1}$ or $\omega \in A_{2k+1}^{n+1}$. In both case we get that 
-\[
-	f_n(\omega) = k2^{-n} = 2k n^{-(n+1)} \le f_{n+1}(\omega).
-\]
-
-Now let us consider the case that $k = n 2^n$, so that $f(\omega) \ge n$. Then, if $f(\omega) \ge n + 1$ it follows that $f_n(\omega) = n < n + 1 = f_{n+1}(\omega)$. If, on the other hand, $n \le f(\omega) < n + 1$ there exists an $2n \, 2^n \le \ell \le (2n+2) \, 2^n$ such that $\omega \in A_\ell^{n+1}$, which then implies that 
-\[
-	f_n(\omega) = n = (2n 2^{n}) \, 2^{-(n+1)} \le f_{n+1}(\omega).
-\]
+See Problem~\ref{prb:approximation_simple}
+%Fix $n \ge 1$, set $N_n = n 2^n$ and define the sets
+%\[
+%	A_k^n = \begin{cases}
+%		\{ k 2^{-n} \le f < (k+1) 2^{-n}\} &\text{for } k = 0,1, \dots, N_n - 1,\\
+%		\{ f \ge n\} &\text{for } k = N_n,
+%	\end{cases}
+%\]
+%which are measurable due to Lemma~\ref{lem:measurable_set_real_line} and mutually disjoint.
+%
+%We then define the function
+%\[
+%	f_n = 2^n\mathbf{1}_{\{f=+\infty\}} + \sum_{k=0}^{N_n} k \, 2^{-n} \mathbf{1}_{A_k^n}.
+%\]
+%From this representation, we easily deduce that $f_n$ is measurable and simple for every $n \ge 1$. Also note that $f_n(\omega) = k 2^{-n} \iff \omega \in A_k^n \text{ and } f(\omega) < +\infty$. 
+%
+%The first observation we make is that $f_n(\omega) \le f(\omega)$ holds for all $n \ge 1$. Moreover, if $f(\omega) < n$ then $f(w) - f_n(\omega) \le 2^{-n}$. 
+%
+%We will now show that $f_n(\omega) \to f(\omega)$ holds for any $\omega \in \Omega$. Let us fix a $\omega \in \Omega$. Then if $f(\omega) = +\infty$ we get that $f_n(\omega) = 2^n$ holds for all $n \ge 1$ and hence $\lim_{n \to \infty} f_n(\omega) = +\infty = f(\omega)$. So assume that $f(\omega) < +\infty$. Then there exists an $M \in \bbN$ such that $f(\omega) < M$. Hence, for all $n \ge M$ we have that 
+%\[
+%	\|f_n(\omega) - f(\omega)\| = f(\omega) - f_n(\omega) \le 2^{-n},
+%\]
+%which implies that $\lim_{n \to \infty} f_n(\omega) = f(\omega)$.
+%
+%For the final part we need to show that for any $\omega \in \Omega$, $f_n(\omega) \le f_{n+1}(\omega)$ holds for all $n \ge 1$. So fix $n \ge 1$ and $\omega \in \Omega$. Clearly, if $f(\omega) = +\infty$ there is nothing to prove. So let's assume that $f(\omega) < +\infty$. Then $\omega \in A_k^n$ for some $0 \le k \le N_n = n 2^n$. 
+%
+%We will first consider the case that $k < n 2^n$, so that $k 2^{-n} \le f(\omega) < (k+1) 2^{-n}$ holds. Note that this  interval can be split into two intervals as follows:
+%\[
+%	[k 2^{-n}, (k+1) 2^{-n}) = [(2k) 2^{-(n+1)}, (2k +1)2^{-(n+1)}) \cup [(2k +1)2^{-(n+1)}, (2k + 2)2^{-(n+1)}).
+%\] 
+%Hence, we conclude that either $\omega \in A_{2k}^{n+1}$ or $\omega \in A_{2k+1}^{n+1}$. In both case we get that 
+%\[
+%	f_n(\omega) = k2^{-n} = 2k n^{-(n+1)} \le f_{n+1}(\omega).
+%\]
+%
+%Now let us consider the case that $k = n 2^n$, so that $f(\omega) \ge n$. Then, if $f(\omega) \ge n + 1$ it follows that $f_n(\omega) = n < n + 1 = f_{n+1}(\omega)$. If, on the other hand, $n \le f(\omega) < n + 1$ there exists an $2n \, 2^n \le \ell \le (2n+2) \, 2^n$ such that $\omega \in A_\ell^{n+1}$, which then implies that 
+%\[
+%	f_n(\omega) = n = (2n 2^{n}) \, 2^{-(n+1)} \le f_{n+1}(\omega).
+%\]
 \end{proof}
 
 We will often use the notation $[f]_n$ to denote the simple functions that approximate a given function $f$.
@@ -167,7 +168,7 @@ Similarly, if $f_A:(A, \cF_A) \to ([0,+\infty],\cB_{[0,+\infty]})$ is measurable
 The following lemma summarize some basic properties of the Lebesgue integral for non-negative functions.
 
 \begin{lemma}[Properties of the Lebesgue integral of non-negative functions]
-	\label{pr:properties-integral-nonneg}
+	\label{prop:properties-integral-nonneg}
 	Let $(\Omega, \cF, \mu)$ be a measure space, $f, g : \Omega \to \bbR_+$ two non-negative, measurable functions and $\alpha \geq 0$ be a constant. The the following holds:
 	\begin{enumerate}
 		\item (absolute continuity) If $B \in \cF$ satisfies $\mu(B) = 0$, then
@@ -184,6 +185,10 @@ The following lemma summarize some basic properties of the Lebesgue integral for
 		\]
 	\end{enumerate}
 \end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:properties-integral-nonneg}
+\end{proof}
 
 It should be noted that one key property seems to be missing from the above lemma, namely
 \[
@@ -361,7 +366,9 @@ As in the case for non-negative measurable functions, we have the following prop
 	\end{enumerate}
 \end{proposition}
 
-
+\begin{proof}
+See Problem~\ref{prb:lebesgue_integral_general}
+\end{proof}
 
 \section{Riemann vs Lebesgue integration}
 
@@ -474,25 +481,103 @@ The architecture of the above proof is prototypical for many statements concerni
 \section{Problems}
 
 \begin{problem}\label{prb:standard_representation_simple}
-
-
-\begin{proof}
-Define $A_i = \{f = a_i\}$, which are measurable due to Lemma~\ref{lem:measurable_set_real_line}. Moreover, these sets are mutually disjoint. Finally, since $f(x) = y_i \iff x \in A_i$ by definition, it follows that
+Here you will prove Lemma~\ref{lem:simple_function}.
+\begin{enumerate}[label=(\alph*)]
+\item Construct a collection of sets $A_1,\dots, A_m$ such that $\omega \in A_i \iff f(\omega) = a_i$.
+\item Prove that these are measurable and mutually disjoint sets.
+\item Conclude that
 \[
 	f = \sum_{i = 1}^m a_i \mathbf{1}_{A_i}.
 \]
-\end{proof}
+\end{enumerate}
 \end{problem}
 
 \begin{problem}\label{prb:lebesgue_simple_welldefined}
 Prove Lemma~\ref{lem:lebesgue_simple_welldefined}.
 \end{problem}
 
+\begin{problem}\label{prb:approximation_simple}
+In this exercise we will prove Proposition~\ref{prop:approximation_simple}
+
+\begin{enumerate}[label=(\alph*)]
+\item Fix $n \ge 1$, set $N_n = n 2^n$ and define the sets
+\[
+	A_k^n = \begin{cases}
+		\{ k 2^{-n} \le f < (k+1) 2^{-n}\} &\text{for } k = 0,1, \dots, N_n - 1,\\
+		\{ f \ge n\} &\text{for } k = N_n,
+	\end{cases}
+\]
+
+Prove that these are measurable and mutually disjoint.
+\end{enumerate}
+
+We now define the following function, as our candidate for the simple function that approximates $f$.
+\[
+	f_n = 2^n\mathbf{1}_{\{f=+\infty\}} + \sum_{k=0}^{N_n} k \, 2^{-n} \mathbf{1}_{A_k^n}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{1}
+\item Show that $f_n$ is measurable and simple for every $n \ge 1$. Also note that $f_n(\omega) = k 2^{-n} \iff \omega \in A_k^n \text{ and } f(\omega) < +\infty$.
+\item Show that $f_n \le f$ (point-wise) and that $f(w) - f_n(\omega) \le 2^{-n}$ holds for all $n \ge 1$.
+\item Prove that for any $\omega \in \Omega$, $\lim_{n \to \infty} f_n(\omega) = f(\omega)$. [Hint: consider the case $f(\omega) = \infty$ and $f(\omega) < \infty$ separately.]
+\end{enumerate}
+
+The final thing to do is to show that $f_n$ is a point-wise monotone sequence, i.e. for any $\omega \in \Omega$, $f_n(\omega) \le f_{n+1}(\omega)$ holds for all $n \ge 1$.
+
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{4}
+\item Prove that $f_n(\omega) \le f_{n+1}(\omega)$ holds for all $\omega$ such that $f(\omega) = +\infty$.
+\item Assume now that $f(\omega) < +\infty$ and that $\omega \in A_k^n$ for some $k < n 2^n$. Prove that $f_n(\omega) \le f_{n+1}(\omega)$. [Hint: split the interval $A_k^n$ into two parts of equal length and consider the case that $\omega$ is in one of these separately.]
+\item Now consider the case that $\omega \in A_k^n$ with $k = n 2^n$. Show that $f_n(\omega) \le f_{n+1}(\omega)$.
+\end{enumerate}
+
+%Fix $n \ge 1$, set $N_n = n 2^n$ and define the sets
+%\[
+%	A_k^n = \begin{cases}
+%		\{ k 2^{-n} \le f < (k+1) 2^{-n}\} &\text{for } k = 0,1, \dots, N_n - 1,\\
+%		\{ f \ge n\} &\text{for } k = N_n,
+%	\end{cases}
+%\]
+%which are measurable due to Lemma~\ref{lem:measurable_set_real_line} and mutually disjoint.
+%
+%
+%From this representation, we easily deduce that $f_n$ is measurable and simple for every $n \ge 1$. Also note that $f_n(\omega) = k 2^{-n} \iff \omega \in A_k^n \text{ and } f(\omega) < +\infty$. 
+%
+%The first observation we make is that $f_n(\omega) \le f(\omega)$ holds for all $n \ge 1$. Moreover, if $f(\omega) < n$ then $f(w) - f_n(\omega) \le 2^{-n}$. 
+
+%We will now show that $f_n(\omega) \to f(\omega)$ holds for any $\omega \in \Omega$. Let us fix a $\omega \in \Omega$. Then if $f(\omega) = +\infty$ we get that $f_n(\omega) = 2^n$ holds for all $n \ge 1$ and hence $\lim_{n \to \infty} f_n(\omega) = +\infty = f(\omega)$. So assume that $f(\omega) < +\infty$. Then there exists an $M \in \bbN$ such that $f(\omega) < M$. Hence, for all $n \ge M$ we have that 
+%\[
+%	\|f_n(\omega) - f(\omega)\| = f(\omega) - f_n(\omega) \le 2^{-n},
+%\]
+%which implies that $\lim_{n \to \infty} f_n(\omega) = f(\omega)$.
+%
+%For the final part we need to show that for any $\omega \in \Omega$, $f_n(\omega) \le f_{n+1}(\omega)$ holds for all $n \ge 1$. So fix $n \ge 1$ and $\omega \in \Omega$. Clearly, if $f(\omega) = +\infty$ there is nothing to prove. So let's assume that $f(\omega) < +\infty$. Then $\omega \in A_k^n$ for some $0 \le k \le N_n = n 2^n$. 
+%
+%We will first consider the case that $k < n 2^n$, so that $k 2^{-n} \le f(\omega) < (k+1) 2^{-n}$ holds. Note that this  interval can be split into two intervals as follows:
+%\[
+%	[k 2^{-n}, (k+1) 2^{-n}) = [(2k) 2^{-(n+1)}, (2k +1)2^{-(n+1)}) \cup [(2k +1)2^{-(n+1)}, (2k + 2)2^{-(n+1)}).
+%\] 
+%Hence, we conclude that either $\omega \in A_{2k}^{n+1}$ or $\omega \in A_{2k+1}^{n+1}$. In both case we get that 
+%\[
+%	f_n(\omega) = k2^{-n} = 2k n^{-(n+1)} \le f_{n+1}(\omega).
+%\]
+%
+%Now let us consider the case that $k = n 2^n$, so that $f(\omega) \ge n$. Then, if $f(\omega) \ge n + 1$ it follows that $f_n(\omega) = n < n + 1 = f_{n+1}(\omega)$. If, on the other hand, $n \le f(\omega) < n + 1$ there exists an $2n \, 2^n \le \ell \le (2n+2) \, 2^n$ such that $\omega \in A_\ell^{n+1}$, which then implies that 
+%\[
+%	f_n(\omega) = n = (2n 2^{n}) \, 2^{-(n+1)} \le f_{n+1}(\omega).
+%\]
+\end{problem}
+
 \begin{problem}
-	Consider the measure space $(\bbN,2^{bbN},\mu)$, where $\mu$ is the counting measure on $\bbN$. Show that for any function $f:\bbN\to[0,+\infty]$,
+	Consider the measure space $(\bbN,2^{\bbN},\mu)$, where $\mu$ is the counting measure on $\bbN$. Show that for any function $f:\bbN\to[0,+\infty]$,
 	\[
 		\int_{\bbN} f\,d\mu = \sum_{n\ge 1} f(n).
 	\]
+\end{problem}
+
+\begin{problem}\label{prb:properties-integral-nonneg}
+Prove Proposition~\ref{prop:properties-integral-nonneg}. [Hint: first prove it for simple functions and then use the definition of the integral.]
 \end{problem}
 
 \begin{problem}
@@ -501,6 +586,10 @@ Prove Lemma~\ref{lem:lebesgue_simple_welldefined}.
 \[
 \int_\Omega f\, \dd \mu = \lim_{n \to \infty} \int_\Omega [f]_n\, \dd \mu.
 \]	
+\end{problem}
+
+\begin{problem}\label{prb:lebesgue_integral_general}
+Proof Proposition~\ref{prop:properties-integral}.
 \end{problem}
 
 \begin{problem}\label{prb:measure}

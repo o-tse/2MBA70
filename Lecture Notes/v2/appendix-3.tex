@@ -1,0 +1,234 @@
+
+
+We first mention an important technical lemma needed for the proof of this theorem. For any function $h\colon \bbR \to \bbR$, we denote by $\cC_h \subset \bbR$ the set of continuity points of $h$, i.e., the set of all points $x\in \bbR$ at which $h$ is continuous. The following technical lemma, which can be deduced from Lusin's theorem (cf.~Theorem~\ref{thm:lusin}), allows us to approximate measurable functions by continuous ones, with arbitrary precision in terms of the integrals. 
+
+\begin{lemma}
+Consider a probability measure $\mu$ on $(\bbR, \cB_\bbR)$ and bounded measurable function $h\in B_b(\bbR)$ with $\mu(\cC_h) = 1$. Then for every $\varepsilon > 0$, there exist continuous bounded functions $h^-_\varepsilon$ and $h^+_\varepsilon$ such that
+\begin{enumerate}[label={(\arabic*)}]
+\item $h^-_\varepsilon \le h \le h^+_\varepsilon$ and
+\item $\int_\bbR h^+_\varepsilon \, \dd \mu - \int_\bbR h^-_\varepsilon \, \dd \mu < \varepsilon$.
+\end{enumerate} 
+\end{lemma}
+\begin{proof}
+For $k \in \bbN$ define the functions
+\[
+	g_k := \inf_{y \in \bbR} h(y) + k\|x-y\| \quad G_k := \sup_{y \in \bbR} h(y) - k\|x-y\|.
+\]
+We then observe that for any $k \in \bbN$, $g_k \le g_{k + 1}$, $G_{k+1} \le G_k$ and $g_k \le h \le G_k$. Hence
+\[
+	g_1 \le g_2 \le \dots \le h \le \dots \le G_2 \le G_1.
+\]
+Moreover, since for any fixed $x \in \bbR$ the sequences $(g_k(x))_{k \ge 1}$ and $(G_k(x))_{k \ge 1}$ are bounded we get that their limits as $k \to \infty$ exist and
+\[
+	\lim_{k \to \infty} g_k(x) \le h(x) \le \lim_{k \to \infty} G_k(x).
+\]
+
+We now claim that for every $k \ge 1$ the functions $g_k$ and $M_k$ are continuous and bounded. The last part follows from directly from the definitions. For the continuity we note that
+\begin{align*}
+	g_k(x) = \inf_{y \in \bbR} h(y) + k \|x-y\|
+	\le \inf_{y \in \bbR} h(y) + k \|z-y\| +k \|x-z\|
+	= g_k(z) + k\|x-z\|,
+\end{align*}
+which implies that $\|g_k(x) - g_k(y)\| \le k \|x-y\|$. A similar argument works for $G_k$.
+
+Now, let $x \in \cC_h$, i.e. $x$ is a continuity point of $h$, and fix $\varepsilon > 0$. Then there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|h(x) - h(y)\| < \varepsilon$. If we then define
+\[
+	r =  \left \lceil \frac{h(x) - \inf_{z \in \bbR} h(z)}{\delta} \right \rceil,
+\]
+then
+\begin{align*}
+	\lim_{k \to \infty} g_k(x) &\ge g_r(x)\\
+	&= \min\{ \inf_{\|x-y\| \ge \delta} h(y) + r\|x-y\| + \inf_{\|x-y\| < \delta} h(y) + r\|x-y\|\}\\
+	&\ge \min\{h(x) - \varepsilon, \, \inf_{z \in \bbR} h(z) + (h(x) - \inf_{z \in \bbR} h(z))\delta/\delta\} \\
+	&= h(x) - \varepsilon.
+\end{align*}
+Similarly, we get that $\lim_{k \to \infty} G_K(x) \le h(x) + \varepsilon$. Since $\mu(\cC_h) = 1$ this then implies that
+\[
+	\int_\bbR \lim_{k \to \infty} g_k \, \dd \mu  = \int_\bbR h \, \dd \mu 
+	= \int_\bbR \lim_{k \to \infty} G_k \, \dd \mu. 
+\]
+
+Applying Theorem~\ref{thm:monotone_convergence_ii} to $g_k$ and to $-G_k$ we get that
+\[
+	\lim_{k \to \infty} \int_\bbR g_k \, \dd \mu = \int_\bbR h \, \dd \mu
+	= \lim_{k \to \infty} \int_\bbR G_k \, \dd \mu.
+\]
+Finally, since $g_k$ is non-decreasing and $G_k$ is non-increasing, for every $\varepsilon$ there must exist an $K$ such that for all $k \ge K$
+\[
+	\int_\bbR (G_k - g_k) \, \dd \mu = \int_\bbR (G_k - h) \, \dd \mu + \int_\bbR (h - g_k) \, \dd \mu \le \varepsilon. 
+\]
+So we can take
+\[
+	h^-_\varepsilon := g_K \quad \text{and} \quad h^+_\varepsilon := G_K.\qedhere
+\]
+\end{proof}   
+
+\begin{theorem}[Portmanteau Theorem]%\label{thm:portmanteau}
+Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. Then the following statements are equivalent:
+\begin{enumerate}[label={(\arabic*)}]
+\item $\mu_n \Rightarrow \mu$.
+\item $\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu$ for all $h\in B_b(\bbR)$ with $\mu(\cC_h) = 1$.
+\item $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ for all continuous functions with compact support $g\in C_c(\bbR)$, i.e., functions $g\in C_b(\bbR)$ that are zero outside an interval $[-K,K]$ for some $K > 0$.
+\item $\limsup_{n \to \infty} \mu_n(B) \le \mu(B)$ for all closed sets $B \subset \bbR$.
+\item $\liminf_{n \to \infty} \mu_n(A) \ge \mu(A)$ for all open sets $A \subset \bbR$.
+\item $\lim_{n \to \infty} \mu(C) = \mu(C)$ for all $\mu$-continuity sets $C$.
+\end{enumerate}
+\end{theorem} 
+
+\begin{proof}
+We will prove the following implication chain: 5$\iff$4 $\Rightarrow$ 1 $\Rightarrow$ 2 $\Rightarrow$ 6 $\Rightarrow$ 4 and 1$\iff$3. 
+
+\textbf{5$\iff$4:} This follows directly since every closed set $B$ is the complement of an open set $A$, i.e., $B = \bbR\backslash A$ and thus
+\[
+	\limsup_{n \to \infty} \mu_n(B) = \limsup_{n \to \infty} 1 - \mu_n(A) = 1 - \liminf_{n \to \infty} \mu_n(A).
+\]
+
+\textbf{4 $\Rightarrow$ 1:} Let $h$ be a continuous bounded function. Then, without loss of generality, we may assume that $0 \le h < 1$. Now fix some $k \in \bbN$ and define the following sets:
+\[
+	B_j := \left\{x \in \bbR \, : \, \frac{j}{k} \le h(x)\right\} \qquad \text{for } j = 0, 1, \dots, k.
+\]
+Note that since $h$ is continuous these are closed sets. Also note that $\mu(B_0) = 1$ and $\mu(B_k) = 0$.
+
+We further observe that $h(x) = \sum_{j = 1}^k h(x) \mathbf{1}_{B_{j-1} \cap B_j^c}$, where $B_j^c = \bbR \backslash B_j$. Hence, we can obtain the following bounds:
+\begin{equation}\label{eq:portmanteau_1}
+	\sum_{j = 1}^k \frac{j-1}{k} \mu(B_{j - 1} \cap B_j^c) \le \int_\bbR h \, \dd \mu \le \sum_{j = 1}^k \frac{j}{k} \mu(B_{j - 1} \cap B_j^c).
+\end{equation}
+Using that $B_{j-1} \supset B_{j}$ we get
+\[
+	\mu(B_{j - 1}) = \mu(B_{j-1} \cap B_j^c) + \mu(B_{j-1} \cap B_j) = \mu(B_{j-1} \cap B_j^c) + \mu(B_j)
+\]
+so that
+\[
+	\mu(B_{j-1} \cap B_j^c) = \mu(B_{j-1}) - \mu(B_j)
+\]
+Plugging this into the sum on the right-hand side in Equation~\eqref{eq:portmanteau_1}, we get
+\begin{align*}
+	\sum_{j = 1}^k \frac{j}{k} \mu(B_{j - 1} \cap B_j^c) &= \sum_{j = 1}^k \frac{j}{k} (\mu(B_{j-1}) - \mu(B_j))\\
+	&= \frac{1}{k} \left(\mu(B_0) + \sum_{j = 1}^{k-1} (j+1) \mu(B_j) - \sum_{j = 1}^k \mu(B_j)\right) \\
+	&= \frac{1}{k} \left(1 + \sum_{j = 1}^{k-1} \mu(B_j) - k \mu(b_k)\right)\\
+	&= \frac{1}{k} + \frac{1}{k} \sum_{j = 2}^{k} \mu(B_j),
+\end{align*}
+where we used that $\mu(B_0) = 1$ and $\mu(B_k) = 0$.
+
+In a similar fashion, the sum on the left-hand side in Equation~\eqref{eq:portmanteau_1} equals
+\[
+	\frac{1}{k} \sum_{j = 1}^k \mu(B_j).
+\]
+We thus conclude that for any $k \ge 1$,
+\begin{equation}
+	\frac{1}{k} \sum_{j = 1}^k \mu(B_j) \le \int_\bbR h \, \dd \mu \le
+	\frac{1}{k} + \frac{1}{k} \sum_{j = 2}^{k} \mu(B_j).
+\end{equation}
+Moreover, the same inequalities hold for the measures $\mu_n$.
+
+Applying (4) we then get
+\begin{align*}
+	\limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n
+	&\le  \limsup_{n \to \infty} \left(\frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \mu_n(B_j) \right)\\
+	&\le \frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \limsup_{n \to \infty} \mu_n(B_j)\\
+	&\le \frac{1}{k} + \frac{1}{k} \sum_{j = 1}^k \mu(B_j) \\
+	&\le \frac{1}{k} + \int_\bbR h \, \dd \mu.
+\end{align*}
+So that by taking $k \to \infty$ we obtain
+\[
+	\limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n \le \int_\bbR h \, \dd \mu.
+\]
+
+Apply this conclusion to the function $-h$, which is also continuous and bounded, we get
+\[
+	\int_\bbR h \, \dd \mu \le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n,
+\]
+from which it follows that $\lim_{n \to \infty} \int_\bbR h \, \dd \mu_n = \int_\bbR h \, \dd \mu$ for any bounded continuous function.
+
+\textbf{1 $\Rightarrow$ 2:} Fix $\varepsilon > 0$ and let $h^-_\varepsilon$ and $h^+_\varepsilon$ be the function from Lemma [REF]. Then
+\[
+	\int_\bbR h \, \dd \mu \le \int_\bbR h^+_\varepsilon \, \dd \mu 
+	= \int_\bbR h^+_\varepsilon \, \dd \mu - \int_\bbR h^-_\varepsilon \, \dd \mu
+	+ \int_\bbR h^-_\varepsilon \, \dd \mu,
+\]
+which implies that
+\[
+	 \int_\bbR h \, \dd \mu -\varepsilon \le \int_\bbR h^-_\varepsilon \, \dd \mu.
+\]
+
+In a similar way we obtain that
+\[
+	\int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
+\]
+
+Now we employ condition 1 for the functions $h^-_\varepsilon$ and $h^+_\varepsilon$ to get
+\begin{align*}
+	\int_\bbR h \, \dd \mu -\varepsilon &\le \int_\bbR h^-_\varepsilon \, \dd \mu\\
+	&= \lim_{n \to \infty} \int_\bbR h^-_\varepsilon \, \dd \mu_n\\
+	&\le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n \\
+	&\le \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n\\
+	&\le \int_\bbR h^+_\varepsilon \, \dd \mu_n\\
+	&= \int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
+\end{align*}
+From this it follows that
+\[
+	\int_\bbR h \, \dd \mu -\varepsilon \le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n
+	\le \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n \le \int_\bbR h \, \dd \mu +\varepsilon.
+\]
+And since $\varepsilon > 0$ was arbitrary we conclude that
+\[
+	\liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n = \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n,
+\]
+which then implies that $\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu$.
+
+\textbf{2 $\Rightarrow$ 6:} Let $C$ be a $\mu$-continuity set and consider the function $h(x) = \mathbf{1}_{C}$. Then clearly $h$ is measurable and bounded. Moreover, the function $h$ is discontinuous precisely on the boundary $\partial C$ and hence
+\[
+	\mu(\cC_h) =\mu(\bbR \backslash \partial C) = 1 - \mu(\partial C) = 1-0 = 1.
+\]
+Hence the function $h$ satisfies the conditions of 2 and thus
+\[
+	\mu_n(C) = \int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu = \mu(C).
+\]
+
+
+\textbf{6 $\Rightarrow$ 4:} Let $B$ be a closed set, take $\delta > 0$ and consider the sets
+\[
+	A_\delta = \{x \in \bbR \, : \, \|x - B\| < \delta\},
+\]
+where $\|x - B\| = \inf_{y \in B} \|x - y\|$ denotes the distance from $x$ to the set $B$. Note that $A_\delta$ is an open set in $\bbR$, and hence $A_\delta^\circ = A_\delta$.
+
+Next we observe that $A_\delta \subset \{x \in \bbR \, : \, \|x-B\| \le \delta\}$ where the latter sets are closed. It then follows that
+\[
+	\partial A_\delta = \bar{A_\delta} \backslash A_\delta \subset \{x \in \bbR \, : \, \|x-B\| \le \delta\} \backslash A_\delta = \{x \in \bbR \, : \, \|x-B\| = \delta\}.
+\]
+It then follows that $\partial A_\delta \cap \partial A_{\delta^\prime} = \emptyset$ for all $\delta \ne \delta^\prime$. Since $\mu$ is a probability measure, there can be only a countable number of disjoint sets with positive measure. From this we conclude that there exists a sequence $(\delta_k)_{k \ge 1}$ with $\delta_k \to 0$ such that $\mu(\partial A_{\delta_k}) = 0$ for all $k \ge 1$. Let us write $B_k := A_{\delta_k}$. Then each $B_k$ is a $\mu$-continuity set, $B_k \supset B_{k + 1}$ and $B_k \downarrow B$ because $B$ is closed.
+
+We then have that
+\[
+	\limsup_{n \to \infty} \mu_n(B) \le \limsup_{n \to \infty} \mu_n(B_k) = \mu(B_k),
+\]
+where the last equality is due to 6, which implies that $\mu_n(B_k) \to \mu(B_k)$.
+
+Taking $k \to \infty$ now yields 4.
+
+\textbf{1$\iff$3:} The implication $1 \Rightarrow 3$ is trivial. So assume that $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ holds for all continuous bounded functions with compact support and let $f\colon \bbR \to \bbR$ be a continuous bounded function with $|f(x)| \le M$ for all $x \in \bbR$. We will show that for any $\varepsilon > 0$
+\[
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| \le \varepsilon,
+\]
+which then implies the result.
+
+So let $\varepsilon > 0$ be fixed and observe that there exists an $\alpha > 0$ such that $\mu(\bbR \backslash [-\alpha, \alpha]) < \varepsilon/(2M)$. Also observe that we can define a non-negative continuous function $g$ such that $g = 1$ on $[-\alpha, \alpha]$ and $g = 0$ on $\bbR \backslash (-(\alpha+1),\alpha+1)$. Observe that $g$ is a non-negative continuous bounded function that is zero outside the interval $[-(\alpha+1), \alpha+1]$, and thus we can apply (3). We now have that
+\begin{align*}
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right|
+	&= \left|\int_\bbR f (1-g) \, \dd \mu_n\right| \le M \int_\bbR (1-g) \, \dd \mu_n \\
+	&\le M \int_\bbR (1-g) \, \dd \mu_n = M\left(1-\int_\bbR g \, \dd \mu_n\right)
+\end{align*}
+Since the later term converges to $\int_\bbR g \, \dd \mu$ by our assumption we get that
+\begin{align*}
+	\limsup_{n \to \infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right|
+	&\le M \int_\bbR (1-g) \, \dd \mu \le M \mu(\bbR \backslash [-\alpha,\alpha]) < \frac{\varepsilon}{2}.
+\end{align*}
+The same conclusion holds true for $\left|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\right|$.
+
+If we now write
+\begin{align*}
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| &\le \left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right| + \left|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\right|\\ &\hspace{10pt}+ \left|\int_\bbR fg \, \dd \mu_n - \int_\bbR fg \, \dd \mu\right|
+\end{align*}
+we see that the first two terms converge to $\varepsilon/2$ (by the computation above) while the term on the second line converges to zero by our assumption since $fg$ is also a continuous bounded function that is zero outside the interval $[-(\alpha+1),\alpha+1]$. 
+\end{proof}
+

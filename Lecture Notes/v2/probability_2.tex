@@ -1,195 +1,315 @@
 
-\section{Independent random variables}
+\section{Convergence of random variables}
 
-Let us now go back to the setting of probability theory. Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random variable $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. In Probability and Modeling you were taught that the random variables $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$.
+Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real numbers, we would like to have a notion of convergence of this sequence. In other words, we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there are different ways to define the concept of convergence of random variables. In this section, we will discuss three of them: convergence in distribution, convergence in probability, and almost sure convergence. While the last one has a more straightforward definition (see Definition~\ref{def:almost_sure_convergence}) the other two rely the notion of weak convergence of finite measures, which discussed in Section\ref{sec:weak_convergence_finite_measures}.
 
-The nice thing is that we can frame the notion of independence in a more general measure-theoretical setting. To this end we start by defining what we mean by the independence of $\sigma$-algebras.
+\subsection{Convergence in distribution}
 
-\begin{definition}
-	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
-	\[
-	\mathbb{P}\biggl( \bigcap_{j \in J} A_j \biggr) = \prod_{j \in J} \mathbb{P}(A_{j}).
-	\]
+Convergence in distribution of a sequence $(X_n)_{n \ge 1}$ is defined as weak convergence of the corresponding probability measures.
+
+\begin{definition}[Convergence in distribution]\label{def:convergence_distribution}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces with probability measures $\bbP_n$ and $\bbP$, respectively. We say that $X_n$ \emph{converges in distribution} to $X$ if
+\[
+	(X_n)_\# \bbP_n \Rightarrow X_\# \bbP.
+\]
+If this is the case write we $X_n \stackrel{d}{\rightarrow} X$.
 \end{definition}
 
-We can now express the independence of random variables in this language.
+Note that convergence in distribution of random variables is simply defined as weak convergence of their push-forward measures on $(\bbR, \cB_\bbR)$. This might seem strange to those who have encountered the \emph{more standard} definition used in courses on Probability Theory. There $X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$, with $F_n$ and $F$ denoting the cdfs of $X_n$ and $X$ respectively.
 
-\begin{definition}\label{def:independent_rvs}
-	Let $\{X_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of random variables, with $X_\alpha:(\Omega, \cF) \to (E_\alpha, \mathcal{G}_\alpha)$. We say that the random variables $X_\alpha$ are independent if the family of sub $\sigma$-algebras $\{\sigma(X_\alpha)\}_{\alpha \in \mathcal{I}}$, is independent.
-\end{definition}
+But fear not; this definition is simply an equivalent statement for Definition~\ref{def:convergence_distribution}. 
 
-The independence of events can also be expressed in the measure-theoretic language.
 
-\begin{definition}
-	Let $(\Omega, \cF, \mathbb{P})$ be a probability space. A family of events $\{A_\alpha\}_{\alpha \in \mathcal{I}}$ is called independent if the family $\{ \cF_\alpha \}_{\alpha\in\mathcal{I}}$ of sub-$\sigma$-algebras
-	\[
-	\cF_\alpha := \{ \emptyset, A_\alpha, \Omega \backslash A_\alpha, \Omega \}\qquad\text{is independent.}
-	\]	
-\end{definition}
-
-The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
-
-\begin{lemma}\label{lem:independence_random_variables}
-Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to Definition~\ref{def:independent_rvs}, if and only if 
-	\[
-	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
-	\]
-	for every $a \in \bbR$, $b \in \bbR$.
+\begin{lemma}\label{lem:convergence_distribution_cdfs}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables and denote by, respectively, $F_n$ and $F$ their associated cdfs. Then
+$X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$.
 \end{lemma}
 
 \begin{proof}
-See Problem~\ref{prb:independence_random_variables}.
+See Problem~\ref{prb:convergence_probability_classic}.
 \end{proof}
 
-\section{Conditional Expectation}
 
-As a first application of the Radon-Nikodym theorem, we may use it to construct the conditional expectation with respect to a sub-$\sigma$-algebra in probability theory.
 
-\begin{theorem}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $\mathcal{H}$ be a sub-$\sigma$-algebra of $\cF$. For every $\bbP$-integrable random variable $X$, there exists an $\mathcal{H}$-measurable random variable $\mathbb{E}[X|\mathcal{H}]$ such that
-\[
-\int_B \mathbb{E}[ X | \mathcal{H} ] \,\dd \bbP = \int_B X\, \dd \bbP\qquad\text{for every $B \in \mathcal{H}$}.
-\]
-\end{theorem}
+\subsection{Convergence in probability}
 
-\begin{proof}
-Define the measure $\bbQ$ on the measurable space $(\Omega,\mathcal{H})$ by
+\begin{definition}[Convergence in probability]\label{def:convergence_probability}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := |X_n - X|$. We say that $X_n$ \emph{converges in probability} to $X$ if
 \[
-\bbQ(B) := \int_B X\, \dd \bbP \qquad \text{for every  $B \in \mathcal{H}$}.
-\]
-The measure $\bbQ$ is absolutely continuous with respect to the restriction of $\bbP$ to $\mathcal{H}$, which we denote by $\bbP|_{\mathcal{H}}$.
-By the Radon-Nikodym theorem, there exists an $\mathcal{H}$-measurable random variable, which we denote by $\mathbb{E}[X|\mathcal{H}] := \dd\bbQ/\dd\bbP$, such that for all $B \in \mathcal{H}$,
-\[
-\int_B X \,\dd \bbP = \bbQ(B) = \int_B \mathbb{E}[X | \mathcal{H}] \,\dd \bbP,
-\]
-thereby concluding the proof.
-\end{proof}
-
-\begin{definition}
-Let $(\Omega, \cF, \bbP)$ be a probability space, let $X,Y$ be random variables, where $X$ is $\bbP$-integrable. Then the conditional expectation of $X$ given $Y$ is defined as
-\[
-\mathbb{E}[X | Y] := \mathbb{E}[ X | \sigma(Y) ].
-\]	
+	(Y_n)_\# \bbP \Rightarrow 0_\# \bbP,
+\] 
+where $0$ denotes the constant function $\omega \mapsto 0$. If this is the case, we write $X_n \stackrel{\bbP}{\rightarrow} X$.
 \end{definition}
 
-It is important to note that a conditional expectation is (in general) a stochastic object, i.e. a measurable function. Nevertheless, the next lemma shows that it still satisfies many of the same properties as the regular expectation. Moreover, if $X$ is measurable with respect to $\sigma(Y)$ then conditioning on $Y$ does nothing, i.e. $\bbE[X|Y] = X$.
+\begin{remark}
+Note that, unlike convergence in distribution, the concept of convergence in probability requires all random variables to be defined on the same probability space. This requirement can be relaxed a bit by having each $X_n$ be defined on a different probability space $(\Omega_n, \cF_n, \bbP_n)$ but have $X$ be defined on each of these spaces. From this perspective, we see that if we talk about convergence in probability to a constant $X_n \plim a \in \bbR$, then this is always true as constant random variables can be defined on any probability space.
+\end{remark}
 
-\begin{lemma}[Properties of conditional expectation]\label{lem:properties_conditional_expectation}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $\cH$ be a sub-\sigalg/ of $\cF$. Furthermore, let $X, Y$ be random variables and $a \in \bbR$. Then following statements hold $\bbP$-almost everywhere:
-\begin{enumerate}[label={(\alph*)}]
-\item If $X$ is $\cH$-measurable, then $\bbE[X | \cH] = X$.
-\item $\bbE[a X | \cH] = a \bbE[X | \cH]$.
-\item $\bbE[X + Y | \cH] = \bbE[X | \cH] + \bbE[Y | \cH]$.
-\item If $X \le Y$, then $\bbE[X | \cH] \le \bbE[Y | \cH]$.
-\end{enumerate}
-\end{lemma}
+Recall that for a random variable $X$ on a probability space $(\Omega, \cF, \bbP)$ we wrote $\bbP(X \le t)$ as a short hand notation for $X_\# \bbP ((-\infty,t])$, i.e., the cdf of $X$ at $t$, and $\bbP(X > t)$ for $X_\# \bbP ((t,\infty))$, i.e., $1$ minus the cdf of $X$ at $t$.
 
-\begin{proof}
-See Problem~\ref{prb:properties_conditional_expectation}
-\end{proof}
+The following result relates the definition of convergence in probability to a version that is presented in most probability courses.
 
-\section{Conditional Probability}
-
-\begin{definition}[Conditional probability of events]\label{def:conditional_prop_events}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $A, B \in \cF$ such that $\bbP(B) > 0$. Then the conditional probability of $A$ given $B$ is defined as:
+\begin{lemma}\label{lem:convergence_probability_classical}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space. Then $X_n \stackrel{\bbP}{\rightarrow} X$ if and only if
 \[
-	\bbP(A|B) := \frac{\bbP(A,B)}{\bbP(B)}.
-\]
-\end{definition}
-
-
-
-Armed with the notion of conditional expectation we can now define conditional probabilities. The key observation is that for any probability measure $\bbP$ on $(\Omega, \cF)$ and random variable $X$ we have that
-\[
-	\bbP(X \in A) = \int_\Omega \mathbf{1}_{X \in A} \, \dd \bbP = \bbE[\mathbf{1}_{X \in A}].
-\]
-
-\begin{definition}[Conditional probability]
-Let $(\Omega, \cF, \bbP)$ be a probability space, $\cH$ a sub-\sigalg/ of $\cF$, and $X$ a random variable. Then conditional probability of $X$ with respect to $\cH$ is defined as
-\[
-	\bbP(X \in A | \cH) := \bbE[\mathbf{1}_{X \in A} | \cH].
-\]
-If $Y$ is another random variable we define
-\[
-	\bbP(X \in A | Y) := \bbP(X \in A | \sigma(Y)).
-\]
-\end{definition}
-
-
-A common formula given to you when considering discrete random variables $X$ and $Y$ was the following:
-\begin{equation}\label{eq:law_of_probability_discrete}
-	\bbP(X \in A) = \bbE[\bbP(X \in A | Y)] = \sum_{k \in \bbZ} \bbP(X \in A | Y= k) \bbP(Y = k). 
-\end{equation}
-This was referred to as the total law of probability. However, in the above expression it is not clear what $\bbP(X \in A | Y = k)$ is. The issue here is that we have a definition for the random variable $\bbP(X \in A | Y)$, which is a measurable function $\Omega \to \bbR$. But here we would like to consider $\bbP(X \in A | Y = k)$ as a function $\bbZ \to \bbR$. How would you define this? This is what the next lemma will help us with.
-
-\begin{lemma}\label{lem:condition_expectation_Y_y}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $X,Y$ be two random variables with joint density $f : \bbR \times \bbR \to \bbR$. Further, let $f_Y$ denote the density of $Y$ and define
-\[
-	h(y) := \int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \dd \lambda
-\]
-Then
-\[
-	h(Y) = \bbE[X | Y].
+	\lim_{n \to \infty} \bbP(\|X_n - X\| > \varepsilon) = 0 \quad \text{for every } \varepsilon > 0.
 \]
 \end{lemma}
 
 \begin{proof}
-We need to show that for all $B \in \sigma(Y)$
-\[
-	\int_B h(Y) \, \dd \bbP = \int_B X \, \dd \bbP := \bbE[\mathbf{1}_B X]. 
-\]
-Note that it suffices to consider sets of the form $B = Y^{-1}(A)$ for some $A \in \cB$. Moreover $\mathbf{1}_B(\omega) = \mathbf{1}_B(Y(\omega))$. Hence
+See Problem~\ref{prb:convergence_probability_classic}
+\end{proof}
+
+
+The notion of convergence in probability is a stronger condition than convergence in distribution. In particular, the first statement implies the second. 
+
+\begin{lemma}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \plim X$. Then $X_n \dlim X$.
+\end{lemma}
+
+\begin{proof}
+We will use the equivalent definition given by Lemma~\ref{lem:convergence_probability_classical}. Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$. Let $t$ be a continuity point of $F$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
 \begin{align*}
-	\int_B h(Y) \, \dd \bbP &= \int_\Omega \mathbf{1}_{B} h(Y) \, \dd \bbP 
-	= \int_\Omega \mathbf{1}_{Y^{-1}(A)} h(Y) \, \dd \bbP \\
-	&= \int_\bbR \mathbf{1}_{A}(y) h(y) f_Y(Y) \, \lambda (\dd y) &&\text{by change of variables}\\
-	&= \int_\bbR \mathbf{1}_A(y) \left(\int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \lambda(\dd x)\right)
-		\, f_Y(y) \lambda(\dd y)\\
-	&= \iint_{\bbR^2} \mathbf{1}_A(y) x f(x,y) \, \lambda(\dd x) \lambda(\dd y)\\
-	&= \bbE[\mathbf{1}_A(Y) X] = \bbE[\mathbf{1}_B X] \qedhere
+	\bbP(X_n \le t)
+	&= \bbP(\{X_n \le t\} \cap \{|X_n - X| \le \varepsilon\}) + \bbP(\{X_n \le t\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X \le t + \varepsilon) + \bbP(|X_n - X| > \varepsilon).
 \end{align*}
+Taking the limsup on both sides yields
+\[
+	\limsup_{n \to \infty} \bbP(X_n \le t)
+	\le \bbP(X \le t + \varepsilon) + \limsup_{n \to \infty} \bbP(\|X_n - X| > \varepsilon)
+	= \bbP(X \le t + \varepsilon),
+\]
+since $X_n \plim X$ implies that
+\[
+	\limsup_{n \to \infty} \bbP(|X_n - X| > \varepsilon)
+	= \lim_{n \to \infty} \bbP(|X_n - X| > \varepsilon) = 0.
+\]
+Since $t$ is a continuity point of $F$ it follows that 
+\[
+	\lim_{\varepsilon \downarrow 0} \bbP(X \le t + \varepsilon) = \bbP(X \le t),
+\]
+which implies that $\limsup_{n \to \infty} \bbP(X_n \le t) \le \bbP(X \le t)$.
+
+To prove the result, it now suffices to show that $\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t)$.
+We shall do this in a way that is similar to the case with the limsup. First observe that $X \le t - \varepsilon$ and $|X_n - X| \le \varepsilon$ implies that $X_n \le t$. This way we get
+\begin{align*}
+	\bbP(X \le t - \varepsilon)
+	&= \bbP(\{X \le t - \varepsilon\} \cap \{|X_n -X|\le \varepsilon\}) + \bbP(\{X \le t - \varepsilon\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X_n \le t) + \bbP(|X_n - X| > \varepsilon).
+\end{align*}
+Taking the liminf on both sides gives
+\[
+	\bbP(X \le t - \varepsilon)
+	\le \liminf_{n \to \infty} \bbP(X_n \le t),
+\]
+and using that $t$ is a continuity point of $F_X$ we conclude that 
+\[
+	\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t).\qedhere
+\]
 \end{proof}
 
-The function
-\begin{equation}
-	g(x,y) := \frac{f(x,y)}{f_Y(y)},
-\end{equation}
-is referred to as the conditional density of $X$ given $Y = y$. We often write $f_{X|Y}(x|y) := g(x,y)$ to emphasize the conditioning on $Y = y$.
+While convergence in probability implies convergence in distribution, the other implication is not true in general (see Problem~\ref{prb:dlim_not_plim}). However, if $X$ is constant (deterministic instead of random) then both notions of convergence are equivalent.
 
-The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability, we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. With this we can now formally establish~\eqref{eq:law_of_probability_discrete}, see Problem~\ref{prb:law_of_probability_discrete}.   
+\begin{lemma}{}\label{lem:dlim_constant_plim}
+Let $(X_n)_{n \ge 1}$ be a sequence of random variables such that $X_n \dlim a$ for some constant $a \in \mathbb{R}$. Then we also have that $X_n \plim a$.
+\end{lemma}
+
+\begin{proof}
+We again use the equivalent definition given by Lemma~\ref{lem:convergence_probability_classical}. Fix some $\varepsilon > 0$. We have to show that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0.
+\]
+Let $B_\varepsilon(a)$ denote the open ball of radius $\varepsilon$ around $a$ and consider the compliment $B_\varepsilon^c(a) := \mathbb{R} \backslash B_\varepsilon(a)$, which is a closed set. We then have
+\[
+	\bbP(|X_n-a|>\varepsilon) \le \bbP(|X_n-a|\ge\varepsilon) = \bbP(X_n \in B_\varepsilon^c(a)). 
+\]
+In particular we have
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) \le \limsup_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a)).
+\]
+Since $X_n \dlim a$, statement 3 in Theorem~\ref{thm:portmanteau} implies that 
+\[
+	\limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a))
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0,
+\]
+because obviously $a \notin B_\varepsilon(a)^c$. Therefore we conclude that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0
+\]
+which implies that $\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0$.
+\end{proof}
+
+
+\subsection{Almost-sure convergence}
+
+The final notion of convergence we will discuss is \emph{almost-sure convergence}, which looks much more natural than the previous two notions and requires less notation.
+
+\begin{definition}[Almost-sure convergence]\label{def:almost_sure_convergence}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. We say that $X_n$ \emph{converges almost-surely} to $X$ if
+\[
+	\bbP(\{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}) = 1.
+\] 
+In this case we write $X_n \aslim X$.
+\end{definition} 
+
+The definition of almost-sure convergence says that the set for which $X$ is \emph{not} the limit of $X_n$ must have probability zero. This is why it is also often referred to as \emph{convergence with probability $1$}.
+
+There is a different way to characterize \emph{almost-sure} convergence which is often useful. This requires the concept of \emph{infinitely often}.
+
+\begin{definition}[Infinitely often]
+Let $(\Omega, \cF, \bbP)$ be a probability space and consider a sequence $(A_n)_{n \ge 1}$ of measurable sets. We then define the event $\{A_n \text{ i.o.}\}$ ($A_n$ happens infinitely often) as
+\[
+	\{A_n \text{ i.o.}\} := \bigcap_{k = 1}^\infty \bigcup_{n \ge k} A_n.
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:almost_sure_alternative}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. Then
+\[
+	X_n \aslim X \iff \bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0 \quad \text{for all } \varepsilon > 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $A_n(\varepsilon) :=  \{\|X_n - X\| > \varepsilon\}$ and $A = \{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}$. We first observe that
+\[
+	\Omega\backslash A = \bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}.
+\]
+
+Now suppose that $X_n \aslim X$ and let $\varepsilon > 0$. Then $\bbP(A) = 1$ and there exist a $m \in \bbN$ such that $\{A_n(\varepsilon) \text{ i.o.}\} \subset \{A_n(1/m) \text{ i.o}\}$. Thus
+\[
+	\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) \le \bbP(\{A_n(1/m) \text{ i.o.}\}) \le \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) = \bbP(\Omega \backslash A) = 0.
+\]
+
+For the other implication suppose that $\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) = 0$ for all $\varepsilon > 0$. Then clearly the same holds for all $\varepsilon = 1/m$ with $m \in \bbN$. Hence
+\[
+	\bbP(\Omega\backslash A) = \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) \le \sum_{m \in \bbN} \bbP(\{A_n(1/m) \text{ i.o.}\}) = 0,
+\]
+which implies that $\bbP(A) = 1$.
+\end{proof}
+
+While this notion of convergence looks very natural, it turn out it is the strongest of the three notions. In practice proving almost-sure convergence is often much harder than proving convergence in probability or distribution.
+
+\begin{lemma}\label{lem:almost_sure_implies_probability}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \aslim X$. Then $X_n \plim X$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:almost_sure_implies_probability}.
+\end{proof}
+
+A useful tool for proving almost everywhere convergence is the following result.
+
+\begin{lemma}[Borel-Cantelli]\label{lem:Borel-Cantelli}
+	Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets. If
+	\[
+	\sum_{n=1}^\infty \mu(A_n) < \infty,
+	\]
+	then for $\mu$-almost every $\omega \in \Omega$, there are only finitely many $n \in \mathbb{N}$ such that $\omega \in A_n$.
+\end{lemma}
+\begin{proof}
+	Define the sets
+	\[
+		B_j := \bigcup_{i \ge j} A_i,\qquad j\in\bbN.
+	\]
+	Clearly the sequence $(B_j)_{j\in\bbN}$ is decreasing and $\{A_n \text{ i.o.}\}\subset B_j$ for every $j \in \mathbb{N}$. 
+	
+	By assumption, and the $\sigma$-subadditivity of $\mu$,
+	\[
+	\mu(B_1) = \mu\left(\bigcup_{i=1}^\infty A_i \right) \leq \sum_{i=1}^\infty \mu(A_i) < +\infty.
+	\]
+	Moreover, the summability also gives
+	\[
+		\lim_{j\to\infty}\mu(B_j) \leq \limsup_{j\to\infty}\sum_{i=j}^\infty \mu(A_i) = 0.
+	\]
+	Hence, by the continuity from above of $\mu$, we obtain
+	\[
+		\mu(\{A_n \text{ i.o.}\}) \le \mu\left(\bigcup_{j=1}^\infty B_j\right) = \lim_{j\to \infty} \mu(B_j) = 0,
+	\]
+	i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\mu$-almost every $\omega$ is in only finitely many $A_n$.
+\end{proof}
+
+\begin{theorem}[Borel-Cantelli Lemma II]
+	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, and let $A_i \in \cF$, $i \in \mathbb{N}$ be a sequence of independent events such that
+	\[
+		\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+	\]
+	Then
+	\[
+	\mathbb{P} \left( \bigcap_{m = 1}^\infty \bigcup_{i=m}^\infty A_i \right) = 1,
+	\]
+	i.e., infinitely many of the events occur almost surely.
+\end{theorem}
+\begin{proof}
+	Let $m \in \mathbb{N}$. Note that
+	\begin{align*}
+	\mathbb{P}\left(\bigcap_{i=m}^{\infty} (\Omega \backslash A_i) \right) &= 
+	\prod_{i=m}^\infty (1 - \mathbb{P}(A_i)) \\
+	&\leq \prod_{i=m}^\infty \exp(- \mathbb{P}(A_i)) 
+	= \exp\left(- \sum_{i=m}^\infty \mathbb{P}(A_i)\right) = 0.\qedhere
+	\end{align*}
+\end{proof}   
 
 \section{Problems}
 
-\begin{problem}\label{prb:independence_random_variables}
-Prove Lemma~\ref{lem:independence_random_variables}
+\begin{problem}\label{prb:dlim_not_plim}
+Give an example (with proof) of a sequence of random variables that converge in distribution but not in probability.
 \end{problem}
 
-\begin{problem}[Joint densities]
-Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to \bbR$. That is, $f$ as a function from $(\bbR^2, \cB_{\bbR^2})$ to $(\bbR, \cB_{\bbR})$ is measurable and integrable, and for any $A \in \cB_{\bbR^2}$
-\[
-	\bbP((X,Y) \in A) = \int_A f \, \dd \lambda^2,
-\]
-where $\lambda^2$ is the 2-dimensional Lebesgue measure on $\bbR^2$
+\begin{problem}\label{prb:convergence_probability_classic}
+Prove Lemma~\ref{lem:convergence_probability_classical}.
+\end{problem}
 
-Define the marginal function $f_X(x) = \int_\bbR f(x,y) \, \lambda(\dd y)$.
-\begin{enumerate}[label={(\alph*)}]
-\item Prove that $f_X$, as a function from $(\bbR, \cB_{\bbR})$ to $(\bbR, \cB_{\bbR})$ is measurable and integrable.
-\item Show that
+\begin{problem}\label{prb:convergence_distribution}
+The goal of this problem is to prove Lemma~\ref{lem:convergence_distribution_cdfs}. That is
 \[
-	X_\# \bbP (A) = \int_A f_X \, \dd \lambda.
+	X_n \stackrel{d}{\rightarrow} X \iff F_n(t) \to F(t) \quad \text{for all } t \in \cC_F,
 \]
-That is, $f_X$ is the density function of $X$.
+where $F_n$ and $F$ denote the cdfs of the random variables $X_n$ and $X$, respectively.
+
+Write $\mu_n = (X_n)_\# \bbP_n$ and $\mu = X_\# \bbP$ and note that for any measurable function $f$, $\bbE[f(X_n)] = \int f \, \dd \mu_n$ and $\bbE[f(X)] = \int f \, \dd \mu$.
+
+We will first prove the $\Rightarrow$ implication. 
+\begin{enumerate}[label={(\alph*)}]
+\item Let $t \in \bbR$. Find a measurable function $h_t$, such that $F_n(t) = \int_\bbR h_t \, \dd \mu_n$ and $F(t) = \int_\bbR h_t \, \dd \mu$.
+\item Show that $\mu(\cC_{h_t}) = 1$.
+\item Prove the $\Rightarrow$ implication. 
+\end{enumerate}
+
+For the other implication $\Leftarrow$ let $g$ be a continuous function with compact support. Then there is some $K > 0$ such that $g$ is zero outside $[-K,K]$. You may use the fact that any continuous function with compact support is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
+\begin{enumerate}[label={(\alph*)}]
+\setcounter{enumi}{3}
+\item Let $\delta > 0$. Construct a partition of $[-K,K]$ into $L$ intervals $I_\ell$ such that for each $\ell \le L$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
+\end{enumerate}
+
+We will now define an approximate function
+\[
+	\hat{g}(x) = \sum_{\ell = 1}^L g(\max_{x \in I_i} x) \mathbf{1}_{I_i}.
+\]
+
+\begin{enumerate}[label={(\alph*)}]
+\setcounter{enumi}{4}
+\item Show that there exists an $M$ and sequences $(\beta_m)_{1 \le m \le M}$ and $(t_m)_{1 \le m \le M}$ such that
+\[
+	\hat{g}(x) = \sum_{m = 1}^M \beta_m \mathbf{1}_{(-\infty, t_m]}.
+\]
+\item Prove that $\lim_{n \to \infty} \bbE[\hat{g}(X_n)] = \bbE[\hat{g}(X)]$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
+\item Prove that $\bbE[g(X_n)] \to \bbE[g(X)]$. [Hint: First use the previous result to show that $\| \int g \, \dd \mu_n - \int g \, \dd \mu\| \to 2\varepsilon$ by adding and subtracting $\int \hat{g} \, \dd \mu_n$ and $\int \hat{g} \, \dd \mu$.]
+\item Conclude that $X_n \dlim X$.
 \end{enumerate}
 \end{problem}
 
-\begin{problem}
-Prove that the conditional expectation is unique $\bbP$-almost everywhere.
-\end{problem}
-
-\begin{problem}[Properties conditional expectation]\label{prb:properties_conditional_expectation}
-The goal of this problem is to prove Lemma~\ref{lem:properties_conditional_expectation}.
-\end{problem}
-
-\begin{problem}\label{prb:law_of_probability_discrete}
-Use Lemma~\ref{lem:condition_expectation_Y_y} to prove~\eqref{eq:law_of_probability_discrete}.
+\begin{problem}\label{prb:almost_sure_implies_probability}
+Prove Lemma~\ref{lem:almost_sure_implies_probability}. [Hint: use the alternative definition of Lemma~\ref{lem:almost_sure_alternative} and reverse Fatou from Problem~\ref{prb:reverse_fatou}.]
 \end{problem}

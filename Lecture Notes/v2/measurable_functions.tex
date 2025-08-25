@@ -84,6 +84,7 @@ Let $(\Omega, \cF)$ and $(E, \cG)$ be two measurable spaces such that $\cG = \si
 \end{lemma}
 
 \begin{proof}
+See Problem~\ref{prb:measurable_condition_generator}
 Consider the following collection of subsets:
 \[
 	\cH := \{B \subset \cG \, : \, f^{-1}(B) \in \cF\}.
@@ -216,7 +217,9 @@ Let $(\Omega, \cF, \mu)$ be a measure space, $(E, \cG)$ a measurable space and $
 is a measure on $(E, \cG)$ called the \emph{push-forward measure} of $\mu$ under $f$. Moreover, if $\mu$ is a probability measure, so if $f_\# \mu$.
 \end{proposition}
 
-The proof of this result is elementary and left as an exercise, see Problem~\ref{prb:push_forward_measure}. 
+\begin{proof}
+See Problem~\ref{prb:push_forward_measure}.
+\end{proof} 
 
 Push-forward measures play an important role in measure theory, and especially in probability theory. For example, they come up for example when we apply a change of variables in integrals. More importantly, we will see in Section~\ref{sec:random_variables} that the cumulative distribution function of a random variable is actually defined as the push-forward measure of some probability measure $\bbP$ under a suitable measurable function.
 
@@ -406,11 +409,43 @@ The fact that point-wise limits of continuous functions are not necessary contin
 
 Now suppose that the measurable space $(E, \cG)$ has the following property: for any $x,y\in E$ there exist $A, B \in \cG$ with $x \in A$, $y \in B$ and $A \cap B = \emptyset$.
 
-\begin{enumerate}
+\begin{enumerate}[label=(\alph*)]
 \setcounter{enumi}{1}
 \item Suppose $f : \Omega \to E$ is measurable with respect to the trivial \sigalg/ on $\Omega$. Show that $f$ is constant.
 \item Construct an example of a function $f : \Omega \to (E,\cG)$ for some measurable space $(E, \cG)$ that is measurable with respect to the trivial \sigalg/ but is not constant.
 \end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:measurable_condition_generator}
+In this problem you will prove Lemma~\ref{lem:measurable_condition_generator}. For this we have to show that $f^{-1}(B) \in \cF$ for each $B \in \cG$. We will do this by proving the collection of set $B$ that satisfy this property is equal to $\cG$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Consider the following collection of subsets:
+\[
+	\cH := \{B \subset \cG \, : \, f^{-1}(B) \in \cF\}.
+\]
+Show that $\cH$ is a \sigalg/ on $E$.
+\item Use Lemma~\ref{lem:inclusion_sigalgs} to show that $\cG \subseteq \cH$ and use this to finish the proof.
+\end{enumerate}
+%Consider the following collection of subsets:
+%\[
+%	\cH := \{B \subset \cG \, : \, f^{-1}(B) \in \cF\}.
+%\]
+%We claim that $\cH$ is a \sigalg/ on $E$. Suppose this is indeed true. Then, since by construction $\cA \subseteq \cH$, it follows from Lemma~\ref{lem:inclusion_sigalgs} that $\cG = \sigma(\cA) \subseteq \cH$. But this then implies that $f^{-1}(B) \in \cF$ for each $B \in \cG$ which means that $f$ is $(\cF, \cG)$-measurable.
+%
+%So let's prove that $\cH$ is a \sigalg/. First we note that $f^{-1}(\emptyset) = \emptyset \in \cF$ and $f^{-1}(E) = \Omega \in \cF$. So $\emptyset, E \in \cH$. 
+%
+%Next, let $B \in \cH$. Then
+%\[
+%	f^{-1}(E\setminus B) = \Omega \setminus f^{-1}(B) \in \cF,
+%\]
+%since by definition $f^{-1}(B) \in \cF$. So $E\setminus B \in \cH$.
+%
+%Finally, if $(B_i)_{i \in \bbN}$ is a sequence of sets in $\cH$, then
+%\[
+%	f^{-1}\left(\bigcup_{i = 1}^\infty B_i\right) = \bigcup_{i = 1}^\infty f^{-1}(B_i) \in \cF,
+%\]
+%which shows that $\bigcup_{i = 1}^\infty B_i \in \cH$, completing the proof that $\cH$ is a \sigalg/.
 \end{problem}
 
 \begin{problem}[Equivalence of product \sigalg/]\label{prb:product_sigalg_equivalence}

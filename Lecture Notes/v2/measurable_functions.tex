@@ -84,26 +84,7 @@ Let $(\Omega, \cF)$ and $(E, \cG)$ be two measurable spaces such that $\cG = \si
 \end{lemma}
 
 \begin{proof}
-See Problem~\ref{prb:measurable_condition_generator}
-Consider the following collection of subsets:
-\[
-	\cH := \{B \subset \cG \, : \, f^{-1}(B) \in \cF\}.
-\]
-We claim that $\cH$ is a \sigalg/ on $E$. Suppose this is indeed true. Then, since by construction $\cA \subseteq \cH$, it follows from Lemma~\ref{lem:inclusion_sigalgs} that $\cG = \sigma(\cA) \subseteq \cH$. But this then implies that $f^{-1}(B) \in \cF$ for each $B \in \cG$ which means that $f$ is $(\cF, \cG)$-measurable.
-
-So let's prove that $\cH$ is a \sigalg/. First we note that $f^{-1}(\emptyset) = \emptyset \in \cF$ and $f^{-1}(E) = \Omega \in \cF$. So $\emptyset, E \in \cH$. 
-
-Next, let $B \in \cH$. Then
-\[
-	f^{-1}(E\setminus B) = \Omega \setminus f^{-1}(B) \in \cF,
-\]
-since by definition $f^{-1}(B) \in \cF$. So $E\setminus B \in \cH$.
-
-Finally, if $(B_i)_{i \in \bbN}$ is a sequence of sets in $\cH$, then
-\[
-	f^{-1}\left(\bigcup_{i = 1}^\infty B_i\right) = \bigcup_{i = 1}^\infty f^{-1}(B_i) \in \cF,
-\]
-which shows that $\bigcup_{i = 1}^\infty B_i \in \cH$, completing the proof that $\cH$ is a \sigalg/.
+See Problem~\ref{prb:measurable_condition_generator}.
 \end{proof}
 
 We thus see that at least for generated \sigalgs/ we do not need to consider the preimage of every measurable set to check for measurability of a function. However, that still requires some check on preimages to conclude that a given function is measurable, which can still be cumbersome. For example, is the function $f : \bbR \to \bbR$ given by $f(x) = e^x$, measurable? It would be much better if we have a more familiar criteria that would imply measurability. Continuity is exactly such a criteria. 

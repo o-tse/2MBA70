@@ -1,0 +1,69 @@
+
+\textbf{Problem 6.3}
+
+\begin{enumerate}[label=(\alph*)]
+\item For the probability space, take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Observe that the function $H_\gamma(z)$ is continuous and hence has an inverse $g_\gamma(y) = \gamma \tan(\pi(y - 1/2))$ on $[0,1]$.
+
+So the function $Y [0,1] \to \bbR$ defined by $Y(x) = g_\gamma(x)$ has the correct distribution as
+\[
+	\bbP(Y^{-1}((-\infty,t])) = \bbP(g_\gamma^{-1}((-\infty, t])) = \lambda(H_\gamma((-\infty,t])) = H_\gamma(t).
+\]
+\item Note that $g_\gamma$ is continuous on $[0,1]$ and hence measurable.
+\item For any $t \ge 0$, the cdf of the Poisson random variable is given by
+\[
+	F_\lambda(t) = \sum_{n = 0}^{\lceil t \rceil} f_\lambda(n),
+\]
+where $\lceil t \rceil$ is the ceiling of $t$, i.e. the smallest integer $k \ge t$.
+\item For the probability space, we again take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Now for any $y \in [0,1]$ let $k := k(y)$ be such that
+\[
+	\sum_{n = 1}^k f_\lambda(n) \ge y \quad \text{and} \quad \sum_{n = 1}^{k-1} f_\lambda(n) < y,
+\]
+where the last sum is interpreted as $-1$ if $k=0$.
+
+Now define $X(y) = k(y) : [0,1] \to \bbR$. Then $k(y) \le t$ if and only if $y \le F_\lambda(t)$ and hence
+\[
+	X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, k(y) \in (0,t]\}
+	= \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\},
+\]
+from which it follows that
+\[
+	\bbP(X^{-1}((-\infty,t])) = \lambda((0, F_\lambda(t)]) = F_\lambda(t).
+\]
+\item It follows from the above computation that $X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\}$. Since the latter is a measurable set we conclude that $X^{-1}((-\infty,t])$ is measurable for all $t$ and since these generate the Borel \sigalg/ $X$ is measurable.
+\item for any $\ell \in \bbN$ define the sets $A_\ell = (n-1-1/\ell), n-1 + 1/\ell]$. Then $A_\ell$ is a decreasing set with $\lim_{\ell \to \infty} A_\ell = \{n\}$. Moreover, $A_\ell = (-\infty,n-1+1/\ell] \setminus (-\infty, n-1-1/\ell]$ and $\bbP(A_1) < \infty$. It now follows from continuity from above and (d) that
+\begin{align*}
+	X_\#\bbP(\{n\}) &= \lim_{\ell \to \infty} X_\# \bbP(A_\ell) \\
+	&= \lim_{\ell \to \infty} X_\# \bbP((-\infty,n-1+1/\ell])
+	- X_\# \bbP((-\infty,n-1-1/\ell]) \\
+	&= F_\lambda(n-1+1/\ell) - F_\lambda(n-1-1/\ell) \\
+	&= \sum_{k = 0}^{n} f_\lambda(k) - \sum_{k = 0}^{n-1} f_\lambda(k) = f_\lambda(n).
+\end{align*}
+\end{enumerate}
+
+%###################################### Old Numbering ####################################
+
+\textbf{Problem 6.2}
+
+
+\bigskip
+\textbf{Problem 6.4}
+From Theorem~6.5.9, we find for any $\varepsilon>0$ a continuous and bounded function $g\in L^1(\Omega,\mu)$ such that
+\[
+	\|f-g\|_1 <\frac{\varepsilon}{2}.
+\]
+Let $M>0$ and set $g_M:= \varphi_M g$, where is a continuous function with compact support satisfying $0\le \varphi_M \le 1$, $\varphi_M\equiv 1$ on $\overline{B_M}$ and $\varphi_M\equiv 0$ on $B_{M+1}^c$. Notice that
+	\begin{align*}
+		\int_{\bbR^d} |g-g_M|\,\dd\mu = \int_{B_M^c} g\,\dd\mu \le \|g\|_{\sup}\,\mu(B_M^c).
+	\end{align*}
+Since $\mu$ is finite, the continuity from above of $\mu$ gives $\lim_{M\to\infty} \mu(B_{M}^c) = 0$. Hence, we find some $M=M_\varepsilon>0$ such that
+\[
+	\int_{\bbR^d} |g-g_M|\,\dd\mu < \frac{\varepsilon}{2}.
+\]
+Altogether, we've found some $g_M$ such that
+\[
+	\|f-g_M\|_1 \le \|f-g\|_1 + \|g-g_M\| < \varepsilon.
+\]

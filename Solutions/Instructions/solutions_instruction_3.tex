@@ -1,0 +1,103 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 4.3}
+
+\begin{enumerate}[label={(\alph*)}]
+\item The fact that the sets are disjoint is immediate from the definition. Measurability follows from Lemma 3.11
+\item Let us fix a $\omega \in \Omega$. Then if $f(\omega) = +\infty$ we get that $f_n(\omega) = 2^n$ holds for all $n \ge 1$ and hence $\lim_{n \to \infty} f_n(\omega) = +\infty = f(\omega)$. So assume that $f(\omega) < +\infty$. Then there exists an $M \in \bbN$ such that $f(\omega) < M$. Hence, for all $n \ge M$ we have that 
+\[
+	\|f_n(\omega) - f(\omega)\| = f(\omega) - f_n(\omega) \le 2^{-n},
+\]
+which implies that $\lim_{n \to \infty} f_n(\omega) = f(\omega)$.
+\item Fix $n \ge 1$ and $\omega \in \Omega$. Clearly, if $f(\omega) = +\infty$ then $f_n(\omega) = 2^n < +\infty = f(\omega)$. 
+
+\item Fix $\omega \in \Omega$ such that $f(\omega) < +\infty$ and $\omega \in A_k^n$ for some $0 \le k < N_n = n 2^n$. 
+
+Note that $k 2^{-n} \le f(\omega) < (k+1) 2^{-n}$ holds and this interval can be split into two intervals as follows:
+\[
+	[k 2^{-n}, (k+1) 2^{-n}) = [(2k) 2^{-(n+1)}, (2k +1)2^{-(n+1)}) \cup [(2k +1)2^{-(n+1)}, (2k + 2)2^{-(n+1)}).
+\] 
+Hence, we conclude that either $\omega \in A_{2k}^{n+1}$ or $\omega \in A_{2k+1}^{n+1}$. In both case we get that 
+\[
+	f_n(\omega) = k2^{-n} = 2k n^{-(n+1)} \le f_{n+1}(\omega).
+\]
+
+\item Now let us consider the case where $\omega \in A_k^n$ with $k = n 2^n$, so that $n \le f(\omega) < +\infty$. Then, if $f(\omega) \ge n + 1$ it follows that $f_n(\omega) = n < n + 1 = f_{n+1}(\omega)$. If, on the other hand, $n \le f(\omega) < n + 1$ there exists an $2n \, 2^n \le \ell \le (2n+2) \, 2^n$ such that $\omega \in A_\ell^{n+1}$, which then implies that 
+\[
+	f_n(\omega) = n = (2n 2^{n}) \, 2^{-(n+1)} \le f_{n+1}(\omega).
+\]
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 4.5}
+\begin{enumerate}[label={(\alph*)}]
+\item First suppose $f = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i}$ is a simple function. Then $f \mathbbm{1}_B = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i \cap B}$ is also a simple function and thus
+\[
+	\int_B f \, \dd \mu = \int_\Omega f \mathbbm{1}_B \, \dd \mu = \sum_{i = 1}^N a_i \mu(A_i \cap B) \le \mu(B) \sum_{i = 1}^N a_i \mu(A_i) = 0.
+\]
+
+Now let $f$ be a non-negative function and $g \le f$ be a simple function. Then $g \mathbbm{1}_B \le f \mathbbm{1}_B$ and thus by Definition 4.7
+\begin{align*}
+	\int_B f \, \dd \mu = \int_\Omega f \mathbbm{1}_B \, \dd \mu \ge \int_\Omega g \mathbbm{1}_B \, \dd \mu = 0,
+\end{align*}
+which implies the result.
+
+\item Suppose $f \le g$ are non-negative functions and observe that if $h$ is a simple function such that $h \le f$ then also $h \le g$. Therefore we get
+\[
+	\int_\Omega f \, \dd \mu = \sup_{h \le f}\left\{\int_\Omega h \, \dd \mu\right\}
+	\le \sup_{h \le g}\left\{\int_\Omega h \, \dd \mu\right\} = \int_\Omega g \, \dd \mu.
+\]
+\item Suppose that $h$ is a simple function. Then $\alpha h$ is also simple and it immediately follows that $\int_\Omega (\alpha h) \, \dd \mu = \alpha \int_\Omega h \, \dd \mu$. Now let $f$ be non-negative. Then $h \le f \iff \alpha h \le \alpha f$ and $h \le \alpha f \iff \alpha^{-1} h \le f$. Thus by Definition 4.7 we have
+\begin{align*}
+	\alpha \int_\Omega f \, \dd \mu &= \alpha \sup_{h \le f}\left\{\int_\Omega h \, \dd \mu\right\}\\
+	&= \sup_{h \le f} \alpha \left\{\int_\Omega  h \, \dd \mu\right\}\\
+	&= \sup_{h \le f} \left\{\int_\Omega (\alpha h) \, \dd \mu\right\}\\
+	&= \sup_{\alpha^{-1} h \le f} \left\{\int_\Omega h) \, \dd \mu\right\}\\
+	&= \sup_{h \le \alpha f} \left\{\int_\Omega (\alpha h) \, \dd \mu\right\} = \int_\Omega (\alpha f) \, \dd \mu.
+\end{align*}
+\end{enumerate}
+
+
+\end{document}

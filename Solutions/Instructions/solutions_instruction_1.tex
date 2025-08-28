@@ -1,0 +1,87 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 2.6}
+Let $\cO$ denote the open sets in $\bbR$.
+\begin{enumerate}[label=(\alph*)]
+\item Note that the interval $(a,b)$ is open for any $a < b \in \bbR$. Hence $\cA_1 \subset \cA_1^\prime \subset \cO$ and thus by Lemma 2.1.5 we have that $\sigma(\cA_1) \subset \sigma(\cA_1^\prime) \subset \sigma(\cO) = \cB_\bbR$.
+\item The inclusion $\supset$ is trivial. So assume that $x \in O$. Then by definition there exist an $r > 0$ such that the ball $B_x(r) \subset O$. But $B_x(r) = (x-r, x+r) \in \cA_1$ so $x \in \bigcup_{I \in \cA, I \subset O} I$.
+\item Take $O \in \cO$. If we can show that $O \in \sigma(\cA)$ then $\cB_\bbR = \sigma(\cO) \subset \sigma(\cA)$. The result then follows from 1. 
+
+From 2 it follows that $O$ is a union over a subset collection of interval $(a,b)$ where $a,b \in \bbQ$. Since $\bbQ$ is countable, the collection $\{(a,b) \, : \, a < b \in \bbQ\}$ is also countable and hence $O = \bigcup_{I \in \cA, I \subset O} I \in \sigma(\cA)$, from which it follows that $\cB_\bbR \subset \sigma(\cA)$.
+\item This follows immediately from 1 and 3 since these imply that $\cB_\bbR = \sigma(\cA_1) \subset \sigma(\cA_1^\prime) \subset \cB_\bbR$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 2.12}
+
+\begin{enumerate}[label=(\alph*)]
+\item We first make the following observations about $\mathcal{N}$:
+\begin{itemize}
+\item because $\mu(\emptyset) = 0$ it holds that $\emptyset \in \mathcal{N}$,
+\item if $N, M \in \mathcal{N}$ then $N \setminus M \in \mathcal{N}$ since $N \setminus M \subset N$, and
+\item if $(N_i)_{i \ge 1}$ is a family of sets in $\mathcal{N}$ then so is $\bigcup_{i \ge 1} N_i$.
+\end{itemize}
+
+From the first point it follows that $\emptyset = \emptyset \cup \emptyset \in \overline{\cF}$ and $\Omega = \Omega \cup \emptyset \in \overline{\cF}$.
+
+Furthermore, if $A, B \in \cF$ and $N, M \in \mathcal{N}$, then by the second point and because $A \setminus B \in \cF$,
+\[
+	(A \cup N) \setminus (B \cup M) = (A \setminus B) \cup (N \setminus M) \in \overline{\cF}.
+\]
+
+Finally, let $(A_i \cup N_i)_{i \ge 1}$ be a collection of sets in $\mathcal{N}$. Then using the third point we get
+\[
+	\bigcup_{i \ge 1} A_i \cup N_i = \bigcup_{i \ge 1} A_i \cup \bigcup_{i \ge 1} N_i \in \overline{\cF}.
+\]
+\item From the definition we immediately get that $\mu(\emptyset) = 0$. Now, let $(A_i \cup N_i)_{i \ge 1}$ be a collection of disjoint sets in $\mathcal{N}$. Then
+\[
+	\bar{\mu}(\bigcup_{i \ge 1} A_i \cup N_i) = \bar{\mu}(\bigcup_{i \ge 1} A_i \cup \bigcup_{i \ge 1} N_i)
+	= \mu(\bigcup_{i \ge 1} A_i) = \sum_{i \ge 1} \mu(A_i) = \sum_{i \ge 1} \bar{\mu}(A_i \cup N_i).
+\]
+\item This follows from the fact that $\bar{\mu}|_\cF(A) = \bar{\mu}(A \cup \emptyset) = \mu(A)$.
+\item Suppose that $N \subset \Omega$ is a null set for $\overline{\cF}$. Then there exists an $A \cup M \in \overline{\cF}$ such that $N \subset A \cup M$ and $\bar{\mu}(A \cup M) = \mu(A) = 0$. However, since $M \in \mathcal{N}$, there must also exist a $B \in \cF$ with $M \subset B$ and $\mu(B) = 0$. But this implies that $N \subset A \cup B \in \cF$ which implies that $N \in \mathcal{N}$. Therefore, since $N = \emptyset \cup N$ it follows that $N \in \overline{\cF}$ and hence every null set is part of the \sigalg/.
+\end{enumerate}
+
+\end{document}

@@ -1,38 +1,5 @@
    
-\textbf{Problem 7.1}
-\begin{enumerate}[label={(\alph*)}]
-\item Note that $\cA_1 \times \cA_2 \subset \cF_1 \times \cF_2$, and hence
-\[
-	\sigma(\cA_1 \times \cA_2) \subset \cF_1 \otimes \cF_2.
-\]
-\item Let $B \in \cA_2$. Then we have that
-\[
-	\Omega_1 \times B = \bigcup_{n \ge 1} A_n \times B \in \sigma(\cA_1 \times \cA_2) 
-\]
-since $A_n \times B \in \sigma(\cA_1 \times \cA_2)$ for all $n \ge 1$. So $\Omega_1 \in \Sigma$
 
-For the second property, let $C \in \Sigma$ and note that $C^c \times B = (\Omega_1 \times B) \setminus (C \times B)$.
-Since both these sets are in $\sigma(\cA_1 \times \cA_2)$ it follows that $C^c \times B \in \sigma(\cA_1 \times \cA_2)$ and hence $C^c \in \Sigma$.
-
-Finally consider a countable sequence $(C_n)_{n \ge 1}$ of sets in $\Sigma$. Then for any $B \in \cA_2$
-\[
-	\left(\bigcup_{n \ge 1} C_n \right) \times B = \bigcup_{n \ge 1} (C_n \times B) \in \sigma(\cA_1 \times \cA_2),
-\]
-since each $C_n \times B \in \sigma(\cA_1 \times \cA_2)$.
-\item Note that $\cA_1 \subset \Sigma_1 \subset \cF_1$. From which it follows that $\Sigma_1 = \cF_1$. But then, from the definition of $\Sigma_1$ we have that $\cF_1 \times \cA_2 \subset \sigma(\cA_1 \times \cA_2)$.
-\item We can show in a similar fashion that
-\[
-	\Sigma_2 := \{C \in \cF_2 \, : \, B \times C \in \sigma(\cA_1 \times \cA_2) \, \forall B \in \cA_1\}.
-\]
-is a \sigalg/ on $\Omega_2$, from which we conclude that $\cA_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$.
-\item take any $A \in \cF_1$ and $B \in \cF_2$. Then
-\[
-	A \times B = (A \times \Omega_2) \cap (\Omega_1 \times B) = \bigcup_{n,m \ge 1} (A \times B_m) \cap (A_n \times B) \in \sigma(\cA_1 \times \cA_2).
-\]
-From this we conclude that $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$, which finishes the proof.
-\end{enumerate}
-
-\bigskip
 \textbf{Problem 7.4}
 
 One direction is easy. Assume that $X_1$ and $X_2$ are independent according to Definition 7.1.4. Now take any $a,b \in \bbR$ and note that $A_1 := X_1^{-1}((-\infty,a]) \in \sigma(X_1)$ and $A_2 := X_2^{-1}((-\infty, b]) \in \sigma(X_2)$. Then by the definition of independence we have that

@@ -504,22 +504,20 @@ In this exercise we will prove Proposition~\ref{prop:approximation_simple}
 \[
 	A_k^n = \begin{cases}
 		\{ k 2^{-n} \le f < (k+1) 2^{-n}\} &\text{for } k = 0,1, \dots, N_n - 1,\\
-		\{ f \ge n\} &\text{for } k = N_n,
+		\{ n \le f < +\infty\} &\text{for } k = N_n,
 	\end{cases}
 \]
 
 Prove that these are measurable and mutually disjoint.
 \end{enumerate}
 
-We now define the following function, as our candidate for the simple function that approximates $f$.
+We now define the following sequence of simple functions:
 \[
 	f_n = 2^n\mathbf{1}_{\{f=+\infty\}} + \sum_{k=0}^{N_n} k \, 2^{-n} \mathbf{1}_{A_k^n}.
 \]
 
 \begin{enumerate}[label=(\alph*)]
 \setcounter{enumi}{1}
-\item Show that $f_n$ is measurable and simple for every $n \ge 1$. Also note that $f_n(\omega) = k 2^{-n} \iff \omega \in A_k^n \text{ and } f(\omega) < +\infty$.
-\item Show that $f_n \le f$ (point-wise) and that $f(w) - f_n(\omega) \le 2^{-n}$ holds for all $n \ge 1$.
 \item Prove that for any $\omega \in \Omega$, $\lim_{n \to \infty} f_n(\omega) = f(\omega)$. [Hint: consider the case $f(\omega) = \infty$ and $f(\omega) < \infty$ separately.]
 \end{enumerate}
 

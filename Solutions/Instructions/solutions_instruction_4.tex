@@ -1,0 +1,104 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 4.9}
+
+\paragraph{($\Rightarrow$)} Let $f$ be $\mu$-integrable. Then both $|f|\mathbf{1}_{\{|f|<n\}}$ and $|f|\mathbf{1}_{\{|f|\ge n\}}$ are integrable, due to the monotonicity of the integral. By linearity of the integral,
+\[
+	\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu.
+\]
+Since the sequence $g_n:= |f|\mathbf{1}_{\{|f|< n\}}\ge 0$ converges pointwise monotonically to $|f|$, we can apply MCT to obtain
+\[
+	\lim_{n\to\infty} \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,dd\mu = \int_\Omega |f|\,\dd\mu.
+\]
+Hence,
+\[	
+	\lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu = 0.
+\]
+
+\paragraph{($\Leftarrow$)} By assumption, there is some $N\ge 1$ such that
+\[
+	\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le 1.
+\]
+By linearity of the integral,
+\[
+	\int_\Omega |f|\,\dd\mu = \int_\Omega |f|\mathbf{1}_{\{|f|< N\}}\,\dd\mu +\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le N \mu\bigl(\{|f|< N\}\bigr) + 1.
+\]
+Since $\mu$ is a finite measure, the right-hand side is finite, implying that $f$ is $\mu$-integrable.
+
+\bigskip
+
+\textbf{Problem 5.2}
+\begin{enumerate}[label={(\alph*)}]
+\item Note that $\cA_1 \times \cA_2 \subset \cF_1 \times \cF_2$, and hence
+\[
+	\sigma(\cA_1 \times \cA_2) \subset \cF_1 \otimes \cF_2.
+\]
+\item Let $B \in \cA_2$. Then we have that
+\[
+	\Omega_1 \times B = \bigcup_{n \ge 1} A_n \times B \in \sigma(\cA_1 \times \cA_2) 
+\]
+since $A_n \times B \in \sigma(\cA_1 \times \cA_2)$ for all $n \ge 1$. So $\Omega_1 \in \Sigma$
+
+For the second property, let $C \in \Sigma$ and note that $C^c \times B = (\Omega_1 \times B) \setminus (C \times B)$.
+Since both these sets are in $\sigma(\cA_1 \times \cA_2)$ it follows that $C^c \times B \in \sigma(\cA_1 \times \cA_2)$ and hence $C^c \in \Sigma$.
+
+Finally consider a countable sequence $(C_n)_{n \ge 1}$ of sets in $\Sigma$. Then for any $B \in \cA_2$
+\[
+	\left(\bigcup_{n \ge 1} C_n \right) \times B = \bigcup_{n \ge 1} (C_n \times B) \in \sigma(\cA_1 \times \cA_2),
+\]
+since each $C_n \times B \in \sigma(\cA_1 \times \cA_2)$.
+\item Note that $\cA_1 \subset \Sigma_1 \subset \cF_1$. From which it follows that $\Sigma_1 = \cF_1$. But then, from the definition of $\Sigma_1$ we have that $\cF_1 \times \cA_2 \subset \sigma(\cA_1 \times \cA_2)$.
+\item We can show in a similar fashion that
+\[
+	\Sigma_2 := \{C \in \cF_2 \, : \, B \times C \in \sigma(\cA_1 \times \cA_2) \, \forall B \in \cA_1\}.
+\]
+is a \sigalg/ on $\Omega_2$, from which we conclude that $\cA_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$.
+\item take any $A \in \cF_1$ and $B \in \cF_2$. Then
+\[
+	A \times B = (A \times \Omega_2) \cap (\Omega_1 \times B) = \bigcup_{n,m \ge 1} (A \times B_m) \cap (A_n \times B) \in \sigma(\cA_1 \times \cA_2).
+\]
+From this we conclude that $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$, which finishes the proof.
+\end{enumerate}
+
+\end{document}

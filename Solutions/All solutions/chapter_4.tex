@@ -1,0 +1,212 @@
+
+\textbf{Problem 4.2}
+
+
+
+
+\bigskip
+
+\textbf{Problem 4.3}
+
+\begin{enumerate}[label={(\alph*)}]
+\item The fact that the sets are disjoint is immediate from the definition. Measurability follows from Lemma 3.11
+\item Let us fix a $\omega \in \Omega$. Then if $f(\omega) = +\infty$ we get that $f_n(\omega) = 2^n$ holds for all $n \ge 1$ and hence $\lim_{n \to \infty} f_n(\omega) = +\infty = f(\omega)$. So assume that $f(\omega) < +\infty$. Then there exists an $M \in \bbN$ such that $f(\omega) < M$. Hence, for all $n \ge M$ we have that 
+\[
+	\|f_n(\omega) - f(\omega)\| = f(\omega) - f_n(\omega) \le 2^{-n},
+\]
+which implies that $\lim_{n \to \infty} f_n(\omega) = f(\omega)$.
+\item Fix $n \ge 1$ and $\omega \in \Omega$. Clearly, if $f(\omega) = +\infty$ then $f_n(\omega) = 2^n < +\infty = f(\omega)$. 
+
+\item Fix $\omega \in \Omega$ such that $f(\omega) < +\infty$ and $\omega \in A_k^n$ for some $0 \le k < N_n = n 2^n$. 
+
+Note that $k 2^{-n} \le f(\omega) < (k+1) 2^{-n}$ holds and this interval can be split into two intervals as follows:
+\[
+	[k 2^{-n}, (k+1) 2^{-n}) = [(2k) 2^{-(n+1)}, (2k +1)2^{-(n+1)}) \cup [(2k +1)2^{-(n+1)}, (2k + 2)2^{-(n+1)}).
+\] 
+Hence, we conclude that either $\omega \in A_{2k}^{n+1}$ or $\omega \in A_{2k+1}^{n+1}$. In both case we get that 
+\[
+	f_n(\omega) = k2^{-n} = 2k n^{-(n+1)} \le f_{n+1}(\omega).
+\]
+
+\item Now let us consider the case where $\omega \in A_k^n$ with $k = n 2^n$, so that $n \le f(\omega) < +\infty$. Then, if $f(\omega) \ge n + 1$ it follows that $f_n(\omega) = n < n + 1 = f_{n+1}(\omega)$. If, on the other hand, $n \le f(\omega) < n + 1$ there exists an $2n \, 2^n \le \ell \le (2n+2) \, 2^n$ such that $\omega \in A_\ell^{n+1}$, which then implies that 
+\[
+	f_n(\omega) = n = (2n 2^{n}) \, 2^{-(n+1)} \le f_{n+1}(\omega).
+\]
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 4.5}
+\begin{enumerate}[label={(\alph*)}]
+\item First suppose $f = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i}$ is a simple function. Then $f \mathbbm{1}_B = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i \cap B}$ is also a simple function and thus
+\[
+	\int_B f \, \dd \mu = \int_\Omega f \mathbbm{1}_B \, \dd \mu = \sum_{i = 1}^N a_i \mu(A_i \cap B) \le \mu(B) \sum_{i = 1}^N a_i \mu(A_i) = 0.
+\]
+
+Now let $f$ be a non-negative function and $g \le f$ be a simple function. Then $g \mathbbm{1}_B \le f \mathbbm{1}_B$ and thus by Definition 4.7
+\begin{align*}
+	\int_B f \, \dd \mu = \int_\Omega f \mathbbm{1}_B \, \dd \mu \ge \int_\Omega g \mathbbm{1}_B \, \dd \mu = 0,
+\end{align*}
+which implies the result.
+
+\item Suppose $f \le g$ are non-negative functions and observe that if $h$ is a simple function such that $h \le f$ then also $h \le g$. Therefore we get
+\[
+	\int_\Omega f \, \dd \mu = \sup_{h \le f}\left\{\int_\Omega h \, \dd \mu\right\}
+	\le \sup_{h \le g}\left\{\int_\Omega h \, \dd \mu\right\} = \int_\Omega g \, \dd \mu.
+\]
+\item Suppose that $h$ is a simple function. Then $\alpha h$ is also simple and it immediately follows that $\int_\Omega (\alpha h) \, \dd \mu = \alpha \int_\Omega h \, \dd \mu$. Now let $f$ be non-negative. Then $h \le f \iff \alpha h \le \alpha f$ and $h \le \alpha f \iff \alpha^{-1} h \le f$. Thus by Definition 4.7 we have
+\begin{align*}
+	\alpha \int_\Omega f \, \dd \mu &= \alpha \sup_{h \le f}\left\{\int_\Omega h \, \dd \mu\right\}\\
+	&= \sup_{h \le f} \alpha \left\{\int_\Omega  h \, \dd \mu\right\}\\
+	&= \sup_{h \le f} \left\{\int_\Omega (\alpha h) \, \dd \mu\right\}\\
+	&= \sup_{\alpha^{-1} h \le f} \left\{\int_\Omega h) \, \dd \mu\right\}\\
+	&= \sup_{h \le \alpha f} \left\{\int_\Omega (\alpha h) \, \dd \mu\right\} = \int_\Omega (\alpha f) \, \dd \mu.
+\end{align*}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 4.8}
+
+\begin{enumerate}[label={(\alph*)}]
+	\item By definition, we have that $\nu_f(\Omega) = \int_\Omega f\,\dd\mu = 1$. Now let $(A_n)_{n\in\bbN}$ be a family of mutually disjoint measurable sets. Then we have that the sequence 
+	\[
+		g_n:= \sum_{i=1}^n f\,\mathbf{1}_{A_i} = f\,\mathbf{1}_{\bigcup_{i=1}^n\! A_i}\;\longrightarrow\; g:= f\,\mathbf{1}_{\bigcup_{i\in\bbN}\! A_i}\qquad\text{pointwise monotonically}.
+	\]
+	By MCT, we then have that
+	\[
+		\nu_f\left(\bigcup_{i\in\bbN} A_i\right) = \int_{\bigcup_{i\in\bbN}\! A_i} f\,\dd\mu = \lim_{n\to\infty} \int_{\bigcup_{i=1}^n\! A_i} f\,\dd\mu = \lim_{n\to\infty} \sum_{i=1}^n \int_{A_i} f\,\dd\mu = \sum_{i\in\bbN}\nu_f(A_i),
+	\]
+	thus showing that $\nu_f$ is a probability measure on $(\Omega,\cF)$.
+	
+	\item Following the hint, we start by considering nonnegative simple functions $g$. Suppose $g=\sum_{i=1}^n a_i \mathbf{1}_{A_i}$ for $a_i\in\bbR$ and $A_i\in\cF$ mutually disjoint. Then,
+	\[
+		\int_\Omega g\,d\nu_f = \sum_{i=1}^n a_i =\,\nu_f(A_i) = \sum_{i=1}^n a_i\int_{A_i} f\,\dd\mu = \int_\Omega gf\,\dd\mu.
+	\]
+	Now let $g$ be a nonnegative measurable function and $[g]_n$ be a sequence of nonnegative simple functions that converge pointwise monotonically to $g$. Then MCT yields
+	\[
+		\int_\Omega g\,\dd\nu_f = \lim_{n\to\infty}\int_\Omega [g]_n\,\dd\nu_f = \lim_{n\to\infty} \int_\Omega [g]_n f\,\dd\mu = \int_\Omega gf\,\dd\mu,
+	\]
+	where we used the fact that $[g]_n f$ converges pointwise monotonically to $gf$.
+	
+	\item Let $g$ be measurable. Then $g=g^+-g^-$, where $g^\pm$ are nonnegative measurable functions. Since $f$ is nonnegative, we have that $(fg)^\pm = f g^\pm$. Due to (b), we deduce
+	\[
+		\int_\Omega g^\pm\,\dd\nu_f = \int_\Omega g^\pm f\,\dd\mu = \int_\Omega (gf)^\pm\,\dd\mu.
+	\]
+	Hence, $g^\pm$ is $\nu_f$-integrable if and only if $(gf)^\pm$ is $\mu$-integrable. Consequently, $g$ is $\nu_f$-integrable if and only if $gf$ is $\mu$-integrable, since
+	\[
+		\int_\Omega |g|\,\dd\nu_f = \int_\Omega g^+\,\dd\nu_f + \int_\Omega g^-\,\dd\nu_f = \int_\Omega g^+f\,\dd\mu + \int_\Omega g^-f\,\dd\mu = \int_\Omega |gf|\,\dd\mu.
+	\]
+\end{enumerate}
+
+\bigskip
+\textbf{Problem 4.9}
+
+\paragraph{($\Rightarrow$)} Let $f$ be $\mu$-integrable. Then both $|f|\mathbf{1}_{\{|f|<n\}}$ and $|f|\mathbf{1}_{\{|f|\ge n\}}$ are integrable, due to the monotonicity of the integral. By linearity of the integral,
+\[
+	\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu.
+\]
+Since the sequence $g_n:= |f|\mathbf{1}_{\{|f|< n\}}\ge 0$ converges pointwise monotonically to $|f|$, we can apply MCT to obtain
+\[
+	\lim_{n\to\infty} \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,dd\mu = \int_\Omega |f|\,\dd\mu.
+\]
+Hence,
+\[	
+	\lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu = 0.
+\]
+
+\paragraph{($\Leftarrow$)} By assumption, there is some $N\ge 1$ such that
+\[
+	\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le 1.
+\]
+By linearity of the integral,
+\[
+	\int_\Omega |f|\,\dd\mu = \int_\Omega |f|\mathbf{1}_{\{|f|< N\}}\,\dd\mu +\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le N \mu\bigl(\{|f|< N\}\bigr) + 1.
+\]
+Since $\mu$ is a finite measure, the right-hand side is finite, implying that $f$ is $\mu$-integrable.
+
+\bigskip
+\textbf{Problem 4.10}
+
+Observe that $\Omega = \bigcup_{n \in \bbN} \{|f| > n\}$. 
+
+We then get that
+\[
+	\sum_{n = 1}^\infty \int_{\{|f| > n\}} |f| \, \dd \mu = \int_\Omega |f| \, \dd \mu < \infty.
+\]
+
+This implies that for some $N$ and all $n \ge N$: $\int_{\{|f| > n\}} |f| \, \dd \mu < 1/n$ or else the sum cannot be finite.
+
+Now let $\varepsilon > 0$, take $M > \max\{N, 2/\varepsilon\}$ and $\delta = \varepsilon/(2M)$. Then
+\begin{align*}
+	\int_A |f| \, \dd \mu &= \int_A |f| \mathbf{1}_{|f|\le M} \, \dd \mu + \int_A |f| \mathbf{1}_{|f|> M} \, \dd \mu\\
+	&\le M \mu(A) + \frac{1}{M} \le M\delta + \frac{1}{M} < \varepsilon.
+\end{align*}
+
+\bigskip
+%
+%\textbf{Problem 6.??}
+%
+%\begin{enumerate}[label=(\alph*)]
+%\item Let $t \in \bbR$ and consider the set $A_t = (-\infty, t]$. Then by definition of the probability density function
+%\[
+%	\nu(A_t) = \int_{-\infty}^t \rho \, \dd \lambda = (X_\# \bbP)((-\infty, t]).
+%\]
+%We thus conclude that $\nu$ and $X_\# \bbP$ coincide on the family of set $A_t$ and since these generate $\cB$ Theorem 2.2.17 implies that $\nu = X_\# \bbP$.
+%\item Since $g$ is a simple function, there exist an $N \in \bbN$, constants $(a_n)_{1 \le n \le N}$ and measurable sets $(A_n)_{1 \le n \le N}$ such that
+%\[
+%	g = \sum_{n = 1}^N a_n \mathbf{1}_{A_n}.
+%\]
+%
+%Now, by first applying Proposition 4.8.11 and then part (a), we get that
+%\begin{align*}
+%	\bbE[g(X)] &= \int_{\Omega} g(X) \, \dd \bbP
+%		= \int_{\Omega} g \, \dd X_\# \bbP 
+%		= \int_\Omega g \, \dd \nu \\
+%	&= \int_\Omega \sum_{n = 1}^N a_n \mathbf{1}_{A_n} \, \dd \nu 
+%		= \sum_{n = 1}^N a_n \nu(A_n) 
+%		= \sum_{n = 1}^N a_n \int_{A_n} \rho \, \dd \lambda \\
+%	&= \int_\bbR \sum_{n = 1}^N a_n \mathbf{1}_{A_n} \rho \, \dd \lambda = \int_\bbR g \rho \, \dd \lambda
+%\end{align*}
+%
+%\item First note that by part (b) we have that
+%\[
+%	\int_\Omega [h]_n(X) \, \dd \bbP = \int_\bbR [h_n] \rho \, \dd \lambda.
+%\]
+%Now we split the function $[h_n] \rho$ into its positive and negative part and note that
+%\[
+%	([h_n] \rho)^+ = [h]_n^+ \rho^+ + [h]_n^- \rho^- \quad \text{and} \quad
+%	([h_n] \rho)^- = [h]_n^+ \rho^- + [h]_n^- \rho^+,
+%\] 
+%where $[h]_n^\pm$ and $\rho^\pm$ denote the positive and negative parts of $[h]_n$ and $\rho$.
+%
+%We will show that 
+%\[
+%	\int_\Omega h^+(X) \, \dd \bbP = \int_\bbR h^+ \rho \, \dd \lambda. 
+%\]
+%The proof for the negative part is similar.
+%
+%\begin{align*}
+%	\int_\bbR h^+ \, \dd \nu &= \lim_{n \to \infty} \int_\bbR [h]_n^+ \, \dd \nu &&\text{by Theorem 4.3.4}\\
+%	&= \lim_{n \to \infty} \int_\bbR [h]_n^+ \rho \, \dd \lambda &&\text{by part (b)} \\
+%	&= \lim_{n \to \infty} \int_\bbR [h]_n^+ \rho^+ \, \dd \lambda
+%		- \lim_{n \to \infty} \int_\bbR [h]_n^+ \rho^- \, \dd \lambda &&\text{by linearity of integration} \\
+%	&= \int_\bbR h+ \rho^+ \, \dd \lambda - \int_\bbR h+ \rho^- \, \dd \lambda &&\text{by Theorem 4.3.4} \\
+%	&= \int_\bbR h^+ \rho \, \dd \lambda &&\text{by linearity of integration}
+%\end{align*}
+%\item 
+%\begin{align*}
+%	\bbE[h(X)] &= \int_\Omega h(X) \, \dd \bbP \\
+%	&= \int_\bbR h \, \dd X_\# \bbP &&\text{by Proposition 4.8.11}\\
+%	&= \int_\bbR h \, \dd \nu &&\text{by part (a)}\\
+%	&= \int_\bbR h \rho \, \dd \lambda &&\text{by part (c)}.
+%\end{align*}
+%\end{enumerate}   
+%
+%\bigskip
+%\textbf{Problem 4.7}
+%This follows from the following inequalities:
+%\[
+%	\int_\bbR |f|^p \, \dd \mu \ge \int_{\{|f| \ge t\}} |f|^p \, \dd \mu
+%	\ge t^p \mu(\{|f| \ge t\}).
+%\]

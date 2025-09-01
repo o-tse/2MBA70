@@ -426,7 +426,7 @@ Again, this formula is correct (under some mild obvious conditions) and follows 
 \begin{lemma}\label{lem:expectation_continuous_random_variable}
 Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ a continuous random variable with probability density $\rho$ and let $h : \bbR \to \bbR$ be a measurable function such that $h \rho$ is Lebesgue integrable. Then
 \[
-	\bbE[h(Y)] = \int_\bbR h \rho \, \dd \lambda.
+	\bbE[h(X)] = \int_\bbR h \rho \, \dd \lambda.
 \]
 \end{lemma}
 
@@ -484,29 +484,10 @@ The above relation is often denoted as $X \stackrel{d}{=} Y$ ($X$ is equal to $Y
 
 \begin{problem}\label{prb:construction_random_variable_inverse}
 Here we prove Proposition~\ref{prop:construction_random_variable_inverse}. 
-%\begin{enumerate}[label=(\alph*)]
-%\item Show that $\overleftarrow{F}(u) \le x \iff F(x) \ge u$.
-%\item Prove that $\bbP\left(X^{-1}((-\infty,t])\right) = F(t)$.
-%\end{enumerate}
-%%We start with the following important observation: 
-%%\[
-%%	\overleftarrow{F}(u) \le x \iff F(x) \ge u.
-%%\]
-%%The implication from right to left is by definition of $\overleftarrow{F}$ and the fact that $F$ is non-decreasing. The implication from left to right is because $F$ is right continuous.
-%%
-%%
-%%Now let $(\Omega,\cF, \bbP)$ be a probability space and $U$ a standard normal random variable. We will show that $X = \overleftarrow{F} \circ U$ is a random variable with the right probability measure. Since we can construct a standard uniform random variable on the probability $([0,1], \cB_{[0,1]}, \lambda|_{[0,1]})$ this also implies the last part. 
-%%
-%%Consider the preimage of $(-\infty, t]$ under $X$. Then, using the above observation, we have
-%%\begin{align*}
-%%	X^{-1}((-\infty,t]) &= \{\omega \in \Omega \, : \, \overleftarrow{F}(U(\omega)) \in (-\infty,t]\}\\
-%%	&= \{\omega \in \Omega \, :\ , U(\omega) \in (-\infty, F(t)]\} = U^{-1}((-\infty, F(t)]) \in \cB_{[0,1]}.
-%%\end{align*}
-%%Hence, $X$ is measurable. Finally, the above computation, together with Proposition~\ref{prop:uniform_random_variable}, also implies that
-%%\[
-%%	\bbP\left(X^{-1}((-\infty,t])\right) = \bbP\left(U^{-1}((-\infty, F(t)])\right) = F(t),
-%%\]
-%%which finished the proof.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\overleftarrow{F}(u) \le x \iff F(x) \ge u$.
+\item Prove that $\bbP\left(X^{-1}((-\infty,t])\right) = F(t)$.
+\end{enumerate}
 \end{problem}
 
 \begin{problem}

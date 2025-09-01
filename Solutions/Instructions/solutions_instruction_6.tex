@@ -1,0 +1,87 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 6.5}
+
+Define for any $j \in \mathbb{Z}$, $p_j := \bbP(X^{-1}(\{j\}))$. Then, since $(X^{-1}(j))_{j \in \mathbb{Z}}$ is a family of disjoint sets and $\bbP$ is a probability measure we get that
+\[
+	1 = \bbP(\Omega) = \bbP(\bigcup_{j \in \mathbb{Z}} X^{-1}(j)) = \sum_{j \in \mathbb{Z}} p_j.
+\]
+
+Now let $A \subset \bbR$ be a measurable set and note that 
+\[
+	X^{-1}(A) = \bigcup_{j \in \mathbb{Z} \cap A} X^{-1}(j).
+\]
+Then it follows that
+\[
+	\bbP(X \in A) = \bbP(X^{-1}(A)) = \bbP\left(\bigcup_{j \in \mathbb{Z} \cap A} X^{-1}(j)\right)
+	= \sum_{j \in \mathbb{Z} \cap A} p_j = \sum_{j \in \mathbb{Z}} \delta_j(A) p_j. 
+\]
+
+
+\bigskip
+
+\textbf{Problem 6.8}
+
+\begin{enumerate}[label=(\alph*)]
+\item This follows from the following computation
+\[
+	\int_\Omega |f|^p \, \dd \mu \ge \int_{\Omega} |f|^p \mathbbm{1}_{|f| \ge t} \, \dd \mu
+	\ge t^p \int_\Omega \mathbbm{1}_{|f| \ge t} \, \dd \mu
+	= t^p \mu(\{\omega \in \Omega \, : \, |f| \ge t\}).
+\]
+\item Using the result for $p = 1$ we get
+\[
+	\bbP(|X| \ge t) = \mu(\omega \in \Omega \, : \, |X(\omega) \ge t \})
+	\le \frac{1}{t} \int_{\Omega} X \, \dd \bbP = \frac{1}{t} \bbE[X].
+\]
+\item Take $f(\omega) = X(\omega) - \bbE[X]$, which is measurable. Then using the first result with $p = 2$ gives
+\begin{align*}
+	\bbP(|X - \bbE[X]| \ge t) &= \bbP(|X-\bbE[X]|^2 \ge t^2) \\
+	&\le \frac{1}{t^2} \bbE[(X - \bbE[X])^2] \\
+	&= \frac{1}{t^2} (\bbE[X^2] - \bbE[X]^2) = \frac{\mathrm{Var}(X)}{t^2}.
+\end{align*}
+\end{enumerate}
+
+
+\end{document}

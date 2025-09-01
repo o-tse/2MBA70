@@ -1,0 +1,112 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+
+\textbf{Problem 6.2}
+\begin{enumerate}[label=(\alph*)]
+\item The implication from right to left is by definition of $\overleftarrow{F}$ and the fact that $F$ is non-decreasing. The implication from left to right is because $F$ is right continuous.
+\item Consider the preimage of $(-\infty, t]$ under $X$. Then, using the above observation, we have
+\begin{align*}
+	X^{-1}((-\infty,t]) &= \{\omega \in \Omega \, : \, \overleftarrow{F}(U(\omega)) \in (-\infty,t]\}\\
+	&= \{\omega \in \Omega \, :\ , U(\omega) \in (-\infty, F(t)]\} = U^{-1}((-\infty, F(t)]) \in \cB_{[0,1]}.
+\end{align*}
+Hence, $X$ is measurable. Finally, the above computation, together with Lemma 6.5, also implies that
+\[
+	\bbP\left(X^{-1}((-\infty,t])\right) = \bbP\left(U^{-1}((-\infty, F(t)])\right) = F(t).
+\]
+\end{enumerate}
+
+
+Now let $(\Omega,\cF, \bbP)$ be a probability space and $U$ a standard normal random variable. We will show that $X = \overleftarrow{F} \circ U$ is a random variable with the right probability measure. Since we can construct a standard uniform random variable on the probability $([0,1], \cB_{[0,1]}, \lambda|_{[0,1]})$ this also implies the last part. 
+
+
+which finished the proof.
+
+\bigskip
+
+\textbf{Problem 6.3}
+
+\begin{enumerate}[label=(\alph*)]
+\item For the probability space, take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Observe that the function $H_\gamma(z)$ is continuous and hence has an inverse $g_\gamma(y) = \gamma \tan(\pi(y - 1/2))$ on $[0,1]$.
+
+So the function $Y [0,1] \to \bbR$ defined by $Y(x) = g_\gamma(x)$ has the correct distribution as
+\[
+	\bbP(Y^{-1}((-\infty,t])) = \bbP(g_\gamma^{-1}((-\infty, t])) = \lambda(H_\gamma((-\infty,t])) = H_\gamma(t).
+\]
+\item Note that $g_\gamma$ is continuous on $[0,1]$ and hence measurable.
+\item For any $t \ge 0$, the cdf of the Poisson random variable is given by
+\[
+	F_\lambda(t) = \sum_{n = 0}^{\lceil t \rceil} f_\lambda(n),
+\]
+where $\lceil t \rceil$ is the ceiling of $t$, i.e. the smallest integer $k \ge t$.
+\item For the probability space, we again take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Now for any $y \in [0,1]$ let $k := k(y)$ be such that
+\[
+	\sum_{n = 1}^k f_\lambda(n) \ge y \quad \text{and} \quad \sum_{n = 1}^{k-1} f_\lambda(n) < y,
+\]
+where the last sum is interpreted as $-1$ if $k=0$.
+
+Now define $X(y) = k(y) : [0,1] \to \bbR$. Then $k(y) \le t$ if and only if $y \le F_\lambda(t)$ and hence
+\[
+	X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, k(y) \in (0,t]\}
+	= \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\},
+\]
+from which it follows that
+\[
+	\bbP(X^{-1}((-\infty,t])) = \lambda((0, F_\lambda(t)]) = F_\lambda(t).
+\]
+\item It follows from the above computation that $X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\}$. Since the latter is a measurable set we conclude that $X^{-1}((-\infty,t])$ is measurable for all $t$ and since these generate the Borel \sigalg/ $X$ is measurable.
+\item for any $\ell \in \bbN$ define the sets $A_\ell = (n-1-1/\ell), n-1 + 1/\ell]$. Then $A_\ell$ is a decreasing set with $\lim_{\ell \to \infty} A_\ell = \{n\}$. Moreover, $A_\ell = (-\infty,n-1+1/\ell] \setminus (-\infty, n-1-1/\ell]$ and $\bbP(A_1) < \infty$. It now follows from continuity from above and (d) that
+\begin{align*}
+	X_\#\bbP(\{n\}) &= \lim_{\ell \to \infty} X_\# \bbP(A_\ell) \\
+	&= \lim_{\ell \to \infty} X_\# \bbP((-\infty,n-1+1/\ell])
+	- X_\# \bbP((-\infty,n-1-1/\ell]) \\
+	&= F_\lambda(n-1+1/\ell) - F_\lambda(n-1-1/\ell) \\
+	&= \sum_{k = 0}^{n} f_\lambda(k) - \sum_{k = 0}^{n-1} f_\lambda(k) = f_\lambda(n).
+\end{align*}
+\end{enumerate}
+
+\end{document}

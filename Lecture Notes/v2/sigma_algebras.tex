@@ -413,7 +413,7 @@ We call a measure space $(\Omega, \cF, \mu)$ \emph{complete} if every null set $
 
 It is important to note that a null set does not have to be measurable, i.e., be in $\cF$. 
 
-Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \overline{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction as \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details see Problem~\ref{prb:completion_measure_space}.
+Let $(\Omega, \cF, \mu)$ be a measure space, not necessarily complete. Then we can construct a new measure space $(\Omega, \overline{\cF}, \bar{\mu})$ that is complete and such that the measure $\bar{\mu}$ is equal to $\mu$ on $\cF$, i.e. $\bar{\mu}|_\cF = \mu$. We refer to this construction as \emph{completing} the measure space $(\Omega, \cF, \mu)$. The details of this construction are not important. It basically entails adding all null sets to the \sigalg/. For more details, see Problem~\ref{prb:completion_measure_space}.
 
 With this setup, we can now state the main result that allows us to extend pre-measures to complete measures.
 
@@ -577,7 +577,7 @@ The goal of this exercise is to prove Proposition~\ref{prop:continuity_measure}.
 \begin{enumerate}[label=(\alph*)]
 \item Using the family $(A_i)_{i \ge 1}$, construct a new family of measurable sets $(E_k)_{k \ge 1}$ that are mutually disjoint and that satisfy
 \[
-	\bigcup_{i \ge 1} A_i = \bigcup_{k = 1}^\infty E_k \quad \text{and} \quad A_i = \bigcup_{k = i}^k E_k.
+	\bigcup_{i \ge 1} A_i = \bigcup_{k = 1}^\infty E_k \quad \text{and} \quad A_i = \bigcup_{k = 1}^i E_k.
 \] 
 [Hint: Look at the points from $\Omega$ that are added when going from $A_i$ to $A_{i + 1}$]
 

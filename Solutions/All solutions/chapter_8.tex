@@ -50,6 +50,26 @@ We have shown in (f) that the last term goes to zero as $n \to \infty$. Since $\
 
 \textbf{Problem 8.3}
 
+The main idea is to use the equivalent version of c
+
+Suppose that $X_n \plim X$ and define $Y_n = |X_n - X|$. We need to show that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. First recall that $X_n \plim X$ is defined as weak convergence of $Y_n$ to the constant zero random variable. By Lemma 8.2 this is equivalent to 
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t),
+\]
+for all continuity points of the function $\omega \mapsto 0$. We now note that any $\varepsilon > 0$ is a continuity point of this function. Hence, we get
+\[
+	\lim_{n \to \infty} \bbP(Y_n > \varepsilon) = 1 - \lim_{n \to \infty} \bbP(Y_n \le \varepsilon) = 1 - \bbP(0 \le \varepsilon) = 0
+\]
+
+Now we prove the other implication. So suppose that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. We then have to prove that $(Y_n)_\# \bbP \Rightarrow 0_\# \bbP$. Due to Lemma 8.2 it is enough to show that
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t) = \mathbbm{1}_{t \ge 0},
+\]
+holds for all continuity points $t$ of the function $\omega \mapsto 0$. Notice that the only non-continuity point is $0$. Moreover, for all $t < 0$ we have that $\bbP(Y_n \le t) = 0$ since $Y_n \ge 0$ almost every-where. Finally, for all $t > 0$ we have
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = 1 - \lim_{n \to \infty} \bbP(Y_n > t) = 1 = \bbP(0 \le t). 
+\]
+
 \bigskip
 
 \textbf{Problem 8.4}

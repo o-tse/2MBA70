@@ -1,50 +1,107 @@
    
+\textbf{Problem 7.1}
+
+\bigskip
+
+\textbf{Problem 7.2}
+
+\begin{enumerate}[label={(\alph*)}]
+	\item Let $t_0\in (a,b)$ be fixed. It suffices to check the continuity result for arbitrary sequences $(t_n)_{n\ge 1} \subset (a, b)$ such that $t_n\to t_0$ as $n\to\infty$. Fix such a sequence and define $g_n(\omega):= f(\omega,t_n)$ for all $\omega\in\Omega$ and $n\ge 1$. Since $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ for all $\omega\in\Omega$, we deduce that $\lim_{n\to\infty} g_n(\omega) = f(\omega,t_0)$ for every $\omega\in\Omega$. Moreover, by assumption $|g_n| \le g$ for all $n \ge 1$ and $g$ is integrable. By the Dominated Convergence Theorem
+\[
+	\lim_{n\to\infty} \int_\Omega g_n(\omega)\,\mu(\dd\omega) = \int_\Omega f(\omega,t_0)\,\mu(\dd\omega).
+\]
+As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t_0)$.
+
+	\item If $t\mapsto f(\omega,t)$ is continuous on $(a, b)$ for all $\omega\in\Omega$ then $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ at every $t_0\in(a,b)$ for all $\omega\in\Omega$. In particular, (a) applies, showing that $\lim_{t\to t_0} F(t) = F(t_0)$ for every $t_0\in (a,b)$, i.e., $F$ is continuous on $(a, b)$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 7.3}
+
+\begin{enumerate}[label={(\arabic*)}]
+	\item We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. Let $(t_n)_{n\ge 1}\subset(a,b)$ be an arbitrary sequence with $t_n\ne t$ and $t_n\to t$ for $n\to\infty$. We set
+	\[
+		g_n(\omega) = \frac{f(\omega,t_n)-f(\omega,t)}{t_n-t}.
+	\]
+	Clearly, $g_n$ is measurable for every $n\ge 1$. Moreover, $\lim_{n\to\infty} g_n(\omega) = (\partial f/\partial t)(\omega,t)$ by the definition of the derivative. Since $(\partial f/\partial t)(\cdot,t)$ is the pointwise limit of a sequence of measurable functions, it is also measurable. Clearly, $(\partial f/\partial t)(\cdot,t)$ is integrable since
+	\[
+		\int_\Omega |(\partial f/\partial t)(\omega,t)|\,\mu(\dd\omega) \le \int_\Omega g\,\dd\mu <+\infty.
+	\]
+	
+	\item Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
+	\[
+		\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} = (\partial f/\partial t)(\omega,\tau)\qquad\text{	for some $\tau\in(t_0,t)$.}
+	\]
+	Taking the modulus on both sides, we obtain
+	\[
+		\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le |(\partial f/\partial t)(\omega,\tau)|\le g(\omega)\qquad\text{for all $\omega\in\Omega$}.
+	\]
+	\item We now have all the ingredients needed to apply the DCT, which yields
+	\[
+		\lim_{n\to\infty} \frac{F(t_n)-F(t)}{t_n-t} = \lim_{n\to\infty} \int_\Omega g_n\,\dd\mu = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
+	\]
+	Since $t\in(a,b)$ and the sequence $(t_n)_{n\ge 1}$ was arbitrary, we conclude that $F$ is differentiable on $(a,b)$ with 
+	\[
+		F'(t) = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
+	\]
+\end{enumerate}
+
+\bigskip
 
 \textbf{Problem 7.4}
 
-One direction is easy. Assume that $X_1$ and $X_2$ are independent according to Definition 7.1.4. Now take any $a,b \in \bbR$ and note that $A_1 := X_1^{-1}((-\infty,a]) \in \sigma(X_1)$ and $A_2 := X_2^{-1}((-\infty, b]) \in \sigma(X_2)$. Then by the definition of independence we have that
-\[
-	\mathbb{P}(X_1 \le a, X_2 \le b) = \bbP(A_1 \cap A_2) = \bbP(A_1) \bbP(A_2) = \mathbb{P}(X_1 \le a) \mathbb{P}(X_2 \le b).
-\]
+\begin{enumerate}[label={(\alph*)}]
+	\item Note that the integrand $f_n(x)=\frac{1+n x^2}{(1+x^2)^n}$ is continuous on $[0, 1]$ and non-negative. Hence, the Riemann integral and Lebesgue integral coincide, i.e.,
+	\[
+		\int_0^1 f_n(x)\,\dd x = \int_{[0,1]} f_n\,\dd\lambda.
+	\] 
+	Observe that we have the following pointwise limit
+	\[
+		\lim_{n\to\infty} f_n(x) = \begin{cases}
+			1 &\text{if  $x=0$}, \\
+			0 &\text{if $x\in (0,1]$},
+		\end{cases}
+	\]
+	i.e., $\lim_{n\to\infty} f_n = 0$ $\lambda$-almost everywhere. Moreover, $f_n(x) \le 1$ for every $x\in[0,1]$ and $n\ge 1$. Since the constant function $g\equiv 1$ is $\lambda$-integrable on $[0,1]$, it is a valid dominator. Hence, the DCT gives
+	\[
+		\lim_{n\to\infty} \int_0^1 f_n(x)\,\dd x = \lim_{n\to\infty} \int_{[0,1]} f_n\,\dd \lambda = \int_{[0,1]} \lim_{n\to\infty} f_n\,\dd\lambda = 0
+	\]
+	
+	\item For the purpose of convergence, we consider $n\ge 3$. Note that the integrand $f_n(x)=\frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)$ is continuous on $(0, +\infty)$ with pointwise limit
+	\[
+		\lim_{n\to\infty} f_n(x) = \begin{cases}
+			0 & \text{if $x\in(0,1)$}, \\
+			1/2 & \text{if $x=1$}, \\
+			1/x^2 & \text{if $x>1$},
+		\end{cases}
+	\]
+	Setting the function
+	\[
+		g(x) = \begin{cases}
+			1 &\text{for $x\in(0,1)$},\\
+			\frac{1}{x^2} &\text{for $x\ge 1$},
+		\end{cases}
+	\]
+	we see that $f_n\le g$ $\lambda$-almost everywhere in $(0,+\infty)$ and for all $n\ge 3$. Indeed, for $x\ge 1$, we obtain
+	\[
+		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le \frac{x^{n-2}}{x^n} =\frac{1}{x^2},
+	\]
+	while for $x\in(0,1)$, we have
+	\[
+		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le 1.
+	\]
+	Notice that $g$ is non-negative and $\lambda$-integrable on $(0,+\infty)$. Indeed, using the MCT,
+	\begin{align*}
+		\int_{(0,+\infty)} g\,\dd\lambda &= \int_{(0,1)} g\,\dd\lambda + \int_{(1,+\infty)} g\,\dd\lambda = 1 + \lim_{n\to\infty} \int_{(1,n)} g\,\dd\lambda \\
+		&= 1 + \lim_{n\to\infty} \int_1^n \frac{1}{x^2}\,\dd x = 1 + \lim_{n\to\infty} \Bigl(1-\frac{1}{n} \Bigr) = 2 < +\infty.
+	\end{align*}
+	To conclude, we apply DCT to deduce that the limit is $1$.
+	
+\end{enumerate}
 
-So let us focus now on the other direction. Assume that for all $a,b \in \bbR$
-\[
-	\mathbb{P}(X_1 \le a, X_2 \le b) = \mathbb{P}(X_1 \le a) \mathbb{P}(X_2 \le b).
-\]
-We now have to show that $X_1$ and $X_2$ are independent according to Definition 7.1.4.
+\bigskip
 
-First note that since the family $(-\infty, a] \times (-\infty ,b]$ generate the 2-dimensional Borel \sigalg/ we have, using Theorem 2.2.17, that
-\[
-	\bbP(X_1 \in B_1, X_2 \in B_2) = \bbP(X_1 \in B_1) \bbP(X_2 \in B_2)
-\]
-for all $B_1, B_2 \in \cB_{\bbR}$.
+\textbf{Problem 7.5}
 
-Now fix a set $B_2 \in \cB_{\bbR}$, set $A_2 := X_2^{-1}(B_2) \in \sigma(X_2)$, and define the following two measures on the space $(\Omega, \sigma(X_1))$
-\[
-	\mu_1(A) = \bbP(A \cap A_2) \quad \text{and} \quad \mu_2(A) = \bbP(A)\bbP(A_2).
-\]  
-
-Let $a \in \bbR$ and consider the set $A_1 := X_1^{-1}((-\infty ,a]) \in \sigma(X_1)$. Then, by our assumption we have that
-\[
-	\mu_1(A_1) = \bbP(A_1 \cap A_2) = \bbP(X_1 \le a, X_2 \in B_2) = \bbP(X_1 \le a) \bbP(X_2 \in B_2) = \bbP(A_1) \bbP(A_2)
-	= \mu_2(A_1).
-\]
-In other words, the measures $\mu_1, \mu_2$ coincide on the set $\{X_1^{-1}((-\infty, a]) \, : \, a \in \bbR\}$.
-
-Since the set $(-\infty,a]$ generate $\cB_{\bbR}$ it follows that 
-\[
-	\sigma(X_1) = \sigma(\{X_1^{-1}((-\infty, a]) \, : \, a \in \bbR\}).
-\]
-In addition, this set satisfies the conditions of Theorem 2.2.17 and hence we conclude that $\mu_1(A) = \mu_2(A)$ for all $A \in \sigma(X_1)$.
-
-We can repeat this argument for the two measures on $(\Omega, \sigma(X_2))$
-\[
-	\nu_1(A) = \bbP(A_1 \cap A) \quad \text{ and } \quad \nu_2(A) = \bbP(A_1) \bbP(A), 
-\]
-where $A_1 \in \{X_1^{-1}((-\infty, a]) \, : \, a \in \bbR\}$ is fixed. 
-
-From this we conclude that for any $A_1 \in \sigma(X_1)$ and $A_2 \in \sigma(X_2)$
-\[
-	\bbP(A_1 \cap A_2) = \bbP(A_1)\bbP(A_2)
-\]
-and hence $X_1$ and $X_2$ are independent.
+\bigskip

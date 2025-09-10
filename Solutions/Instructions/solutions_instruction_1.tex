@@ -54,34 +54,5 @@ From 2 it follows that $O$ is a union over a subset collection of interval $(a,b
 
 \bigskip
 
-\textbf{Problem 2.12}
-
-\begin{enumerate}[label=(\alph*)]
-\item We first make the following observations about $\mathcal{N}$:
-\begin{itemize}
-\item because $\mu(\emptyset) = 0$ it holds that $\emptyset \in \mathcal{N}$,
-\item if $N, M \in \mathcal{N}$ then $N \setminus M \in \mathcal{N}$ since $N \setminus M \subset N$, and
-\item if $(N_i)_{i \ge 1}$ is a family of sets in $\mathcal{N}$ then so is $\bigcup_{i \ge 1} N_i$.
-\end{itemize}
-
-From the first point it follows that $\emptyset = \emptyset \cup \emptyset \in \overline{\cF}$ and $\Omega = \Omega \cup \emptyset \in \overline{\cF}$.
-
-Furthermore, if $A, B \in \cF$ and $N, M \in \mathcal{N}$, then by the second point and because $A \setminus B \in \cF$,
-\[
-	(A \cup N) \setminus (B \cup M) = (A \setminus B) \cup (N \setminus M) \in \overline{\cF}.
-\]
-
-Finally, let $(A_i \cup N_i)_{i \ge 1}$ be a collection of sets in $\mathcal{N}$. Then using the third point we get
-\[
-	\bigcup_{i \ge 1} A_i \cup N_i = \bigcup_{i \ge 1} A_i \cup \bigcup_{i \ge 1} N_i \in \overline{\cF}.
-\]
-\item From the definition we immediately get that $\mu(\emptyset) = 0$. Now, let $(A_i \cup N_i)_{i \ge 1}$ be a collection of disjoint sets in $\mathcal{N}$. Then
-\[
-	\bar{\mu}(\bigcup_{i \ge 1} A_i \cup N_i) = \bar{\mu}(\bigcup_{i \ge 1} A_i \cup \bigcup_{i \ge 1} N_i)
-	= \mu(\bigcup_{i \ge 1} A_i) = \sum_{i \ge 1} \mu(A_i) = \sum_{i \ge 1} \bar{\mu}(A_i \cup N_i).
-\]
-\item This follows from the fact that $\bar{\mu}|_\cF(A) = \bar{\mu}(A \cup \emptyset) = \mu(A)$.
-\item Suppose that $N \subset \Omega$ is a null set for $\overline{\cF}$. Then there exists an $A \cup M \in \overline{\cF}$ such that $N \subset A \cup M$ and $\bar{\mu}(A \cup M) = \mu(A) = 0$. However, since $M \in \mathcal{N}$, there must also exist a $B \in \cF$ with $M \subset B$ and $\mu(B) = 0$. But this implies that $N \subset A \cup B \in \cF$ which implies that $N \in \mathcal{N}$. Therefore, since $N = \emptyset \cup N$ it follows that $N \in \overline{\cF}$ and hence every null set is part of the \sigalg/.
-\end{enumerate}
 
 \end{document}

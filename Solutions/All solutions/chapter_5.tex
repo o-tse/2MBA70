@@ -34,191 +34,191 @@ From this we conclude that $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2
 
 \bigskip
 
-%########################################### Old numbering ###############################################
-
-\textbf{Problem 5.2}
-\begin{enumerate}[label={(\alph*)}]
-	\item Let $t_0\in (a,b)$ be fixed. It suffices to check the continuity result for arbitrary sequences $(t_n)_{n\ge 1} \subset (a, b)$ such that $t_n\to t_0$ as $n\to\infty$. Fix such a sequence and define $g_n(\omega):= f(\omega,t_n)$ for all $\omega\in\Omega$ and $n\ge 1$. Since $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ for all $\omega\in\Omega$, we deduce that $\lim_{n\to\infty} g_n(\omega) = f(\omega,t_0)$ for every $\omega\in\Omega$. Moreover, by assumption $|g_n| \le g$ for all $n \ge 1$ and $g$ is integrable. By the Dominated Convergence Theorem
-\[
-	\lim_{n\to\infty} \int_\Omega g_n(\omega)\,\mu(\dd\omega) = \int_\Omega f(\omega,t_0)\,\mu(\dd\omega).
-\]
-As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t_0)$.
-
-	\item If $t\mapsto f(\omega,t)$ is continuous on $(a, b)$ for all $\omega\in\Omega$ then $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ at every $t_0\in(a,b)$ for all $\omega\in\Omega$. In particular, (a) applies, showing that $\lim_{t\to t_0} F(t) = F(t_0)$ for every $t_0\in (a,b)$, i.e., $F$ is continuous on $(a, b)$.
-\end{enumerate}
- 
-
-\bigskip
-\textbf{Problem 5.3}
-
-\begin{enumerate}[label={(\arabic*)}]
-	\item We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. Let $(t_n)_{n\ge 1}\subset(a,b)$ be an arbitrary sequence with $t_n\ne t$ and $t_n\to t$ for $n\to\infty$. We set
-	\[
-		g_n(\omega) = \frac{f(\omega,t_n)-f(\omega,t)}{t_n-t}.
-	\]
-	Clearly, $g_n$ is measurable for every $n\ge 1$. Moreover, $\lim_{n\to\infty} g_n(\omega) = (\partial f/\partial t)(\omega,t)$ by the definition of the derivative. Since $(\partial f/\partial t)(\cdot,t)$ is the pointwise limit of a sequence of measurable functions, it is also measurable. Clearly, $(\partial f/\partial t)(\cdot,t)$ is integrable since
-	\[
-		\int_\Omega |(\partial f/\partial t)(\omega,t)|\,\mu(\dd\omega) \le \int_\Omega g\,\dd\mu <+\infty.
-	\]
-	
-	\item Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
-	\[
-		\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} = (\partial f/\partial t)(\omega,\tau)\qquad\text{	for some $\tau\in(t_0,t)$.}
-	\]
-	Taking the modulus on both sides, we obtain
-	\[
-		\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le |(\partial f/\partial t)(\omega,\tau)|\le g(\omega)\qquad\text{for all $\omega\in\Omega$}.
-	\]
-	\item We now have all the ingredients needed to apply the DCT, which yields
-	\[
-		\lim_{n\to\infty} \frac{F(t_n)-F(t)}{t_n-t} = \lim_{n\to\infty} \int_\Omega g_n\,\dd\mu = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
-	\]
-	Since $t\in(a,b)$ and the sequence $(t_n)_{n\ge 1}$ was arbitrary, we conclude that $F$ is differentiable on $(a,b)$ with 
-	\[
-		F'(t) = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
-	\]
-\end{enumerate}
-
-
-\bigskip
-\textbf{Problem 5.3}
-
-\begin{enumerate}[label={(\alph*)}]
-	\item Note that the integrand $f_n(x)=\frac{1+n x^2}{(1+x^2)^n}$ is continuous on $[0, 1]$ and non-negative. Hence, the Riemann integral and Lebesgue integral coincide, i.e.,
-	\[
-		\int_0^1 f_n(x)\,\dd x = \int_{[0,1]} f_n\,\dd\lambda.
-	\] 
-	Observe that we have the following pointwise limit
-	\[
-		\lim_{n\to\infty} f_n(x) = \begin{cases}
-			1 &\text{if  $x=0$}, \\
-			0 &\text{if $x\in (0,1]$},
-		\end{cases}
-	\]
-	i.e., $\lim_{n\to\infty} f_n = 0$ $\lambda$-almost everywhere. Moreover, $f_n(x) \le 1$ for every $x\in[0,1]$ and $n\ge 1$. Since the constant function $g\equiv 1$ is $\lambda$-integrable on $[0,1]$, it is a valid dominator. Hence, the DCT gives
-	\[
-		\lim_{n\to\infty} \int_0^1 f_n(x)\,\dd x = \lim_{n\to\infty} \int_{[0,1]} f_n\,\dd \lambda = \int_{[0,1]} \lim_{n\to\infty} f_n\,\dd\lambda = 0
-	\]
-	
-	\item For the purpose of convergence, we consider $n\ge 3$. Note that the integrand $f_n(x)=\frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)$ is continuous on $(0, +\infty)$ with pointwise limit
-	\[
-		\lim_{n\to\infty} f_n(x) = \begin{cases}
-			0 & \text{if $x\in(0,1)$}, \\
-			1/2 & \text{if $x=1$}, \\
-			1/x^2 & \text{if $x>1$},
-		\end{cases}
-	\]
-	Setting the function
-	\[
-		g(x) = \begin{cases}
-			1 &\text{for $x\in(0,1)$},\\
-			\frac{1}{x^2} &\text{for $x\ge 1$},
-		\end{cases}
-	\]
-	we see that $f_n\le g$ $\lambda$-almost everywhere in $(0,+\infty)$ and for all $n\ge 3$. Indeed, for $x\ge 1$, we obtain
-	\[
-		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le \frac{x^{n-2}}{x^n} =\frac{1}{x^2},
-	\]
-	while for $x\in(0,1)$, we have
-	\[
-		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le 1.
-	\]
-	Notice that $g$ is non-negative and $\lambda$-integrable on $(0,+\infty)$. Indeed, using the MCT,
-	\begin{align*}
-		\int_{(0,+\infty)} g\,\dd\lambda &= \int_{(0,1)} g\,\dd\lambda + \int_{(1,+\infty)} g\,\dd\lambda = 1 + \lim_{n\to\infty} \int_{(1,n)} g\,\dd\lambda \\
-		&= 1 + \lim_{n\to\infty} \int_1^n \frac{1}{x^2}\,\dd x = 1 + \lim_{n\to\infty} \Bigl(1-\frac{1}{n} \Bigr) = 2 < +\infty.
-	\end{align*}
-	To conclude, we apply DCT to deduce that the limit is $1$.
-\end{enumerate}
-
-
-
-\bigskip
-\textbf{Problem 5.4}
-
-The proof follows verbatim to the proof of the Dominated Convergence Theorem.
-
-\bigskip
-\textbf{Problem 5.7}
-
-Let $F_n$ denote the cdf of $Y_n = \|X_n - X\|$ and $F_0$ denote the cdf of $0$. By Definition 5.2.9 and Lemma 5.2.8 we have that $X_n \plim X$ if and only if $F_n(t) \to F_0(t)$ for all continuity points $t$ of $F_0$. This is equivalent to showing that $1-F_n(t) \to 1-F_0(t)$, where
-\[
-	1-F_0(t) = \begin{cases}
-		0 &\text{if } t \ge 0\\
-		1 &\text{else.}
-	\end{cases}
-\] 
-Now note that the only discontinuity point of $F_0$ is 0. Moreover, $1 - F_n(t) = 0 = F_0(t)$ for all $t < 0$. Hence it follows that $X_n \plim X$ if and only if $1 - F_n(t) \to 0$ for all $t > 0$, which is what we needed to show.
-
-\bigskip
-\textbf{Problem 5.8}
-
-\begin{enumerate}[label={(\alph*)}]
-\item For this let $h_t(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
-\[
-	F_n(t) = (X_n)_\# \bbP_n ((-\infty,x]) = \int_\bbR \mathbbm{1}_{(-\infty,t]} \, \dd (X_n)_\# \bbP_n
-	= \int_\bbR h_t \, \dd \mu_n.
-\]
-and similarly $F(t) = \int_\bbR h_t \, \dd \mu$
-\item The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. Moreover, for any $\varepsilon > 0$
-\[
-	\mu((t-\varepsilon, t+\varepsilon)) = \mu((t-\varepsilon,t]) + \mu((t,t+\varepsilon))
-	= F(t) - F(t-\varepsilon) + F(t + \varepsilon) - F(t).
-\]
-Since $F$ is continuous at $t$, the right hand side goes to zero as $\varepsilon \to 0$. Therefore
-\[
-	\mu(\{t\}) = \lim_{\varepsilon \to 0} \mu((t-\varepsilon, t+\varepsilon)) = 0,
-\]
-which implies that $\mu(\cC_h) = 1$.
-\item The result follows by applying condition (2) in Theorem 5.2.7.
-\item Let $\varepsilon > 0$, pick such a $\delta$ and partition the interval $[-K,K]$ into $L_\delta := \left \lceil \frac{4K}{\delta} \right \rceil$ intervals $I_\ell = (a_\ell, b_\ell]$ of equal length, which is $\le \delta/2 < \delta$. Now we define the simple function
-\[
-	\hat{g} := \sum_{\ell = 1}^L h(b_\ell) \mathbbm{1}_{I_\ell},
-\]
-\item Let $M=L$, $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$ and $t_\ell = b_\ell$. Then
-\[
-	\hat{g} := \sum_{\ell = 1}^L \beta_\ell \mathbf{1}_{(-\infty, b_\ell]}.
-\]
-\item Using the representation in (e) we get
-\begin{align*}
-	\lim_{n \to \infty} \bbE[\hat{g}(X_n)] 
-	&= \lim_{n \to \infty} \sum_{\ell = 1}^L \beta_\ell \int_\bbR \mathbf{1}_{X_n^{-1}((-\infty,b_\ell])} \, \dd \bbP \\
-	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell (X_n)_\# \bbP ((-\infty, b_\ell]) \\
-	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell F_n(b_\ell) \\
-	&= \sum_{\ell = 1}^L F(b_\ell) = \bbE[\hat{g}(X)].
-\end{align*}
-\item Using the representation of $\hat{g}$ in (d) we note that $\|x - y\| < \varepsilon$ for all $x,y \in I_\ell$. This then implies that $\|g(x) - \hat{g}(y)\| \le \varepsilon$ from which it follows that
-\begin{align*}
-	\|\bbE[g(X_n)] - \bbE[g(X)]\| &\le \|\bbE[g(X_n)] - \bbE[\hat{g}(X_n)]\| 
-		+ \|\bbE[g(X)] - \bbE[\hat{g}(X)]\| \\
-	&\hspace{10pt}+ \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|\\
-	&\le 2\varepsilon + \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|.
-\end{align*}
-We have shown in (f) that the last term goes to zero as $n \to \infty$. Since $\varepsilon$ was arbitrary we conclude that~\eqref{eq:conergence_distribution_1} holds.
-\item This now follows from Theorem 5.2.7 (3).
-\end{enumerate}
-
-\bigskip
-\textbf{Problem 5.9}
-Suppose that $X_n \aslim X$. Then by Lemma 5.2.16 this is equivalent to $\bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0$ for all $\varepsilon > 0$. 
-
-For now fix an $\varepsilon > 0$ and write $A_n := \{\|X_n - X\| > \varepsilon\}$. Recall that
-\[
-	\{A_n \text{ i.o.}\} = \bigcap_{k = 1}^\infty \bigcup_{k \ge n} A_n
-\]
-and note two things:
-\begin{enumerate}[label={(\alph*)}]
-\item The sets $B_k := \bigcup_{n \ge k} A_n$ are non-increasing, i.e. $B_k \supset B_{k+1}$, and
-\item $\bbP(A_k) \le \bbP(\bigcup_{n \ge k} A_n) = \bbP(B_k)$.
-\end{enumerate}
- 
-We then have that:
-\begin{align*}
-	0 &= \bbP(\{A_n \text{ i.o.}\}) &&\text{by assumption} \\
-	&= \bbP(\bigcap_{k =1}^\infty B_k) &&\text{by Lemma 5.2.16}\\
-	&= \lim_{k \to \infty} \bbP(B_k) &&\text{by continuity form above (Proposition 2.2.15)}\\
-	&\ge \lim_{k \to \infty} \bbP(A_k) &&\text{by (b)}.
-\end{align*}
+%%########################################### Old numbering ###############################################
+%
+%\textbf{Problem 5.2}
+%\begin{enumerate}[label={(\alph*)}]
+%	\item Let $t_0\in (a,b)$ be fixed. It suffices to check the continuity result for arbitrary sequences $(t_n)_{n\ge 1} \subset (a, b)$ such that $t_n\to t_0$ as $n\to\infty$. Fix such a sequence and define $g_n(\omega):= f(\omega,t_n)$ for all $\omega\in\Omega$ and $n\ge 1$. Since $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ for all $\omega\in\Omega$, we deduce that $\lim_{n\to\infty} g_n(\omega) = f(\omega,t_0)$ for every $\omega\in\Omega$. Moreover, by assumption $|g_n| \le g$ for all $n \ge 1$ and $g$ is integrable. By the Dominated Convergence Theorem
+%\[
+%	\lim_{n\to\infty} \int_\Omega g_n(\omega)\,\mu(\dd\omega) = \int_\Omega f(\omega,t_0)\,\mu(\dd\omega).
+%\]
+%As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t_0)$.
+%
+%	\item If $t\mapsto f(\omega,t)$ is continuous on $(a, b)$ for all $\omega\in\Omega$ then $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ at every $t_0\in(a,b)$ for all $\omega\in\Omega$. In particular, (a) applies, showing that $\lim_{t\to t_0} F(t) = F(t_0)$ for every $t_0\in (a,b)$, i.e., $F$ is continuous on $(a, b)$.
+%\end{enumerate}
+% 
+%
+%\bigskip
+%\textbf{Problem 5.3}
+%
+%\begin{enumerate}[label={(\arabic*)}]
+%	\item We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. Let $(t_n)_{n\ge 1}\subset(a,b)$ be an arbitrary sequence with $t_n\ne t$ and $t_n\to t$ for $n\to\infty$. We set
+%	\[
+%		g_n(\omega) = \frac{f(\omega,t_n)-f(\omega,t)}{t_n-t}.
+%	\]
+%	Clearly, $g_n$ is measurable for every $n\ge 1$. Moreover, $\lim_{n\to\infty} g_n(\omega) = (\partial f/\partial t)(\omega,t)$ by the definition of the derivative. Since $(\partial f/\partial t)(\cdot,t)$ is the pointwise limit of a sequence of measurable functions, it is also measurable. Clearly, $(\partial f/\partial t)(\cdot,t)$ is integrable since
+%	\[
+%		\int_\Omega |(\partial f/\partial t)(\omega,t)|\,\mu(\dd\omega) \le \int_\Omega g\,\dd\mu <+\infty.
+%	\]
+%	
+%	\item Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
+%	\[
+%		\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} = (\partial f/\partial t)(\omega,\tau)\qquad\text{	for some $\tau\in(t_0,t)$.}
+%	\]
+%	Taking the modulus on both sides, we obtain
+%	\[
+%		\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le |(\partial f/\partial t)(\omega,\tau)|\le g(\omega)\qquad\text{for all $\omega\in\Omega$}.
+%	\]
+%	\item We now have all the ingredients needed to apply the DCT, which yields
+%	\[
+%		\lim_{n\to\infty} \frac{F(t_n)-F(t)}{t_n-t} = \lim_{n\to\infty} \int_\Omega g_n\,\dd\mu = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
+%	\]
+%	Since $t\in(a,b)$ and the sequence $(t_n)_{n\ge 1}$ was arbitrary, we conclude that $F$ is differentiable on $(a,b)$ with 
+%	\[
+%		F'(t) = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
+%	\]
+%\end{enumerate}
+%
+%
+%\bigskip
+%\textbf{Problem 5.3}
+%
+%\begin{enumerate}[label={(\alph*)}]
+%	\item Note that the integrand $f_n(x)=\frac{1+n x^2}{(1+x^2)^n}$ is continuous on $[0, 1]$ and non-negative. Hence, the Riemann integral and Lebesgue integral coincide, i.e.,
+%	\[
+%		\int_0^1 f_n(x)\,\dd x = \int_{[0,1]} f_n\,\dd\lambda.
+%	\] 
+%	Observe that we have the following pointwise limit
+%	\[
+%		\lim_{n\to\infty} f_n(x) = \begin{cases}
+%			1 &\text{if  $x=0$}, \\
+%			0 &\text{if $x\in (0,1]$},
+%		\end{cases}
+%	\]
+%	i.e., $\lim_{n\to\infty} f_n = 0$ $\lambda$-almost everywhere. Moreover, $f_n(x) \le 1$ for every $x\in[0,1]$ and $n\ge 1$. Since the constant function $g\equiv 1$ is $\lambda$-integrable on $[0,1]$, it is a valid dominator. Hence, the DCT gives
+%	\[
+%		\lim_{n\to\infty} \int_0^1 f_n(x)\,\dd x = \lim_{n\to\infty} \int_{[0,1]} f_n\,\dd \lambda = \int_{[0,1]} \lim_{n\to\infty} f_n\,\dd\lambda = 0
+%	\]
+%	
+%	\item For the purpose of convergence, we consider $n\ge 3$. Note that the integrand $f_n(x)=\frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)$ is continuous on $(0, +\infty)$ with pointwise limit
+%	\[
+%		\lim_{n\to\infty} f_n(x) = \begin{cases}
+%			0 & \text{if $x\in(0,1)$}, \\
+%			1/2 & \text{if $x=1$}, \\
+%			1/x^2 & \text{if $x>1$},
+%		\end{cases}
+%	\]
+%	Setting the function
+%	\[
+%		g(x) = \begin{cases}
+%			1 &\text{for $x\in(0,1)$},\\
+%			\frac{1}{x^2} &\text{for $x\ge 1$},
+%		\end{cases}
+%	\]
+%	we see that $f_n\le g$ $\lambda$-almost everywhere in $(0,+\infty)$ and for all $n\ge 3$. Indeed, for $x\ge 1$, we obtain
+%	\[
+%		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le \frac{x^{n-2}}{x^n} =\frac{1}{x^2},
+%	\]
+%	while for $x\in(0,1)$, we have
+%	\[
+%		|f_n(x)| \le \left| \frac{x^{n-2}}{1+x^n}\cos\left(\frac{\pi x}{n}\right)\right| \le \frac{x^{n-2}}{1+x^n} \le 1.
+%	\]
+%	Notice that $g$ is non-negative and $\lambda$-integrable on $(0,+\infty)$. Indeed, using the MCT,
+%	\begin{align*}
+%		\int_{(0,+\infty)} g\,\dd\lambda &= \int_{(0,1)} g\,\dd\lambda + \int_{(1,+\infty)} g\,\dd\lambda = 1 + \lim_{n\to\infty} \int_{(1,n)} g\,\dd\lambda \\
+%		&= 1 + \lim_{n\to\infty} \int_1^n \frac{1}{x^2}\,\dd x = 1 + \lim_{n\to\infty} \Bigl(1-\frac{1}{n} \Bigr) = 2 < +\infty.
+%	\end{align*}
+%	To conclude, we apply DCT to deduce that the limit is $1$.
+%\end{enumerate}
+%
+%
+%
+%\bigskip
+%\textbf{Problem 5.4}
+%
+%The proof follows verbatim to the proof of the Dominated Convergence Theorem.
+%
+%\bigskip
+%\textbf{Problem 5.7}
+%
+%Let $F_n$ denote the cdf of $Y_n = \|X_n - X\|$ and $F_0$ denote the cdf of $0$. By Definition 5.2.9 and Lemma 5.2.8 we have that $X_n \plim X$ if and only if $F_n(t) \to F_0(t)$ for all continuity points $t$ of $F_0$. This is equivalent to showing that $1-F_n(t) \to 1-F_0(t)$, where
+%\[
+%	1-F_0(t) = \begin{cases}
+%		0 &\text{if } t \ge 0\\
+%		1 &\text{else.}
+%	\end{cases}
+%\] 
+%Now note that the only discontinuity point of $F_0$ is 0. Moreover, $1 - F_n(t) = 0 = F_0(t)$ for all $t < 0$. Hence it follows that $X_n \plim X$ if and only if $1 - F_n(t) \to 0$ for all $t > 0$, which is what we needed to show.
+%
+%\bigskip
+%\textbf{Problem 5.8}
+%
+%\begin{enumerate}[label={(\alph*)}]
+%\item For this let $h_t(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
+%\[
+%	F_n(t) = (X_n)_\# \bbP_n ((-\infty,x]) = \int_\bbR \mathbbm{1}_{(-\infty,t]} \, \dd (X_n)_\# \bbP_n
+%	= \int_\bbR h_t \, \dd \mu_n.
+%\]
+%and similarly $F(t) = \int_\bbR h_t \, \dd \mu$
+%\item The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. Moreover, for any $\varepsilon > 0$
+%\[
+%	\mu((t-\varepsilon, t+\varepsilon)) = \mu((t-\varepsilon,t]) + \mu((t,t+\varepsilon))
+%	= F(t) - F(t-\varepsilon) + F(t + \varepsilon) - F(t).
+%\]
+%Since $F$ is continuous at $t$, the right hand side goes to zero as $\varepsilon \to 0$. Therefore
+%\[
+%	\mu(\{t\}) = \lim_{\varepsilon \to 0} \mu((t-\varepsilon, t+\varepsilon)) = 0,
+%\]
+%which implies that $\mu(\cC_h) = 1$.
+%\item The result follows by applying condition (2) in Theorem 5.2.7.
+%\item Let $\varepsilon > 0$, pick such a $\delta$ and partition the interval $[-K,K]$ into $L_\delta := \left \lceil \frac{4K}{\delta} \right \rceil$ intervals $I_\ell = (a_\ell, b_\ell]$ of equal length, which is $\le \delta/2 < \delta$. Now we define the simple function
+%\[
+%	\hat{g} := \sum_{\ell = 1}^L h(b_\ell) \mathbbm{1}_{I_\ell},
+%\]
+%\item Let $M=L$, $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$ and $t_\ell = b_\ell$. Then
+%\[
+%	\hat{g} := \sum_{\ell = 1}^L \beta_\ell \mathbf{1}_{(-\infty, b_\ell]}.
+%\]
+%\item Using the representation in (e) we get
+%\begin{align*}
+%	\lim_{n \to \infty} \bbE[\hat{g}(X_n)] 
+%	&= \lim_{n \to \infty} \sum_{\ell = 1}^L \beta_\ell \int_\bbR \mathbf{1}_{X_n^{-1}((-\infty,b_\ell])} \, \dd \bbP \\
+%	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell (X_n)_\# \bbP ((-\infty, b_\ell]) \\
+%	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell F_n(b_\ell) \\
+%	&= \sum_{\ell = 1}^L F(b_\ell) = \bbE[\hat{g}(X)].
+%\end{align*}
+%\item Using the representation of $\hat{g}$ in (d) we note that $\|x - y\| < \varepsilon$ for all $x,y \in I_\ell$. This then implies that $\|g(x) - \hat{g}(y)\| \le \varepsilon$ from which it follows that
+%\begin{align*}
+%	\|\bbE[g(X_n)] - \bbE[g(X)]\| &\le \|\bbE[g(X_n)] - \bbE[\hat{g}(X_n)]\| 
+%		+ \|\bbE[g(X)] - \bbE[\hat{g}(X)]\| \\
+%	&\hspace{10pt}+ \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|\\
+%	&\le 2\varepsilon + \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|.
+%\end{align*}
+%We have shown in (f) that the last term goes to zero as $n \to \infty$. Since $\varepsilon$ was arbitrary we conclude that~\eqref{eq:conergence_distribution_1} holds.
+%\item This now follows from Theorem 5.2.7 (3).
+%\end{enumerate}
+%
+%\bigskip
+%\textbf{Problem 5.9}
+%Suppose that $X_n \aslim X$. Then by Lemma 5.2.16 this is equivalent to $\bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0$ for all $\varepsilon > 0$. 
+%
+%For now fix an $\varepsilon > 0$ and write $A_n := \{\|X_n - X\| > \varepsilon\}$. Recall that
+%\[
+%	\{A_n \text{ i.o.}\} = \bigcap_{k = 1}^\infty \bigcup_{k \ge n} A_n
+%\]
+%and note two things:
+%\begin{enumerate}[label={(\alph*)}]
+%\item The sets $B_k := \bigcup_{n \ge k} A_n$ are non-increasing, i.e. $B_k \supset B_{k+1}$, and
+%\item $\bbP(A_k) \le \bbP(\bigcup_{n \ge k} A_n) = \bbP(B_k)$.
+%\end{enumerate}
+% 
+%We then have that:
+%\begin{align*}
+%	0 &= \bbP(\{A_n \text{ i.o.}\}) &&\text{by assumption} \\
+%	&= \bbP(\bigcap_{k =1}^\infty B_k) &&\text{by Lemma 5.2.16}\\
+%	&= \lim_{k \to \infty} \bbP(B_k) &&\text{by continuity form above (Proposition 2.2.15)}\\
+%	&\ge \lim_{k \to \infty} \bbP(A_k) &&\text{by (b)}.
+%\end{align*}
 
 
 

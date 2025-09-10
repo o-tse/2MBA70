@@ -110,25 +110,33 @@ Since $\cF$ is a $\sigma$-algebra and $f_n$ is measurable for all $n\ge 1$, i.e.
 \textbf{Problem 3.8}
 
 \begin{enumerate}[label=(\alph*)]
-	\item Note that
+	\item (3 pts) 
+	\textbf{1 pt}
+	Note that
 	\[
 		f_M = M\mathbf{1}_{\{f\ge M\}} + f\mathbf{1}_{\{|f|< M\}} - M\mathbf{1}_{\{f\le -M\}}.
 	\]
+	
+	\textbf{2 pts}
 	Since the sets
 	\[
 		\{f\ge M\},\quad \{f\le -M\},\quad \{|f|<M\}\qquad\text{are $\cF$-measurable},
 	\]
 	their corresponding indicator functions are $(\cF,\cB_{\bbR})$-measurable. Since $f_M$ is the sum of products of $(\cF,\cB_{\bbR})$-measurable functions, we conclude that $f_M$ is also $(\cF,\cB_{\bbR})$-measurable.
 	
-	\item It is easy to see that $f_M$ converges pointwise to $f$ as $M\to\infty$, i.e.,
+	\item (3 pts) It is easy to see that $f_M$ converges pointwise to $f$ as $M\to\infty$, i.e.,
 	\[
 		\lim_{M\to\infty} f_M(\omega) = f(\omega)\qquad\forall\, \omega\in\Omega.
 	\]
-	Indeed, if $\omega\Omega$ is such that $f(\omega)=+\infty$, then
+	\textbf{1 pt}
+	Indeed, if $\omega \in \Omega$ is such that $f(\omega)=+\infty$, then
 	\[
 		\lim_{M\to\infty} f_M(\omega) = \lim_{M\to\infty} M = +\infty = f(\omega),
 	\]
-	and similarly for $\omega\in\Omega$ for which $f(\omega)=-\infty$. On the other hand, for any $\omega\in\Omega$ with $f(\omega)\in\bbR$, there is some $N_0(\omega)\in\bbN$ such that $f_N(\omega)=f(\omega)$ for all $N\ge N_0(\omega)$, and hence,
+	and similarly for $\omega\in\Omega$ for which $f(\omega)=-\infty$. 
+	
+	\textbf{2 pts}
+	On the other hand, for any $\omega\in\Omega$ with $f(\omega)\in\bbR$, there is some $N_0(\omega)\in\bbN$ such that $f_N(\omega)=f(\omega)$ for all $N\ge N_0(\omega)$, and hence,
 	\[
 		\lim_{M\to\infty} f_M(\omega) = f(\omega).
 	\]

@@ -66,6 +66,63 @@ which implies the result.
 
 \bigskip
 
+\textbf{Problem 4.7}
+
+\begin{enumerate}[label={(\alph*)}]
+\item (2pts)
+\textbf{1 pt}
+Note that $(f \mathbbm{1}_{B})^+ = f^+ \mathbbm{1}_B$ and $(f \mathbbm{1}_B)^- = f^- \mathbbm{1}_B$. 
+\textbf{1 pt}
+Then we get, using Lemma 4.8,
+\[
+	\int_{B} f \, \dd \mu = \int_\Omega (f \mathbbm{1}_{B})^+ \, \dd \mu - \int_\Omega (f \mathbbm{1}_{B})^- \, \dd \mu
+	= \int_\Omega f^+ \mathbbm{1}_B \, \dd \mu - \int_\Omega f^- \mathbbm{1}_B \, \dd \mu = 0 + 0 = 0.
+\]
+\item (2pts)
+
+\textbf{1 pt}
+Here we note that if $f \le g$ then $f^+ \le g^+$, while $f^- \ge g^-$. 
+
+\textbf{1 pt}
+Hence, using Lemma 4.8 again, 
+\[
+	\int_\Omega f \, \dd \mu = \int_\Omega f^+ \, \dd \mu - \int_\Omega f^- \, \dd \mu
+	\le \int_\Omega g^+ \, \dd \mu - \int_\Omega g^- \, \dd \mu = \int_\Omega g \, \dd \mu.
+\]
+\item (3 pt)
+
+\textbf{1 pt}
+Assume first that $\alpha \ge  0$. Then it follows from Lemma 4.8 that
+\[
+	\alpha \int_\Omega f^\pm \, \dd \mu = \int_\Omega (\alpha f)^\pm \, \dd \mu,
+\]
+which implies the result.
+
+\textbf{1 pt}
+Now suppose that $\alpha < 0$ so that $\beta := -\alpha > 0$. Note that for any function $f$ we have
+\[
+	(-f)^+ := \max\{-f,0\} = \min\{f,0\} = f^-
+\]
+and similarly $(-f)^- = f^+$.
+
+\textbf{1 pt}
+We then get that
+\[
+	- \int_\Omega f \dd \mu = -\int_\Omega f^+ \, \dd \mu + \int_\Omega (f)^- \, \dd \mu
+	= -\int_\Omega (-f)^- \, \dd \mu + \int_\Omega (-f)^+ \, \dd \mu = \int_\Omega (-f) \, \dd \mu. 
+\]
+The result then follows since
+\[
+	\alpha \int_\Omega f \, \dd \mu = - \beta \int_\Omega f\, \dd \mu
+	= - \int_\Omega (\beta f) \, \dd \mu = \int_\Omega (-\beta f) \, \dd \mu
+	= \int_\Omega (\alpha f) \, \dd \mu.
+\]
+\item (2 pt)
+This result follows immediately from Lemma 4.8 and the observation that $(f+g)^\pm = f^\pm + g^\pm$.
+\end{enumerate}
+
+\bigskip
+
 \textbf{Problem 4.8}
 
 \begin{enumerate}[label={(\alph*)}]
@@ -102,10 +159,14 @@ which implies the result.
 \bigskip
 \textbf{Problem 4.9}
 
-\paragraph{($\Rightarrow$)} Let $f$ be $\mu$-integrable. Then both $|f|\mathbf{1}_{\{|f|<n\}}$ and $|f|\mathbf{1}_{\{|f|\ge n\}}$ are integrable, due to the monotonicity of the integral. By linearity of the integral,
+\paragraph{($\Rightarrow$)} (4pts) 
+\textbf{2 pts}
+Let $f$ be $\mu$-integrable. Then both $|f|\mathbf{1}_{\{|f|<n\}}$ and $|f|\mathbf{1}_{\{|f|\ge n\}}$ are integrable, due to the monotonicity of the integral. By linearity of the integral,
 \[
 	\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu.
 \]
+
+\textbf{2 pts}
 Since the sequence $g_n:= |f|\mathbf{1}_{\{|f|< n\}}\ge 0$ converges pointwise monotonically to $|f|$, we can apply MCT to obtain
 \[
 	\lim_{n\to\infty} \int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,dd\mu = \int_\Omega |f|\,\dd\mu.
@@ -115,10 +176,15 @@ Hence,
 	\lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|\ge n\}}\,\dd\mu = \int_\Omega |f|\,\dd\mu - \lim_{n\to\infty}\int_\Omega |f|\mathbf{1}_{\{|f|< n\}}\,\dd\mu = 0.
 \]
 
-\paragraph{($\Leftarrow$)} By assumption, there is some $N\ge 1$ such that
+\paragraph{($\Leftarrow$)} (3 pts) 
+
+\textbf{1 pt}
+By assumption, there is some $N\ge 1$ such that
 \[
 	\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le 1.
 \]
+
+\textbf{2 pts}
 By linearity of the integral,
 \[
 	\int_\Omega |f|\,\dd\mu = \int_\Omega |f|\mathbf{1}_{\{|f|< N\}}\,\dd\mu +\int_\Omega |f|\mathbf{1}_{\{|f|\ge N\}}\,\dd\mu \le N \mu\bigl(\{|f|< N\}\bigr) + 1.

@@ -1,9 +1,7 @@
 
-\section{Convergence of random variables}
+Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real numbers, we would like to have a notion of convergence of this sequence. In other words, we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there are different ways to define the concept of convergence of random variables. In this section, we will discuss three of them: convergence in distribution, convergence in probability, and almost sure convergence. While the last one has a more straightforward definition (see Definition~\ref{def:almost_sure_convergence}) the other two rely on the notion of weak convergence of finite measures, which discussed in Section~\ref{sec:weak_convergence_finite_measures}.
 
-Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real numbers, we would like to have a notion of convergence of this sequence. In other words, we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there are different ways to define the concept of convergence of random variables. In this section, we will discuss three of them: convergence in distribution, convergence in probability, and almost sure convergence. While the last one has a more straightforward definition (see Definition~\ref{def:almost_sure_convergence}) the other two rely the notion of weak convergence of finite measures, which discussed in Section\ref{sec:weak_convergence_finite_measures}.
-
-\subsection{Convergence in distribution}
+\section{Convergence in distribution}
 
 Convergence in distribution of a sequence $(X_n)_{n \ge 1}$ is defined as weak convergence of the corresponding probability measures.
 
@@ -34,12 +32,14 @@ holds for all continuity points $t$ of $F$.
 \end{lemma}
 
 \begin{proof}
-See Problem~\ref{prb:convergence_probability_classic}.
+See Problem~\ref{prb:convergence_distribution}.
 \end{proof}
 
 
 
-\subsection{Convergence in probability}
+\section{Convergence in probability}
+
+While convergence in distribution is can be understood as point-wise convergence of the cdfs (see Lemma~\ref{lem:convergence_distribution_cdfs}), convergence in probability looks at the difference $|X_n - X|$ as a random variable and requires this to converge to the constant zero random variable.
 
 \begin{definition}[Convergence in probability]\label{def:convergence_probability}
 Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := |X_n - X|$. We say that $X_n$ \emph{converges in probability} to $X$ if
@@ -151,7 +151,7 @@ which implies that $\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0$.
 \end{proof}
 
 
-\subsection{Almost-sure convergence}
+\section{Almost-sure convergence}\label{ssec:almost_sure_convergence}
 
 The final notion of convergence we will discuss is \emph{almost-sure convergence}, which looks much more natural than the previous two notions and requires less notation.
 
@@ -165,14 +165,20 @@ In this case we write $X_n \aslim X$.
 
 The definition of almost-sure convergence says that the set for which $X$ is \emph{not} the limit of $X_n$ must have probability zero. This is why it is also often referred to as \emph{convergence with probability $1$}.
 
+Note that similar to convergence in probability, almost-sure convergence by its definition only makes sense if all random variables are defined on the same probability space. 
+
 There is a different way to characterize \emph{almost-sure} convergence which is often useful. This requires the concept of \emph{infinitely often}.
 
-\begin{definition}[Infinitely often]
+\begin{definition}[Infinitely often]\label{def:infinitely_often}
 Let $(\Omega, \cF, \bbP)$ be a probability space and consider a sequence $(A_n)_{n \ge 1}$ of measurable sets. We then define the event $\{A_n \text{ i.o.}\}$ ($A_n$ happens infinitely often) as
 \[
 	\{A_n \text{ i.o.}\} := \bigcap_{k = 1}^\infty \bigcup_{n \ge k} A_n.
 \]
 \end{definition}
+
+The use of the term \emph{infinitely often} for the event defined in Definition~\ref{def:infinitely_often} can be understood as follows: If $\{A_n \text{ i.o.}\} \ne \emptyset$ then term must exist $\omega \in \Omega$ such that $\omega \in \bigcup_{n \ge k} A_n$ for all $k \ge 1$. This implies that no mater how large you pick $k$, there will always be and $A_n$ with $n \ge k$ such that $\omega \in A_n$, i.e. there are infinitely many $A_n$ that share the same element $\omega$ and thus happen for this element.
+
+The alternative definition of almost-sure convergence $X_n \aslim X$ is is that the probability that $|X_n - X|$ is arbitrarily small infinitely often is zero.
 
 \begin{lemma}\label{lem:almost_sure_alternative}
 Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. Then
@@ -208,58 +214,58 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \aslim X$. Then
 \begin{proof}
 See Problem~\ref{prb:almost_sure_implies_probability}.
 \end{proof}
-
-A useful tool for proving almost everywhere convergence is the following result.
-
-\begin{lemma}[Borel-Cantelli]\label{lem:Borel-Cantelli}
-	Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets. If
-	\[
-	\sum_{n=1}^\infty \mu(A_n) < \infty,
-	\]
-	then for $\mu$-almost every $\omega \in \Omega$, there are only finitely many $n \in \mathbb{N}$ such that $\omega \in A_n$.
-\end{lemma}
-\begin{proof}
-	Define the sets
-	\[
-		B_j := \bigcup_{i \ge j} A_i,\qquad j\in\bbN.
-	\]
-	Clearly the sequence $(B_j)_{j\in\bbN}$ is decreasing and $\{A_n \text{ i.o.}\}\subset B_j$ for every $j \in \mathbb{N}$. 
-	
-	By assumption, and the $\sigma$-subadditivity of $\mu$,
-	\[
-	\mu(B_1) = \mu\left(\bigcup_{i=1}^\infty A_i \right) \leq \sum_{i=1}^\infty \mu(A_i) < +\infty.
-	\]
-	Moreover, the summability also gives
-	\[
-		\lim_{j\to\infty}\mu(B_j) \leq \limsup_{j\to\infty}\sum_{i=j}^\infty \mu(A_i) = 0.
-	\]
-	Hence, by the continuity from above of $\mu$, we obtain
-	\[
-		\mu(\{A_n \text{ i.o.}\}) \le \mu\left(\bigcup_{j=1}^\infty B_j\right) = \lim_{j\to \infty} \mu(B_j) = 0,
-	\]
-	i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\mu$-almost every $\omega$ is in only finitely many $A_n$.
-\end{proof}
-
-\begin{theorem}[Borel-Cantelli Lemma II]
-	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, and let $A_i \in \cF$, $i \in \mathbb{N}$ be a sequence of independent events such that
-	\[
-		\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
-	\]
-	Then
-	\[
-	\mathbb{P} \left( \bigcap_{m = 1}^\infty \bigcup_{i=m}^\infty A_i \right) = 1,
-	\]
-	i.e., infinitely many of the events occur almost surely.
-\end{theorem}
-\begin{proof}
-	Let $m \in \mathbb{N}$. Note that
-	\begin{align*}
-	\mathbb{P}\left(\bigcap_{i=m}^{\infty} (\Omega \backslash A_i) \right) &= 
-	\prod_{i=m}^\infty (1 - \mathbb{P}(A_i)) \\
-	&\leq \prod_{i=m}^\infty \exp(- \mathbb{P}(A_i)) 
-	= \exp\left(- \sum_{i=m}^\infty \mathbb{P}(A_i)\right) = 0.\qedhere
-	\end{align*}
-\end{proof}   
+%
+%A useful tool for proving almost everywhere convergence is the following result.
+%
+%\begin{lemma}[Borel-Cantelli]\label{lem:Borel-Cantelli}
+%	Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets. If
+%	\[
+%	\sum_{n=1}^\infty \mu(A_n) < \infty,
+%	\]
+%	then for $\mu$-almost every $\omega \in \Omega$, there are only finitely many $n \in \mathbb{N}$ such that $\omega \in A_n$.
+%\end{lemma}
+%\begin{proof}
+%	Define the sets
+%	\[
+%		B_j := \bigcup_{i \ge j} A_i,\qquad j\in\bbN.
+%	\]
+%	Clearly the sequence $(B_j)_{j\in\bbN}$ is decreasing and $\{A_n \text{ i.o.}\}\subset B_j$ for every $j \in \mathbb{N}$. 
+%	
+%	By assumption, and the $\sigma$-subadditivity of $\mu$,
+%	\[
+%	\mu(B_1) = \mu\left(\bigcup_{i=1}^\infty A_i \right) \leq \sum_{i=1}^\infty \mu(A_i) < +\infty.
+%	\]
+%	Moreover, the summability also gives
+%	\[
+%		\lim_{j\to\infty}\mu(B_j) \leq \limsup_{j\to\infty}\sum_{i=j}^\infty \mu(A_i) = 0.
+%	\]
+%	Hence, by the continuity from above of $\mu$, we obtain
+%	\[
+%		\mu(\{A_n \text{ i.o.}\}) \le \mu\left(\bigcup_{j=1}^\infty B_j\right) = \lim_{j\to \infty} \mu(B_j) = 0,
+%	\]
+%	i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\mu$-almost every $\omega$ is in only finitely many $A_n$.
+%\end{proof}
+%
+%\begin{theorem}[Borel-Cantelli Lemma II]
+%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, and let $A_i \in \cF$, $i \in \mathbb{N}$ be a sequence of independent events such that
+%	\[
+%		\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+%	\]
+%	Then
+%	\[
+%	\mathbb{P} \left( \bigcap_{m = 1}^\infty \bigcup_{i=m}^\infty A_i \right) = 1,
+%	\]
+%	i.e., infinitely many of the events occur almost surely.
+%\end{theorem}
+%\begin{proof}
+%	Let $m \in \mathbb{N}$. Note that
+%	\begin{align*}
+%	\mathbb{P}\left(\bigcap_{i=m}^{\infty} (\Omega \backslash A_i) \right) &= 
+%	\prod_{i=m}^\infty (1 - \mathbb{P}(A_i)) \\
+%	&\leq \prod_{i=m}^\infty \exp(- \mathbb{P}(A_i)) 
+%	= \exp\left(- \sum_{i=m}^\infty \mathbb{P}(A_i)\right) = 0.\qedhere
+%	\end{align*}
+%\end{proof}   
 
 \section{Problems}
 
@@ -267,9 +273,7 @@ A useful tool for proving almost everywhere convergence is the following result.
 Give an example (with proof) of a sequence of random variables that converge in distribution but not in probability.
 \end{problem}
 
-\begin{problem}\label{prb:convergence_probability_classic}
-Prove Lemma~\ref{lem:convergence_probability_classical}.
-\end{problem}
+
 
 \begin{problem}\label{prb:convergence_distribution}
 The goal of this problem is to prove Lemma~\ref{lem:convergence_distribution_cdfs}. That is
@@ -310,6 +314,36 @@ We will now define an approximate function
 \end{enumerate}
 \end{problem}
 
+\begin{problem}\label{prb:convergence_probability_classic}
+Prove Lemma~\ref{lem:convergence_probability_classical}.
+\end{problem}
+
 \begin{problem}\label{prb:almost_sure_implies_probability}
 Prove Lemma~\ref{lem:almost_sure_implies_probability}. [Hint: use the alternative definition of Lemma~\ref{lem:almost_sure_alternative} and reverse Fatou from Problem~\ref{prb:reverse_fatou}.]
+\end{problem}
+
+\begin{problem}[Borel-Cantelli]\label{prb:borel_cantelli}
+In this exercise you will prove two versions of what is known as the Borel-Cantelli result.
+
+Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets.
+\begin{enumerate}[label={(\alph*)}]
+\item Suppose that
+\[
+	\sum_{n=1}^\infty \mu(A_n) < \infty.
+\]
+Prove that $\bbP(A_n \text{ i.o.}) = 0$.
+\item Suppose that
+\[
+	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+\]
+Prove that $\bbP(A_n \text{ i.o.}) = 1$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space. Prove that $X_n \aslim X$ if for every $\varepsilon > 0$ it holds that
+\[
+	\sum_{n \ge 1} \bbP(|X_n - X| > \varepsilon) < \infty.
+\]
+[Hint: Use the alternative definition involving infinitely often and Borel-Cantelli.
 \end{problem}

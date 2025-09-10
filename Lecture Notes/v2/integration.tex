@@ -70,6 +70,45 @@ Let $f, g: \Omega \to \bbR_+$ be two non-negative simple functions. Then $f+g$ i
 \end{lemma}
 
 \begin{proof}
+We will write
+\[
+	f = \sum_{i =1}^N a_i \mathbbm{1}_{A_i}, \quad g = \sum_{j =1}^M b_j \mathbbm{1}_{B_j},
+\]
+for the simple functions. 
+
+Define the function $h$ as follows:
+\[
+	h = \sum_{i = 1}^N \sum_{j = 1}^M (a_i + b_j) \mathbbm{1}_{A_i \cap B_j} 
+	+ \sum_{i = 1}^N a_i \mathbbm{1}_{A_i \setminus \cup_{j \ge 1} B_j}
+	+ \sum_{j = 1}^M b_j \mathbbm{1}_{B_j \setminus \cup_{i \ge 1} A_i}
+\]
+It is not difficult to see that $h$ defines a simple function.\footnote{We formally have to take and index $k$ from $1$ to $NM + N + M$ with the first $NM$ sets being $A_i \cap B_j$, the second $A_i \setminus \cup_{j \ge 1} B_j$ and the third $B_j \setminus \cup_{i \ge 1} A_i$. But this would make working with $h$ cumbersome for no reason other than to be technically correct. So we omit this.}
+
+We claim that $h = f+g$. To show this take $\omega \in \Omega$ and suppose, without loss of generality that $\omega \in A_i$. Then one of two things can happen: 1) $\omega \in B_j$ for some $j$, or 2) $\omega$ is not contained in any $B_j$.
+
+In the first case we have that $h(\omega) = a_i + b_j = f(\omega) + g(\omega)$, while in the second case we get that $h(\omega) = a_i = a_i + 0 = f(\omega) + g(\omega)$. So we conclude that indeed $h = f+g$, which proves the first claim of the lemma.
+
+For the second claim we first note that
+\[
+	A_i = \left(\bigcup_{j \ge 1} A_i \cap B_j\right) \cup A_i \setminus \cup_{j \ge 1} B_j,
+\]
+where the first is a union over disjoint set. A similar results holds for the sets $B_j$.
+
+Using additivity of the measure $\mu$ we then have that
+\begin{align*}
+	\int_\Omega h \, \dd \mu &= \sum_{i = 1}^N \sum_{j = 1}^M (a_i + b_j) \mu(A_i \cap B_j)
+		+ \sum_{i = 1}^N a_i \mu(A_i \setminus \cup_{j \ge 1} B_j)
+		+ \sum_{j = 1}^M b_j \mu(B_j \setminus \cup_{i \ge 1} A_i) \\
+	&= \sum_{i = 1}^N \sum_{j = 1}^M a_i \mu(A_i \cap B_j)
+		+ \sum_{i = 1}^N a_i \mu(A_i \setminus \cup_{j \ge 1} B_j) \\
+	&\hspace{10pt}+ \sum_{i = 1}^N \sum_{j = 1}^M b_j \mu(A_i \cap B_j)
+		+ \sum_{j = 1}^M b_j \mu(B_j \setminus \cup_{i \ge 1} A_i) \\
+	&= \sum_{i = 1}^N a_i \left(\mu(\bigcup_{j \ge 1} A_i \cap B_j) + \mu(A_i \setminus \cup_{j \ge 1} B_j)\right)\\
+	&\hspace{10pt}+ \sum_{j = 1}^M b_j \left(\mu(\bigcup_{j \ge 1} A_i \cap B_j) 
+		+ \mu(B_j \setminus \cup_{i \ge 1} A_i)\right)\\
+	&= \sum_{i = 1}^N a_i \mu(A_i) + \sum_{j = 1}^M b_j \mu(B_j)
+		= \int_\Omega f \, \dd \mu + \int_\Omega g \, \dd \mu. 
+\end{align*}
 
 \end{proof}
 

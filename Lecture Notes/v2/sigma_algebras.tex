@@ -421,7 +421,8 @@ With this setup, we can now state the main result that allows us to extend pre-m
 Let $\mathcal{S}$ be a semi-algebra on $\Omega$ and let $\mu : \mathcal{S} \to [0,+\infty]$ be a pre-measure on $\mathcal{S}$. Then there exists a measure $\mu^\ast$ on $\overline{\sigma(\mathcal{S})}$ (the completed version of $\sigma(\mathcal{S})$ w.r.t.\ $\mu^\ast$) that is an extension of $\mu$, i.e. $\mu^\ast|_\mathcal{S} = \mu$. Moreover, if $\mu$ is $\sigma$-finite the measure $\mu^\ast$ is unique.
 \end{theorem}
 
-The proof of this theorem is outside the scope of this course and will not be covered in these lecture notes. The interested student can look at [REF Appendix] for the details.
+The proof of this theorem is outside the scope of this course and will not be covered in these lecture notes. 
+%The interested student can look at [REF Appendix] for the details.
 
 Theorem~\ref{thm:caratheodory} is powerful, as it allows us to create measures on the \sigalg/ $\sigma(\mathcal{S})$ by only describing a pre-measure on the semi-algebra $\mathcal{S}$ that generates it. This is especially useful if there is no direct description of the $\sigma(\mathcal{S})$. 
 
@@ -441,7 +442,8 @@ Theorem~\ref{thm:caratheodory} is powerful, as it allows us to create measures o
 %The idea is to use the
 %\end{proof}
 
-We will give an application of Theorem~\ref{thm:caratheodory} later in Section [REF] for constructing random variables and in Section~\ref{se:product-measures} for constructing products of measure spaces. However, its most crucial application is to construct a measure on the Borel \sigalg/, which will be the key object for defining a new notion of integration.
+We will see an application of Theorem~\ref{thm:caratheodory} later in Chapter~\ref{chapter:probability_1} for constructing random variables and in Section~\ref{se:product-measures} for constructing products of measure spaces. However, its most crucial application is to construct a measure on the Borel sigma-algebra, which will be the key object for defining a new notion of integration.
+
 
 \subsection{The Lebesgue measure}
 
@@ -465,7 +467,8 @@ There exists a \sigalg/ $\cL^d \supset \cB_{\bbR^d}$ on $\bbR^d$ and a unique me
 \end{enumerate}
 \end{theorem}
 
-At its heart, the proof of this theorem relies on the Carath\'{e}odory Extension Theorem (Theorem~\ref{thm:caratheodory}) applied to the set of right-closed intervals in $\bbR^d$ (see~\eqref{def:right_closed_intervals} for the one-dimensional setting). Some additional work is needed to make it complete, and then check the four properties. 
+At its hearth, the proof of this theorem relies on the Carath\'{e}odory Extention Theorem (Theorem~\ref{thm:caratheodory}) applied to the set of right-closed intervals in $\bbR^d$ (see~\eqref{def:right_closed_intervals} for the one-dimensional setting). Some additional work is needed to make it complete and then check the four properties. 
+
 %The interested student is referred to the Appendix, where we provide the full details.  
 
 It follows from Theorem~\ref{thm:lebesgue_measure} that the Lebesgue measure is formally defined on a larger \sigalg/ $\cL^d$ than the Borel \sigalg/. 
@@ -475,11 +478,6 @@ The Lebesgue measure on $\cB_{\bbR^d}$ is now defined as the restriction of $\la
 \begin{remark}[Lebesgue vs Borel measurable]
 It should be noted that $\cB_{\bbR^d} \subsetneq \cL^d$. That is, there are sets that are Lebesgue measurable but not Borel measurable (eg.\ subsets of the Cantor set).
 \end{remark}
-
-%Having established the most important measure for this course, we end this section by looking at some important general properties of measures.
-
-
-
 
 \section{Problems}
 

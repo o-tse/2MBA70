@@ -86,7 +86,87 @@ Let $F : \bbR \to [0,1]$ be a cdf. Then there exists a probability space  $(\Ome
 In other words, $X$ is a random variable with cdf $F$.
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[New and better proof]
+Let us first discuss the idea of the proof. Suppose we have a probability measure $\mu$ on $(\bbR, \cB_{\bbR})$ such that $\mu((-\infty,t]) = F(t)$. Then we can simply take $(\bbR, \cB_{\bbR}, \mu)$ as our probability space and take $X : \bbR \to \bbR$ to be $X(\omega) = \omega$. The difficulty in applying this philosophy to our setting is that we do not have this probability measure $\mu$. So the main goal of the proof is to construct this using our cdf $F$. 
+
+Note that the function $F$ is only defined on sets of the form $(-\infty,x]$ and not on general measurable sets $A \in \cB_{\bbR}$. However, if we can extend $F$ to a proper measure $\mu$ on $\cB_{\bbR}$ then we would be done. To achieve this, first recall the collection of right-closed intervals (see~\eqref{def:right_closed_intervals})
+\[
+	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a \le b, a,b \in \bbR\} \cup \{(a, \infty) \, : \, a \in \bbR\} \cup \{\bbR\},
+\] 
+which is a semi-algebra that generates the Borel \sigalg/ $\cB_{\bbR}$ (see Problem~\ref{prb:right_closed_intervals}). We will construct a pre-measure $\mu_F$ on $\mathcal{S}$ such that $\mu_F((t,\infty)) = 1 - F(t)$. Then we use Theorem~\ref{thm:caratheodory} (Carath\'{e}odory Extension) to obtain a measure $\mu$ on $\sigma(\mathcal{S}) = \cB_{\bbR}$ that extents $\mu_F$. This then implies that 
+\[
+	\mu((-\infty,t]) = 1 - \mu((t,\infty)) = 1 - \mu_F((t,\infty)) = F(t),
+\]
+as required. 
+
+We will proceed by define a set-function $\mu_F$ that has the above mentioned property. To show that $\mu_F$ is a pre-measure on $\mathcal{S}$ we are going to use Theorem~\ref{thm:measure_equivalent_def} which provided an equivalent definition of a measure. Our first claim is that this result extends to the setting of pre-measures as well, when we add that $A \cup B \in \mathcal{S}$ to property 2). Looking at the proof, we see that it is only about proving $\sigma$-additivity, which we also have to show for pre-measures. Moreover, most of the reasoning and computations immediately transfer to the case of pre-measures. The only exception is that the proof would considers $\mu_F(\bigcup_{i = 1}^k A_i)$ for sets $A_i \in \mathcal{S}$ although this union does not have to be in $\mathcal{S}$ itself. This can be easily fixed by defining
+\[
+	\mu_F(\bigcup_{i = 1}^k A_i) = \sum_{i = 1}^k \mu_F(A_i),
+\]
+for any collection of disjoint $A_i \in \mathcal{S}$. By property 2) this would be consistent with our definition of $\mu_F$ when this finite union is in $\mathcal{S}$. The proof then carries over completely.
+
+Having explained the outline of the proof lets get started. We first note that any cdf $F$ defines a set function $\mu_F$ on $\mathcal{S}$ by
+\[
+	\mu_F(A) = \begin{cases}
+		0 &\text{if } A = \emptyset,\\
+		1 &\text{if } A = \bbR,\\
+		F(b) - F(a) &\text{if } A = (a,b],\\
+		1 - F(a) &\text{if } A = (a, \infty).
+	\end{cases}
+\]
+Note that $\mu_F(A) \in [0,1]$ because $F$ is non-decreasing. Moreover, by definition $\mu_F((t,\infty)) = 1 - F(t)$ as we needed. Also note that $\mu_F(\emptyset) = 0$.
+
+
+Hence to apply Theorem~\ref{thm:measure_equivalent_def} we need to show two things:
+\begin{enumerate}
+\item $\mu_F(A \cup B) = \mu_F(A) + \mu_F(B)$ for all disjoint $A,B \in \mathcal{S}$ such that $A \cup B \in \mathcal{S}$, and
+\item for any increasing sequence $A_n \subseteq A_{n+1}$ of sets in $\mathcal{S}$ such that $A_n \uparrow A \in \mathcal{S}$, it holds that
+\begin{equation}\label{eq:construction_rv_increasing_sequence}
+	\lim_{n \to \infty} \mu_F(A_n) = \mu_F(A).
+\end{equation}
+\end{enumerate}
+
+We will prove each of these statements separately.
+
+\begin{enumerate}
+\item First note that $A \cup B$ is either of the form $(a,b]$ or $(a,\infty)$ and we may assume that $A,B \ne \emptyset$. If $A \cup B = (a,b]$, then w.l.o.g. it holds that there exists a $a < c < b$ such that $A = (a,c]$ and $B = (c, b]$. But then
+\[
+	\mu_F(A \cup B) = F(b) - F(a) = F(b) - F(c) + F(c) - F(a) = \mu(A) + \mu(B). 
+\]
+Now if $A \cup B = (a, \infty)$ then w.l.o.g. there must exists a $a < b$ such that $A = (a,b]$ and $B = (b, \infty)$. This then implies
+\[
+	\mu_F(A \cup B) = 1 - F(a) = 1 - F(b) + F(b) - F(a) = \mu_F(B) + \mu_F(A).
+\]
+\item We will distinguish between three different case
+\begin{itemize}
+\item Suppose that $A = \bbR$. This can only be achieved if $A_n = (a_n, \infty)$ holds for all large enough $n$ with $a_n \downarrow -\infty$. In this case we then have that
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = \lim_{n \to \infty} \mu_F((a_n, \infty)) = \lim_{n \to \infty} 1 - F(a_n)
+	= 1 - 0 = 1 = \mu_F(\bbR).
+\]
+\item Suppose that $A = (a,b]$. Then it must hold that $A_n = (a_n, b_n]$ and $a_n \downarrow a$ and $b_n \uparrow b$. We claim that actually there must exist an $N \ge 1$ such that $b_n = b$ for all $n \ge N$. To see why note that $b \in A = (a,b]$. Therefore, since $A = \bigcup_{n \ge 1} A_n$ there must exist an $N$ such that $b \in A_N = (a_N, b_N]$. However, since $A_n \subseteq A_{n +1}$, it must hold that $b_n \le b_{n+1} \le b$. But this then implies that $b_N = b$ which proves our claim. We then have that
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = F(b) - \lim_{n \to \infty} F(a_n) = F(b) - F(a) = \mu_F(A),
+\]
+where we used right-continuity of $F$.
+\item Finally, suppose that $A = (a, \infty)$. Then either I) $A_n = (a_n, b_n]$ holds for all $n \ge 1$ with $a_n \downarrow a$ and $b_n \to \infty$, or II) $A_n = (a_n, \infty)$ for $n$ large enough with $a_n \downarrow a$. For case I) we then have
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = \lim_{n \to \infty} F(b_n) - F(a_n) = 1 - F(a) = \mu_F(A), 
+\]
+using right-continuity and the other limit property of cdfs. 
+
+For case II), right-continuity implies that
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = \lim_{n \to \infty} 1 - F(a_n) = 1 - F(a) = \mu_F(A).
+\]
+\end{itemize}
+\end{enumerate}
+
+We have proven that $\mu_F$ satisfies the requirements of Theorem~\ref{thm:measure_equivalent_def}. Thus it is a pre-measure on $\mathcal{S}$ and the proof is now concluded by applying the Carath\'{e}odry-Extension theorem.
+
+\end{proof}
+
+\begin{proof}[Old proof presented in the lecture (incomplete)]
 
 Let us first discuss the idea of the proof. Suppose we have a probability measure $\mu$ on $(\bbR, \cB_{\bbR})$ such that $\mu((-\infty,t]) = F(t)$. Then we can simply take $(\bbR, \cB_{\bbR}, \mu)$ as our probability space and take $X : \bbR \to \bbR$ to be $X(\omega) = \omega$. The difficulty in applying this philosophy to our setting is that we do not have this probability measure $\mu$. So the main goal of the proof is to construct this using our cdf $F$. 
 

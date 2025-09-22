@@ -1,0 +1,82 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 7.1}
+
+Similar to the proof of Fatou's lemma, we define $g_n = \sup_{k \ge n} f_n$ which are measurable due to Proposition 3.13. Moreover, we have that $\limsup_{n \to \infty} f_n = \lim_{n \to \infty} g_n$.
+
+Next we note that $g_n \ge f_\ell$ for all $\ell \ge n$. Thus, by monotonicity of the integral, we have that
+\[
+	\int_\Omega g_n \, \dd \mu \ge \int_\Omega f_\ell \, \dd \mu,
+\]
+holds for all $\ell \ge n$, which implies that
+\[
+	\int_\Omega g_n \, \dd \mu \ge \sup_{k \ge n} \int_\Omega f_n \, \dd \mu.
+\]
+
+In addition, since $g_n < f$ with $f$ being non-negative and integrable we can apply Dominated Convergence to conclude that
+\[
+	\int_\Omega \lim_{n \to \infty} g_n \, \dd \mu = \lim_{n \to \infty} \int_\Omega g_n \, \dd \mu.
+\]
+
+Putting all this together we get
+\[
+	\int_\Omega \limsup_{n \to \infty} f_n \, \dd \mu
+	= \int_\Omega \lim_{n \to \infty} g_n \, \dd \mu = \lim_{n \to \infty} \int_\Omega g_n \, \dd \mu \ge \lim_{n \to \infty} \sup_{k \ge n} \int_\Omega f_n \, \dd \mu.
+\]
+
+\bigskip
+
+\textbf{Problem 7.2}
+
+\begin{enumerate}[label={(\alph*)}]
+	\item Let $t_0\in (a,b)$ be fixed. It suffices to check the continuity result for arbitrary sequences $(t_n)_{n\ge 1} \subset (a, b)$ such that $t_n\to t_0$ as $n\to\infty$. Fix such a sequence and define $g_n(\omega):= f(\omega,t_n)$ for all $\omega\in\Omega$ and $n\ge 1$. Since $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ for all $\omega\in\Omega$, we deduce that $\lim_{n\to\infty} g_n(\omega) = f(\omega,t_0)$ for every $\omega\in\Omega$. Moreover, by assumption $|g_n| \le g$ for all $n \ge 1$ and $g$ is integrable. By the Dominated Convergence Theorem
+\[
+	\lim_{n\to\infty} \int_\Omega g_n(\omega)\,\mu(\dd\omega) = \int_\Omega f(\omega,t_0)\,\mu(\dd\omega).
+\]
+As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t_0)$.
+
+	\item If $t\mapsto f(\omega,t)$ is continuous on $(a, b)$ for all $\omega\in\Omega$ then $\lim_{t\to t_0}f(\omega,t)=f(\omega,t_0)$ at every $t_0\in(a,b)$ for all $\omega\in\Omega$. In particular, (a) applies, showing that $\lim_{t\to t_0} F(t) = F(t_0)$ for every $t_0\in (a,b)$, i.e., $F$ is continuous on $(a, b)$.
+\end{enumerate}
+
+\end{document}

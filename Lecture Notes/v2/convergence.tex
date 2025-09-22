@@ -298,14 +298,27 @@ Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ and $f$ be no
 		\[
 			\frac{\partial f}{\partial t}(\omega, t_0):=\lim_{t\to t_0} \frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} \quad\text{exists for all $t_0\in(a,b)$}.
 		\]
-		Furthermore, suppose that there is a non-negative $\mu$-integrable function $g$ such that $|\partial f/\partial t|(\omega,t)\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. Show that the map
-		\[
-			(a,b)\ni t\mapsto F(t) = \int_\Omega f(\omega,t)\,\mu(d\omega)\quad\text{is differentiable},
-		\]
-		and the following equality holds:
-		\[
+		Furthermore, suppose that there is a non-negative $\mu$-integrable function $g$ such that $|\partial f/\partial t|(\omega,t)\le g(\omega)$ for all $t\in(a,b)$ and all $\omega\in\Omega$. 
+		
+		The goal of this exercise is to show that the following equality holds:
+		\begin{equation}\label{eq:prb_diff_main}
 			\frac{d}{dt}\int_\Omega f(\omega,t)\,\mu(d\omega) = \int_\Omega \frac{\partial f}{\partial t}(\omega,t)\,\mu(d\omega).
-		\]
+		\end{equation}
+		
+		We will do this in several steps.
+		\begin{enumerate}[label={(\alph*)}]
+			\item Show that $\omega \mapsto (\partial f/\partial t)(\omega,t)$ is measurable and integrable for all $t\in(a,b)$.
+			\item Show that for $t_0\in(a,b)$ arbitrary
+			\[
+				\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le g(\omega)\quad\text{for any $t\in(a,b)$, $t\ne t_0$ and all $\omega\in\Omega$.}
+			\]
+			[\textbf{Hint:} Recall the Mean Value Theorem.]
+			\item Consider the function
+			\[
+				F(t) = \int_\Omega f(\omega,t)\,\mu(d\omega).
+			\] 
+			Use Problem~\ref{pb:DCT-parametric-function} to show that $F(t)$ is differentiable on $(a,b)$ and conclude that~\eqref{eq:prb_diff_main} holds.
+		\end{enumerate}		
 		
 		\smallskip
 		
@@ -353,7 +366,7 @@ Now let $f\colon \bbR \to \bbR$ be a continuous bounded function with $|f(x)| \l
 \setcounter{enumi}{1}
 \item Suppose that for any such $f$ and for any $\varepsilon > 0$ the following holds
 \begin{equation}\label{eq:portmanteau_problem_main}
-	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| \le \varepsilon.
+	lim_{n \to \infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| \le \varepsilon.
 \end{equation}
 Prove the \textbf{1} holds.
 \end{enumerate}
@@ -379,10 +392,6 @@ We now write
 \item Show that
 \[
 	\limsup_{n \to \infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right| < \frac{\varepsilon}{2}.
-\]
-\item Prove that 
-\[
-	\limsup_{n \to \infty} \left|\int_\bbR fg \, \dd \mu_n - \int_\bbR fg \, \dd \mu\right| = 0.
 \]
 \item Conclude that~\eqref{eq:portmanteau_problem_main} holds.
 \end{enumerate}

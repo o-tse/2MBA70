@@ -1,6 +1,28 @@
    
 \textbf{Problem 7.1}
 
+Similar to the proof of Fatou's lemma, we define $g_n = \sup_{k \ge n} f_n$ which are measurable due to Proposition 3.13. Moreover, we have that $\limsup_{n \to \infty} f_n = \lim_{n \to \infty} g_n$.
+
+Next we note that $g_n \ge f_\ell$ for all $\ell \ge n$. Thus, by monotonicity of the integral, we have that
+\[
+	\int_\Omega g_n \, \dd \mu \ge \int_\Omega f_\ell \, \dd \mu,
+\]
+holds for all $\ell \ge n$, which implies that
+\[
+	\int_\Omega g_n \, \dd \mu \ge \sup_{k \ge n} \int_\Omega f_n \, \dd \mu.
+\]
+
+In addition, since $g_n < f$ with $f$ being non-negative and integrable we can apply Dominated Convergence to conclude that
+\[
+	\int_\Omega \lim_{n \to \infty} g_n \, \dd \mu = \lim_{n \to \infty} \int_\Omega g_n \, \dd \mu.
+\]
+
+Putting all this together we get
+\[
+	\int_\Omega \limsup_{n \to \infty} f_n \, \dd \mu
+	= \int_\Omega \lim_{n \to \infty} g_n \, \dd \mu = \lim_{n \to \infty} \int_\Omega g_n \, \dd \mu \ge \lim_{n \to \infty} \sup_{k \ge n} \int_\Omega f_n \, \dd \mu.
+\]
+
 \bigskip
 
 \textbf{Problem 7.2}
@@ -19,31 +41,63 @@ As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t
 
 \textbf{Problem 7.3}
 
-\begin{enumerate}[label={(\arabic*)}]
-	\item We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. Let $(t_n)_{n\ge 1}\subset(a,b)$ be an arbitrary sequence with $t_n\ne t$ and $t_n\to t$ for $n\to\infty$. We set
+\begin{enumerate}[label={(\alph*)}]
+	\item (4 pts) We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. 
+	
+	\textbf{2 pts}
+	Let $(t_n)_{n\ge 1}\subset(a,b)$ be an arbitrary sequence with $t_n\ne t$ and $t_n\to t$ for $n\to\infty$. We set
 	\[
-		g_n(\omega) = \frac{f(\omega,t_n)-f(\omega,t)}{t_n-t}.
+		h_n(\omega) = \frac{f(\omega,t_n)-f(\omega,t)}{t_n-t}.
 	\]
-	Clearly, $g_n$ is measurable for every $n\ge 1$. Moreover, $\lim_{n\to\infty} g_n(\omega) = (\partial f/\partial t)(\omega,t)$ by the definition of the derivative. Since $(\partial f/\partial t)(\cdot,t)$ is the pointwise limit of a sequence of measurable functions, it is also measurable. Clearly, $(\partial f/\partial t)(\cdot,t)$ is integrable since
+	Clearly, $h_n$ is measurable for every $n\ge 1$. 
+	
+	\textbf{1 pt}
+	Moreover, $\lim_{n\to\infty} h_n(\omega) = (\partial f/\partial t)(\omega,t)$ by the definition of the derivative. Since $(\partial f/\partial t)(\cdot,t)$ is the pointwise limit of a sequence of measurable functions, it is also measurable. 
+	
+	\textbf{1 pt} Finally, $(\partial f/\partial t)(\cdot,t)$ is integrable since
 	\[
 		\int_\Omega |(\partial f/\partial t)(\omega,t)|\,\mu(\dd\omega) \le \int_\Omega g\,\dd\mu <+\infty.
 	\]
 	
-	\item Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
+	\item (3 pts)
+	
+	\textbf{2 pts} Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
 	\[
 		\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} = (\partial f/\partial t)(\omega,\tau)\qquad\text{	for some $\tau\in(t_0,t)$.}
 	\]
+	
+	\textbf{1 pt}
 	Taking the modulus on both sides, we obtain
 	\[
 		\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le |(\partial f/\partial t)(\omega,\tau)|\le g(\omega)\qquad\text{for all $\omega\in\Omega$}.
 	\]
-	\item We now have all the ingredients needed to apply the DCT, which yields
+	\item (5 pts)
+	
+	\textbf{2 pts} Take $t_0 \in (a,b)$ and let $(t_n)_{n \ge 1}$ be a sequence in $(a,b)$ such that $t_n \to t_0$ and define
 	\[
-		\lim_{n\to\infty} \frac{F(t_n)-F(t)}{t_n-t} = \lim_{n\to\infty} \int_\Omega g_n\,\dd\mu = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
+		h(\omega, t) := \frac{f(\omega, t) - f(\omega, t_0)}{t - t_0}.
+	\] 
+	Then by (b) and the conditions in this exercise, $h$ satisfies all the conditions listed in Problem 4.2.
+	
+	\textbf{1 pt}
+	Next, we note that by linearity of the integral we have that
+	\[
+		\frac{F(t_n) - F(t_0)}{t_n - t_0} = \int_\Omega \frac{f(\omega, t_n) - f(\omega, t_0)}{t_n - t_0} \, \mu(d \omega)
+		= \int_\Omega h(\omega, t_n) \, \mu(\dd \omega).
 	\]
-	Since $t\in(a,b)$ and the sequence $(t_n)_{n\ge 1}$ was arbitrary, we conclude that $F$ is differentiable on $(a,b)$ with 
+	
+	\textbf{1 pt}
+	Now by Problem 4.2 it holds that 
 	\[
-		F'(t) = \int_\Omega (\partial f/\partial t)(\omega,t)\,\mu(\dd\omega).
+		\lim_{t_n \to t_0} \int_\Omega h(\omega, t_n) \, \mu(\dd \omega) 
+		= \int_\Omega \lim_{t_n \to t_0} h(\omega, t_n) \, \mu(\dd \omega) = \int_\Omega \frac{\partial f}{\partial t}(\omega, t_0) \, \mu(\dd \omega).
+	\]
+	
+	\textbf{1 pt}
+	Since $t_0 \in(a,b)$ and the sequence $(t_n)_{n\ge 1}$ were arbitrary, we conclude that $F$ is indeed differentiable on $(a,b)$ with 
+	\[
+		\frac{\partial F}{\partial t}(t_0) := \lim_{t_n \to t_0} \frac{F(t_n) - F(t_0)}{t_n - t_0} 
+		= \int_\Omega \frac{\partial f}{\partial t}(\omega,t_0)\,\mu(\dd\omega).
 	\]
 \end{enumerate}
 
@@ -105,3 +159,63 @@ As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t
 \textbf{Problem 7.5}
 
 \bigskip
+
+\textbf{Problem 7.6}
+
+\begin{enumerate}[label={(\alph*)}]
+\item 
+\item By definition
+\[
+	\lim_{n\to\infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| \le \varepsilon,
+\]
+implies that for any $\delta > 0$
+\[
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| < \varepsilon + \delta,
+\]
+holds for large enough $n$. Note that this holds for any $\varepsilon, \delta > 0$.
+
+Now pick $\eta > 0$ and set $\varepsilon = \eta/2 = \delta$, then the above inequality implies that
+\[
+	\lim_{n\to\infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| = 0.
+\]
+
+\item Consider the sequence of sets $A_n = \bbR\setminus [-n,n]$. Then $A_n \supset A_{n + 1}$ and $A_n \downarrow \emptyset$. Hence, it follows from Proposition 2.12 2) that $\lim_{n \to \infty} \mu(A_n) = 0$. Thus, there exists a $N$ such that $\mu(A_n) < \varepsilon/(2M)$ holds for all $n \ge N$. We can then take any $\alpha > N$.
+\item The function
+\[
+	g(x) = \mathbbm{1}_{[-\alpha,\alpha]}(x) + \mathbbm{1}_{(-(\alpha+1), -\alpha)}(x)\left(x + (\alpha + 1)\right) + \mathbbm{1}_{(\alpha,\alpha+1)}(x)\left(-x + \alpha + 1\right)
+\]
+does the trick. This is simply a linear increase from zero to one from $-(\alpha + 1)$ to $-\alpha$ and from $\alpha + 1$ to $\alpha$.
+\item Observe that $g$ is a non-negative continuous bounded function that is zero outside the interval $[-(\alpha+1), \alpha+1]$, and thus we can apply (3).
+Using linearity of the integral, the fact that $|f| \le M$ and the definition of $g$, we get
+\begin{align*}
+	\left|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\right|
+	&= \left|\int_\bbR f (1-g) \, \dd \mu\right| \le M \int_\bbR (1-g) \, \dd \mu \\
+	&\le M \int_\bbR (1-g) \, \dd \mu \\
+	&= M\left(1-\int_\bbR g \, \dd \mu\right) \\
+	&\le  M \mu(\bbR \backslash [-\alpha,\alpha]) < \frac{\varepsilon}{2}.
+\end{align*}
+\item Again, using linearity of the integral and the fact that $|f| \le M$ we get
+\begin{align*}
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right|
+	&= \left|\int_\bbR f (1-g) \, \dd \mu_n\right| \le M \int_\bbR (1-g) \, \dd \mu_n \\
+	&\le M \int_\bbR (1-g) \, \dd \mu_n = M\left(1-\int_\bbR g \, \dd \mu_n\right)
+\end{align*}
+
+Now observe that the integral in the last term converges to $\int_\bbR g \, \dd \mu$ by (3). Thus, we obtain
+\begin{align*}
+	\limsup_{n \to \infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right|
+	&\le M \int_\bbR (1-g) \, \dd \mu \le M \mu(\bbR \backslash [-\alpha,\alpha]) < \frac{\varepsilon}{2}.
+\end{align*}
+\item 
+Recall that
+\begin{align*}
+	\left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| &\le \left|\int_\bbR f \, \dd \mu_n - \int_\bbR fg \, \dd \mu_n\right| + \left|\int_\bbR f \, \dd \mu - \int_\bbR fg \, \dd \mu\right|\\ &\hspace{10pt}+ \left|\int_\bbR fg \, \dd \mu_n - \int_\bbR fg \, \dd \mu\right|.
+\end{align*}
+For the first two terms, the (e) and (f) imply that the $\limsup_{n \to \infty}$ is bounded by $\varepsilon/2$. For the third term we not that $fg$ is a continuous bounded function and hence this term converges to zero by our assumption that (3) holds.
+
+Together we then have that
+\[
+	\limsup_{n \to \infty} \left|\int_\bbR f \, \dd \mu_n - \int_\bbR f \, \dd \mu\right| < \varepsilon,
+\]
+which implies the result.
+\end{enumerate}

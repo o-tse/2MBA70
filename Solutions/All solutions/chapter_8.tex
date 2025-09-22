@@ -2,13 +2,19 @@
 \textbf{Problem 8.2}
 
 \begin{enumerate}[label={(\alph*)}]
-\item For this let $h_t(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
+\item (2 pts) 
+
+For this let $h_t(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
 \[
 	F_n(t) = (X_n)_\# \bbP_n ((-\infty,x]) = \int_\bbR \mathbbm{1}_{(-\infty,t]} \, \dd (X_n)_\# \bbP_n
 	= \int_\bbR h_t \, \dd \mu_n.
 \]
 and similarly $F(t) = \int_\bbR h_t \, \dd \mu$
-\item The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. Moreover, for any $\varepsilon > 0$
+\item (3 pts)
+
+\textbf{1 pt} The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. 
+
+\textbf{2 pts} Moreover, for any $\varepsilon > 0$
 \[
 	\mu((t-\varepsilon, t+\varepsilon)) = \mu((t-\varepsilon,t]) + \mu((t,t+\varepsilon))
 	= F(t) - F(t-\varepsilon) + F(t + \varepsilon) - F(t).
@@ -18,16 +24,20 @@ Since $F$ is continuous at $t$, the right hand side goes to zero as $\varepsilon
 	\mu(\{t\}) = \lim_{\varepsilon \to 0} \mu((t-\varepsilon, t+\varepsilon)) = 0,
 \]
 which implies that $\mu(\cC_h) = 1$.
-\item The result follows by applying condition (2) in Theorem 5.2.7.
-\item Let $\varepsilon > 0$, pick such a $\delta$ and partition the interval $[-K,K]$ into $L_\delta := \left \lceil \frac{4K}{\delta} \right \rceil$ intervals $I_\ell = (a_\ell, b_\ell]$ of equal length, which is $\le \delta/2 < \delta$. Now we define the simple function
+\item (1 pt) The result follows by applying condition (2) in Theorem 7.6.
+\item (2 pts)
+
+\textbf{1 pt} Without loss of generality assume $x \in I_\ell = (a_\ell, b_\ell]$ for some $1 \le \ell \le L$. Then it holds that $\hat{g}(x) = g(b_\ell)$. 
+
+\textbf{1 pt} Moreover, since $|x - b_\ell| < \delta$ we have that
 \[
-	\hat{g} := \sum_{\ell = 1}^L h(b_\ell) \mathbbm{1}_{I_\ell},
+	|g(x) - \hat{g}(x)| = |g(x) - g(b_\ell)| < \varepsilon.
 \]
-\item Let $M=L$, $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$ and $t_\ell = b_\ell$. Then
+\item (1 pt) Let $M=L$, $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$ and $t_\ell = b_\ell$. Then
 \[
 	\hat{g} := \sum_{\ell = 1}^L \beta_\ell \mathbf{1}_{(-\infty, b_\ell]}.
 \]
-\item Using the representation in (e) we get
+\item (2 pts) Using the representation in (e) we get
 \begin{align*}
 	\lim_{n \to \infty} \bbE[\hat{g}(X_n)] 
 	&= \lim_{n \to \infty} \sum_{\ell = 1}^L \beta_\ell \int_\bbR \mathbf{1}_{X_n^{-1}((-\infty,b_\ell])} \, \dd \bbP \\
@@ -35,15 +45,23 @@ which implies that $\mu(\cC_h) = 1$.
 	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell F_n(b_\ell) \\
 	&= \sum_{\ell = 1}^L F(b_\ell) = \bbE[\hat{g}(X)].
 \end{align*}
-\item Using the representation of $\hat{g}$ in (d) we note that $\|x - y\| < \varepsilon$ for all $x,y \in I_\ell$. This then implies that $\|g(x) - \hat{g}(y)\| \le \varepsilon$ from which it follows that
+\item (4 pts)
+\textbf{1 pt} First we write
 \begin{align*}
 	\|\bbE[g(X_n)] - \bbE[g(X)]\| &\le \|\bbE[g(X_n)] - \bbE[\hat{g}(X_n)]\| 
 		+ \|\bbE[g(X)] - \bbE[\hat{g}(X)]\| \\
-	&\hspace{10pt}+ \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|\\
-	&\le 2\varepsilon + \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|.
+	&\hspace{10pt}+ \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|.
+	%&\le 2\varepsilon + \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|.
 \end{align*}
-We have shown in (f) that the last term goes to zero as $n \to \infty$. Since $\varepsilon$ was arbitrary we conclude that~\eqref{eq:conergence_distribution_1} holds.
-\item This now follows from Theorem 5.2.7 (3).
+\textbf{1 pt} We have shown in (f) that the last term goes to zero as $n \to \infty$. 
+
+\textbf{1 pt} Next, using (d) it follows that the other two terms are bounded by $\varepsilon$.
+
+\textbf{1 pt} Since $\varepsilon$ was arbitrary we conclude that
+\[
+	\lim_{n \to \infty} \bbE[g(X_n)] = \bbE[g(X)].
+\]
+\item (1 pt) This now follows from Theorem 7.6 (3).
 \end{enumerate}
 
 \bigskip

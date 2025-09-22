@@ -214,6 +214,161 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \aslim X$. Then
 \begin{proof}
 See Problem~\ref{prb:almost_sure_implies_probability}.
 \end{proof}
+
+We end this chapter with a classical result that provides sufficient conditions for proving some thing happens infinitely often.
+
+\begin{lemma}[Borel-Cantelli]\label{lem:borel_cantelli}
+Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets.
+\begin{enumerate}[label={(\alph*)}]
+\item If
+\[
+	\sum_{n=1}^\infty \mu(A_n) < \infty.
+\]
+then $\bbP(A_n \text{ i.o.}) = 0$.
+\item If, $(A_n)_{n \ge 1}$ are mutually exclusive and,
+\[
+	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+\]
+then $\bbP(A_n \text{ i.o.}) = 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:borel_cantelli}
+\end{proof}
+
+
+%\section{Law of Large Numbers}
+%
+%We end this section with proven a powerful result that pops up everywhere: The Strong Law of Large Numbers.
+%
+%\begin{lemma}[Borel-Cantelli]\label{lem:borel_cantelli}
+%Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets.
+%\begin{enumerate}[label={(\alph*)}]
+%\item If
+%\[
+%	\sum_{n=1}^\infty \mu(A_n) < \infty.
+%\]
+%then $\bbP(A_n \text{ i.o.}) = 0$.
+%\item If, $(A_n)_{n \ge 1}$ are mutually exclusive and,
+%\[
+%	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+%\]
+%then $\bbP(A_n \text{ i.o.}) = 1$.
+%\end{enumerate}
+%\end{lemma}
+%
+%\begin{proof}
+%See Problem~\ref{prb:borel_cantelli}
+%\end{proof}
+%
+%\begin{theorem}[Strong Law of Large Numbers]\label{thm:slln}
+%Let $(X_n)_{n \ge 1}$ be a sequence of i.i.d. copies of a random variable $X$, such that $\bbE[X] < \infty$. Then
+%\[
+%	\frac{1}{n} \sum_{i = 1}^n X_n \aslim \bbE[X].
+%\]
+%\end{theorem}
+%
+%\begin{proof}
+%The proof makes use of the Borel-Cantelli result as well as Lemma~\ref{lem:almost_sure_alternative}.
+%
+%We will show that the result holds for any sequence of non-negative $X_n$, i.e. $X_n \ge 0$ a.e. For a general $X_n$ we decompose it into its positive and negative part $X_n = X_n^+ - X_n^-$, each of which are non-negative. Then the result will hold due to linearity of the limit.
+%
+%So assume from now one that $X_n \ge 0$ and $X \ge 0$. We start with defining $Y_m := X_m \mathbf{1}_{X_m \le m}$, so that $(Y_m)_{m \ge 1}$ is a sequence of independent random variables (they are not identically distributed in general). In addition, take $\alpha > 1$, let $k_n = [\alpha^n]$ denote the integer part of $\alpha^n$ and define $S_t := \sum_{m = 1}^{t} Y_m$.
+%
+%Here are the keys steps of the proof:
+%\begin{enumerate}
+%\item We first show that $\bbP(Y_m \ne X_m \text{ i.o.}) = 0$.
+%\item Then we prove that
+%\[
+%	\left|\frac{S_{k_n}}{k_n} - \frac{\bbE[S_{k_n}]}{k_n}\right| \aslim 0.
+%\]
+%\item Next we show that $\bbE[S_{k_n}]/k_n \to \bbE[X]$.
+%\item Finally we conclude that 2) and 3) imply that 
+%\[
+%	\left|\frac{S_{n}}{n} - \bbE[X]\right| \aslim 0.
+%\]
+%\end{enumerate}
+%
+%We will first show how to finish the proof with these statements, before proving each of them. Observe that by Lemma~\ref{lem:almost_sure_alternative} we need to show that for all $\varepsilon > 0$
+%\[
+%	\bbP\left(\|\frac{1}{n} \sum_{i =1}^n X_i - \bbE[X]\| > \varepsilon \text{ i.o.}\right) = 0.
+%\]
+%Using the triangle inequality and Problem~\ref{prb:properties_io} we get
+%\begin{align*}
+%	\bbP\left(\|\frac{1}{n} \sum_{i =1}^n X_i - \bbE[X]\| > \varepsilon \text{ i.o.}\right)
+%	&\le \bbP\left(\|\frac{1}{n} \sum_{i =1}^n Y_i - \bbE[X]\| > \varepsilon/2 \text{ i.o.}\right) \\
+%	&\hspace{10pt}+ \bbP\left(\|\frac{1}{n} \sum_{i =1}^n (X_i - Y_i)\| > \varepsilon/2 \text{ i.o.}\right).
+%\end{align*}
+%The first probability is zero due to Lemma~\ref{lem:almost_sure_alternative} and 4), while the second probability is bounded by $\bbP(Y_m \ne X_m \text{ i.o.}) = 0$ by 1). 
+%
+%We are thus left to prove 1)-4). For this define $a_n := \bbE[S_{k_n}]/k_n$.
+%\begin{enumerate}
+%\item We will use that $\bbE[X] < \infty$ to show that 
+%\[
+%	\sum_{m \ge 1} \bbP(Y_m \ne X_m) < \infty,
+%\]
+%from which the result follows by Lemma~\ref{lem:borel_cantelli}.
+%
+%Recall the definition $Y_m = X_m \mathbbm{1}_{X_m \le m}$ and note that $\bbP(X>t) = \int_{(t,\infty)} \, \dd X_\# \bbP$. We now have that
+%\begin{align*}
+%	\sum_{m \ge 1} \bbP(Y_m \ne X_m) &= \sum_{m \ge 1} \bbP(X_m > m)\\
+%	&= \sum_{m \ge 1} \int_{(m,\infty)} \, \dd X_\#\bbP \\
+%	&= \sum_{m \ge 1} \sum_{t = m}^\infty \int_{(t,t+1]} \, \dd X_\#\bbP \\
+%	&= \sum_{t \ge 1} t \int_{(t,t+1]} \, \dd X_\# \bbP \\
+%	&\le \sum_{t \ge 1} \int_{(t,t+1]} x \, \dd X_\# \bbP \\
+%	&\le \int_{(0,\infty)} x \, \dd X_\# \bbP = \bbE[X] < \infty.
+%\end{align*}
+%To see why the fourth equality is true, simply count for each $t$ how many times you will see the entry $\int_{(t,t+1]} \, \dd X_\#\bbP$ appear in the full summation. This will be $t$ times.
+%
+%\item For this step we will use Borel-Cantelli
+%Let $\varepsilon > 0$. Note that for every $m \ge 1$, $\mathrm{Var}(Y_m) < \infty$. Then, using Chebyshev's inequality (see Problem ??] we get
+%\begin{align*}
+%	\sum_{n \ge 1} \bbP\left(\left|\frac{S_{k_n} - \bbE[S_{k_n}]}{k_n}\right| > \varepsilon\right)
+%	&=  \sum_{n \ge 1} \bbP\left(\left|S_{k_n} - \bbE[S_{k_n}]\right| > k_n \varepsilon\right)\\
+%	&\le \sum_{n \ge 1} \frac{\mathrm{Var}(S_{k_n})}{k_n^2 \varepsilon^2}\\
+%	&\le \sum_{n \ge 1} \frac{1}{k_n^2 \varepsilon^2} \sum_{m =1}^{k_n} \mathrm{Var}(Y_m)\\
+%	&\le \sum_{n \ge 1} \frac{1}{k_n^2 \varepsilon^2} \sum_{m =1}^{k_n} \bbE[Y_m^2]\\
+%	&= \varepsilon^{-2} \sum_{n \ge 1} \sum_{m = 1}^{k_n} k_n^{-2} \bbE[Y_m^2]\\
+%	&= \varepsilon^{-2} \sum_{m \ge 1} \bbE[Y_m^2] \sum_{n: k(n) \ge m} k_n^{-2}.
+%\end{align*}
+%
+%To proceed we will show that
+%\begin{equation}\label{eq:slln_geometric_sum_bound}
+%	\sum_{n: k(n) \ge m} k_n^{-2} \le 4(1-\alpha^{-2})^{-1} m^{-2}.
+%\end{equation}
+%This requires us to recall some properties of the geometric sequence $\sum_{t = 0}^m r^{t}$ for $r \in (0,1)$. 
+%\begin{equation}\label{eq:geometric_series_partialsum}
+%	\sum_{t = 0}^m r^{t} = \frac{1 - r^{m + 1}}{1 - r.}
+%\end{equation}
+%
+%Using~\eqref{eq:slln_geometric_sum_bound} and writing $C := 4\varepsilon^{-2}(1-\alpha^{-2})^{-1}$ we have
+%\begin{align*}
+%	\sum_{n \ge 1} \bbP\left(\left|\frac{S_{k_n} - \bbE[S_{k_n}]}{k_n}\right| > \varepsilon\right)
+%	&\le C \sum_{m \ge 1} \frac{\bbE[Y_m^2]}{m^2} \\
+%	&\le C \sum_{m \ge 1} m^{-2} \int_{(0,\infty)} 2y^2 \, \dd (Y_m)_\# \bbP \\
+%	&\le C \sum_{m \ge 1} m^{-2} \int_{(0,\infty)} 2y^2 \mathbbm{1}_{y \le m} \, X_\# \bbP (\dd y) \\
+%	&= C \int_{(0, \infty)} \left(\sum_{m \ge 1} m^{-2} \mathbbm{1}_{y \le m}\right) 2 y^2 \, X_\# \bbP (\dd y).
+%\end{align*}
+%Here the last equality is due to Fubini (note that all terms are positive).
+%
+%Now we note that 
+%\[
+%	\sum_{m \ge 1} m^{-2} \mathbbm{1}_{y \le m} = \sum_{m \ge y} m^{-2} \le 2/y.
+%\]
+%Hence
+%\[
+%	\sum_{n \ge 1} \bbP\left(\left|\frac{S_{k_n} - \bbE[S_{k_n}]}{k_n}\right| > \varepsilon\right)
+%	\le 4C \int_{(0,\infty)} \, y  X_\# \bbP(\dd y) = 4C \bbE[X] < \infty,
+%\]
+%which is what we needed to show for 2).
+%
+%\item 
+%
+%\end{enumerate}
+%
+%
+%\end{proof}
 %
 %A useful tool for proving almost everywhere convergence is the following result.
 %
@@ -292,18 +447,17 @@ We will first prove the $\Rightarrow$ implication.
 \end{enumerate}
 
 For the other implication $\Leftarrow$ let $g$ be a continuous function with compact support. Then there is some $K > 0$ such that $g$ is zero outside $[-K,K]$. You may use the fact that any continuous function with compact support is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
-\begin{enumerate}[label={(\alph*)}]
-\setcounter{enumi}{3}
-\item Let $\delta > 0$. Construct a partition of $[-K,K]$ into $L$ intervals $I_\ell$ such that for each $\ell \le L$ and $x, y \in I_i$ it holds that $\|x - y\| < \delta$.
-\end{enumerate}
+
+For now let us fix some $\varepsilon > 0$ and let $\delta > 0$ be such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. We then consider the partition of $[-K,K]$ into $L = L(\delta) := \lceil (4K/\delta) \rceil$ intervals $I_\ell = (a_\ell, b_\ell$ of equal length. This then implies that $b_\ell - a_\ell \le \delta/2 < \delta$.
 
 We will now define an approximate function
 \[
-	\hat{g}(x) = \sum_{\ell = 1}^L g(\max_{x \in I_i} x) \mathbf{1}_{I_i}.
+	\hat{g}(x) = \sum_{\ell = 1}^L g(b_\ell) \mathbf{1}_{I_\ell}(x).
 \]
-
+ 
 \begin{enumerate}[label={(\alph*)}]
-\setcounter{enumi}{4}
+\setcounter{enumi}{3}
+\item Show that $|g(x) - \hat{g}(x)| \le \varepsilon$ holds for all $x \in [-K , K]$.
 \item Show that there exists an $M$ and sequences $(\beta_m)_{1 \le m \le M}$ and $(t_m)_{1 \le m \le M}$ such that
 \[
 	\hat{g}(x) = \sum_{m = 1}^M \beta_m \mathbf{1}_{(-\infty, t_m]}.
@@ -318,21 +472,28 @@ We will now define an approximate function
 Prove Lemma~\ref{lem:convergence_probability_classical}.
 \end{problem}
 
+\begin{problem}\label{prb:properties_io}
+Let $(A_n)_{n \ge 1}$, $(B_n)_{n \ge 1}$ be two families of measurable sets. 
+\begin{enumerate}[label={(\alph*)}]
+\item Suppose that $A_n \subseteq B_n$ holds for all $n \ge 1$. Prove that $\{A_n \text{ i.o.}\} \subseteq \{B_n \text{ i.o.}\}$.
+\item Prove that $\{A_n \cup B_n \text{ i.o.}\} = \{A_n \text{ i.o.}\} \cup \{B_n \text{ i.o.}\}$.
+\end{enumerate}
+\end{problem}
+
 \begin{problem}\label{prb:almost_sure_implies_probability}
 Prove Lemma~\ref{lem:almost_sure_implies_probability}. [Hint: use the alternative definition of Lemma~\ref{lem:almost_sure_alternative} and reverse Fatou from Problem~\ref{prb:reverse_fatou}.]
 \end{problem}
 
 \begin{problem}[Borel-Cantelli]\label{prb:borel_cantelli}
-In this exercise you will prove two versions of what is known as the Borel-Cantelli result.
+In this exercise you will prove Lemma~\ref{lem:borel_cantelli}.
 
-Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets.
 \begin{enumerate}[label={(\alph*)}]
 \item Suppose that
 \[
 	\sum_{n=1}^\infty \mu(A_n) < \infty.
 \]
 Prove that $\bbP(A_n \text{ i.o.}) = 0$.
-\item Suppose that
+\item Suppose that $A_n \cap A_m = \emptyset$ for all distinct $n,m \ge 1$,
 \[
 	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
 \]

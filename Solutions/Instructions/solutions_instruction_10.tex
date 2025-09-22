@@ -1,0 +1,101 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 8.6}
+\begin{enumerate}[label={(\alph*)}]
+\item Define the sets
+\[
+	B_j := \bigcup_{i \ge j} A_i,\qquad j\in\bbN.
+\]
+Clearly the sequence $(B_j)_{j\in\bbN}$ is decreasing and $\{A_n \text{ i.o.}\}\subset B_j$ for every $j \in \mathbb{N}$. 
+
+By assumption, and the $\sigma$-subadditivity of $\bbP$,
+\[
+\bbP(B_1) = \bbP\left(\bigcup_{i=1}^\infty A_i \right) \leq \sum_{i=1}^\infty \bbP(A_i) < +\infty.
+\]
+Moreover, the summability also gives
+\[
+	\lim_{j\to\infty}\bbP(B_j) \leq \limsup_{j\to\infty}\sum_{i=j}^\infty \bbP(A_i) = 0.
+\]
+Hence, by the continuity from above of $\mu$, we obtain
+\[
+	\bbP(\{A_n \text{ i.o.}\}) \le \bbP\left(\bigcup_{j=1}^\infty B_j\right) = \lim_{j\to \infty} \bbP(B_j) = 0,
+\]
+i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\bbP$-almost every $\omega$ is in only finitely many $A_n$.
+\item We will prove that 
+\[
+	\bbP(\Omega \setminus \{A_n \text{ i.o.}\}) = 0,
+\]
+from which the result follows since $\bbP(\Omega) = 1$.
+
+First note that
+\[
+	\Omega \setminus \{A_n \text{ i.o.}\} = \bigcup_{k \ge 1} \left(\bigcup_{n \ge k} A_n\right)^c
+	= \bigcup_{k \ge 1} \bigcap_{n \ge k} A_n^c.
+\]
+
+Next, since $A_n$ are mutually exclusive, so are $A_n^c$. Thus, for any $k \ge 1$ we have that
+\begin{align*}
+	\bbP\left(\bigcap_{n \ge k} A_n^c\right) &= \prod_{n \ge k} \bbP(A_n^c) = \prod_{n \ge k} (1-\bbP(A_m)\\
+	&\le \prod_{n \ge k} e^{-\bbP(A_n)} = e^{-\sum_{n \ge k} \bbP(A_n)} = 0.
+\end{align*}
+Here we used that for any $0 \le x \le 1$ it holds that $1-x \le e^{-x}$.
+
+Finally, using $\sigma$-subadditivity we conclude that
+\[
+	\bbP(\Omega \setminus \{A_n \text{ i.o.}\}) = \bbP\left(\bigcup_{k \ge 1} \bigcap_{n \ge k} A_n^c\right)
+	\le \sum_{k \ge 1} \bbP\left(\bigcap_{n \ge k} A_n^c\right) = 0.
+\]
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 8.7}
+
+Fix $\varepsilon > 0$ and define $A_n(\varepsilon) :\{|X_n - X| > \varepsilon\}$. Then the assumption translates to
+\[
+	\sum_{n \ge 1} \bbP(A_n(\varepsilon)) < \infty.
+\]
+By Lemma 8.11 1) this then implies that $\bbP(A_n(\varepsilon) \text{ i.o.}) = 0$. Since $\varepsilon > 0$ was arbitrary, Lemma 8.9 now implies that $X_n \aslim X$.
+
+\end{document}

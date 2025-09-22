@@ -218,11 +218,11 @@ See Problem~\ref{prb:almost_sure_implies_probability}.
 We end this chapter with a classical result that provides sufficient conditions for proving some thing happens infinitely often.
 
 \begin{lemma}[Borel-Cantelli]\label{lem:borel_cantelli}
-Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets.
+Let $(\Omega, \mathcal{F}, \bbP)$ be a probability space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets.
 \begin{enumerate}[label={(\alph*)}]
 \item If
 \[
-	\sum_{n=1}^\infty \mu(A_n) < \infty.
+	\sum_{n=1}^\infty \bbP(A_n) < \infty.
 \]
 then $\bbP(A_n \text{ i.o.}) = 0$.
 \item If, $(A_n)_{n \ge 1}$ are mutually exclusive and,
@@ -506,5 +506,4 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probabilit
 \[
 	\sum_{n \ge 1} \bbP(|X_n - X| > \varepsilon) < \infty.
 \]
-[Hint: Use the alternative definition involving infinitely often and Borel-Cantelli.
 \end{problem}

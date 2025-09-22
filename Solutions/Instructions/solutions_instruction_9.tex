@@ -1,0 +1,89 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 8.3}
+
+The main idea is to use the equivalent version of convergence in distribution.
+
+Suppose that $X_n \plim X$ and define $Y_n = |X_n - X|$. We need to show that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. First recall that $X_n \plim X$ is defined as weak convergence of $Y_n$ to the constant zero random variable. By Lemma 8.2 this is equivalent to 
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t),
+\]
+for all continuity points of the function $\omega \mapsto 0$. We now note that any $\varepsilon > 0$ is a continuity point of this function. Hence, we get
+\[
+	\lim_{n \to \infty} \bbP(Y_n > \varepsilon) = 1 - \lim_{n \to \infty} \bbP(Y_n \le \varepsilon) = 1 - \bbP(0 \le \varepsilon) = 0
+\]
+
+Now we prove the other implication. So suppose that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. We then have to prove that $(Y_n)_\# \bbP \Rightarrow 0_\# \bbP$. Due to Lemma 8.2 it is enough to show that
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t) = \mathbbm{1}_{t \ge 0},
+\]
+holds for all continuity points $t$ of the function $\omega \mapsto 0$. Notice that the only non-continuity point is $0$. Moreover, for all $t < 0$ we have that $\bbP(Y_n \le t) = 0$ since $Y_n \ge 0$ almost every-where. Finally, for all $t > 0$ we have
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = 1 - \lim_{n \to \infty} \bbP(Y_n > t) = 1 = \bbP(0 \le t). 
+\]
+
+\bigskip
+
+\textbf{Problem 8.5}
+Suppose that $X_n \aslim X$. Then by Lemma 5.2.16 this is equivalent to $\bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0$ for all $\varepsilon > 0$. 
+
+For now fix an $\varepsilon > 0$ and write $A_n := \{\|X_n - X\| > \varepsilon\}$. Recall that
+\[
+	\{A_n \text{ i.o.}\} = \bigcap_{k = 1}^\infty \bigcup_{k \ge n} A_n
+\]
+and note two things:
+\begin{enumerate}[label={(\alph*)}]
+\item The sets $B_k := \bigcup_{n \ge k} A_n$ are non-increasing, i.e. $B_k \supset B_{k+1}$, and
+\item $\bbP(A_k) \le \bbP(\bigcup_{n \ge k} A_n) = \bbP(B_k)$.
+\end{enumerate}
+ 
+We then have that:
+\begin{align*}
+	0 &= \bbP(\{A_n \text{ i.o.}\}) &&\text{by assumption} \\
+	&= \bbP(\bigcap_{k =1}^\infty B_k) &&\text{by Lemma 5.2.16}\\
+	&= \lim_{k \to \infty} \bbP(B_k) &&\text{by continuity form above (Proposition 2.2.15)}\\
+	&\ge \lim_{k \to \infty} \bbP(A_k) &&\text{by (b)}.
+\end{align*}
+
+\end{document}

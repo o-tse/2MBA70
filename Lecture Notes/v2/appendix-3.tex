@@ -158,12 +158,11 @@ In a similar way we obtain that
 
 Now we employ condition 1 for the functions $h^-_\varepsilon$ and $h^+_\varepsilon$ to get
 \begin{align*}
-	\int_\bbR h \, \dd \mu -\varepsilon &\le \int_\bbR h^-_\varepsilon \, \dd \mu\\
-	&= \lim_{n \to \infty} \int_\bbR h^-_\varepsilon \, \dd \mu_n\\
+	\int_\bbR h \, \dd \mu -\varepsilon \le \int_\bbR h^-_\varepsilon \, \dd \mu
 	&\le \liminf_{n \to \infty} \int_\bbR h \, \dd \mu_n \\
 	&\le \limsup_{n \to \infty} \int_\bbR h \, \dd \mu_n\\
-	&\le \int_\bbR h^+_\varepsilon \, \dd \mu_n\\
-	&= \int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
+	&\le \limsup_{n \to \infty}\int_\bbR h^+_\varepsilon \, \dd \mu_n
+	= \int_\bbR h^+_\varepsilon \, \dd \mu \le \int_\bbR h \, \dd \mu +\varepsilon.
 \end{align*}
 From this it follows that
 \[

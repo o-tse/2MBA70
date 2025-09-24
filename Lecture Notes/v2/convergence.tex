@@ -25,7 +25,9 @@ Then
 \end{theorem}
 
 \begin{proof}
-As you might have expected, the proof will use the first monotone convergence theorem. For this we first note that by assumption there exists a $N \in \cF$ with $\mu(N) = 0$ such that properties 1 and 2 from theorem statement hold for all $\omega \in \Omega \backslash N$. Now define the function $g_n(\omega) = \max_{1 \le k \le n} f_k(\omega)$. Then $g_n(\omega) \le g_{n+1}(\omega)$ holds for \emph{all} $\omega \in \Omega$. We further define $g(\omega) := \lim_{n \to \infty} g_n(\omega)$. Here comes the key observation. For every $\omega \in \Omega\backslash N$ it holds that $g_n(\omega) = f_n(\omega)$ and $g(\omega) = f(\omega)$. Moreover, since $\mu(N) = 0$ we have that
+As you might expect, the proof will utilize the first monotone convergence theorem. For this, we first note that by assumption, there exists a $\mu$-null set $N\subset \Omega$ such that properties (1) \& (2) hold in $\Omega\backslash N$. By the definition of null sets, we find a measurable set $A \supset N$ for which $\mu(A)=0$. In particular, the properties (1) \& (2) hold in $\Omega\backslash A$.
+
+Now define the function $g_n(\omega) = \max_{1 \le k \le n} f_k(\omega)$ and $g(\omega) := \lim_{n \to \infty} g_n(\omega)$. Then $g_n(\omega) \le g_{n+1}(\omega)$ holds for \emph{all} $\omega \in \Omega$. Here comes the key observation. For every $\omega \in \Omega\backslash A$ it holds that $g_n(\omega) = f_n(\omega)$ and $g(\omega) = f(\omega)$. Moreover, since $\mu(A) = 0$ we have that
 \[
 	\int_\Omega f_n \, \dd \mu = \int_\Omega g_n \, \dd \mu \qquad \text{and} \qquad
 	\int_\Omega f \, \dd \mu = \int_\Omega g \, \dd \mu.
@@ -110,27 +112,12 @@ We thus conclude that
 	\lim_{n \to \infty} \int_\Omega f_n \, \dd \mu = \int_\Omega f \, \dd \mu.
 \]
 
-Now let us consider the general case. Then there exists a $N \in \cF$ such that $\mu(N) = 0$ and both $|f_n| \le g$ and $f_n \to f$ hold for every $\omega \in \Omega \backslash N$. Let us now define the following functions
+Now, let us consider the general case. Then there exists a $A \in \cF$ such that $\mu(A) = 0$ and both $|f_n| \le g$ and $f_n \to f$ hold for every $\omega \in \Omega \backslash A$. Let us now define the following functions
 \[
-	\hat{f}_n(\omega) = \begin{cases}
-		f_n(\omega) &\text{if } \omega \in \Omega \backslash N,\\
-		0 &\text{else,}
-	\end{cases}
-	\quad 
-	\hat{f}(\omega) = \begin{cases}
-		f(\omega) &\text{if } \omega \in \Omega \backslash N,\\
-		0 &\text{else,}
-	\end{cases}
+	\hat{f}_n := f_n \mathbf{1}_{\Omega\backslash A},\qquad
+	\hat{f} := f \mathbf{1}_{\Omega\backslash A},\qquad \hat{g} := g \mathbf{1}_{\Omega\backslash A}.
 \]
-and
-\[
-	\hat{g}(\omega) = \begin{cases}
-		g(\omega) &\text{if } \omega \in \Omega \backslash N,\\
-		0 &\text{else.}
-	\end{cases}
-\]
-
-Then 
+Then,
 \[
 	\int_\Omega \hat{f}_n \, \dd \mu = \int_\Omega f_n \, \dd \mu \quad \text{and} \quad
 	\int_\Omega \hat{f} \, \dd \mu = \int_\Omega f \, \dd \mu
@@ -264,6 +251,183 @@ Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$.
 \begin{proof}
 The proof of this theorem is mostly technical and for the most part does not provide any interesting insights. The implication \textbf{1} $\iff$ \textbf{3} is dealt with in Problem~\ref{prb:portmanteau}. For the full proof we refer to Appendix~\ref{chapter:appendix-portmanteau}. 
 \end{proof}
+
+\section{Littlewood's principles}
+
+In this section, we will discuss three principles---called Littlewood's principles---that provide practical ways of viewing measurable sets, almost everywhere convergence, and measurable functions. These principles hold for measures that are both inner and outer regular as defined in the following.
+
+\begin{definition}[Inner/Outer regularity]
+A measure $\mu$ on $(\bbR^d, \cB_{\bbR^d})$ is \emph{inner regular} if for all $A \in \cB_{\bbR^d}$ 
+\[
+	\mu(A) = \sup\bigl\{ \mu(K) : K\subset A\;\text{compact}\bigr\}.
+\]
+We say that a measure $\mu$ on $(\bbR^d, \cB_{\bbR^d})$ is \emph{outer regular} if for all $A \in \cB_{\bbR^d}$ 
+\[
+	\mu(A) = \inf \bigl\{ \mu(O): A\subset O\;\text{open}\bigr\}.
+\]
+\end{definition}
+
+Surprisingly, finite measures on $(\bbR^d, \cB_{\bbR^d})$ are always both inner and outer regular.
+
+\begin{theorem}\label{th:regularity-measure}
+	Every finite measure $\mu$ on $(\bbR^d, \cB_{\bbR^d})$ is both inner and outer regular.	
+\end{theorem}
+
+%The third principle, named after Lusin, provides a nice and practical way of seeing measurable functions. In particular, it allows us to show that 
+
+
+\paragraph{Littlwood's first principle:} 
+\begin{quotation}
+	\emph{Every measurable set is ``practically open"}.
+\end{quotation}
+
+This principle allows us to approximate arbitrary Borel measurable sets in $\bbR^d$ with a finite union of open rectangles.
+
+\begin{theorem}
+Let $\mu$ be a finite measure on $(\bbR^d, \cB_{\bbR^d})$.
+Let $A \in \cB_{\bbR^d}$ be a Borel measurable set. Then for any $\epsilon > 0$, there exists a set $O$ of a finite union of open rectangles in $\bbR^d$, such that the measure of the \emph{symmetric difference} $A \Delta O := (A \backslash O) \cup (O \backslash A)$ is smaller than $\epsilon$, that is
+\[
+\mu( A \Delta O  ) = \mu( A \backslash O ) + \mu( O \backslash A) < \epsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+	We make use of Theorem \ref{th:regularity-measure} for the proof.
+Let $\epsilon > 0$ be arbitrary. Then the inner regularity of $\mu$ provides a compact set $K \subset A$ such that
+\[
+\mu(K) > \mu(A) - \epsilon/2.
+\]	
+Moreover, the outer regularity of $\mu$ provides a family of open rectangles $(O_i)_{i\in\bbN}$ such that
+\[
+	K \subset \bigcup_{i=1}^\infty O_i\qquad\text{and}\qquad \sum_{i=1}^\infty \mu(O_i) \leq \mu(K) + \epsilon / 2.
+\]
+However, $K$ is compact and therefore there exists an $N \in \bbN$ such that
+\[
+K \subset \bigcup_{i=1}^N O_i =: O.
+\]
+Clearly,
+\[
+\sum_{i=1}^N \mu(O_i) \leq \sum_{i=1}^\infty \mu(O_i) \leq \mu(K) + \epsilon / 2,
+\]
+and hence
+\[
+\mu(A \Delta O) 
+= \mu(A \backslash O) + \mu(O \backslash A)
+\leq \mu(A \backslash K) + \mu(O \backslash K)
+ \leq  \epsilon /2 + \epsilon /2=\epsilon.\qedhere
+\]
+\end{proof}
+
+
+\paragraph{Littlewood's second principle:} 
+\begin{quotation}
+	\emph{Pointwise almost everywhere convergence is ``practically uniform convergence"}.
+\end{quotation}
+
+In other words, one can think of almost everywhere convergence as uniform convergence on a `smaller' set that can be chosen arbitrarily `close' to the full set. 
+
+\begin{theorem}[Egorov's Theorem]
+	Let $\mu$ be a finite measure on $(\bbR^d,\cB_{\bbR^d})$ and $(f_n)_{n\in\bbN}$ be a sequence of $\cB_{\bbR^d}$-measurable functions that converges $\mu$-almost everywhere to a function $f$. 
+	Then for all $\epsilon > 0$ there exists a set $E\in \cB_{\bbR^d}$ such that
+	$\mu(\bbR^d\backslash E) \le\epsilon$ and $f_n \to f$ uniformly on $E$.
+\end{theorem}
+\begin{proof}
+	Since $f_n\to f$\, $\mu$-almost everywhere, where exists a $\mu$-null set $N\subset\Omega$, i.e., $\mu(N)=0$, for which $f_n(x)\to f(x)$ for every $x\in \Omega:=\bbR^d\setminus N$. Consider the sets
+	\[
+		E_{\ell,n} := \bigcap_{k\ge n} \left\{ \omega\in \Omega\,:\, |f_k(\omega)-f(\omega)| < \frac{1}{\ell}\right\},\qquad n,\ell\ge 1
+	\]
+	It is not difficult to check that $E_{\ell,n}$ is measurable for every $\ell,n\ge 1$ and that $E_{\ell,n}\subset E_{\ell,m}$ for $n\le m$. Moreover, for each $\ell\ge 1$, we have that $\Omega = \cup_{n\ge 1} E_{\ell,n}$. Hence, by the continuity-from-below property of $\mu$, we obtain
+	\[
+		\mu(\Omega) = \mu\Bigl(\bigcup_{n\ge 1} E_{\ell,n}\Bigr) = \lim_{n\to\infty} \mu(E_{\ell,n}).
+	\]
+	Now choose $n_\ell\ge 1$ such that $\mu(\Omega\backslash E_{\ell,n_\ell}) \le \varepsilon\,2^{-\ell}$ and define the measurable set
+	\[
+		E := \bigcap_{\ell\ge 1} E_{\ell,n_\ell}.
+	\]
+	Then, by the subadditivity of $\mu$, we obtain
+	\[
+		\mu(\Omega\backslash E) = \mu\left(\bigcup_{\ell\ge 1}\bigl(\Omega\backslash E_{\ell,n_\ell}\bigr)\right) \le \sum_{\ell\ge 1} \mu\bigl(\Omega\backslash E_{\ell,n_\ell}\bigr) = \epsilon.
+	\]
+	Moreover, for every $k \in \bbN$ and every $x \in E$,
+	\[
+		|f_k(\omega) - f(\omega)| \leq \frac{1}{\ell}\qquad\text{for all $k\ge n_k$},
+	\]
+	thus implying that $f_n \to f$ uniformly on $E$.
+\end{proof}
+
+\begin{remark}
+	Given the inner regularity of $\mu$, one may choose $E$ compact in Egorov's Theorem. 
+\end{remark}
+
+\paragraph{Littlewood's third principle:} 
+\begin{quotation}
+	\emph{Every Borel measurable function is ``practically continuous"}.	
+\end{quotation}
+
+\begin{theorem}[Lusin's Theorem]\label{thm:lusin}
+    Let $\mu$ be a finite measure on the measurable space $(\bbR^d, \cB_{\bbR^d})$ and $f: \bbR^d \to \bbR$ be Borel measurable. 
+	Then for every $\epsilon > 0$ there exists a compact set $K \subset \bbR^d$ and a continuous function $g: \bbR^d \to \bbR$ such that $\mu(\bbR^d \backslash K) < \epsilon$ and $f \equiv g$ on $K$.
+\end{theorem}
+
+\begin{proof}
+	Let $\epsilon > 0$.
+	Define for $n \in \bbN$ and $k \in \bbZ$ the measurable sets
+	\[
+	A^n_k := \Bigl\{ \omega \in \bbR^d : \  (k-1) 2^{-n} < f(\omega) \leq k 2^{-n} \Bigr\}.
+	\]
+	Now there exist open sets $U^n_k \supset A^n_k$ and compact sets $K^n_k \subset A^n_k$ such that
+	\[
+		\mu(U_k^n \backslash A_k^n ) < \frac{1}{n 2^{|k|}} \qquad \mu(A_k^n \backslash K_k^n ) < \frac{1}{n 2^{|k|}}.
+	\]
+	We define the continuous functions $\varphi_k^n: \bbR^d \to \bbR$ such that $\varphi_k^n$ is compactly supported in $U_k^n$, satisfying $0 \leq \varphi_k^n \leq 1$ and $\varphi_k^n(\omega) = 1$ for $\omega \in K_k^n$. We set
+	\[
+		\varphi^n := \sum_{k = -2^n}^{2^n} k 2^{-n} \varphi_k^n.
+	\]
+	which is continuous for all $n\ge 1$. Since the functions $\varphi^n\to f$\, $\mu$-almost everywhere, by Egorov's Theorem, there is a compact set $K$ such that $\varphi^n$ converge to $f$ uniformly on $K$. Since uniform convergence preserves continuity, $f|_K$ is uniformly continuous on $K$.
+	
+	We now construct $g: \bbR^d \to \bbR$. Since $f|_K$ is uniformly continuous on $K$, there is a continuous increasing function $\eta: [0,\infty) \to [0,\infty)$ with $\eta(0)=0$ (also called the \emph{modulus of continuity}) such that
+	\[
+		|f(\omega) - f(\sigma)| \leq \eta( |\omega-\sigma|)\qquad \omega,\sigma\in K.
+	\]
+	Setting
+	\[
+		g(\omega) := \sup_{\sigma \in K} \Bigl\{f(\sigma) - \eta(|\omega-\sigma|)\Bigr\}.
+	\]
+	Note that $g$ is continuous on $\bbR^d$ and coincides with $f$ on $K$.
+\end{proof}
+
+The final result of this chapter is an important application of Lusin's theorem, which allows us to approximate any integrable function with continuous and bounded functions whenever $\mu$ is a finite measure. In other words, the following statement shows that the space of continuous and bounded functions $C_b(\bbR^d)$ is \emph{dense} in $L^1(\bbR^d,\mu)$. This fact is widely used in, e.g., Approximation Theory, Functional Analysis, Partial Differential Equations, and Stochastic Analysis.
+
+\begin{theorem}[Approximation by continuous functions]\label{thm:L1-approximation}
+	Let $\mu$ be a finite measure on $(\bbR^d,\cB_{\bbR^d})$ and $f:\bbR^d\to\bbR$ be $\mu$-integrable. Then for any $\varepsilon>0$, there is a bounded, continuous, $\mu$-integrable function $g:\bbR^d\to\bbR$ such that
+	\[
+		\int_\Omega |f-g|\,d\mu <\varepsilon.
+	\]
+\end{theorem}
+\begin{proof}
+	Let $E_n:=\{\omega\in\bbR^d\,:\, |f(\omega)|\ge n\}$. Since $\mathbf{1}_{E_n}f \to 0$ as $n\to\infty$, and $\mathbf{1}_{E_n}|f|\le |f|$ for every $n\ge 1$, we can apply DCT to conclude that
+	\[
+		\int_{E_n} |f|\,\dd\mu = \int_{\bbR^d} \mathbf{1}_{E_n}|f|\,\dd\mu\;\longrightarrow\;0\quad\text{as $n\to\infty$}.
+	\]
+	Now pick some $n\ge 1$ such that $\int_{E_n} |f|\,\dd\mu <\varepsilon/3$ and define
+	\[
+		f_n(\omega):= \max\{-n,\min\{f(\omega),n\}\}, \qquad\omega\in\bbR^d,
+	\]
+	i.e., $f_n$ is a truncation of $f$. From Lusin's theorem, we find a continuous function $g$ such that $f_n\equiv g$ on a compact set $K\subset\bbR^d$ with $\mu(\bbR^d\backslash K)<(2\varepsilon)/(3n)$. We assume w.l.o.g.\ that $|g|\le n$, since otherwise, we can consider a truncation of $g$. Altogether, this yields
+	\begin{align*}
+		\int_{\bbR^d} |f-g|\,\dd\mu &= \int_{\bbR^d} |f-f_n|\,\dd\mu + \int_{\bbR^d} |f_n-g|\,\dd\mu \\
+		&= \int_{E_n} |f|\,\dd\mu + \int_{\bbR^d\backslash K} |f_n-g|\,\dd\mu \\
+		&\le \frac{\varepsilon}{3} + 2n\,\mu(\bbR^d\backslash K) \le  \varepsilon.
+	\end{align*}
+	Finally, the $\mu$-integrability of $g$ holds simply due to the triangle inequality.
+\end{proof}
+
+\begin{remark}
+	All three Littlewood principles can be generalized to inner and outer regular measures $\mu$ that are \emph{locally finite} on any measurable space $(\Omega,\cF)$, i.e., a measure for which every point $\omega\in\Omega$ has a neighborhood $N_\omega\in\cF$ such that $\mu(N_\omega)<+\infty$. 
+	
+	In particular, the Littlewood principles hold also for the Lebesgue measure $\lambda$ on $(\bbR^d,\cB_{\bbR^d})$ since $\lambda(B_\omega(r))<+\infty$ for every $\omega\in\bbR^d$ and any $r>0$.
+\end{remark}
+
 
 \section{Problems}
 

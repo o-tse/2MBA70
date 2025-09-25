@@ -66,9 +66,22 @@ Finally we observe that by definition $g_n \le f_n$ holds for all $n \in \bbN$ s
 Here, we used that $\inf_{k \ge n} f_k \le f_\ell$ for all $\ell \ge n$ and the monotonicity property of the integral (see Proposition~\ref{prop:properties-integral}).
 \end{proof}
 
+\begin{example}[Strict inequality in Fatou]\label{ex:Fatou}
+	Consider the sequence $f_n = \frac{n}{2}\mathbf{1}_{(-\frac{1}{n},\frac{1}{n})}$ for $n\ge 1$. Clearly, $f_n$ is Borel measurable with
+	\[
+		\int_\bbR f_n\,\dd\lambda = \frac{n}{2}\lambda\bigl(\bigl(-\tfrac{1}{n},\tfrac{1}{n}\bigr)\bigr) = \qquad\text{for all $n\ge 1$}.
+	\]
+	On the other hand, we have that $f_n(x)\to 0$ for every $x\ne 0$. In particular, $f_n\to 0$ pointwise $\lambda$-almost everywhere. Hence,
+	\[
+		\int_\bbR \Bigl(\lim_{n\to\infty} f_n(x)\Bigr)\,\mu(\dd x) = 0 < 1 = \liminf_{n\to\infty} \int_\bbR f_n\,\dd\lambda.
+	\]
+\end{example}
+
+This previous example shows that, in general, one cannot expect to interchange integrals and limits unless the sequences' monotonicity is assumed. Morally, the failure of the convergence here comes from the \emph{loss of mass} for the integral (cf.\ Example).
+
 \subsection{Dominated Convergence}
 
-Armed with Fatou's lemma we can now prove one of the most useful convergence results for Lebesgue integrals.
+Armed with Fatou's lemma, we can now prove one of the most useful convergence results for Lebesgue integrals.
 
 \begin{theorem}[Dominated convergence]\label{thm:dominated_convergence}
 Let $(\Omega, \cF, \mu)$ be a measure space. Let $(f_n)_{n \ge 1}$ be a sequence of measurable functions and let $f$ be a measurable function such that $\lim_{n\to\infty}f_n = f$ $\mu$-almost everywhere. Moreover, assume there exists a non-negative $\mu$-integrable function $g : \Omega \to [0,\infty]$ such that $|f_n| \le g$ $\mu$-almost everywhere. Then
@@ -99,7 +112,7 @@ On the other hand, the condition $|f_n| \le g$ also implies that the functions $
 \]
 The additive property of integral now yields
 \[
-	\int_\Omega g \dd \mu - \int_\Omega f \, \dd \mu \le \int_\Omega g \, \dd \mu 
+	\int_\Omega g\,\dd \mu - \int_\Omega f \, \dd \mu \le \int_\Omega g \, \dd \mu 
 	+ \liminf_{n \to \infty} \int_\Omega - f_n \, \dd \mu,
 \]
 which implies that 
@@ -230,18 +243,27 @@ The definition of weak convergence asks us to verify the convergence of the $\mu
 
 For a set $A \subset \bbR$ denote by $\bar{A}$ the smallest closed set that contains $A$ and by $A^\circ$ the largest open set that is contained in $A$. The sets $\bar{A}$ and $A^\circ$ are called the \emph{closure} and \emph{interior} of $A$, respectively. We now define the \emph{boundary} of $A$ as $\partial A := \bar{A} \backslash A^\circ$. Given a measure $\mu$ on $(\bbR, \cB_\bbR)$, a set $A$ is called a \emph{$\mu$-continuity set} if $\mu(\partial A) = 0$.
 
-\begin{definition}[$\mu$-continuity set]
-	Let $A\in\cB_\bbR$. Given a measure $\mu$ on $(\bbR, \cB_\bbR)$, a set $A$ is called a \emph{$\mu$-continuity set} if $\mu(\partial A) = 0$.
+\begin{definition}
+	\begin{itemize}
+		\item Let $A\in\cB_\bbR$. Given a measure $\mu$ on $(\bbR, \cB_\bbR)$, a set $A$ is called a \emph{$\mu$-continuity set} if $\mu(\partial A) = 0$.
+		\item Let $h$ be a bounded measurable function. The \emph{continuity set of $h$} is the set
+		\[
+			\cC_h := \{ x\in \bbR : \text{$h$ is continuous in $x$}\}.
+		\]
+		\item The \emph{support} of a function $h$ is the (closed) set $\text{supp}(h) := \overline{\{x\in\bbR : h(x)\ne 0\}}.$
+	\end{itemize}
+
+
 \end{definition}
 
 We can now state a list of equivalent definitions for weak convergence of probability measures.
 
 \begin{theorem}[Portmanteau Theorem]\label{thm:portmanteau}
-Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. Then the following statements are equivalent:
+Let $(\mu_n)_{n \ge 1}$, $\mu$ be probability measures on $(\bbR, \cB_\bbR)$. Then the following are equivalent:
 \begin{enumerate}[label={(\arabic*)}]
 \item $\mu_n \Rightarrow \mu$.
 \item $\int_\bbR h \, \dd \mu_n \to \int_\bbR h \, \dd \mu$ for all bounded measurable functions $h$ with $\mu(\cC_h) = 1$.
-\item $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ for all continuous functions $g$ with compact support, i.e., functions $g\in C_b(\bbR)$ that are zero outside an interval $[-K,K]$ for some $K > 0$.
+\item $\int_\bbR g \, \dd \mu_n \to \int_\bbR g \, \dd \mu$ for all continuous functions $g$ with compact support.
 \item $\limsup_{n \to \infty} \mu_n(B) \le \mu(B)$ for all closed sets $B \subset \bbR$.
 \item $\liminf_{n \to \infty} \mu_n(A) \ge \mu(A)$ for all open sets $A \subset \bbR$.
 \item $\lim_{n \to \infty} \mu(C) = \mu(C)$ for all $\mu$-continuity sets $C$.
@@ -249,8 +271,34 @@ Let $(\mu_n)_{n \ge 1}$ and $\mu$ be probability measures on $(\bbR, \cB_\bbR)$.
 \end{theorem} 
 
 \begin{proof}
-The proof of this theorem is mostly technical and for the most part does not provide any interesting insights. The implication \textbf{1} $\iff$ \textbf{3} is dealt with in Problem~\ref{prb:portmanteau}. For the full proof we refer to Appendix~\ref{chapter:appendix-portmanteau}. 
+The proof of this theorem is mostly technical and, for the most part, does not provide any interesting insights. The implication \textbf{1} $\iff$ \textbf{3} is dealt with in Problem~\ref{prb:portmanteau}. For the full proof, we refer to Appendix~\ref{chapter:appendix-portmanteau}. 
 \end{proof}
+
+\begin{example}
+	Piggybacking on Example~\ref{ex:Fatou}, we consider the sequence of measures $(\mu_n)_n$ defined by (cf.\ Problem~\ref{prb:measure})
+	\[
+		\mu_n(A):= \int_A f_n\,\dd\lambda,\qquad A\in\cB_\bbR.
+	\]
+	We claim that $\mu\Rightarrow \mu:=\delta_0$ as $n\to\infty$.
+	
+	\smallskip
+	\noindent We prove this claim by making use of the equivalence (1)$\Leftrightarrow$(5) of Portmanteau's Theorem.
+	
+	\smallskip
+	\noindent Let $A\subset\bbR$ be an arbitrary open set \emph{not} containing $0$. Since $0\ne A$, we have that $f_n(x)\to 0$ for every $x\in A$. Therefore, Fatou's lemma yields
+	\[
+		\mu(A) = 0 \le \liminf_{n\to\infty} \int_A f_n\,\dd\lambda. 
+	\]
+	Now let $A$ be an arbitrary set containing $0$. Since $A$ is open, there exists some $\varepsilon>0$ such that $B_\varepsilon(0)\subset A$. Moreover, we have that 
+	\[
+		\int_A f_n\,\dd\lambda \ge \int_{B_\varepsilon(0)} f_n\,\dd\lambda = 1\qquad\text{for every $n>1/\varepsilon$}.
+	\]
+	Taking the liminf then yields
+	\[
+		\liminf_{n\to\infty} \int_A f_n\,\dd\lambda \ge 1 = \mu(A).
+	\]
+	Together, we find that (5) is satisfied for all open sets $A\subset\bbR$, thereby proving the claim.
+\end{example}
 
 \section{Littlewood's principles}
 

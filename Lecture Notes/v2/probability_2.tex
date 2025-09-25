@@ -238,79 +238,123 @@ See Problem~\ref{prb:borel_cantelli}
 \end{proof}
 
 
-%\section{Convergence results for sequences of independent random variables}
-%
-%We end this section by proving a powerful result that pops up everywhere: he Law of Large Numbers (LLN). It basically says that if we have a sequence $(X_n)_{n \ge 1}$ of independent copies of some random variable $X$ with finite expectation, then the normalized sum
-%\[
-%	\frac{1}{n} \sum_{i = 1}^n X_i
-%\]
-%converges to the expected value $\bbE[X]$. There are two versions of the (LLN): the strong version, and the weak version. The difference is in terms of the mode of convergence. The weak law deals with convergence in distribution, while the strong law is for almost-sure convergence. We will prove the strong law, as this in particular implies the weak law through Lemma~\ref{lem:almost_sure_implies_probability} and Lemma~\ref{lem:convergence_prob_implies_d}.
-%
-%But before we can give the formal statement and proof of this result, we first need to define what we mean with independent random variables.
-%
-%\subsection{Independent random variables}
-%
-%Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random variable $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. In Probability and Modeling you were taught that the random variables $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$.
-%
-%The nice thing is that we can frame the notion of independence in a more general measure-theoretical setting. To this end we start by defining what we mean by the independence of $\sigma$-algebras.
-%
-%\begin{definition}
-%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
-%	\[
-%	\mathbb{P}\biggl( \bigcap_{j \in J} A_j \biggr) = \prod_{j \in J} \mathbb{P}(A_{j}).
-%	\]
-%\end{definition}
-%
-%We can now express the independence of random variables in this language.
-%
-%\begin{definition}\label{def:independent_rvs}
-%	Let $\{X_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of random variables, with $X_\alpha:(\Omega, \cF) \to (E_\alpha, \mathcal{G}_\alpha)$. We say that the random variables $X_\alpha$ are independent if the family of sub $\sigma$-algebras $\{\sigma(X_\alpha)\}_{\alpha \in \mathcal{I}}$, is independent.
-%\end{definition}
-%
-%The independence of events can also be expressed in the measure-theoretic language.
-%
-%\begin{definition}
-%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space. A family of events $\{A_\alpha\}_{\alpha \in \mathcal{I}}$ is called independent if the family $\{ \cF_\alpha \}_{\alpha\in\mathcal{I}}$ of sub-$\sigma$-algebras
-%	\[
-%	\cF_\alpha := \{ \emptyset, A_\alpha, \Omega \backslash A_\alpha, \Omega \}\qquad\text{is independent.}
-%	\]	
-%\end{definition}
-%
-%The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
-%
-%\begin{lemma}\label{lem:independence_random_variables}
-%Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to Definition~\ref{def:independent_rvs}, if and only if 
-%	\[
-%	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
-%	\]
-%	for every $a \in \bbR$, $b \in \bbR$.
-%\end{lemma}
-%
-%\begin{proof}
-%See Problem~\ref{prb:independence_random_variables}.
-%\end{proof}
-%
-%We can now define what an sequence of independent copies is.
-%
-%\begin{definition}\label{def:iid}
-%We say that $(X_n)_{n \ge 1}$ is sequence of \emph{independent copies of $X$}, if $(X_n)_{n \ge 1}$ are independent random variables with $\bbP(X_n \in A) = \bbP(X \in A)$ for all measurable sets $A$.
-%\end{definition}
-%
-%\begin{remark}
-%Instead of sequences of independent copies, you also often encounter a sequence $(X_n)_{n\ge 1}$ of independent identically distributed random variables (i.i.d. sequence for short). This simply means that $(X_i)_\# \bbP = (X_j)_\# \bbP := \mu$ holds for all $i,j$ and thus this is a sequence of independent copies of $X$ where $X$ is independent of all $X_n$ with distribution $X_\# \bbP = \mu$.
-%\end{remark}
-%
-%\subsection{Strong Law of Large Numbers}
-%
-%We are now ready to state and prove the main result of this section.
-%
-%\begin{theorem}[Strong Law of Large Numbers]\label{thm:slln}
-%Let $(X_n)_{n \ge 1}$ be a sequence of independent copies of a random variable $X$, such that $\bbE[X] < \infty$. Then
-%\[
-%	\frac{1}{n} \sum_{i = 1}^n X_n \aslim \bbE[X].
-%\]
-%\end{theorem}
-%
+\section{Convergence results for sequences of independent random variables}
+
+We end this section by proving a powerful result that pops up everywhere: he Law of Large Numbers (LLN). It basically says that if we have a sequence $(X_n)_{n \ge 1}$ of independent copies of some random variable $X$ with finite expectation, then the normalized sum
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_i
+\]
+converges to the expected value $\bbE[X]$. There are two versions of the (LLN): the strong version, and the weak version. The difference is in terms of the mode of convergence. The weak law deals with convergence in distribution, while the strong law is for almost-sure convergence. We will prove the strong law, as this in particular implies the weak law through Lemma~\ref{lem:almost_sure_implies_probability} and Lemma~\ref{lem:convergence_prob_implies_d}.
+
+But before we can give the formal statement and proof of this result, we first need to define what we mean with independent random variables.
+
+\subsection{Independent random variables}
+
+Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random variable $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. In Probability and Modeling you were taught that the random variables $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$.
+
+The nice thing is that we can frame the notion of independence in a more general measure-theoretical setting. To this end we start by defining what we mean by the independence of $\sigma$-algebras.
+
+\begin{definition}
+	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
+	\[
+	\mathbb{P}\biggl( \bigcap_{j \in J} A_j \biggr) = \prod_{j \in J} \mathbb{P}(A_{j}).
+	\]
+\end{definition}
+
+We can now express the independence of random variables in this language.
+
+\begin{definition}\label{def:independent_rvs}
+	Let $\{X_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of random variables, with $X_\alpha:(\Omega, \cF) \to (E_\alpha, \mathcal{G}_\alpha)$. We say that the random variables $X_\alpha$ are independent if the family of sub $\sigma$-algebras $\{\sigma(X_\alpha)\}_{\alpha \in \mathcal{I}}$, is independent.
+\end{definition}
+
+The independence of events can also be expressed in the measure-theoretic language.
+
+\begin{definition}
+	Let $(\Omega, \cF, \mathbb{P})$ be a probability space. A family of events $\{A_\alpha\}_{\alpha \in \mathcal{I}}$ is called independent if the family $\{ \cF_\alpha \}_{\alpha\in\mathcal{I}}$ of sub-$\sigma$-algebras
+	\[
+	\cF_\alpha := \{ \emptyset, A_\alpha, \Omega \backslash A_\alpha, \Omega \}\qquad\text{is independent.}
+	\]	
+\end{definition}
+
+The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
+
+\begin{lemma}\label{lem:independence_random_variables}
+Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to Definition~\ref{def:independent_rvs}, if and only if 
+	\[
+	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
+	\]
+	for every $a \in \bbR$, $b \in \bbR$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:independence_random_variables}.
+\end{proof}
+
+We can now define what an sequence of independent copies is.
+
+\begin{definition}\label{def:iid}
+We say that $(X_n)_{n \ge 1}$ is sequence of \emph{independent copies of $X$}, if $(X_n)_{n \ge 1}$ are independent random variables with $\bbP(X_n \in A) = \bbP(X \in A)$ for all measurable sets $A$.
+\end{definition}
+
+\begin{remark}
+Instead of sequences of independent copies, you also often encounter a sequence $(X_n)_{n\ge 1}$ of independent identically distributed random variables (i.i.d. sequence for short). This simply means that $(X_i)_\# \bbP = (X_j)_\# \bbP := \mu$ holds for all $i,j$ and thus this is a sequence of independent copies of $X$ where $X$ is independent of all $X_n$ with distribution $X_\# \bbP = \mu$.
+\end{remark}
+
+\subsection{Strong Law of Large Numbers}
+
+Using the notion of independent copies, the strong law of large number is the following result:
+
+\begin{theorem}[Strong Law of Large Numbers]\label{thm:slln}
+Let $(X_n)_{n \ge 1}$ be a sequence of independent copies of a random variable $X$, such that $\bbE[X] < \infty$. Then
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_n \aslim \bbE[X].
+\]
+\end{theorem}
+
+The proof of this theorem heavily relies on using the Borel-Cantelli lemma. However, in its full generality this usage is hidden under several more technical considerations and computations. Thus we will provide a proof for a slightly weaker version that requires a finite third moment.
+
+\begin{theorem}[Strong Law of Large Numbers]\label{thm:slln_weaker}
+Let $(X_n)_{n \ge 1}$ be a sequence of independent copies of a random variable $X$, such that $\bbE[|X|^3] < \infty$. Then
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_n \aslim \bbE[X].
+\]
+\end{theorem}
+
+\begin{proof}
+We may assume without loss of generality that $\bbE[X] = 0$. Else, the random variables $Y_i = X_i - \bbE[X]$ satisfy $\bbE[Y] = 0$ and since
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_i - \bbE[X] = \frac{1}{n} \sum_{i = 1}^n Y_i
+\]
+we conclude that the result holds when $\frac{1}{n} \sum_{i = 1}^n Y_i \aslim 0 = \bbE[Y]$.
+
+So from now on we assume that $\bbE[X] = 0 = \bbE[X_i]$. First observe that
+\[
+	(x+y)^3 = x^3 +3xy^2 + 3x^2 y + y^3.
+\]
+In addition, if $X_i$ and $X_j$ are independent it holds that $\bbE[X_i X_j^2] = \bbE[X_i] \bbE[X_j^2] = 0$ (see Problem~\ref{prb:expectation_independent_product}). We thus conclude that
+\[
+	\bbE\left[\left|\sum_{i = 1}^n X_i\right|^3\right] \le n \bbE[|X|^3].
+\]
+
+Therefore, using Markov's inequality (see Problem~\ref{prb:markov_chebyshev}) we get
+\begin{align*}
+	\bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right| > \varepsilon\right)
+	&= \bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right|^3 > \varepsilon^3\right)\\
+	&\le \frac{1}{n^3 \varepsilon^3} \bbE\left[\left|\sum_{i = 1}^n X_i\right|^3\right]\\
+	&\le \frac{1}{n^2 \varepsilon^3} \bbE[|X|^3].
+\end{align*}
+This then implies that
+\[
+	\sum_{n \ge 1} \bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right| > \varepsilon\right) 
+	\le \frac{\bbE[|X|^3]}{\varepsilon^3}\sum_{n \ge 1} n^{-2} < \infty.
+\]
+Thus, by the Borel-Cantelli we have that
+\[
+	\bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right| > \varepsilon \text{ i.o.}\right) = 0 
+\]
+so that the result follows from Lemma~\ref{lem:almost_sure_alternative}.
+\end{proof}
+
 %\begin{proof}
 %The proof makes use of the Borel-Cantelli result as well as Lemma~\ref{lem:almost_sure_alternative}.
 %
@@ -548,4 +592,15 @@ Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probabilit
 \[
 	\sum_{n \ge 1} \bbP(|X_n - X| > \varepsilon) < \infty.
 \]
+\end{problem}
+
+\begin{problem}\label{prb:independence_random_variables}
+Prove Lemma~\ref{lem:independence_random_variables}
+\end{problem}
+
+\begin{problem}\label{prb:expectation_independent_product}
+Suppose that $X$ and $Y$ are two independent random variables on the same probability space. Show that $\bbE[XY] = \bbE[E]\bbE[Y]$.
+[Hint: first assume that both $X$ and $Y$ are simple functions. Then consider the case where they are non-negative, using monotone convergence and then the general case.]
+
+
 \end{problem}

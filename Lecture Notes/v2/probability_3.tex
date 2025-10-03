@@ -1,49 +1,54 @@
 
-\section{Independent random variables}
+%\section{Independent random variables}
+%
+%Let us now go back to the setting of probability theory. Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random variable $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. In Probability and Modeling you were taught that the random variables $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$.
+%
+%The nice thing is that we can frame the notion of independence in a more general measure-theoretical setting. To this end we start by defining what we mean by the independence of $\sigma$-algebras.
+%
+%\begin{definition}
+%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
+%	\[
+%	\mathbb{P}\biggl( \bigcap_{j \in J} A_j \biggr) = \prod_{j \in J} \mathbb{P}(A_{j}).
+%	\]
+%\end{definition}
+%
+%We can now express the independence of random variables in this language.
+%
+%\begin{definition}\label{def:independent_rvs}
+%	Let $\{X_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of random variables, with $X_\alpha:(\Omega, \cF) \to (E_\alpha, \mathcal{G}_\alpha)$. We say that the random variables $X_\alpha$ are independent if the family of sub $\sigma$-algebras $\{\sigma(X_\alpha)\}_{\alpha \in \mathcal{I}}$, is independent.
+%\end{definition}
+%
+%The independence of events can also be expressed in the measure-theoretic language.
+%
+%\begin{definition}
+%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space. A family of events $\{A_\alpha\}_{\alpha \in \mathcal{I}}$ is called independent if the family $\{ \cF_\alpha \}_{\alpha\in\mathcal{I}}$ of sub-$\sigma$-algebras
+%	\[
+%	\cF_\alpha := \{ \emptyset, A_\alpha, \Omega \backslash A_\alpha, \Omega \}\qquad\text{is independent.}
+%	\]	
+%\end{definition}
+%
+%The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
+%
+%\begin{lemma}\label{lem:independence_random_variables}
+%Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to Definition~\ref{def:independent_rvs}, if and only if 
+%	\[
+%	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
+%	\]
+%	for every $a \in \bbR$, $b \in \bbR$.
+%\end{lemma}
+%
+%\begin{proof}
+%See Problem~\ref{prb:independence_random_variables}.
+%\end{proof}
 
-Let us now go back to the setting of probability theory. Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random variable $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. In Probability and Modeling you were taught that the random variables $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$.
+%\section{Conditional Expectation}
 
-The nice thing is that we can frame the notion of independence in a more general measure-theoretical setting. To this end we start by defining what we mean by the independence of $\sigma$-algebras.
+In Chapter [??] we introduce the Radon-Nikodym derivative. Here we will use this, somewhat abstract object, to define conditional expectations. From this we can then construct conditional probabilities. 
 
-\begin{definition}
-	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
-	\[
-	\mathbb{P}\biggl( \bigcap_{j \in J} A_j \biggr) = \prod_{j \in J} \mathbb{P}(A_{j}).
-	\]
-\end{definition}
 
-We can now express the independence of random variables in this language.
+\section{Conditional Expectation and Probability}
 
-\begin{definition}\label{def:independent_rvs}
-	Let $\{X_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of random variables, with $X_\alpha:(\Omega, \cF) \to (E_\alpha, \mathcal{G}_\alpha)$. We say that the random variables $X_\alpha$ are independent if the family of sub $\sigma$-algebras $\{\sigma(X_\alpha)\}_{\alpha \in \mathcal{I}}$, is independent.
-\end{definition}
-
-The independence of events can also be expressed in the measure-theoretic language.
-
-\begin{definition}
-	Let $(\Omega, \cF, \mathbb{P})$ be a probability space. A family of events $\{A_\alpha\}_{\alpha \in \mathcal{I}}$ is called independent if the family $\{ \cF_\alpha \}_{\alpha\in\mathcal{I}}$ of sub-$\sigma$-algebras
-	\[
-	\cF_\alpha := \{ \emptyset, A_\alpha, \Omega \backslash A_\alpha, \Omega \}\qquad\text{is independent.}
-	\]	
-\end{definition}
-
-The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
-
-\begin{lemma}\label{lem:independence_random_variables}
-Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to Definition~\ref{def:independent_rvs}, if and only if 
-	\[
-	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
-	\]
-	for every $a \in \bbR$, $b \in \bbR$.
-\end{lemma}
-
-\begin{proof}
-See Problem~\ref{prb:independence_random_variables}.
-\end{proof}
-
-\section{Conditional Expectation}
-
-As a first application of the Radon-Nikodym theorem, we may use it to construct the conditional expectation with respect to a sub-$\sigma$-algebra in probability theory.
+We will first apply the Radon-Nikodym theorem to construct the conditional expectation with respect to a sub-$\sigma$-algebra in probability theory.
 
 \begin{theorem}
 Let $(\Omega, \cF, \bbP)$ be a probability space and $\mathcal{H}$ be a sub-$\sigma$-algebra of $\cF$. For every $\bbP$-integrable random variable $X$, there exists an $\mathcal{H}$-measurable random variable $\mathbb{E}[X|\mathcal{H}]$ such that
@@ -65,12 +70,20 @@ By the Radon-Nikodym theorem, there exists an $\mathcal{H}$-measurable random va
 thereby concluding the proof.
 \end{proof}
 
+Note that since $\Omega \in \mathcal{H}$ for any sub-\sigalg/ $\mathcal{H}$, it immediately follows from this definition that
+\begin{equation}\label{eq:law_total_expectation}
+	\bbE[\bbE[X|\mathcal{H}]] = \int_\Omega \bbE[X|\mathcal{H}] \, \dd \bbP = \int_\Omega X \, \dd \bbP = \bbE[X].
+\end{equation}
+
+From this definition we can define the expectation of $X$ conditioned on another random variable $Y$ by considering the \sigalg/ generated by $Y$.
+
 \begin{definition}
 Let $(\Omega, \cF, \bbP)$ be a probability space, let $X,Y$ be random variables, where $X$ is $\bbP$-integrable. Then the conditional expectation of $X$ given $Y$ is defined as
 \[
 \mathbb{E}[X | Y] := \mathbb{E}[ X | \sigma(Y) ].
 \]	
 \end{definition}
+
 
 It is important to note that a conditional expectation is (in general) a stochastic object, i.e. a measurable function. Nevertheless, the next lemma shows that it still satisfies many of the same properties as the regular expectation. Moreover, if $X$ is measurable with respect to $\sigma(Y)$ then conditioning on $Y$ does nothing, i.e. $\bbE[X|Y] = X$.
 
@@ -88,42 +101,171 @@ Let $(\Omega, \cF, \bbP)$ be a probability space and $\cH$ be a sub-\sigalg/ of 
 See Problem~\ref{prb:properties_conditional_expectation}
 \end{proof}
 
-\section{Conditional Probability}
 
-\begin{definition}[Conditional probability of events]\label{def:conditional_prop_events}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $A, B \in \cF$ such that $\bbP(B) > 0$. Then the conditional probability of $A$ given $B$ is defined as:
+Armed with the notion of conditional expectation we can now define conditional probabilities of measurable sets. The key observation is that for any probability measure $\bbP$ on $(\Omega, \cF)$ and $A \in \cF$, we have that
 \[
-	\bbP(A|B) := \frac{\bbP(A \cap B)}{\bbP(B)}.
+	\bbP(A) = \int_\Omega \mathbbm{1}_{A} \, \dd \bbP = \bbE[\mathbbm{1}_A].
 \]
-\end{definition}
 
-
-
-Armed with the notion of conditional expectation we can now define conditional probabilities. The key observation is that for any probability measure $\bbP$ on $(\Omega, \cF)$ and random variable $X$ we have that
+random variable $X$ we have that
 \[
 	\bbP(X \in A) = \int_\Omega \mathbf{1}_{X \in A} \, \dd \bbP = \bbE[\mathbf{1}_{X \in A}].
 \]
 
 \begin{definition}[Conditional probability]
-Let $(\Omega, \cF, \bbP)$ be a probability space, $\cH$ a sub-\sigalg/ of $\cF$, and $X$ a random variable. Then conditional probability of $X$ with respect to $\cH$ is defined as
+Let $(\Omega, \cF, \bbP)$ be a probability space, $\cH$ a sub-\sigalg/ of $\cF$, and $A \in \cF$. Then the conditional probability of $A$ with respect to $\cH$ is defined as
 \[
-	\bbP(X \in A | \cH) := \bbE[\mathbf{1}_{X \in A} | \cH].
+	\bbP(A | \cH) := \bbE[\mathbf{1}_{A} | \cH].
 \]
 If $Y$ is another random variable we define
 \[
-	\bbP(X \in A | Y) := \bbP(X \in A | \sigma(Y)).
+	\bbP(A | Y) := \bbP( A | \sigma(Y)).
 \]
 \end{definition}
 
+If $X$ is a random variable, then using the short-hand notation $X \in B$ for the set $X^{-1}(B)$ when $B \in \cB_{\bbR}$, we define
+\begin{equation}
+	\bbP(X \in B | \cH) = \bbE[\mathbbm{1}_{X^{-1}(B)} | \cH] \quad \text{and} \quad
+	\bbP(X \in B | Y) = \bbE[\mathbbm{1}_{X^{-1}(B)} | \sigma(Y)].
+\end{equation}
 
-A common formula given to you when considering discrete random variables $X$ and $Y$ was the following:
+It now follow from~\eqref{eq:law_total_expectation} that
+\[
+	\bbE[\bbP(X \in A | Y)] = \bbP(X \in A).
+\]
+This is often referred to as the \emph{total law of probability}. Please note that this law is an immediate consequence of how conditional expectation, and hence conditional probabilities, are defined.
+
+
+
+\section{Conditioning on specific outcomes}
+
+A common formula related to the total law of probability given to you in the course Probability and Modeling, when considering discrete random variables $X$ and $Y$ was the following:
 \begin{equation}\label{eq:law_of_probability_discrete}
 	\bbP(X \in A) = \bbE[\bbP(X \in A | Y)] = \sum_{k \in \bbZ} \bbP(X \in A | Y= k) \bbP(Y = k). 
 \end{equation}
-This was referred to as the total law of probability. However, in the above expression it is not clear what $\bbP(X \in A | Y = k)$ is. The issue here is that we have a definition for the random variable $\bbP(X \in A | Y)$, which is a measurable function $\Omega \to \bbR$. But here we would like to consider $\bbP(X \in A | Y = k)$ as a function $\bbZ \to \bbR$. How would you define this? This is what the next lemma will help us with.
+There is however an issue with the above expression: is not clear what $\bbP(X \in A | Y = k)$ is. The problem here is that we have a definition for the random variable $\bbP(X \in A | Y)$, which is a measurable function $\Omega \to \bbR$. But here we would like to consider $\bbP(X \in A | Y = k)$ as a function $\bbZ \to \bbR$. How would you define this from first-based principles?
+
+Let's break this problem down at the level of condition expectations. We are looking for a (measurable) function $h$ that maps $y \mapsto \bbE[X | Y = y]$ for all $y \in \mathrm{range}(Y)$. The problem is that we only have a random variable $\bbE[X |Y] : \Omega \to \bbR$ and, in particular, $\bbE[X | Y = y]$ is simply not defined yet. So our first task is to give a definition of $h$. However, this must in some way be consistent with our definition of $\bbE[X|Y]$.  
+
+To understand how to proceed we look at the following diagram, which outlines the spaces and two measurable functions we need to relate.
+\[
+\begin{tikzcd}
+	\Omega \arrow[dr,swap,"{\bbE[X|Y]}"] &\bbR \arrow[d,"h"]  \\
+	&\bbR
+\end{tikzcd}
+\]
+
+A good way to define $h$ would be such that it makes this into a commuting diagram. But for this we need a measurable function $\Omega \to \bbR$. Luckily we have two of these at our disposal: $X$ and $Y$. Now since evaluation of $h$ at $y$ should be related to ``evaluating" $\bbE[X|Y]$ at $Y = y$, it makes sense to pick $Y$ as our measurable function. Thus we want to pick $h$ such that the following diagram commutes
+\[
+\begin{tikzcd}
+	\Omega \arrow[r,"Y"] \arrow[dr,swap,"{\bbE[X|Y]}"] &\bbR \arrow[d,"h"]  \\
+	&\bbR
+\end{tikzcd}
+\]
+
+This prompts the following definition:
+
+\begin{definition}\label{def:conditional_expectation_function}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X, Y$ be two random variables. Suppose there exist a $\bbP$-integrable function $h : \mathrm{range}(Y) \to \bbR$ such that $h(Y) = \bbE[X | Y]$, then we define
+\[
+	\bbE[X | Y = y] := h(y).
+\]
+\end{definition}
+
+In a similar spirit we define
+\[
+	\bbP(A | Y = y) := \bbE[\mathbbm{1}_A | Y = y],
+\]
+taking $X := \mathbbm{1}_A$ in Definition~\ref{def:conditional_expectation_function}.
+
+Before we return to~\eqref{eq:law_of_probability_discrete}, let us first consider another common formula presented in most basic courses on probability theory. This is the conditional probability of an event $A$ given another event $B$, with non-zero probability, which was defined as
+\begin{equation}\label{eq:conditional_prop_events_def}
+	\bbP(A|B) := \frac{\bbP(A \cap B)}{\bbP(B)}.
+\end{equation}
+
+We will show that~\eqref{eq:conditional_prop_events_def} is consistent with our definitions. First note that we can view conditioning on a measurable set $B$ in our framework by considering the random variable $Y = \mathbbm{1}_B$ and condition on $Y = 1$, using Definition~\ref{def:conditional_expectation_function}.
+
+\begin{lemma}\label{lem:conditional_expectation_function}
+Let $(\Omega, \cF, \bbP)$ be a probability space, $A, B \in \cF$ be two measurable sets and set $Y := \mathbbm{1}_B$. Then, if we define the function $h : \bbR \to \bbR$ as
+\[
+	h(x) = \frac{\bbP(A \cap B)}{\bbP(B)} \delta_{1}(x) + \frac{\bbP(A \cap B^c)}{\bbP(B^c)}\delta_{0}(x).
+\]
+we have that
+\[
+	h(Y) = \bbE[\mathbbm{1}_A | Y].
+\]
+\end{lemma}
+
+\begin{proof}
+First note that the function $h$ is measurable and $\bbP$-integrable. Moreover, we have that $h(Y)$ is $\sigma(Y)$-measurable. Thus, we need to show that
+\begin{equation}\label{eq:conditional_exp_function_proof_main}
+	\int_C h(Y) \, \dd \bbP = \int_C \mathbbm{1}_A \, \dd \bbP,
+\end{equation}
+holds for all $C \in \sigma(Y)$.
+
+We start with observing that since $Y = \mathbbm{1}_B$, it holds that $\sigma(Y) = \{\Omega, B, B^c, \emptyset\}$. Moreover, it is clear that~\eqref{eq:conditional_exp_function_proof_main} holds for $C = \emptyset$. Now if $C = B$, we have that
+\begin{align*}
+	\int_B h(Y) \, \dd \bbP &= \int_\Omega h(Y) \mathbbm{1}_B \, \dd \bbP \\
+	&= \int_\Omega \frac{\bbP(A \cap B)}{\bbP(B)} \mathbbm{1}_B \, \dd \bbP \\
+	&= \frac{\bbP(A \cap B)}{\bbP(B)} \int_\Omega \mathbbm{1}_B \, \dd \bbP \\
+	&= \bbP(A \cap B) = \int_B \mathbbm{1}_A \, \dd \bbP,
+\end{align*}
+as required.
+
+Following similar computations we also get that
+\[
+	\int_{B^c} h(Y) \, \dd \bbP = \frac{\bbP(A \cap B^c)}{\bbP(B^c)} \int_\Omega \mathbbm{1}_B \, \dd \bbP
+	= \bbP(A \cap B^c) = \int_{B^c} \mathbbm{1}_A \, \dd \bbP.
+\]
+
+Finally, for $C = \Omega$ the above computation together with linearity integration give
+\[
+	\int_\Omega h(Y) \, \dd \bbP = \int_B h(Y) \, \dd \bbP + \int_{B^c} h(Y) \, \dd \bbP
+	= \bbP(A \cap B) + \bbP(A \cap B^c) = \bbP(A) = \int_\Omega \mathbbm{1}_A \, \dd \bbP.
+\]
+\end{proof}
+
+By definition we now have that 
+\[
+	\bbP(A | B) = \bbP(A | Y = 1) = \bbE[\mathbbm{1}_A | Y = 1] := h(1) = \frac{\bbP(A \cap B)}{\bbP(B)},
+\]
+which indeed agrees with~\eqref{eq:conditional_prop_events_def}.
+
+
+Now we can return to~\eqref{eq:law_of_probability_discrete} and make sense of $\bbP(X \in A | Y = k)$. Since $Y$ is discrete $\{Y = k\} \in \sigma(Y)$ and hence, taken the random variable $Z_k = \mathbbm{1}_{Y = k}$, we can apply~\ref{eq:conditional_prop_events_def} to obtain 
+\[
+	\bbP(X \in A | Y = k) = \bbE[\mathbbm{1}_{X \in A} | Z_k = 1]
+	= \frac{\bbP(X \in A, Y = k)}{\bbP(Y = k)}.
+\]
+This then yields that
+\[
+	\sum_{k \in \mathbb{Z}} \bbP(X \in A | Y = k) \bbP(Y = k) 
+	= \sum_{k \in \mathbb{Z}} \bbP(X \in A, Y = k) = \bbP(X \in A)
+\]
+proving~\eqref{eq:law_of_probability_discrete}.
+
+\section{Conditional densities}
+
+In Section~\ref{ssec:contrinuous_rv} we introduce the concept of a probability density function. It turns out that there is such a thing as a conditional density function. To derive this we first have to define what we mean with a joint probability density function.
+
+\begin{definition}[Joint probability density function]\label{def:joint_pdf}
+Let $X,Y$ be two random variables. We say they have a joint density $f : \bbR \times \bbR \to \bbR$. If for any $A \in \cB_{\bbR^2}$
+\[
+	\bbP((X,Y) \in A) = \int_A f \, \dd \lambda^2,
+\]
+where $\lambda^2$ is the 2-dimensional Lebesgue measure on $\bbR^2$
+\end{definition}
+
+Problem~\ref{prb:joint_pdfs} shows that the existence of a joint probability density function implies the existence of probability density functions for both $X$ and $Y$, where the probability density function of $X$ is defined by
+\[
+	f_X(x) = \int_\bbR f(x,y) \, \lambda(\dd y).
+\] 
+
+If $X$ and $Y$ have a joint probability density function, then we can define the \emph{conditional probability density function} of $X$ given that $Y = y$. Note that it is not obvious this is possible as $\bbP(Y = y) = 0$ if $Y$ has a pdf. The key point of defining the conditional density is the following lemma.
+
 
 \begin{lemma}\label{lem:condition_expectation_Y_y}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $X,Y$ be two random variables with joint density $f : \bbR \times \bbR \to \bbR$. Further, let $f_Y$ denote the density of $Y$ and define
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X,Y$ be two random variables with joint probability density $f : \bbR \times \bbR \to \bbR$. Further, let $f_Y$ denote the probability density function of $Y$ and define
 \[
 	h(y) := \int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \dd \lambda
 \]
@@ -156,29 +298,135 @@ The function
 \end{equation}
 is referred to as the conditional density of $X$ given $Y = y$. We often write $f_{X|Y}(x|y) := g(x,y)$ to emphasize the conditioning on $Y = y$.
 
-The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability, we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. With this we can now formally establish~\eqref{eq:law_of_probability_discrete}, see Problem~\ref{prb:law_of_probability_discrete}.   
+%The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability, we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. 
+
+
+\section{Working with conditional expectations}
+
+Up to now we have focused on the formal definitions of conditional expectation and probability and relating it to formulas that are presented in basics courses on probability theory. However, you might still not feel very comfortable using the definitions to do actual computations with conditional expectations. Here we will present a lemma that will be usefull for this.
+
+Let us consider the case where we have two independent random variables $X$ and $Y$, with $X$ being a Bernouli random variable with success probability $p$ and $Y$ the uniform random variable on $[0,1]$. If you are asked to compute $\bbE[e^{XY}]$ you might do this as follows:
+
+First you compute
+\[
+	\bbE[e^{XY} | Y = y] = \bbE[e^{yX}] = pe^{y} + (1-p) := h(y)
+\]
+and then use this together with the total law of probability to obtain
+\[
+	\bbE[e^{XY}] = \bbE[\bbE[e^{XY}|Y]] = \bbE[pe^Y] + (1-p) = p \int_0^1 e^{y} \, \dd y + (1-p)
+	= p(e - 1) + (1-p).
+\]
+Now, for the second equality you made use of the first computation and Lemma~\ref{lem:condition_expectation_Y_y}. However, it is not clear yet if the first computation is valid. Intuitively it makes sense as you simply replace all instances of the random variable $Y$ by the value $y$ which you conditioned it to be. The next result shows that this is indeed correct.
+
+\begin{lemma}\label{lem:computing_conditional_expectations}
+Let $X$, $Y$ be two independent random variables defined on the same probability space and let $f : \bbR \times \bbR \to \bbR$ be a measurable function. Then
+\[
+	\bbE[f(X,Y) | Y = y] = \bbE[f(X,y)].
+\]
+\end{lemma}
+
+\begin{proof}
+Before we start it will be helpful to define some auxiliary random variables and draw a diagram.
+
+We write $(\Omega, \cF, \bbP)$ to denote the probability space on which $X$ and $Y$ are defined. We further define them diagonal map $\Delta : \Omega \to \Omega \times \Omega$ as $\omega \mapsto (\omega, \omega)$. Note that this map is measurable with respect to the product \sigalg/ $\cF \otimes \cF$. We can also define the random vector $(X,Y)$ in $\bbR^2$ as the measurable function $(X, Y) : \Omega \times \Omega \to \bbR^2$, given by $(\omega_1, \omega_2) \mapsto (X(\omega_1), Y(\omega_2))$. We can now define the random variable $Z := f \circ (X, Y) \circ \Delta$, i.e. $\omega \mapsto f(X(\omega), Y(\omega))$. Note that $\bbE[f(X,Y)] = \int_\Omega Z \, \dd \bbP$. Finally, we define the function $h(y) := \bbE[f(X,y)]$.
+
+The diagram below depicts the construction of $Z$.
+\[
+\begin{tikzcd}
+	\Omega \times \Omega \arrow[r,"{(X,Y)}"] &\bbR^2 \arrow[d,"f"]  \\
+	\Omega \arrow[u, "\Delta"] \arrow[r, "Z"] &\bbR
+\end{tikzcd}
+\]
+
+To prove the lemma, we need to show that $h(Y) = \bbE[f(X,Y)|Y]$. This means, with our setup, that we have to prove that for all $B \in \sigma(Y)$ 
+\[
+	\int_B h(Y) \, \dd \bbP = \int_B Z \, \dd \bbP.
+\]
+
+The prove will be based on four claims, which you will be asked to verify in Problem~\ref{prb:computing_conditional_expectations}.
+
+\textbf{Claim I:} It suffice to prove that for every $C \in \cB_{\bbR}$
+\[
+	\int_{Y^{-1}(C)} h(Y) \, \dd \bbP = \int_{Y^{-1}(C)} Z \, \dd \bbP.
+\]
+
+So from now on we will assume that $B = Y^{-1}(C)$.
+
+To better understand how the computation will work out, we take $B = \Omega = Y^{-1}(\bbR)$, start from the right hand side and apply the change of variables formula. We then get
+\begin{align*}
+	\int_\Omega Z \, \dd \bbP &= \int_\Omega [f \circ (X, Y)] \circ \Delta \, \dd \bbP \\
+	&= \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \Delta_\# \bbP.
+\end{align*}
+
+To proceed we need to better understand the measure $\Delta_\# \bbP$. Here we will use the fact that $X$ and $Y$ are independent. Let $A \in \sigma(X)$ and $B \in \sigma(Y)$. Then $A \times B \in \cF \otimes \cF$ and we have that
+\[
+	\Delta_\# \bbP(A \times B) = \bbP(\Delta^{-1}(A \times B))
+	= \bbP(\{\omega \in \Omega \, : \, \omega \in A, \omega \in B\})
+	= \bbP(A \cap B) = \bbP(A) \bbP(B) = \bbP\otimes \bbP(A\times B).
+\]
+Based on this we make our second claim.
+
+\textbf{Claim II:}
+\[
+	\int_\Omega Z \, \dd \bbP = \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
+\]
+
+
+The next claim might be a bit unexpected.
+
+\textbf{Claim III:}
+\[
+	\int_{B} Z \, \dd \bbP = \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
+\]
+
+Recalling that $B = Y^{-1}(C)$, we have now derived that
+\begin{align*}
+	\int_{B} Z \, \dd \bbP &= \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP\\
+	&= \int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP,
+\end{align*}
+where the last equality is another application of the change of variables formula.
+
+Note that for any $D \in \cB_{\bbR}$
+\[
+	(X,Y)_\# \bbP \otimes \bbP(D \times C) = \bbP(X^{-1}(D)) \bbP(Y^{-1}(C)) 
+	= X_\# \bbP(D) Y_\# \bbP(C).
+\]
+
+\textbf{Claim IV:}
+\[
+	\int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP
+	= \int_C \int_\Omega f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y)
+\]
+
+Finally we note that $h(y) := \bbE[f(X,y)] = \int_\Omega f(x,y) \, X_\#\bbP(\dd x)$. Putting everything together we then get
+\begin{align*}
+	\int_{B} Z \, \dd \bbP &= \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP\\
+	&= \int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP\\
+	&= \int_C \int_\Omega f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y)\\
+	&= \int_C h(y) Y_\# \bbP(\dd y) \\
+	&= \int_B h(Y) \, \bbP.
+\end{align*}
+
+\end{proof}
+
 
 \section{Problems}
 
-\begin{problem}\label{prb:independence_random_variables}
-Prove Lemma~\ref{lem:independence_random_variables}
-\end{problem}
+%\begin{problem}\label{prb:independence_random_variables}
+%Prove Lemma~\ref{lem:independence_random_variables}
+%\end{problem}
 
-\begin{problem}[Joint densities]
-Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to \bbR$. That is, $f$ as a function from $(\bbR^2, \cB_{\bbR^2})$ to $(\bbR, \cB_{\bbR})$ is measurable and integrable, and for any $A \in \cB_{\bbR^2}$
-\[
-	\bbP((X,Y) \in A) = \int_A f \, \dd \lambda^2,
-\]
-where $\lambda^2$ is the 2-dimensional Lebesgue measure on $\bbR^2$
+\begin{problem}[Joint densities]\label{prb:joint_pdfs}
+Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to \bbR$. 
 
-Define the marginal function $f_X(x) = \int_\bbR f(x,y) \, \lambda(\dd y)$.
+Define the function $f_X(x) = \int_\bbR f(x,y) \, \lambda(\dd y)$.
 \begin{enumerate}[label={(\alph*)}]
 \item Prove that $f_X$, as a function from $(\bbR, \cB_{\bbR})$ to $(\bbR, \cB_{\bbR})$ is measurable and integrable.
 \item Show that
 \[
 	X_\# \bbP (A) = \int_A f_X \, \dd \lambda.
 \]
-That is, $f_X$ is the density function of $X$.
+That is, $f_X$ is the probability density function of $X$.
 \end{enumerate}
 \end{problem}
 
@@ -190,6 +438,51 @@ Prove that the conditional expectation is unique $\bbP$-almost everywhere.
 The goal of this problem is to prove Lemma~\ref{lem:properties_conditional_expectation}.
 \end{problem}
 
-\begin{problem}\label{prb:law_of_probability_discrete}
-Use Lemma~\ref{lem:condition_expectation_Y_y} to prove~\eqref{eq:law_of_probability_discrete}.
+\begin{problem}\label{prb:computing_conditional_expectations}
+Here you will prove the four claims made in the proof of Lemma~\ref{lem:computing_conditional_expectations}.
+
+Let $X$, $Y$ be two independent random variables defined on the same probability space $(\Omega, \cF, \bbP)$, let $f : \bbR \times \bbR \to \bbR$ be a measurable function and define $h(y) := \bbE[f(X,y)]$. Define also $\Delta(\omega) = (\omega, \omega)$ and $Z = f \circ (X, Y) \circ \Delta$, so that $\bbP[f(X,Y)] = \int_\Omega Z \, \dd \bbP$.
+
+\begin{enumerate}[label={(\alph*)}]
+\item Claim I. Suppose that for any $C \in \cB_{\bbR}$ we have that
+\[
+	\int_{Y^{-1}(C)} h(Y) \, \dd \bbP = \int_{Y^{-1}(C)} Z \, \dd \bbP.
+\]
+Prove that
+\[
+	\int_B h(Y) \, \dd \bbP = \int_B Z \, \dd \bbP
+\]
+holds for any $B \in \sigma(Y)$.
+\item Claim II. Prove that
+\[
+	\int_\Omega Z \, \dd \bbP = \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
+\]
+[Hint: start with the case that $X$ and $Y$ are simple functions.]
+\item Claim III. Let $B \in \sigma(Y)$. Prove that
+\[
+	\int_{B} Z \, \dd \bbP = \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
+\]
+[Hint: Let $D, C \in \cB_{\bbR}$. Why does it hold that 
+\[
+	\bbP(B \times B \cap (X,Y)^{-1}(D \times C)) = \bbP(X^{-1}(D))\bbP(Y^{-1}(C) \cap B)?
+\]
+]
+\item Claim IV. Let $C \in \cB_{\bbR}$. Prove that
+\[
+	\int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP
+	= \int_C \int_\Omega f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y).
+\]
+[Hint: simple functions.]
+\end{enumerate}
 \end{problem}
+
+%\begin{problem}
+%Let $X$ and $Y$ be random variables that are independent. The goal of this exercise is to show that $\bbE[X|Y] = \bbE[X]$.
+%\begin{enumerate}[label={(\alph*)}]
+%\item 
+%\end{enumerate}
+%\end{problem}
+
+%\begin{problem}\label{prb:law_of_probability_discrete}
+%Use Lemma~\ref{lem:condition_expectation_Y_y} to prove~\eqref{eq:law_of_probability_discrete}.
+%\end{problem}

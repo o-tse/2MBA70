@@ -77,8 +77,8 @@ However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varep
 	We say that $\nu$ is \emph{absolutely continuous w.r.t.\ $\mu$}, if for every $E\in\cF$ with $\mu(E)=0$, we also have that $\nu(E)=0$, i.e.\ $\mu$-null sets are $\nu$-null sets. In this case, we write $\nu\ll\mu$.
 \end{definition}
 
-\begin{theorem}[Radon-Nikodym II] 
-	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ such that $\nu\ll \mu$. Then there exists a nonnegative $\mu$-integrable function $\dd\nu/\dd\mu$, called the \emph{Radon-Nikodym derivative of $\nu$ w.r.t.\ $\mu$} such that
+\begin{theorem}[Radon-Nikodym II]\label{thm:radon-nikodym-2}
+	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ such that $\nu\ll \mu$. Then there exists a unique (up to $\mu$-null sets) nonnegative $\mu$-integrable function $\dd\nu/\dd\mu$, called the \emph{Radon-Nikodym derivative of $\nu$ w.r.t.\ $\mu$} such that
 	\[
 		\nu(E) = \int_E \frac{\dd\nu}{\dd\mu}\,\dd\mu\qquad\text{for all $E\in\cF$}.
 	\]
@@ -93,13 +93,34 @@ However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varep
 \end{proof}
 
 \begin{theorem}[Radon-Nikodym III] 
-	Let $\bbP$, $\bbQ$ be probability measures on $(\Omega,\cF)$ such that $\bbQ\ll \bbP$. Then there exists a nonnegative $\bbP$-integrable function $\frac{\dd\bbQ}{\dd\bbP}$ such that
+	Let $\bbP$, $\bbQ$ be probability measures on $(\Omega,\cF)$ such that $\bbQ\ll \bbP$. Then there exists a unique (up to $\bbP$-null sets) nonnegative $\bbP$-integrable function $\frac{\dd\bbQ}{\dd\bbP}\in L^1(\bbP)$ such that
 	\[
 		\bbQ(E) = \int_E \frac{\dd\bbQ}{\dd\bbP}\,\dd\bbP\qquad\text{for all $E\in\cF$}.
 	\]
 \end{theorem}
 
 
+\begin{definition}[Conditional expectation]
+	Let $(\Omega,\cF,\bbP)$ be a probability space, and let $X$ be an integrable random variable, i.e., $X\in L^1(\bbP)$. Let $\cG\subset\cF$ be a sub-$\sigma$-algebra. Then the \emph{conditional expectation of $X$ given $\cG$} is the unique (up to $\bbP$-null sets) $\cG$-measurable function $Z\in L^1(\bbP)$ such that
+	\[
+		\int_A X\,\dd\bbP = \int_A Z\,\dd\bbP\qquad\forall\,A\in\cG.
+	\]
+	Since $Z$ is unique in $L^1(\bbP)$, we denote it by $Z=\bbE[X|\cG]$.
+\end{definition}
+
+The existence of the conditional expectation follows from the Radon-Nikodym Theorem II (cf.\ Theorem~\ref{thm:radon-nikodym-2}). Indeed, we begin by defining finite measures on $(\Omega,\cG)$ given by
+\[
+	\mu_X^+(A) := \int_A X^+\,\dd\bbP,\qquad \mu_X^-(A) := \int_A X^-\,\dd\bbP\qquad\forall\,A\in\cG.
+\]
+Clearly, these measures satisfies $\mu_X^\pm\ll \bbP|_\cG$ since, by construction, $\mu_X^\pm(A)=0$ for every $A\in\cG$ with $\bbP|_{\cG}(A)=0$. Recall that $\bbP|_{\cG}$ is the restriction of $\bbP$ on the sub-$\sigma$-algebra $\cG$. By Theorem~\ref{thm:radon-nikodym-2}, we then find unique (up to $\bbP$-null sets) measurable functions $Z^\pm\in L^1(\bbP)$ such that
+\[
+	\mu_X^\pm = \int_A Z^\pm\,\dd\bbP\qquad\forall\,A\in\cG.
+\]
+Setting $Z:= Z^+-Z^-\in L^1(\bbP)$, we then find that
+\[
+	\int_A X\,\dd\bbP = \int_A Z^+\,\dd\bbP - \int_A Z^-\,\dd\bbP = \int_A Z\,\dd\bbP\qquad \forall\,A\in\cG,
+\]
+which is what was claimed.
 
 
 \section{Problems}

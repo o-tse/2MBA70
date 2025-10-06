@@ -272,7 +272,9 @@ We need to show that for all $B \in \sigma(Y)$
 \[
 	\int_B h(Y) \, \dd \bbP = \int_B X \, \dd \bbP := \bbE[\mathbf{1}_B X]. 
 \]
-Note that it suffices to consider sets of the form $B = Y^{-1}(A)$ for some $A \in \cB$.\footnote{See Claim I in the proof of Lemma~\ref{lem:computing_conditional_expectations} and Problem~\ref{prb:computing_conditional_expectations}.} Moreover $\mathbf{1}_B(\omega) = \mathbf{1}_A(Y(\omega))$. Hence
+Note that the map $B \mapsto \int_B h(Y) \, \dd \bbP$ is a measure on $\sigma(Y)$. Moreover, $\sigma(Y)$ satisfies the two properties of Theorem~\ref{thm:uniqueness_measures} (see Problem~\ref{prb:uniqueness_integration_measures}. Hence it suffices to consider sets of the form $B = Y^{-1}(A)$ for some $A \in \cB$. 
+
+Using that $\mathbf{1}_B(\omega) = \mathbf{1}_A(Y(\omega))$ we then have,
 \begin{align*}
 	\int_B h(Y) \, \dd \bbP &= \int_\Omega \mathbf{1}_{B} h(Y) \, \dd \bbP 
 	= \int_\Omega \mathbf{1}_{Y^{-1}(A)} h(Y) \, \dd \bbP \\
@@ -437,6 +439,22 @@ That is, $f_X$ is the probability density function of $X$.
 
 \begin{problem}[Properties conditional expectation]\label{prb:properties_conditional_expectation}
 The goal of this problem is to prove Lemma~\ref{lem:properties_conditional_expectation}.
+\end{problem}
+
+\begin{problem}\label{prb:uniqueness_integration_measures}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X$ a random variable. Define the set function $\nu_X : \sigma(X) \to [0,+\infty]$ as
+\[
+	\nu_X(B) := \int_B X \, \dd \bbP.
+\]
+\begin{enumerate}[label={(\alph*)}]
+\item Show that $\nu_X$ is a measure on $\sigma(X)$.
+\end{enumerate}
+
+Suppose now that $\mu$ is another measure on $\sigma(X)$ such that $\mu(X^{-1}(A)) = \nu_X(X^{-1}(A))$ holds for all $A \in \cB_{\bbR}$.
+\begin{enumerate}[label={(\alph*)}]
+\setcounter{enumi}{1}
+\item Show that $\nu_X = \mu$ on $\sigma(X)$.
+\end{enumerate}
 \end{problem}
 
 \begin{problem}

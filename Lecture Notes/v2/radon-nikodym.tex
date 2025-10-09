@@ -49,6 +49,17 @@ which is a contradiction, i.e., such a measurable set $F\subset F_{n_0}$ must ex
 However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varepsilon_0\mu(F) > M$, this leads to another contradiction, and hence $\nu(E)=\int_E f_0\,\dd\mu$ for all $E\in\cF$ as desired.
 \end{proof}
 
+\begin{example}
+	Consider the Lebesgue measure $\lambda$ on $[0,1]$ and an interval $[a,b]\subset[0,1]$. Define
+	\[
+		\nu(E) := \lambda(E\cap [a,b])\qquad\forall\,E\in\cF.
+	\]
+	Clearly, $\nu\le \lambda$. Applying Lemma~\ref{lem:partial-radon-nikodym}, we obtain a function $0\le f_0\le 1$ such that
+	\[
+		\nu(E) = \int_E f_0\,\dd\lambda\qquad\forall\,E\in\cF.
+	\]
+	In this case, $f_0$ can be simply determined to be $f_0 = \mathbf{1}_{[a,b]}$.
+\end{example}
 
 \begin{theorem}[Radon-Nikodym Theorem]\label{thm:radon-nikodym}
 	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$. Then there exists a $\mu$-null set $D\in\cF$ and a nonnegative $\mu$-integrable function $f_0$ such that
@@ -76,6 +87,21 @@ However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varep
 	Let $\mu$, $\nu$ be two measures on a measurable space $(\Omega, \cF)$.
 	We say that $\nu$ is \emph{absolutely continuous w.r.t.\ $\mu$}, if for every $E\in\cF$ with $\mu(E)=0$, we also have that $\nu(E)=0$, i.e.\ $\mu$-null sets are $\nu$-null sets. In this case, we write $\nu\ll\mu$.
 \end{definition}
+
+\begin{example}
+	Consider again the Lebesgue measure $\lambda$ on $[0,1]$ and define the measure
+	\[
+		\mu(E) = \begin{cases}
+			1 + \lambda(E) &\text{if $0$ or $1\in E$}, \\
+			\lambda(E) &\text{otherwise}.
+		\end{cases}
+	\]
+	It is not difficult to see that $\delta_x\not\ll \lambda$ and $\lambda\not\ll \delta_x$. i.e., they are \emph{mutually singular}. The Radon-Nikodym Theorem (cf.~Theorem~\ref{thm:radon-nikodym}) yields
+	\[
+		\lambda(E) = \lambda(E\cap (0,1)),\qquad \mu(E) = \mu(E\cap \{0,1\}) + \lambda(E).
+	\]
+\end{example}
+
 
 \begin{theorem}[Radon-Nikodym II]\label{thm:radon-nikodym-2}
 	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ such that $\nu\ll \mu$. Then there exists a unique (up to $\mu$-null sets) nonnegative $\mu$-integrable function $\dd\nu/\dd\mu$, called the \emph{Radon-Nikodym derivative of $\nu$ w.r.t.\ $\mu$} such that

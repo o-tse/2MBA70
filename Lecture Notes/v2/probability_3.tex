@@ -338,14 +338,13 @@ To prove the lemma, we need to show that $h(Y) = \bbE[f(X,Y)|Y]$. This means, wi
 	\int_B h(Y) \, \dd \bbP = \int_B Z \, \dd \bbP.
 \]
 
-The prove will be based on four claims, which you will be asked to verify in Problem~\ref{prb:computing_conditional_expectations}.
+The prove will be based on two claims, which you will be asked to verify in Problem~\ref{prb:computing_conditional_expectations}.
 
-\textbf{Claim I:} It suffice to prove that for every $C \in \cB_{\bbR}$
+Frist we note that it suffice to prove that for every $C \in \cB_{\bbR}$
 \[
-	\int_{Y^{-1}(C)} h(Y) \, \dd \bbP = \int_{Y^{-1}(C)} Z \, \dd \bbP.
+	\int_{Y^{-1}(C)} h(Y) \, \dd \bbP = \int_{Y^{-1}(C)} Z \, \dd \bbP,
 \]
-
-So from now on we will assume that $B = Y^{-1}(C)$.
+see Problem~\ref{prb:uniqueness_integration_measures}. So from now on we will assume that $B = Y^{-1}(C)$.
 
 To better understand how the computation will work out, we take $B = \Omega = Y^{-1}(\bbR)$, start from the right hand side and apply the change of variables formula. We then get
 \begin{align*}
@@ -359,16 +358,9 @@ To proceed we need to better understand the measure $\Delta_\# \bbP$. Here we wi
 		= \bbP(\{\omega \in \Omega \, : \, \omega \in A, \omega \in B\})\\
 	&= \bbP(A \cap B) = \bbP(A) \bbP(B) = \bbP\otimes \bbP(A\times B).
 \end{align*}
-Based on this we make our second claim.
+Based on this we make our first, and most important, claim.
 
-\textbf{Claim II:}
-\[
-	\int_\Omega Z \, \dd \bbP = \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
-\]
-
-
-When transitioning from integration over $\Omega$ to integration of $B \in \sigma(Y)$, the result might be a bit unexpected.
-\textbf{Claim III:}
+\textbf{Claim I:}
 \[
 	\int_{B} Z \, \dd \bbP = \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
 \]
@@ -386,7 +378,7 @@ Note that for any $C, D \in \cB_{\bbR}$
 	= X_\# \bbP(D) Y_\# \bbP(C).
 \]
 
-\textbf{Claim IV:}
+\textbf{Claim II:}
 \[
 	\int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP
 	= \int_C \int_\Omega f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y)
@@ -467,38 +459,21 @@ Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to
 \begin{problem}\label{prb:computing_conditional_expectations}
 Here you will prove the four claims made in the proof of Lemma~\ref{lem:computing_conditional_expectations}.
 
-Let $X$, $Y$ be two independent random variables defined on the same probability space $(\Omega, \cF, \bbP)$, let $f : \bbR \times \bbR \to \bbR$ be a measurable function and define $h(y) := \bbE[f(X,y)]$. Define also $\Delta(\omega) = (\omega, \omega)$ and $Z = f \circ (X, Y) \circ \Delta$, so that $\bbP[f(X,Y)] = \int_\Omega Z \, \dd \bbP$.
+Let $X$, $Y$ be two independent random variables defined on the same probability space $(\Omega, \cF, \bbP)$, let $f : \bbR \times \bbR \to \bbR$ be a measurable function and define $h(y) := \bbE[f(X,y)]$. Define also $\Delta(\omega) = (\omega, \omega)$ and $Z = f \circ (X, Y) \circ \Delta$, so that $\bbE[f(X,Y)] = \int_\Omega Z \, \dd \bbP$.
 
 \begin{enumerate}[label={(\alph*)}]
-\item Claim I. Suppose that for any $C \in \cB_{\bbR}$ we have that
-\[
-	\int_{Y^{-1}(C)} h(Y) \, \dd \bbP = \int_{Y^{-1}(C)} Z \, \dd \bbP.
-\]
-Prove that
-\[
-	\int_B h(Y) \, \dd \bbP = \int_B Z \, \dd \bbP
-\]
-holds for any $B \in \sigma(Y)$.
-\item Claim II. Prove that
-\[
-	\int_\Omega Z \, \dd \bbP = \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
-\]
-[Hint: start with the case that $X$ and $Y$ are simple functions.]
-\item Claim III. Let $B \in \sigma(Y)$. Prove that
+\item Claim I. Let $B \in \sigma(Y)$. Prove that
 \[
 	\int_{B} Z \, \dd \bbP = \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
 \]
-[Hint: Let $D, C \in \cB_{\bbR}$. Why does it hold that 
-\[
-	\bbP(B \times B \cap (X,Y)^{-1}(D \times C)) = \bbP(X^{-1}(D))\bbP(Y^{-1}(C) \cap B)?
-\]
+[Hint: It suffices to show that two measures are equal on $\cB^2$. For this you can use Theorem 2.15, which tells you that you only need to show equality on the generator set $\cB \times \cB$.
 ]
-\item Claim IV. Let $C \in \cB_{\bbR}$. Prove that
+\item Claim II. Let $C \in \cB_{\bbR}$. Prove that
 \[
 	\int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP
 	= \int_C \int_\Omega f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y).
 \]
-[Hint: simple functions.]
+[Hint: Fubini-Tonelli]
 \end{enumerate}
 \end{problem}
 

@@ -456,6 +456,19 @@ Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to
 \]
 \end{problem}
 
+\begin{problem}
+Let $\nu > 0$ and $X$ be a random variable with an Exponential distribution with scale $\nu$, i.e. $X$ has probability density function $\rho(x) = \nu e^{-\nu x} \mathbbm{1}_{x \ge 0}$.
+\begin{enumerate}[label={(\alph*)}]
+\item Prove the \emph{memoryless property:}
+\[
+	\forall s,t \ge 0 \quad \bbP(X > t+s | X > t) = \bbP(X > s).
+\]
+\item Let $Y$ be another random variable with Exponential distribution with scale $\nu$, and independent of $X$. Prove that $\bbP(X + Y \le t | Y = y) = (1 - e^{-\nu (t - y)}) \mathbbm{1}_{y < t}$.
+\item Use the above result to show that $\bbP(X + Y \le t) = 1 - e^{-\nu t} - t e^{-\nu t}$. 
+\end{enumerate}
+
+\end{problem}
+
 \begin{problem}\label{prb:computing_conditional_expectations}
 Here you will prove the four claims made in the proof of Lemma~\ref{lem:computing_conditional_expectations}.
 

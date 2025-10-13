@@ -1,0 +1,99 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+\textbf{Problem 11.4}
+
+The solution to this problem will closely follow the proof of Lemma 11.7. To this end let $g(x,y)$ denote the conditional density of $X$ given $Y = y$ and define the function $\phi(y) := \int_\bbR h(x) g(x,y) \, \lambda(\dd x)$. We now need to show that for any $A \in \cB_\bbR$ it holds that
+\[
+	\int_{Y^{-1}(A)} \phi(Y) \, \dd \bbP = \bbE[\mathbbm{1}_A(Y) h(X)].
+\]
+
+Using the change of variables formula and the definition of $\phi$ and $g$ we get
+\begin{align*}
+	\int_{Y^{-1}(A)} \phi(Y) \, \dd \bbP &= \int_\Omega \mathbbm{1}_{Y^{-1}(A)} \phi(Y) \, \dd \bbP\\
+	&= \int_\bbR \int_A(y) \phi(y) f_Y(y) \, \lambda(\dd y)\\
+	&= \int_{\bbR} \int_\bbR \mathbbm{1}_A(y) h(x) g(x,y) f_Y(y)  \, \lambda(\dd x) \, \lambda(\dd y)\\
+	&= \int_{\bbR^2} \mathbbm{1}_{A}(y) h(x) f(x,y) \, \lambda(\dd x) \, \lambda(\dd y)\\
+	&= \bbE[\mathbbm{1}_{A}(Y) h(X)].
+\end{align*}
+
+\bigskip
+
+\textbf{Problem 11.5}
+\begin{enumerate}[label={(\alph*)}]
+\item First note that for any $\ell \ge 0$ 
+\[
+	\bbP(X > \ell) = \int_{\ell} \nu e^{-\nu x} \, \lambda(dx) 
+	= e^{-\nu \ell}.
+\]
+
+By Lemma 11.5 we have that
+\[
+	\bbP(X > t +s | X > t) = \frac{\bbP(X > t + s, X > t)}{\bbP(X > t)}
+	= \frac{\bbP(X > t + s)}{\bbP(X > t)}
+	= \frac{e^{-\nu(t + s)}}{e^{-\nu t}} = e^{-\nu s} = \bbP(X > s).
+\]
+\item Define the function $f(x,y) = \mathbbm{1}_{x + y \le t}$. By Lemma 11.8 we then have that
+\[
+	\bbP(X + Y \le t | Y = y) = \bbE[f(X,Y) | Y = y]
+	= \bbE[f(X,y)].
+\]
+Using the probability density function we then get
+\[
+	\bbE[f(X,y)] = \int_{\bbR} f(x,y) \rho(x) \, \lambda(dx)
+	= \mathbbm{1}_{y < t} \int_0^{t-y} \nu e^{-\nu x} \, \lambda(dx)
+	= \mathbbm{1}_{y < t} (1 - e^{-\nu(t-y)}).
+\]
+\item We have that
+\begin{align*}
+	\bbP(X + Y \le t) &= \bbE[\bbP(X+Y \le t | Y)]\\
+	&= \int_\bbR \rho(y) \bbP(X + Y \le t | Y = y) \, \lambda(dx)\\
+	&= \int_\bbR \mathbbm{1}_{0 \le y < t} (1 - e^{-\nu(t-y)}) \nu e^{-\nu y} \, \lambda(dy) \\
+	&= \int_0^t \nu e^{-\nu y} - e^{-\nu t} \, \lambda(dy) \\
+	&= 1 - e^{-\nu t} - t e^{-\nu t}.
+\end{align*}
+\end{enumerate}
+
+
+
+
+\end{document}

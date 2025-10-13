@@ -1,0 +1,105 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+
+
+
+\textbf{Problem 11.2}
+
+\begin{enumerate}[label={(\alph*)}]
+\item By definition we have that
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP,
+\]
+holds for all $B \in \cH$. Since by assumption both $\bbE[X | \cH]$ and $X$ are $\cH$-measurable, the result follows from problem 8.2.
+\item Note that $a \bbE[X | \cH]$ is $\cH$-measurable. Moreover,
+\[
+	\int_B a \bbE[X | \cH] \, \dd \bbP = a \int_B \bbE[X | \cH] \, \dd \bbP = a \int_B X \, \dd \bbP = \int_B aX \, \dd \bbP.
+\]
+This proves the claim.
+\item Similarly to the previous point, we first note that since $\bbE[X | \cH]$ and $\bbE[Y | \cH]$ are $\cH$-measurable so is $\bbE[X | \cH] + \bbE[Y | \cH]$. The result then follows because
+\begin{align*}
+	\int_B \bbE[X | \cH] + \bbE[Y | \cH] \, \dd \bbP 
+	&= \int_B \bbE[X | \cH] \, \dd \bbP + \int_B \bbE[Y | \cH] \, \dd \bbP \\
+	&= \int_B X \, \dd \bbP + \int_B Y \, \dd \bbP = \int_B X + Y \, \dd \bbP.
+\end{align*}
+\item First we observe that for any $B \in \cH$
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP \le \int_B Y \, \dd \bbP = \int_B \bbE[Y | \cH] \, \dd \bbP.
+\]
+Now consider the event $A := \{ \bbE[X | \cH] > \bbE[Y | \cH]\} \in \cH$. If this event has non-zero measure then it would follow that
+\[
+	\int_A \bbE[X | \cH] \, \dd \bbP > \int_A \bbE[Y | \cH] \, \dd \bbP,
+\]
+which is a contradiction. Hence we conclude that $\bbE[X | \cH] \le \bbE[Y | \cH]$ holds $\bbP$-almost everywhere.
+\end{enumerate}
+
+\textbf{Problem 11.3}
+
+\begin{enumerate}[label={(\alph*)}]
+\item This follows by repeating the step for the solution to Problem 4.8 a). 
+%
+%By definition, we have that $\nu_X(\Omega) = \int_\Omega X\,\dd\mu = 1$. Now let $(A_n)_{n\in\bbN}$ be a family of mutually disjoint measurable sets in $\sigma(X)$. Then we have that the sequence 
+%	\[
+%		g_n:= \sum_{i=1}^n X\,\mathbf{1}_{A_i} = X\,\mathbf{1}_{\bigcup_{i=1}^n\! A_i}\;\longrightarrow\; g:= X\,\mathbf{1}_{\bigcup_{i\in\bbN}\! A_i}\qquad\text{pointwise monotonically}.
+%	\]
+%	By MCT, we then have that
+%	\[
+%		\nu_X\left(\bigcup_{i\in\bbN} A_i\right) = \int_{\bigcup_{i\in\bbN}\! A_i} X\,\dd\mu = \lim_{n\to\infty} \int_{\bigcup_{i=1}^n\! A_i} X\,\dd\mu = \lim_{n\to\infty} \sum_{i=1}^n \int_{A_i} X\,\dd\mu = \sum_{i\in\bbN}\nu_X(A_i),
+%	\]
+%	thus showing that $\nu_X$ is a measure on $(\Omega,\sigma(X))$.
+
+\item We start by observing that the result will directly follow from Theorem 2.15 if we can show that the \sigalg/ $\sigma(X)$ satisfies the two properties.
+
+The first one is immediate, from the fact that $X^{-1}(A) \cap X^{-1}(B) = X^{-1}(A\ cap B)$. For the second one consider the intervals $I_n = (-n,n)$ and define $A_n := X^{-1}(I_n) \in \sigma(X)$. Since $\bigcup_{n \in \bbN} I_n = \bbR$ it follows that $\bigcup_{n \in \bbN} A_n = \Omega$. Moreover since $|X| \le n$ on the set $A_n$ it holds that
+\[
+	\mu(A_n) = \nu_X(A_n) = \int_{A_n} X \, \dd \bbP \le n \int_{A_n} \, \dd \bbP = n \bbP(A_n) \le n < \infty.
+\]
+Thus the second condition of Theorem 2.15 is also satisfied and the result now follows.
+
+	
+\end{enumerate}
+
+\bigskip
+
+\end{document}

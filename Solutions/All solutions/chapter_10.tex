@@ -1,0 +1,36 @@
+\textbf{Problem 10.2} (5 pts)
+
+Let $\nu\ll \mu$. We show the required statement by contradiction. Therefore, let us suppose otherwise, i.e., there exists $\varepsilon>0$ such that for any $\delta>0$, there is some $A\in\mathcal{F}$ for which
+\[
+	\mu(A)<\delta,\quad\text{but}\;\;\nu(A)\ge \varepsilon.\qquad\text{(1 pts)}
+\]
+We can choose a sequence of decreasing sets $A_n$, i.e., $A_{n+1}\subset A_n\subset A_1$, such that $\mu(A_n)<1/n$ and $\nu(A_n)\ge \varepsilon$ for all $n\ge 1$ (1 pts). By continuity from above, we have that
+\[
+	\mu\Bigl(\bigcap_{n\ge 1} A_n\Bigr) = \lim_{n\to\infty} \mu(A_n) = 0,\qquad \nu\Bigl(\bigcap_{n\ge 1} A_n\Bigr) = \lim_{n\to\infty} \nu(A_n) \ge \varepsilon\qquad \text{(1 pts)}
+\]
+i.e., $\bigcap_{n\ge 1} A_n$ is a $\mu$-null set (1 pts). Since $\nu$ is absolutely continuous w.r.t.\ $\mu$, then $\bigcap_{n\ge 1} A_n$ is also a $\nu$-null set, which contradicts with the deduced lower bound. \text{(1 pts)}
+
+\bigskip
+\textbf{Problem 10.2} (3 pts)
+
+Suppose that $f,g:\Omega\to\mathbb{R}$ are $\mathcal{H}$-measurable functions satisfying
+\[
+	\int_B f\,d\mathbb{P} = \int_B g\,d\mathbb{P} \qquad\text{for all $B\in\mathcal{H}$}.
+\]
+Since $f$ and $g$ are $\mathcal{H}$-measurable, so are the sets $\{f>g\}$ and $\{f<g\}$ (1 pts). Then,
+\[
+	\int_{\{f>g\}} |f-g| \,d\mathbb{P} = \int_{\{f>g\}} (f-g) \,d\mathbb{P} = 0.\qquad \text{(0.5 pts)}
+\]
+Similarly, we have that
+\[
+	\int_{\{f<g\}} |f-g| \,d\mathbb{P} = \int_{\{f<g\}} (g-f) \,d\mathbb{P} = 0.\qquad \text{(0.5 pts)}
+\]
+Altogether, we find
+\[
+	\int_\Omega |f-g| \,d\mathbb{P} = 0\quad\Longrightarrow\quad f=g\;\;\text{$\mathbb{P}$-almost everywhere.}\qquad \text{(1 pts)}
+\]
+
+
+
+
+

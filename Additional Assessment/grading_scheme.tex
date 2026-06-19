@@ -1,0 +1,258 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+\begin{document}
+
+
+\textbf{Problem 1}
+
+\begin{enumerate}[label=(\alph*)]
+\item Total points: 4 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Recall definition of \sigalg/ & 1pt\\
+Check inclusion of $\emptyset$ and $\Omega$ & 1pt\\
+Check inclusion of complement $E\setminus B$ & 1pt\\
+Check inclusion of countable union & 1pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+First we note that $f^{-1}(\emptyset) = \emptyset \in \cF$ and $f^{-1}(E) = \Omega \in \cF$. So $\emptyset, E \in \cH$. 
+
+Next, let $B \in \cH$. Then
+\[
+	f^{-1}(E\setminus B) = \Omega \setminus f^{-1}(B) \in \cF,
+\]
+since by definition $f^{-1}(B) \in \cF$. So $E\setminus B \in \cH$.
+
+Finally, if $(B_i)_{i \in \bbN}$ is a sequence of sets in $\cH$, then
+\[
+	f^{-1}\left(\bigcup_{i = 1}^\infty B_i\right) = \bigcup_{i = 1}^\infty f^{-1}(B_i) \in \cF,
+\]
+which shows that $\bigcup_{i = 1}^\infty B_i \in \cH$, completing the proof that $\cH$ is a \sigalg/.
+
+\item Total points: 3 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Recall inclusion property of \sigalgs/ & 1pt\\
+Note that $\cA \subseteq \cH$ and thus $\cG \subseteq $ & 1pt\\
+Conclude & 1 pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+By construction $\cA \subseteq \cH$. It therefore follows from Lemma 2.5 of the Lecture Notes that $\cG = \sigma(\cA) \subseteq \cH$. But this then implies that $f^{-1}(B) \in \cF$ for each $B \in \cG$ which means that $f$ is $(\cF, \cG)$-measurable.
+\end{enumerate}   
+
+\textbf{Problem 2}
+
+\begin{enumerate}[label={(\alph*)}]
+\item Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Show the property holds for simple functions & 1pt\\
+Use the definition and non-negativity to conclude & 1pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+Let $g = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i}$ is a simple function. Then $g \mathbbm{1}_B = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i \cap B}$ is also a simple function and thus
+\[
+	\int_B g \, \dd \mu = \int_\Omega g \mathbbm{1}_B \, \dd \mu = \sum_{i = 1}^N a_i \mu(A_i \cap B) \le \mu(B) \sum_{i = 1}^N a_i \mu(A_i) = 0.
+\]
+
+Now let $f$ be a non-negative function and $g \le f$ be a simple function. Then $g \mathbbm{1}_B \le f \mathbbm{1}_B$ and thus by Definition 4.7 and the calculation above
+\begin{align*}
+	\int_B f \, \dd \mu = \int_\Omega f \mathbbm{1}_B \, \dd \mu \ge \int_\Omega g \mathbbm{1}_B \, \dd \mu = 0,
+\end{align*}
+which implies the result.
+
+\item Total points: 1\hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use monotonicity of supremum to conclude & 1pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+Suppose $f \le g$ are non-negative functions and observe that if $h$ is a simple function such that $h \le f$ then also $h \le g$. Therefore we get
+\[
+	\int_\Omega f \, \dd \mu = \sup_{h \le f}\left\{\int_\Omega h \, \dd \mu\right\}
+	\le \sup_{h \le g}\left\{\int_\Omega h \, \dd \mu\right\} = \int_\Omega g \, \dd \mu.
+\]
+
+
+\item Total points: 3\hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Show the property holds for simple functions & 1pt\\
+Use previous result and homogeneity of supremum to conclude & 2pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+
+Suppose that $h$ is a simple function. Then $\alpha h$ is also simple and it immediately follows that $\int_\Omega (\alpha h) \, \dd \mu = \alpha \int_\Omega h \, \dd \mu$. 
+
+Now let $f$ be non-negative. Then $h \le f \iff \alpha h \le \alpha f$ and $h \le \alpha f \iff \alpha^{-1} h \le f$. Thus by Definition 4.7 we have
+\begin{align*}
+	\alpha \int_\Omega f \, \dd \mu &= \alpha \sup_{h \le f}\left\{\int_\Omega h \, \dd \mu\right\}\\
+	&= \sup_{h \le f} \alpha \left\{\int_\Omega  h \, \dd \mu\right\}\\
+	&= \sup_{h \le f} \left\{\int_\Omega (\alpha h) \, \dd \mu\right\}\\
+	&= \sup_{\alpha^{-1} h \le f} \left\{\int_\Omega h) \, \dd \mu\right\}\\
+	&= \sup_{h \le \alpha f} \left\{\int_\Omega (\alpha h) \, \dd \mu\right\} = \int_\Omega (\alpha f) \, \dd \mu.
+\end{align*}
+\end{enumerate}
+
+\textbf{Problem 8.3} 
+
+Total points: 5\hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+$\Rightarrow$ & \\
+\hline
+Write $Y_n = |X_n - X|$ and use definition of convergence in probability to conclude this converges in distribution to $0$ function & 1pt\\
+Use alternative definition of convergence in distribution (Lemma 8.2) and the fact that $\varepsilon > 0$ is a continuity point of the $0$ function to conclude & 1pt\\
+\hline
+$\Leftarrow$ & \\
+\hline 
+Use Lemma 8.2 together with definition of convergence in probability to identify statement to prove & 1pt\\
+Note that $0$ is the only non-continuity point and the result is trivial for $t < 0$ & 1 pt\\
+Use the assumption to conclude the result for $t > 0$ & 1 pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+The main idea is to use the equivalent version of convergence in distribution.
+
+Suppose that $X_n \plim X$ and define $Y_n = |X_n - X|$. We need to show that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. 
+
+First recall that $X_n \plim X$ is defined as weak convergence of $Y_n$ to the constant zero random variable. By Lemma 8.2 this is equivalent to 
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t),
+\]
+for all continuity points of the function $\omega \mapsto 0$. We now note that any $\varepsilon > 0$ is a continuity point of this function. Hence, we get
+\[
+	\lim_{n \to \infty} \bbP(Y_n > \varepsilon) = 1 - \lim_{n \to \infty} \bbP(Y_n \le \varepsilon) = 1 - \bbP(0 \le \varepsilon) = 0
+\]
+
+Now we prove the other implication. So suppose that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. We then have to prove that $(Y_n)_\# \bbP \Rightarrow 0_\# \bbP$. Due to Lemma 8.2 it is enough to show that
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t) = \mathbbm{1}_{t \ge 0},
+\]
+holds for all continuity points $t$ of the function $\omega \mapsto 0$. Notice that the only non-continuity point is $0$. Moreover, for all $t < 0$ we have that $\bbP(Y_n \le t) = 0$ since $Y_n \ge 0$ almost every-where. Finally, for all $t > 0$ we have
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = 1 - \lim_{n \to \infty} \bbP(Y_n > t) = 1 = \bbP(0 \le t). 
+\]
+
+\textbf{Problem 11.2}
+
+\begin{enumerate}[label={(\alph*)}]
+\item Total points: 2\hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Note that the events $\{f \ge g\}, \{f < g\}$ are $\cH$-measurable & 1pt\\
+Split the integral over these two sets and use assumption to conclude & 1pt\\
+\hline
+\end{tabular}
+
+First note that since $f-g$ is $\cH$-measurable, we have that $\{f \ge g\}, \{f < g\} \in \cH$. We then write
+\[
+	\int_\Omega \|f-g\| \, \dd \bbP = \int_{f \ge g} (f-g) \, \dd \bbP - \int_{f < g} (f-g) \, \dd \bbP.
+\]
+Since $\int_B f \, \dd \bbP = \int_B g \, \dd \bbP$ holds for all $B \in \cH$ both integrals on the right hand side are zero.
+
+\item Total points: 2\hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use definition to conclude the integral are the same. & 1pt\\
+Use assumption and part a) to conclude & 1pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+
+By definition we have that
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP,
+\]
+holds for all $B \in \cH$. 
+
+Since by assumption both $\bbE[X | \cH]$ and $X$ are $\cH$-measurable the result follows from part a).
+
+%\item Total points: 2\hfill
+%
+%\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+%\hline
+%Observe that $a \bbE[X | \cH]$ is $\cH$-measurable. & 1pt\\
+%Show equality of integrals for all $B \in \cH$ and use a) to conclude & 1pt\\
+%\hline
+%\end{tabular}
+%
+%\textit{Model answer}
+%
+%Note that $a \bbE[X | \cH]$ is $\cH$-measurable. Moreover,
+%\[
+%	\int_B a \bbE[X | \cH] \, \dd \bbP = a \int_B \bbE[X | \cH] \, \dd \bbP = a \int_B X \, \dd \bbP = \int_B aX \, \dd \bbP.
+%\]
+%This proves the claim using part a).
+
+\item Total points: 2\hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Observe that $\bbE[X | \cH] + \bbE[Y | \cH]$ is $\cH$-measurable. & 1pt\\
+Show equality of integrals for all $B \in \cH$ and use a) to conclude & 1pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+Similarly to the previous point, we first note that since $\bbE[X | \cH]$ and $\bbE[Y | \cH]$ are $\cH$-measurable so is $\bbE[X | \cH] + \bbE[Y | \cH]$. The result then follows from part a) because
+\begin{align*}
+	\int_B \bbE[X | \cH] + \bbE[Y | \cH] \, \dd \bbP 
+	&= \int_B \bbE[X | \cH] \, \dd \bbP + \int_B \bbE[Y | \cH] \, \dd \bbP \\
+	&= \int_B X \, \dd \bbP + \int_B Y \, \dd \bbP = \int_B X + Y \, \dd \bbP.
+\end{align*}
+
+\item Total points: 3\hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use monotonicity of integration to get inequality for integrals of $\bbE[X | \cH]$ and $\bbE[Y | \cH]$ for each $B$ & 1pt\\
+Introduce event $\{ \bbE[X | \cH] > \bbE[Y | \cH]\}$ in $\cH$ & 1pt\\
+Prove that this event has measure zero by contradiction & 1 pt\\
+\hline
+\end{tabular}
+
+\textit{Model answer}
+
+
+First we observe that for any $B \in \cH$
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP \le \int_B Y \, \dd \bbP = \int_B \bbE[Y | \cH] \, \dd \bbP.
+\]
+Now consider the event $A := \{ \bbE[X | \cH] > \bbE[Y | \cH]\} \in \cH$. If this event has non-zero measure then it would follow that
+\[
+	\int_A \bbE[X | \cH] \, \dd \bbP > \int_A \bbE[Y | \cH] \, \dd \bbP,
+\]
+which is a contradiction. Hence we conclude that $\bbE[X | \cH] \le \bbE[Y | \cH]$ holds $\bbP$-almost everywhere.
+\end{enumerate}
+
+\end{document}

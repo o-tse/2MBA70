@@ -1,0 +1,112 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 9.1}
+\begin{enumerate}[label={(\alph*)}]
+\item We show that
+\[
+\|f\|_{p_\theta} \le \|f\|_{p_0}^{\,\theta} \, \|f\|_{p_1}^{\,1-\theta}.
+\]
+Set $A = |f|^{p_0}$, $B = |f|^{p_1}$ and choose
+\[
+\alpha := \frac{\theta p_\theta}{p_0}, \qquad \beta := \frac{(1-\theta)p_\theta}{p_1}.
+\]
+Then $\alpha p_0 = \theta p_\theta$, $\beta p_1 = (1-\theta)p_\theta$, and
+\[
+\alpha + \beta = p_\theta \left( \frac{\theta}{p_0} + \frac{1-\theta}{p_1} \right) = 1.
+\]
+Hence, by H\"older's inequality,
+\[
+	\int_\theta |f|^{p_\theta}\,d\mu = \int_\theta A^{\alpha} B^{\beta}\,d\mu
+\le \left( \int_\theta A\,d\mu \right)^{\alpha} \left( \int_\theta B\,d\mu \right)^{\beta}
+= \|f\|_{p_0}^{\,\theta p_\theta} \, \|f\|_{p_1}^{\,(1-\theta)p_\theta}.
+\]
+Taking $p_\theta$-th roots gives the desired inequality.
+
+\item Given $p \in (p_0,p_1)$, define
+\[
+\theta = \frac{\frac{1}{p} - \frac{1}{p_1}}{\frac{1}{p_0} - \frac{1}{p_1}} \in (0,1),
+\]
+so that $\frac{1}{p} = \frac{\theta}{p_0} + \frac{1-\theta}{p_1}$, i.e.\ $p = p_\theta$.
+If $f \in L^{p_0} \cap L^{p_1}$, then by (a),
+\[
+\|f\|_p \le \|f\|_{p_0}^{\,\theta} \, \|f\|_{p_1}^{\,1-\theta} < +\infty,
+\]
+hence $f \in L^p(\mu)$ for all $p \in (p_0,p_1)$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 9.2}
+\begin{enumerate}[label={(\alph*)}]
+	\item If $X \in L^\infty(\mathbb P)$, then $X \in L^p(\mathbb P)$ for all $p \ge 1$.
+
+Indeed, since
+\[
+|X|(\omega)^p \le \|X\|_\infty^{\,p} \quad \text{for $\mathbb{P}$-almost everywhere},
+\]
+we have that
+\[
+	\|X\|_p^p = \mathbb E|X|^p \le \|X\|_\infty^{\,p} \, \mathbb P(\mathcal{X}) 
+= \|X\|_\infty^{\,p} < \infty.
+\]
+Thus $X \in L^p$ for every $p \ge 1$.
+
+\item \emph{All moments finite.} Using the standard normal density 
+$\varrho(x) = \tfrac{1}{\sqrt{2\pi}} e^{-x^2/2}$,
+\[
+\mathbb E|X|^p 
+= 2 \int_0^\infty x^p \varrho(x)\,dx
+= \frac{2^{p/2}}{\sqrt{\pi}}\, \Gamma\!\left(\frac{p+1}{2}\right) < \infty,
+\]
+so $X \in L^p$ for all $p \ge 1$.
+
+\emph{Not essentially bounded.} For every $M>0$,
+\[
+\mathbb P(|X|>M) = 2 \int_M^\infty \varrho(x)\,dx > 0,
+\]
+so $\mathrm{ess\,sup}_{\omega\in\mathcal{X}}\,|X(\omega)| = +\infty$, i.e., $X \notin L^\infty(\mathbb P)$.
+\end{enumerate}
+
+
+\end{document}

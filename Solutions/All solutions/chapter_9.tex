@@ -1,0 +1,55 @@
+\textbf{Problem 9.3} (5 pts)
+
+Let $(\Omega,\mathcal{F},\mu)$ be a finite measure space.
+\begin{enumerate}[label={(\alph*)}]
+\item (2 pts) Let $p\le q$, $p,q\in[1,\infty)$. We will show that $\Phi_p(f)\le \Phi_q(f)$ whenever $\Phi_q(f)$ is finite, otherwise, there is nothing to show. Using Jensen's inequality, we immediately find
+\[
+	\int_\Omega |f|^q\,\frac{d\mu}{\mu(\Omega)} = \int_\Omega \Bigl(|f|^p\Bigr)^{\frac{q}{p}}\,\frac{d\mu}{\mu(\Omega)} \ge \left(\int_\Omega |f|^p\,\frac{d\mu}{\mu(\Omega)}\right)^{\frac{q}{p}}.
+\]
+Taking the $q$-th root then yields the claim. 
+
+\item (3 pt) If $f\in L^\infty(\mu)$, then clearly $\Phi_p(f)\le \|f\|_\infty$. We are now left to show that the upper bound is saturated. W.l.o.g.\ we assume that $\|f\|_\infty=1$, otherwise, we can take $f/\|f\|_\infty$, since
+\[
+	\frac{1}{\|f\|_\infty}\Phi_p(f) = \Phi_p\left(\frac{f}{\|f\|_\infty}\right) \qquad\text{for every $p\in[1,\infty)$}.
+\]
+In the case $\|f\|_\infty=1$, we have find that
+\[
+	0\le a_p:=\int_\Omega |f|^p\,\frac{d\mu}{\mu(\Omega)} \le 1\qquad\text{independently of $p$}.
+\]
+Now, since $a_p$ is increasing due to (a) and bounded from above, we deduce that $a_p$ has a limit (Analysis 1). By the squeeze theorem, we then conclude that $\lim_{p\to\infty} (a_p)^{1/p} = 1$.
+
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 9.4} (5 pts)
+
+Let $\varepsilon>0$ be arbitrary and $f\in L^1(\mathbb{R}^d,\mu)$. By Theorem~7.12, we find a bounded and continuous function $h\in L^1(\mathbb{R}^d,\mu)$ such that $\|f-h\|_1 \le \varepsilon/3$. (0.5 pts)
+
+Let $K>0$ and consider the function 
+\[
+	h_K:=h\mathbf{1}_{E_K} \in L^1(\mathbb{R}^d,\mu),\qquad E_K:=[-K,K]^d,
+\]
+i.e., $h_K$ is a horizontal truncation of $h$ to the compact set $E_K\subset\mathbb{R}^d$ (1 pts). 
+
+Then,
+
+\[
+	\int_{\mathbb{R}^d} |h-h_K|\,d\mu = \int_{E_K^c} |h|\,d\mu \le \|h\|_\infty\, \mu(E_K^c). \qquad \text{(1 pts)}
+\]
+Since $\mu$ is a finite measure, we have that $\lim_{K\to\infty} \mu(E_K^c)=0$. In particular, we can make the rhs of the estimate above arbitrarily small such that $\|h\|_\infty\, \mu(E_K^c) \le \varepsilon/3$. (0.5 pts)
+
+We then find, by Theorem 7.12, a bounded and continuous function $g\in L^1(\mathbb{R}^d,\mu)$ such that $\|h_K-g\|_1\le \varepsilon/3$ (0.5 pts). 
+
+Since $h_K$ is continuous on $E_K$, the function $g$ may be taken to be $h_K$ on $E_K$. Moreover, $g$ can be chosen to have compact support since $h_K$ has compact support. (0.5 pts)
+
+Altogether, we obtain (1 pts)
+\[
+	\|f-g\|_1 \le \|f-h\|_1 + \|h-h_K\|_1 + \|h_K-g\|_1 \le \varepsilon/3 + \varepsilon/3 + \varepsilon/3 = \varepsilon.
+\]
+
+
+
+
+
+

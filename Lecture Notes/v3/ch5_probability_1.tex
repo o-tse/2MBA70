@@ -1,0 +1,696 @@
+
+\section{Random variables and general stochastic objects}\label{sec:random_variables}
+
+% Random variables   
+
+We have arrived at the stage where we know enough about measure theory to start our first journey into the realm of probability theory. In this chapter, we will cover the basic definitions of random variables and expectations and show how we can formally prove formulas related to them which you encountered in the course Probability and Modeling. 
+
+\subsection{Definition}
+
+In the course Probability and Modeling two types of random variables were defined: discrete and continuous. Recall that a random variable was defined as a function $X : \Omega \to \bbR$ for some probability space $(\Omega, \cF, \bbP)$ such that
+\[
+	\{\omega \in \Omega \, : \, X(\omega) \le x\} \in \cF \quad \text{for all } x \in \bbR.
+\]
+Let us make two observations here. The first is that the set above is simply the preimage $X^{-1}((-\infty,x])$. Secondly, the sets $(-\infty, x]$ generate the Borel \sigalg/. Thus it follows from Lemma~\ref{lem:measurable_condition_generator} that $X$ is a measurable function. This is actual the proper way to define a random variable.
+
+\begin{definition}[Random variable]\label{def:random_variable}
+A \emph{random variable} is a measurable function from some probability space $(\Omega,\cF, \bbP)$ to the Borel space $(\bbR, \cB_{\bbR})$.
+\end{definition}
+
+It is important to observe that the definition of a random variable does not make any specific claims on what the probability space should be. 
+
+In fact we can actually define, at a much more general level, random elements in any measurable space and put an associated probability measure on this space by a push-forward.
+
+\begin{definition}[Random elements]
+Let $(\Omega,\cF, \bbP)$ be a probability space and $(E,\cG)$ some measurable space. A \emph{random element} in $(E,\cG)$ is a measurable map $X : \Omega \to E$. It associated \emph{probability measure} is defined as the push forward $X_\# \bbP$ of $\bbP$ under $X$, i.e.
+\[
+	\bbP(X \in A) := \bbP(X^{-1}(A)) \quad \text{for every } A \in \cG.
+\]
+\end{definition}
+
+Sometimes we use the term \emph{stochastic} instead of \emph{random}. 
+
+With this general definition we can now easily define random vectors, random matrices, random functions and so on. The only thing we need is to start with the appropriate space (vectors, matrices, functions) and turn it into a measurable space by endowing it with a suitable \sigalg/. Here are some examples:
+
+\begin{example}[Random elements]\label{example:random_elements}
+\hfill
+\begin{enumerate}[label=(\alph*)]
+\item A random vector in $\bbR^d$ is a random element in $(\bbR^d, \cB_{\bbR^d})$.
+\item A random $n \times m$ matrix is a random element in $(\bbR^n \times \bbR^m, \cB_{\bbR^n} \otimes \cB_{\bbR^m})$.
+\end{enumerate}
+\end{example}
+
+While these are somewhat straightforward examples, there are also more involved ones that are important in probability theory.
+
+\begin{example}[Stochastic processes]
+Let $(\Omega,\cF,\bbP)$ be a probability space, $(S,\cS)$ a measurable space and $T$ some index set. Then we denote by $S^T$ the set of all functions $f : T \to S$. For any $t \in T$, denote by $\pi_t : S^T \to S$ the \emph{evaluation function} $\pi_t(f) = f(t)$. Then we endow the space $S^T$ with the \sigalg/ $\cS^T := \sigma(\pi_t \, : \, t\in T)$. A \emph{stochastic process} on $(S,\cS)$ is then defined as a measurable function $X : (\Omega,\cF) \to (S^T, \cS^T)$.
+
+The space $(S,\cS)$ is often called the \emph{state space} of the stochastic process. Often, the index set is taken to be $\bbN$ or $\bbR_{\ge 0}$. However, the construction above allows for more exotic index sets (although this might impact the properties of the associated stochastic processes).
+\end{example}
+
+\subsection{Constructing random variables}
+
+Now that we know what random variables are, there is one problem. In order to define an random variable we need to formally define a probability space $(\Omega, \cF, \bbP)$ and measurable function $X: \Omega \to \bbR$. This is different from how we are used to work with random variables. 
+
+Let $X$ be a random variable. Then its \emph{cumulative distribution function} was given by 
+\[
+	F_X(t) = \bbP(X \le t).
+\] 
+The idea behind the cdf $F_X(t)$ is that it denotes the "probability" that $X \in (-\infty ,t]$. From the perspective of measure theory, this means we assign a measure to the preimage of $(-\infty, t]$ under the measurable function $X$. Here we use the shorthand notation $X \le t$ for the set $\{X \in (-\infty, t]\}$, or equivalently the pre-image $X^{-1}((-\infty,t])$. Another way to view the cdf is via the \emph{push-forward measure} (see Proposition~\ref{prop:push_forward_measure})
+\[
+	F_X(t) := X_\# \bbP((-\infty, t]) = \bbP(X^{-1}((-\infty,t])).
+\]
+
+The difference between Definition~\ref{def:random_variable} and the normal way you are used to deal with random variables is that before this course, you simply would give a cumulative distribution function (cdf) $F$ and say that $X$ is a random variable with 
+\[
+	\bbP(X \le t) := \bbP(X \in (-\infty,t])= F(t),
+\] 
+without worrying about a probability space or the measurability of $X$ as a function. However, we now know that we need to construct a probability space and have $X$ be a measurable functions. So how do we reconcile these two approaches? 
+
+It turns out that the way of working with random variables you are used to is still valid, as for any cdf $F$ we can construct a probability space $(\Omega, \cF, \bbP)$ and measurable function $X$ such that $\bbP(X \le t) = F$. We will provide two ways to do this. But first, we need to formally define what we mean with a cdf.
+
+\begin{definition}[Cumulative distribution function]\label{def:cdf}
+A function $F : \bbR \to [0,1]$ is called a \emph{cumulative distribution function} (or cdf for short) if it is right-continuous\footnote{A function $f$ is right-continuous at $a$ if $\lim_{x \downarrow a} f(x) = f(a)$.}, non-decreasing and it holds that 
+\[
+	\lim_{x \to -\infty} F(x) = 0 \quad \text{and} \quad \lim_{x \to \infty} F(x) = 1.
+\]
+\end{definition}
+
+One can show that for a given probability space $(\Omega, \cF, \bbP)$ and measurable function $X : \Omega \to \bbR$, the function $F(t) := \mathbb{P}(X \in (-\infty,t])$ is a cdf as defined in Definition~\ref{def:cdf} (see Problem~\ref{prb:cdf}). The key result of this section, which we eluded to, is that the converse is also true. That is, any cdf $F$ defines a random variable as defined in Definition~\ref{def:random_variable}.
+
+\begin{theorem}[Constructing random variables]\label{thm:construction_random_variable}
+Let $F : \bbR \to [0,1]$ be a cdf. Then there exists a probability space  $(\Omega,\cF, \bbP)$ and random variable $X$, such that 
+\[
+	\bbP\left(X \in (-\infty,t]\right) := \bbP\left(X^{-1}((-\infty,t])\right) = F(t).
+\]
+In other words, $X$ is a random variable with cdf $F$.
+\end{theorem}
+
+\begin{proof}[New and better proof]
+Let us first discuss the idea of the proof. Suppose we have a probability measure $\mu$ on $(\bbR, \cB_{\bbR})$ such that $\mu((-\infty,t]) = F(t)$. Then we can simply take $(\bbR, \cB_{\bbR}, \mu)$ as our probability space and take $X : \bbR \to \bbR$ to be $X(\omega) = \omega$. The difficulty in applying this philosophy to our setting is that we do not have this probability measure $\mu$. So the main goal of the proof is to construct this using our cdf $F$. 
+
+Note that the function $F$ is only defined on sets of the form $(-\infty,x]$ and not on general measurable sets $A \in \cB_{\bbR}$. However, if we can extend $F$ to a proper measure $\mu$ on $\cB_{\bbR}$ then we would be done. To achieve this, first recall the collection of right-closed intervals (see~\eqref{def:right_closed_intervals})
+\[
+	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a \le b, a,b \in \bbR\} \cup \{(a, \infty) \, : \, a \in \bbR\} \cup \{\bbR\},
+\] 
+which is a semi-algebra that generates the Borel \sigalg/ $\cB_{\bbR}$ (see Problem~\ref{prb:right_closed_intervals}). We will construct a pre-measure $\mu_F$ on $\mathcal{S}$ such that $\mu_F((t,\infty)) = 1 - F(t)$. Then we use Theorem~\ref{thm:caratheodory} (Carath\'{e}odory Extension) to obtain a measure $\mu$ on $\sigma(\mathcal{S}) = \cB_{\bbR}$ that extents $\mu_F$. This then implies that 
+\[
+	\mu((-\infty,t]) = 1 - \mu((t,\infty)) = 1 - \mu_F((t,\infty)) = F(t),
+\]
+as required. 
+
+We will proceed by define a set-function $\mu_F$ that has the above mentioned property. To show that $\mu_F$ is a pre-measure on $\mathcal{S}$ we are going to use Theorem~\ref{thm:measure_equivalent_def} which provided an equivalent definition of a measure. Our first claim is that this result extends to the setting of pre-measures as well, when we add that $A \cup B \in \mathcal{S}$ to property 2). Looking at the proof, we see that it is only about proving $\sigma$-additivity, which we also have to show for pre-measures. Moreover, most of the reasoning and computations immediately transfer to the case of pre-measures. The only exception is that the proof would considers $\mu_F(\bigcup_{i = 1}^k A_i)$ for sets $A_i \in \mathcal{S}$ although this union does not have to be in $\mathcal{S}$ itself. This can be easily fixed by defining
+\[
+	\mu_F(\bigcup_{i = 1}^k A_i) = \sum_{i = 1}^k \mu_F(A_i),
+\]
+for any collection of disjoint $A_i \in \mathcal{S}$. By property 2) this would be consistent with our definition of $\mu_F$ when this finite union is in $\mathcal{S}$. The proof then carries over completely.
+
+Having explained the outline of the proof lets get started. We first note that any cdf $F$ defines a set function $\mu_F$ on $\mathcal{S}$ by
+\[
+	\mu_F(A) = \begin{cases}
+		0 &\text{if } A = \emptyset,\\
+		1 &\text{if } A = \bbR,\\
+		F(b) - F(a) &\text{if } A = (a,b],\\
+		1 - F(a) &\text{if } A = (a, \infty).
+	\end{cases}
+\]
+Note that $\mu_F(A) \in [0,1]$ because $F$ is non-decreasing. Moreover, by definition $\mu_F((t,\infty)) = 1 - F(t)$ as we needed. Also note that $\mu_F(\emptyset) = 0$.
+
+
+Hence to apply Theorem~\ref{thm:measure_equivalent_def} we need to show two things:
+\begin{enumerate}
+\item $\mu_F(A \cup B) = \mu_F(A) + \mu_F(B)$ for all disjoint $A,B \in \mathcal{S}$ such that $A \cup B \in \mathcal{S}$, and
+\item for any increasing sequence $A_n \subseteq A_{n+1}$ of sets in $\mathcal{S}$ such that $A_n \uparrow A \in \mathcal{S}$, it holds that
+\begin{equation}\label{eq:construction_rv_increasing_sequence}
+	\lim_{n \to \infty} \mu_F(A_n) = \mu_F(A).
+\end{equation}
+\end{enumerate}
+
+We will prove each of these statements separately.
+
+\begin{enumerate}
+\item First note that $A \cup B$ is either of the form $(a,b]$ or $(a,\infty)$ and we may assume that $A,B \ne \emptyset$. If $A \cup B = (a,b]$, then w.l.o.g. it holds that there exists a $a < c < b$ such that $A = (a,c]$ and $B = (c, b]$. But then
+\[
+	\mu_F(A \cup B) = F(b) - F(a) = F(b) - F(c) + F(c) - F(a) = \mu(A) + \mu(B). 
+\]
+Now if $A \cup B = (a, \infty)$ then w.l.o.g. there must exists a $a < b$ such that $A = (a,b]$ and $B = (b, \infty)$. This then implies
+\[
+	\mu_F(A \cup B) = 1 - F(a) = 1 - F(b) + F(b) - F(a) = \mu_F(B) + \mu_F(A).
+\]
+\item We will distinguish between three different case
+\begin{itemize}
+\item Suppose that $A = \bbR$. This can only be achieved if $A_n = (a_n, \infty)$ holds for all large enough $n$ with $a_n \downarrow -\infty$. In this case we then have that
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = \lim_{n \to \infty} \mu_F((a_n, \infty)) = \lim_{n \to \infty} 1 - F(a_n)
+	= 1 - 0 = 1 = \mu_F(\bbR).
+\]
+\item Suppose that $A = (a,b]$. Then it must hold that $A_n = (a_n, b_n]$ and $a_n \downarrow a$ and $b_n \uparrow b$. We claim that actually there must exist an $N \ge 1$ such that $b_n = b$ for all $n \ge N$. To see why note that $b \in A = (a,b]$. Therefore, since $A = \bigcup_{n \ge 1} A_n$ there must exist an $N$ such that $b \in A_N = (a_N, b_N]$. However, since $A_n \subseteq A_{n +1}$, it must hold that $b_n \le b_{n+1} \le b$. But this then implies that $b_N = b$ which proves our claim. We then have that
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = F(b) - \lim_{n \to \infty} F(a_n) = F(b) - F(a) = \mu_F(A),
+\]
+where we used right-continuity of $F$.
+\item Finally, suppose that $A = (a, \infty)$. Then either I) $A_n = (a_n, b_n]$ holds for all $n \ge 1$ with $a_n \downarrow a$ and $b_n \to \infty$, or II) $A_n = (a_n, \infty)$ for $n$ large enough with $a_n \downarrow a$. For case I) we then have
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = \lim_{n \to \infty} F(b_n) - F(a_n) = 1 - F(a) = \mu_F(A), 
+\]
+using right-continuity and the other limit property of cdfs. 
+
+For case II), right-continuity implies that
+\[
+	\lim_{n \to \infty} \mu_F(A_n) = \lim_{n \to \infty} 1 - F(a_n) = 1 - F(a) = \mu_F(A).
+\]
+\end{itemize}
+\end{enumerate}
+
+We have proven that $\mu_F$ satisfies the requirements of Theorem~\ref{thm:measure_equivalent_def}. Thus it is a pre-measure on $\mathcal{S}$ and the proof is now concluded by applying the Carath\'{e}odry-Extension theorem.
+
+\end{proof}
+
+\begin{proof}[Old proof presented in the lecture (incomplete)]
+
+Let us first discuss the idea of the proof. Suppose we have a probability measure $\mu$ on $(\bbR, \cB_{\bbR})$ such that $\mu((-\infty,t]) = F(t)$. Then we can simply take $(\bbR, \cB_{\bbR}, \mu)$ as our probability space and take $X : \bbR \to \bbR$ to be $X(\omega) = \omega$. The difficulty in applying this philosophy to our setting is that we do not have this probability measure $\mu$. So the main goal of the proof is to construct this using our cdf $F$. 
+
+Note that the function $F$ is only defined on sets of the form $(-\infty,x]$ and not on general measurable sets $A \in \cB_{\bbR}$. However, if we can extend $F$ to a proper measure $\mu$ on $\cB_{\bbR}$ then we would be done. To achieve this, first recall the collection of right-closed intervals (see~\eqref{def:right_closed_intervals})
+\[
+	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a \le b, a,b \in \bbR\} \cup \{(a, \infty) \, : \, a \in \bbR\} \cup \{\bbR\},
+\] 
+which is a semi-algebra that generates the Borel \sigalg/ $\cB_{\bbR}$ (see Problem~\ref{prb:right_closed_intervals}). We will construct a pre-measure $\mu_F$ on $\mathcal{S}$ such that $\mu_F((t,\infty)) = 1 - F(t)$. Then we use Theorem~\ref{thm:caratheodory} (Carath\'{e}odory Extension) to obtain a measure $\mu$ on $\sigma(\mathcal{S}) = \cB_{\bbR}$ that extents $\mu_F$. This then implies that 
+\[
+	\mu((-\infty,t]) = 1 - \mu((t,\infty)) = 1 - \mu_F((t,\infty)) = F(t),
+\]
+as required. 
+
+Having explained the outline of the proof lets get started. We first note that any cdf $F$ defines a set function $\mu_F$ on $\mathcal{S}$ by
+\[
+	\mu_F(A) = \begin{cases}
+		0 &\text{if } A = \emptyset,\\
+		1 &\text{if } A = \bbR,\\
+		F(b) - F(a) &\text{if } A = (a,b],\\
+		1 - F(a) &\text{if } A = (a, \infty).
+	\end{cases}
+\]
+In particular, by definition $\mu_F((t,\infty)) = 1 - F(t)$ as we needed.
+
+The only thing left to do is show that $\mu_F$ is a pre-measure on $\mathcal{S}$. Since $\mu_F(\emptyset) = 0$ by definition we only need to show that it is $\sigma$-additive. 
+
+To this end, let $(A_i)_{i \ge 1}$ be a family of disjoint sets in $\mathcal{S}$ such that $\bigcup_{i \ge 1} A_i \in \mathcal{S}$. We must show that
+\begin{equation}\label{eq:construction_rv_sig_add}
+	\mu_F(\bigcup_{i \ge 1} A_i) = \sum_{i \ge 1} \mu_F(A_i).
+\end{equation}
+
+Before we continue, we observe that if $A_i = \bbR$ for some $i \ge 1$ then $A_j = \emptyset$ for all other $j$ in which case~\eqref{eq:construction_rv_sig_add} holds. So without loss of generality we can assume that all $A_i$ are non-empty and $A_i \ne \bbR$.
+
+In addition, suppose that $\bigcup_{i \ge 1} A_i = (a, \infty)$ then there must exist an index $j$ such that $A_j = (b,\infty)$ with $a < b$ and $\bigcup_{i \ne j} A_i = (a, b]$. In this case we get
+\[
+	\mu_F(\bigcup_{i \ge 1} A_i) = 1 - F(a) = 1 - F(b) + F(b) - F(a) = \mu_F(A_j) + \mu_F(\bigcup_{i \ne j} A_i).
+\]
+From this we see that it is enough to prove~\eqref{eq:construction_rv_sig_add} for the case where all sets are of the form $(a,b]$.
+
+%
+%Let us first consider two disjoint sets $A, B$ such that $A \cup B \in \mathcal{S}$. Then, we may assume that $A = (a,b]$ and either $B = (b, c]$ or $B = (b, \infty)$. In the first cases we have that
+%\[
+%	F(c) - F(a) = \mu_F(A\cup B) = F(c) - F(b) + F(b) - F(a) = \mu_F(A) + \mu_F(B), 
+%\]
+%while in the second case it holds that
+%\[
+%	1 - F(a) = \mu_F(A \cup B) = 1 - F(b) + F(b) - F(a) = = \mu_F(A) + \mu_F(B).
+%\]
+%This argument can be trivially extended to any finite number of disjoint sets and we thus conclude that 
+%\begin{equation}
+%	\mu_F(\bigcup_{i = 1}^N A_i) = \sum_{i = 1}^N \mu_F(A_i)
+%\end{equation}
+%holds for any finite number of disjoint sets $A_i$ whose union is in $\mathcal{S}$.
+
+
+Consider first a countable families of disjoint sets of the form $A_i = (a_i, a_{i-1}]$ for some non-increasing sequence $(a_i)_{i \ge 1}$ with $a_0 = b$ and $\lim_{i \to \infty} a_i = a$. This implies that $\bigcup_{i \ge 1} A_i = (a, b]$. Using that $F$ is right-continuous we get
+\begin{align*}
+	\mu_F(\bigcup_{i \ge 1} A_i) &= F(b) - F(a) = F(b) - \lim_{N \to \infty} F(a_N) \\
+	&= \lim_{N \to \infty} \sum_{i = 1}^N F(a_{i-1}) - F(a_i) = \lim_{N \to \infty} \sum_{i = 1}^N \mu_F(A_i) 
+	= \sum_{i \ge 1} \mu_F(A_i).
+\end{align*}
+
+Now let $(A_i)_{i \ge 1}$ be a general family of disjoint sets of the form $(c,d]$ with $\bigcup_{i \ge 1} A_i = (a, b]$. The main idea is that we can order these sets into groups of sets that are of the previous form. We can then chain the result we obtained to prove that~\eqref{eq:construction_rv_sig_add} holds.
+
+To this end we observe that the sets $(A_i)_{i \ge 1}$ can be ordered into at most countable groups $(C_n)_{n \ge 1}$, such that each group $C_n$ consists of intervals $A_{n_i} = (a_{n_i}, b_{n_i}]$ with $b_{n_1} \le b$, $a_{n_{i}} = b_{n_{i+1}}$ for all $i \ge 1$ and $\lim_{i \to \infty} a_{n_i} := a_n \ge a$. With this notation we have that $\bigcup_{i \ge 1} A_{n_i} = (a_n, b_n]$. Moreover, we can choose the ordering such that $b_1 = b$, $a_n = b_{n-1}$ for all $n \ge 2$ and $\lim_{n \to \infty} a_n = a$.
+
+Putting this together we have
+\begin{align*}
+	\sum_{i = 1}^\infty \mu_F(A_i) &= \sum_{n = 1}^\infty \sum_{i = 1}^\infty \mu_F(A_{n_i}) \\
+	&= \sum_{n = 1}^\infty \mu_F(\bigcup_{i \ge 1} A_{n_i})\\
+	&= \sum_{n = 1}^\infty F(b_n) - F(a_n) \\
+	&= F(b) - \lim_{n \to \infty} F(a_n) \\
+	&= F(b) - F(a) = \mu_F((a,b]) = \mu_F(\bigcup_{i \ge 1} A_i),
+\end{align*}
+where we used the previous result in the third line and again in the forth one.
+
+We thus conclude that~\eqref{eq:construction_rv_sig_add} holds and thus $\mu_F$ is $\sigma$-additive as required.
+
+\end{proof}
+
+%We will start this construction for a specific random variable and then use it to construct a random variable with any cumulative distribution function.
+
+The power of Theorem~\ref{thm:construction_random_variable} is that is guarantees the existence of random variables for any cdf $F$. However, the construction of the actual probability space (specifically the probability measure $\bbP$) is remains somewhat abstract. In some cases though, we can explicitly construct the probability space. This is true for one of the first random variables you encounter in any course in probability theory: \emph{standard uniform random variable}. 
+
+Recall that this is a random variable $U$ that takes values in $[0,1]$ and whose cdf satisfies 
+\begin{equation}\label{eq:cdf_uniform_rv}
+	F(t) = \begin{cases}
+		0 &\text{if } t < 0,\\
+		t &\text{if } 0 \le t\le 1,\\
+		1 &\text{if } t > 1.
+	\end{cases}
+\end{equation}
+
+While Theorem~\ref{thm:construction_random_variable} tells us that defining this $F$ is enough, we will construct an explicit probability space $(\Omega,\cF, \bbP)$ and a measurable function $U : \Omega \to \bbR$ such that $	\bbP\left(U^{-1}((-\infty,t])\right) = F(t)$.
+
+The following result shows that this is indeed possible. Moreover, in its proof we see a first nice usage of the Lebesgue measure.
+
+\begin{lemma}[Uniform random variable]\label{lem:uniform_random_variable}
+Let $\Omega = [0,1]$, denote the Borel \sigalg/ restricted to $[0,1]$ by $\cF = \cB_{[0,1]}$ and let $\bbP := \lambda|_{[0,1]}$ the Lebesgue measure restricted to $[0,1]$. Then the function $U(t) = \mathbf{1}_{(0,1]} \, t$ has a cdf that satisfies~\eqref{eq:cdf_uniform_rv}.
+\end{lemma}
+
+\begin{proof}
+First observe that the function $U(t)$ is measurable, as it is a product of an indicator and a continuous function. By definition of $U$ it follows that
+\[
+	U^{-1}((-\infty,t]) = \begin{cases}
+		\emptyset &\text{if } t \le 0,\\
+		(0,t] &\text{if } 0 < t \le 1, \\
+		[0,1] &\text{if } t > 1.
+	\end{cases}
+\]
+Since by Theorem~\ref{thm:lebesgue_measure}
+\[
+	\lambda|_{[0,1]}((0,t]) = \lambda((0,t]) = t,
+\]
+for any $0 < t \le 1$ we have
+\[
+	\bbP\left(U^{-1}((-\infty,t])\right) := \lambda|_{[0,1]}\left(U^{-1}((-\infty,t])\right)
+	= \begin{cases}
+		0 &\text{if } t < 0,\\
+		t &\text{if } 0 \le t\le 1,\\
+		1 &\text{if } t > 1.
+	\end{cases}\qedhere
+\]
+\end{proof}
+
+The construction of a standard uniform random variable is extremely important. This is because it can serve as the base from which we can construct any other random variable. To illustrate this we consider the case of an \emph{exponential random variable} with rate $\lambda > 0$. This is a random variable $X$ with cdf
+\[
+	F_X(t) = \begin{cases}
+		0 &\text{if } t \le 0,\\
+		1-e^{-\lambda t} &\text{if } t > 0.
+	\end{cases}
+\]
+
+For $u \in (0,1)$, write $H(u) := F_X^{-1}(u)$ and note that
+\[
+	H(u) = \frac{1}{\lambda} \log\left(\frac{1}{1-u}\right).
+\]
+Now let $U$ be a standard uniform normal random variable and consider the composition $H \circ U : [0,1] \to \bbR$. First, we note that since cdf $F_X(x)$ is strictly monotonic increase, so is $H$. In particular, it follows that for any $t > 0$,
+\[
+	H^{-1}((-\infty,t]) = (-\infty, H^{-1}(t)] = (-\infty, F_X(t)].
+\]
+While $H^{-1}((-\infty,t]) = \emptyset$ if $t \le 0$.
+
+Hence we get
+\begin{align*}
+	(H \circ U)^{-1}((-\infty, t]) = U^{-1}(H^{-1}((-\infty, t]))
+	&= \begin{cases}
+		U^{-1}(\emptyset) &\text{if } t \le 0,\\
+		U^{-1}((-\infty, F_X(t)]) &\text{if } t > 0.
+	\end{cases}
+\end{align*}
+From this it follows that 
+\[
+	\bbP\left((H \circ U)^{-1}((-\infty, t])\right) = \begin{cases}
+			0 &\text{if } t \le 0,\\
+			1-e^{-\lambda t} &\text{if } t > 0,
+		\end{cases}
+\]
+from which we conclude that $H \circ U$ is a way to construct an exponential random variable with rate $\lambda$.
+
+The main point of the construction above is to consider the inverse of the cdf $F^{-1}$ and evaluate this on a standard uniform random variable. However, when applying this method in a general case we run into the issue that not every cdf has an inverse. For example, consider a Bernoulli random variable with success probability $0 < p < 1$. Then
+\[
+	F(t) = \begin{cases}
+		0 &\text{if } t < 0, \\
+		1-p &\text{if } 0 \le t < 1, \\
+		1 &\text{if } t \ge 1,
+	\end{cases}
+\] 
+which does not have an inverse as for any $y \in (0,1-p)$ there is no $t$ such that $F(t) = y$. Still the idea of inverting the cdf can be extended to this case, using the so-called \emph{generalized inverse}. 
+
+\begin{proposition}[Constructing random variables II]\label{prop:construction_random_variable_inverse}
+Let $F : \bbR \to [0,1]$ be a cdf and define
+\[
+	\overleftarrow{F}(u) := \inf\{ x \in \bbR \, : \, F(x) \ge y\}.
+\]  
+Consider the probability space $([0,1], \cB_{[0,1]}, \lambda|_{[0,1]})$ and define $X = \overleftarrow{F}\circ U$, where $U(t) = \mathbf{1}_{(0,1]} \, t$ is the standard uniform random variable. Then $X$ is a random variable with $\bbP(X \le t) = F(t)$.
+\end{proposition}
+
+\begin{proof}
+See Problem~\ref{prb:construction_random_variable_inverse}
+\end{proof}
+
+The definition of $X$ as given in Proposition~\ref{prop:construction_random_variable_inverse} is a procedure that is often referred to as the \emph{distribution inversion method}. Due to its explicit and general nature, it can be used to generate random variables in on computers, based on a good pseudo-random number generator (which takes the role of the uniform random variable).
+
+We end this section with an important remark for working with random variables, and random objects in general.
+
+\begin{remark}[Probability spaces are implicit!]
+It is important to note that even though we sometimes have a very explicit probability space to definee a random variable $X$, in general the probability space will often be \emph{implicit}. That is, if we say that $X$ is a random variable, we assume there is some probability space $(\Omega,\cF, \bbP)$ that makes $X$ into a measurable function with the right cdf. 
+
+Actually, when considering general random objects in $(E, \cG)$ we often also do not explicitly state or define the probability space. Since the relevant measure is defined through the push-forward, we often only have to worry about taking the right measurable space $(E, \cG)$.
+
+There are, however, some cases where one should be cautious about the probability space that is used. For example when considering the notion of \emph{convergence in probability} or \emph{almost sure convergence} (see Section~\ref{ssec:almost_sure_convergence}). Or when constructing joint distributions of random variables as we will see in Section~\ref{sec:multi_variate_rvs}. 
+\end{remark}
+
+\section{Discrete and continuous random variables}
+
+Most basic courses in probability theory make a distinction between two classes of random variables: \emph{discrete} and \emph{continuous}. In this section we will put these concepts into the framework of measure theory and provide definitions for the probability mass function and the probability density function.
+
+\subsection{Discrete random variables}
+We say that a random variable $X$ is discrete if there exists a countable (possibly infinite) set $N \subset \bbR$ such that $X(\omega) \in N$ for all $\omega \in \Omega$. 
+
+In practice, and throughout these lecture notes, we only consider discrete random variables $X$ whose outcomes are in $\bbZ$. In Problem~\ref{prb:discrete_rv_on_Z} you can show that this can be done without loss of generality. 
+
+A key concept for discrete random variables is the \emph{probability mass function} (pmf), which is often defined as $f(j) = \bbP(X = j)$ for $j \in \bbZ$. The next result shows that any discrete random variable has a pmf.
+
+\begin{lemma}[Probability mass function]\label{lem:existence_pmf}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X$ a discrete random variable, i.e. $X(\omega) \in \bbZ$ for all $\omega \in \Omega$. Then there exists a sequence $(p_j)_{j \in \bbZ}$ with $\sum_{j \in \bbZ} p_j = 1$ such that for any measurable set $A$,
+\[
+	\bbP(X \in A) = \sum_{j \in \bbZ} \delta_j(A) p_j.
+\]
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:discrete_rv_has_pmf}.
+\end{proof}
+
+With this result, we can now formally define the \emph{probability mass function} (pmf) of $X$ as a function $f : \bbZ \to [0,1]$ given by $f(j) = p_j$.
+
+Note that with this definition we indeed have
+\[
+	F(t) = \sum_{j = -\infty}^t p_j
+\]
+and that
+\[
+	f(j) = \bbP(X = j).
+\]
+
+Below are some examples of some classical discrete random variables.
+
+\begin{example}\hfill
+\begin{enumerate}[label=(\alph*)]
+\item \textit{Bernoulli}: Let $p \in [0,1]$. A random variable $X : \Omega \to \{0,1\}$ with $\bbP(X = 1) = p$ is called a \emph{Bernoulli random variable} with success probability $p$.
+\item \textit{Binomial}: Let $n \in \mathbb{N}$ and $p \in [0,1]$. A random variable $X : \Omega \to \mathbb{N}_0$ with $\bbP(X = j) = \binom{n}{j} p^j (1-p)^{n-j}$ is called a \emph{Binomial random variable} with $n$ trials and success probability $p$
+\item \textit{Poisson}: Let $\lambda > 0$. A random variable $X : \Omega \to \mathbb{N}_0$ with $\bbP(X = j) = \frac{\lambda^j}{j!} e^{-\lambda}$ is called a \emph{Poisson random variable} with mean $\lambda$.
+\end{enumerate}
+\end{example}
+
+\subsection{Continuous random variables}\label{ssec:contrinuous_rv}
+
+In contrast to discrete random variables, we say a random variable $X$ is \emph{continuous} if there exist a family  $(\mathcal{I}_i)_{i \in I}$ of pairwise disjoint open intervals such that $\mathrm{im}(X) = \bigcup_{i \in I} \mathcal{I}_i$.
+A concept for continuous random variables related to that of the probability mass function is the probability density function. 
+
+\begin{definition}[Probability density function]\label{def:pdf}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space and $X$ a continuous random variable. We say that $X$ has a \emph{probability density function} (pdf) $\rho : \bbR \to [0,\infty)$, if for every $t \in \bbR$,
+\[
+	X_\# \bbP((-\infty , t]) \, (= \bbP(X \le t)) = \int_{(-\infty,t]} \rho \, \dd \lambda.
+\]
+In particular, a probability density function must be integrable.
+\end{definition}
+
+Note that unlike a probability mass function, a probability density function can yield values larger than $1$. An example of this is the pdf for a continuous uniform random variable on $[0,1/2]$, which is given by $\rho(x) = 2 \mathbf{1}_{x \in [0,1/2]}$.
+
+Technically, the notion of a probability density can be defined for any random variable $X$. However, unlike the pmf for discrete random variables, not all random variables, including continuous ones, have a pdf (see Problem~\ref{prb:no_pdf}).
+
+The following classical examples of continuous random variables do all have a pdf.
+
+\begin{example}\hfill
+\begin{enumerate}[label=(\alph*)]
+\item \textit{Exponential}: Let $\lambda > 0$. A random variable $X : \Omega \to \bbR_+$ with pdf $\rho(x) = \lambda e^{-\lambda x}$ is called an \emph{Exponential random variable} with rate $\lambda$.
+\item \textit{Normal}: Let $\mu \in \bbR$ and $\sigma > 0$. A random variable $X : \Omega \to \bbR_+$ with pdf $\rho(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-(x - \mu)^2/(2\sigma^2)}$ is called a \emph{Normal random variable} with mean $\mu$ and variance $\sigma^2$.
+\item \textit{Pareto}: Let $\xi, \alpha > 0$. A random variable $X : \Omega \to [\xi, \infty)$ with pdf $\rho(x) = \frac{\alpha \xi^\alpha}{x^{\alpha +1}}$ is called a \emph{Pareto random variable} with scale $\xi$ and shape $\alpha$.
+\end{enumerate} 
+\end{example}
+
+
+
+\section{Expected value of random variables}
+
+One of the first things you learn to compute for a random variable is its \emph{expected value}, often denoted as $\bbE[X]$. Armed with the definition of random variables and the notion of integration we can formally define what the expected value of a random variable is.
+
+\begin{definition}[Expected value]\label{def:expectation_random_variable}
+Let $(\Omega. \cF, \bbP)$ be a probability space and $X$ and random variable. Then
+\[
+	\bbE[X] := \int_\Omega X \, \dd \bbP.
+\]
+\end{definition}
+
+
+
+In the course Probability and Modeling you have seen the following definition of the expected value of $h(X)$, where $h$ is a function and $X$ a discrete random variable:
+\[
+	\bbE[h(X)] = \sum_{j \in \bbZ} j \bbP(h(X) = j).
+\]
+The following result, called the law of the unconscious statistician, expressed this in terms of the pmf of $X$:
+\[
+	\bbE[h(X)] = \sum_{j \in \bbZ} h(j) p(j).
+\] 
+
+We will now use the change of variables proposition to prove this result, given the general definition for the expected value in Definition~\ref{def:expectation_random_variable}.
+
+
+\begin{lemma}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ be a discrete random variable and consider a function $h : \bbR \to \bbR$ such that $h\circ X$ is $\bbP$-integrable. Then
+\[
+	\bbE[h(X)] = \sum_{j \in \bbZ} h(j) p(j),
+\] 
+where $p$ is the pmf of $X$.
+\end{lemma}
+
+\begin{proof}
+Recall the definition of the positive and negative part of a measurable function $f$, denoted by respectively $f^+$ and $f^-$. Further, recall that 
+\[
+	\int_\Omega f \, \dd \mu := \int_\Omega f^+ \, \dd \mu - \int_\Omega f^- \, \dd \mu 
+\] 
+Now, for any $n \in \bbN$ define the functions
+\[
+	g_n^\pm = \sum_{j = -n}^n (h \circ X)^\pm \mathbf{1}_{X^{-1}(j)}.
+\]
+Then $g_n^\pm \le g_{n+1}^\pm$ and
+\[
+	\lim_{n \to \infty} g_n^\pm = (h \circ X)^\pm.
+\]
+Then, using the monotone convergence theorem we get
+\begin{align*}
+	\int_\Omega (h \circ X)^\pm \, \dd \bbP &= \int_\Omega \lim_{n \to \infty} g_n^\pm \, \dd \bbP\\
+	&= \lim_{n \to \infty} \int_\Omega g_n^\pm \, \dd \bbP \\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n \int_\Omega (h \circ X)^\pm \mathbf{1}_{X^{-1}(j)} \, \dd \bbP\\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n \int_{X^{-1}(j)} h^\pm(j) \, \dd \bbP\\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n h^\pm(j) \bbP(X^{-1}(j)) \\
+	&= \lim_{n \to \infty} \sum_{j = -n}^n h^\pm(j) p(j) = \sum_{j \in \bbZ} h^\pm(j) p(j).
+\end{align*}
+Since $h\circ X$ is $\bbP$-integrable if and only if its positive and negative part are, we conclude that
+\[
+	\int_\Omega (h \circ X) \, \dd \bbP = \int_\Omega (h \circ X)^+ \, \dd \bbP
+	- \int_\Omega (h \circ X)^- \, \dd \bbP = \sum_{j \in \bbZ} h(j) p(j).
+\]
+\end{proof}
+
+Let us now turn to the other class of random variables: continuous random variables. Here we introduced the notion of a \emph{probability density function} $\rho$ so that $F(t)$ was equal to the integral of $\rho$ on $(-\infty,t]$. 
+
+Now recall that in the case of a continuous random variable $Y$ with a probability density $\rho$, there was also a formula for the expected value,
+\[
+	\bbE[h(Y)] = \int_\bbR h(x) \rho(x) \, \dd x.
+\]
+Again, this formula is correct (under some mild obvious conditions) and follows from Definition~\ref{def:expectation_random_variable} after applying a change of variables. The proof of this result is left as an exercise.
+
+\begin{lemma}\label{lem:expectation_continuous_random_variable}
+Let $(\Omega, \cF, \mathbb{P})$ be a probability space, $X$ a continuous random variable with probability density $\rho$ and let $h : \bbR \to \bbR$ be a measurable function such that $h \rho$ is Lebesgue integrable. Then
+\[
+	\bbE[h(X)] = \int_\bbR h \rho \, \dd \lambda.
+\]
+\end{lemma}
+
+\begin{proof}
+See problem~\ref{prb:expectation_continuous_random_variable}
+\end{proof}
+
+\section{Multi-variate random variables}\label{sec:multi_variate_rvs}
+
+Up until now we have mainly focused on single random variables, i.e. just one measurable function $X : \Omega \to \bbR$. However, within the context of probability theory one also often encounters several random variables at once. An example of this are random vectors in $\bbR^d$ (see Example~\ref{example:random_elements}). To keep the exposition simple we will cover the case of two random variables ($d = 2$) in this section. Extension to general $d$ dimensions is straightforward. 
+
+Suppose $(\Omega, \cF, \mathbb{P})$ is a probability space and $X, Y$ are two random variables defined on this space. We can then consider the random vector $(X,Y)$, define as the map $\omega \mapsto (X(\omega), Y(\omega))$, which yields a random element in $\bbR^2$. We can then consider the function $H : \bbR^2 \to \bbR$ defined as
+\[
+	H(x,y) = \mathbb{P}\left((X,Y) \in (-\infty ,x] \times (-\infty, y]\right) = \mathbb{P}(X \le x, Y \le y).
+\]
+This function is called the \emph{joint cumulative distribution function} of $X$ and $Y$. 
+
+Similar to the case of a single random variables, we are used to the fact that a joint cdf is enough to jointly define the random variables $X$ and $Y$. However, as was the case in one dimension, we have to construct a probability space on which both $X$ and $Y$ are defined such that $H = (X, Y)\# \mathbb{P}$. 
+
+
+The next theorem, which is similar in spirit to Theorem~\ref{thm:construction_random_variable}, shows that this is indeed true. 
+
+\begin{theorem}[Constructing multivariate random variables]\label{thm:construction_multivatiate_rv}
+Let $F_1, F_2$, be two cdfs and let $H: \bbR^2 \to \bbR$ be a measurable function such that
+\begin{enumerate}
+\item For any $y \in \bbR$, $\lim_{x \to \infty} H(x,y) = F_1(x)$; 
+\item For any $x \in \bbR$, $\lim_{y \to \infty} H(x,y) = F_2(y)$;
+\item $\lim_{(x,y) \to (\infty, \infty)} H(x,y) = 1$;
+\item For any $x,y \in \bbR$, $\lim_{t \to -\infty} H(x,t) = 0 = \lim_{t \to -\infty} H(t,y)$.
+\end{enumerate}
+Then there exists a probability space $(\Omega, \cF, \mathbb{P})$ and random variables $X$ and $Y$ with cdfs, $F_1$ and $F_2$ respectively, such that
+\[
+	H(x,y) = \mathbb{P}\left((X,Y) \in (-\infty ,x] \times (-\infty, y]\right).
+\]
+\end{theorem}
+
+\begin{proof}
+The proof is done by extending the ideas in the proof of Theorem~\ref{thm:construction_random_variable} to the two-dimensional case and is left as an exercise (see Problem~\ref{prb:construction_multivatiate_rv}).
+\end{proof}
+
+\section{Problems}
+
+\begin{problem}
+Let $X,Y$ be two random variables with cdfs $F_X$ and $F_Y$, respectively. 
+\begin{enumerate}[label=(\alph*)]
+\item Prove that if $F_X(t) = F_Y(t)$ for every $t \in \bbR$, then $X_\# \bbP = Y_\# \bbP$. 
+\end{enumerate}
+The above relation is often denoted as $X \stackrel{d}{=} Y$ ($X$ is equal to $Y$ in distribution). Basically, this definition says that two random variables are considered equal if their distribution functions are the same, which is implied by the equality of their cdfs. However, the use of the equality sign can be slightly misleading.
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{1}
+\item Let $X$ be a random variable. Construct a random variable $Y$ such that $X_\# \bbP = Y_\# \bbP$, but $X \ne Y$ as functions $\Omega \to \bbR$.
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}\label{prb:construction_random_variable_inverse}
+Here we prove Proposition~\ref{prop:construction_random_variable_inverse}. 
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\overleftarrow{F}(u) \le x \iff F(x) \ge u$.
+\item Prove that $\bbP\left(X^{-1}((-\infty,t])\right) = F(t)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+In this problem we use Proposition~\ref{prop:construction_random_variable_inverse} to explicitly construct two random variables $X$ and $Y$ such that $X$ is \emph{Poisson} distributed with parameter $\lambda>0$, and $Y$ is \emph{Cauchy} distributed with parameter $\gamma>0$. 
+
+For this we define the Poisson probability mass function (pmf)
+\begin{equation}
+	f_\lambda(n) := \frac{e^{-\lambda}\lambda^n}{n!},\qquad \forall\,n\in\bbN,
+\end{equation}
+and the Cauchy cumulative distribution function (cdf)
+\begin{equation}
+	H_\gamma(z) := \frac{1}{\pi}\arctan\left(\frac{z}{\gamma}\right) + \frac{1}{2},\qquad \forall\,z\in\bbR.
+\end{equation}
+
+We will first construct the Cauchy random variable.
+\begin{enumerate}[label=(\alph*)]
+\item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide an explicit formula for the function $Y\colon \Omega\to\bbR$ such that $Y_\# \bbP = H_\gamma$.
+\item Show that the function from 1 is measurable.
+\end{enumerate}
+
+For the Poisson random variable we first need to go from the pmf to its cdf.
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{2}
+\item Express the cumulative distribution function $F_\lambda$ for a Poisson random variable in terms of the pmf $f_\lambda$.
+\item Define an explicit probability space $(\Omega, \cF, \bbP)$ and provide a formula for the function $X\colon \Omega\to\bbR$ such that $X_\# \bbP = F_\lambda$.
+\item Show that the function from 4 is measurable.
+\item Show that for any $n \in \bbN$ $X_\# \bbP (\{n\}) = f_\lambda(n)$.
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}\label{prb:discrete_rv_on_Z}
+Here you will show that without loss of generality we can consider discrete random variables as measurable functions $X: \Omega \to \bbZ$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $N_1 \subset [0,\infty)$ be a countable set. Construct a subset $Z_1 \subseteq \bbZ_{\ge 0}$ and a bijection $\phi_1 : N_1 \to \bbZ_{\ge 0}$.
+\item Let $N_2 \subset (-\infty,0)$ be a countable set. Construct a subset $Z_2 \subseteq \bbZ_{< 0}$ and a bijection $\phi_2 : N_2 \to \bbZ_{< 0}$.
+\item Conclude that for any countable set $N \subset \bbR$ there exists a $Z \subseteq \bbZ$ and a bijection $\phi : N \to Z$. 
+\item Prove that this bijection is measurable.
+\item Now let $Y : \Omega \to \bbZ$ be defined as $Y(\omega) = \phi(X(\omega))$. Show that $Y$ is a discrete random variable and that its cdf completely determines the cdf of $X$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:discrete_rv_has_pmf}
+Prove Lemma~\ref{lem:existence_pmf}
+\end{problem}
+
+\begin{problem}\label{prb:no_pdf}
+In this exercise we will see that not all random variables have probability density functions. We start with a very simple case.
+\begin{enumerate}[label=(\alph*)]
+\item Let $X : \Omega \to \bbZ$ be a discrete random variable. Prove that $X$ does not have a pdf.
+\end{enumerate}
+
+You might be inclined to think that the problem with existence of pdfs lies with the discrete nature. Suppose the following two properties are satisfied:
+\begin{enumerate}
+\item There exists a uncountable set $C \subset [0,1]$ that has Lebesgue measure zero,
+\item There exists a continuous increasing function $F: [0,1] \to [0,1]$ that is constant outside $C$, $f(c) = 0$ for all $c \in C$, $F(0) = 0$ and $F(1) = 1$.
+\end{enumerate}
+
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{1}
+\item Let $X : \Omega \to [0,1]$ be a random variable with cdf given by the function $F$ described above. Show that $X$ does not have a pdf.
+\end{enumerate}
+
+The setting we described above does occur and is a classical example for a continuous random variable in $\bbR$ that does not have a pdf. The set $C$ is called the Cantor set and the function $F$ is constructed using the so-called the Cantor function. 
+
+Simple example of continuous stochastic objects without pdfs exist for higher dimensions, for example $\bbR^2$. And we will come back to this in a later chapter [REF].
+\end{problem}
+
+\begin{problem}\label{prb:expectation_continuous_random_variable}
+The goal of this problem is to prove Lemma~\ref{lem:expectation_continuous_random_variable}. 
+
+Consider the set function
+\[
+	\nu\colon \cB_{\bbR} \to [0,+\infty],\qquad\nu(A) := \int_A \rho\, \dd \lambda,
+\]
+which is a measure on the Borel \sigalg/ by Problem~\ref{prb:measure}.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that $\nu = X_\# \bbP$.
+\item Let $g : \bbR \to \bbR$ be a simple function. Show that
+\[
+	\int_\bbR g \, \dd \nu = \int_\bbR g \rho \, \dd \lambda.
+\]
+\end{enumerate}
+
+Now consider the general case, with $h : \bbR \to \bbR$ a measurable function such that $h \rho$ is Lebesgue integrable. Consider now the approximation of $h$ by the simple functions $([h]_n)_{n \ge 1}$ defined in Section~\ref{sec:simple-approximation}.
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{2}
+\item Prove that 
+\[
+	\int_\bbR h \, \dd \nu = \int_\bbR h \rho \, \dd \lambda.
+\]
+[Hint: use monotone convergence]
+\item Prove Lemma~\ref{lem:expectation_continuous_random_variable}.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Markov's and Chebyshev's inequality]\label{prb:markov_chebyshev}
+A key result in Probability theory is \emph{Markov's inequality}, which for any $t>0$ is stated as follows
+\[
+	\mathbb{P}(|X| \geq t) \leq \frac{1}{t} \mathbb{E}[|X|].
+\]
+Another classical result is \emph{Chebyshev's inequality}\footnote{Recall that $\mathrm{Var}(X) = \bbE[X^2] - \bbE[X]^2$}
+\[
+	\bbP(|X - \bbE[X]| \ge t) \le \frac{\mathrm{Var}(X)}{t^2}.
+\]
+Here, you will use the tools from measure theory to prove both statements.
+\begin{enumerate}[label=(\alph*)]
+\item Let $(\Omega,\cF,\mu)$ be a measure space and $f\colon \Omega\to \overline{\bbR}$ be an $(\cF,\overline\cB)$-measurable function. Show that for any real number $t>0$ and $p\in(0,+\infty)$, it holds that
+\[
+	\mu\bigl(\{\omega\in\Omega : |f(\omega)|\ge t\}\bigr) \le \frac{1}{t^p}\int_\Omega |f|^p\,\dd\mu.
+\]
+
+[Hint: Consider the integral of $|f|^p$ on the subset $\{|f|\ge t\}$]
+%The result follows easily from
+%	\[
+%		\int_\Omega |f|\,\dd \mu \ge \int_{\{|f|\ge t\}} |f|\,\dd \mu \ge t\,\mu\bigl(\{|f|\ge t\}\bigr)  \qedhere
+%	\]
+\item Prove Markov's inequality. [Hint: use $p = 1$]
+\item Prove Chebyshev's inequality. [Hint: use $p = 2$]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:construction_multivatiate_rv}
+
+\end{problem}

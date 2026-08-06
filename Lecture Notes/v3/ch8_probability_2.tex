@@ -1,0 +1,601 @@
+
+Consider a sequence $(X_n)_{n \ge 1}$ of random variables. Similar to the setting of real numbers, we would like to have a notion of convergence of this sequence. In other words, we would like to say that $X_n \to X$ where $X$ is a different random variable. It turns out that there are different ways to define the concept of convergence of random variables. In this section, we will discuss three of them: convergence in distribution, convergence in probability, and almost sure convergence. While the last one has a more straightforward definition (see Definition~\ref{def:almost_sure_convergence}) the other two rely on the notion of weak convergence of finite measures, which discussed in Section~\ref{sec:weak_convergence_finite_measures}.
+
+\section{Convergence in distribution}
+
+Convergence in distribution of a sequence $(X_n)_{n \ge 1}$ is defined as weak convergence of the corresponding probability measures.
+
+\begin{definition}[Convergence in distribution]\label{def:convergence_distribution}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables, possibly defined on different probability spaces with probability measures $\bbP_n$ and $\bbP$, respectively. We say that $X_n$ \emph{converges in distribution} to $X$ if
+\[
+	(X_n)_\# \bbP_n \Rightarrow X_\# \bbP.
+\]
+If this is the case write we $X_n \stackrel{d}{\rightarrow} X$.
+\end{definition}
+
+Note that convergence in distribution of random variables is simply defined as weak convergence of their push-forward measures on $(\bbR, \cB_\bbR)$. This might seem strange to those who have encountered the \emph{more standard} definition used in courses on Probability Theory. There $X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$, with $F_n$ and $F$ denoting the cdfs of $X_n$ and $X$ respectively.
+
+But fear not; this definition is simply an equivalent statement for Definition~\ref{def:convergence_distribution}. 
+
+
+\begin{lemma}\label{lem:convergence_distribution_cdfs}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables and denote by, respectively, $F_n$ and $F$ their associated cdfs. Then
+$X_n \stackrel{d}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} F_n(t) = F(t)
+\]
+holds for all continuity points $t$ of $F$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:convergence_distribution}.
+\end{proof}
+
+
+\section{Convergence in probability}
+
+While convergence in distribution is can be understood as point-wise convergence of the cdfs (see Lemma~\ref{lem:convergence_distribution_cdfs}), convergence in probability looks at the difference $|X_n - X|$ as a random variable and requires this to converge to the constant zero random variable.
+
+\begin{definition}[Convergence in probability]\label{def:convergence_probability}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables that are defined on the \emph{same} probability space $(\Omega, \cF, \bbP)$ and define the random variable $Y_n := |X_n - X|$. We say that $X_n$ \emph{converges in probability} to $X$ if
+\[
+	(Y_n)_\# \bbP \Rightarrow 0_\# \bbP,
+\] 
+where $0$ denotes the constant function $\omega \mapsto 0$. If this is the case, we write $X_n \stackrel{\bbP}{\rightarrow} X$.
+\end{definition}
+
+\begin{remark}
+Note that, unlike convergence in distribution, the concept of convergence in probability requires all random variables to be defined on the same probability space. This requirement can be relaxed a bit by having each $X_n$ be defined on a different probability space $(\Omega_n, \cF_n, \bbP_n)$ but have $X$ be defined on each of these spaces. From this perspective, we see that if we talk about convergence in probability to a constant $X_n \plim a \in \bbR$, then this is always true as constant random variables can be defined on any probability space.
+\end{remark}
+
+Recall that for a random variable $X$ on a probability space $(\Omega, \cF, \bbP)$ we wrote $\bbP(X \le t)$ as a short hand notation for $X_\# \bbP ((-\infty,t])$, i.e., the cdf of $X$ at $t$, and $\bbP(X > t)$ for $X_\# \bbP ((t,\infty))$, i.e., $1$ minus the cdf of $X$ at $t$.
+
+The following result relates the definition of convergence in probability to a version that is presented in most probability courses.
+
+\begin{lemma}\label{lem:convergence_probability_classical}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space. Then $X_n \stackrel{\bbP}{\rightarrow} X$ if and only if
+\[
+	\lim_{n \to \infty} \bbP(\|X_n - X\| > \varepsilon) = 0 \quad \text{for every } \varepsilon > 0.
+\]
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:convergence_probability_classic}
+\end{proof}
+
+
+The notion of convergence in probability is a stronger condition than convergence in distribution. In particular, the first statement implies the second. 
+
+\begin{lemma}\label{lem:convergence_prob_implies_d}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \plim X$. Then $X_n \dlim X$.
+\end{lemma}
+
+\begin{proof}
+We will use the equivalent definition given by Lemma~\ref{lem:convergence_probability_classical}. Denote by $F_n$ and $F$ the cdfs of $X_n$ and $X$, respectively. We will also write $\bbP(X > t)$. Let $t$ be a continuity point of $F$ and fix some $\varepsilon > 0$. First we note that if $X_n \le t$ and $|X-X_n|\le \varepsilon$ then $X \le t + \varepsilon$. We thus obtain
+\begin{align*}
+	\bbP(X_n \le t)
+	&= \bbP(\{X_n \le t\} \cap \{|X_n - X| \le \varepsilon\}) + \bbP(\{X_n \le t\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X \le t + \varepsilon) + \bbP(|X_n - X| > \varepsilon).
+\end{align*}
+Taking the limsup on both sides yields
+\[
+	\limsup_{n \to \infty} \bbP(X_n \le t)
+	\le \bbP(X \le t + \varepsilon) + \limsup_{n \to \infty} \bbP(\|X_n - X| > \varepsilon)
+	= \bbP(X \le t + \varepsilon),
+\]
+since $X_n \plim X$ implies that
+\[
+	\limsup_{n \to \infty} \bbP(|X_n - X| > \varepsilon)
+	= \lim_{n \to \infty} \bbP(|X_n - X| > \varepsilon) = 0.
+\]
+Since $t$ is a continuity point of $F$ it follows that 
+\[
+	\lim_{\varepsilon \downarrow 0} \bbP(X \le t + \varepsilon) = \bbP(X \le t),
+\]
+which implies that $\limsup_{n \to \infty} \bbP(X_n \le t) \le \bbP(X \le t)$.
+
+To prove the result, it now suffices to show that $\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t)$.
+We shall do this in a way that is similar to the case with the limsup. First observe that $X \le t - \varepsilon$ and $|X_n - X| \le \varepsilon$ implies that $X_n \le t$. This way we get
+\begin{align*}
+	\bbP(X \le t - \varepsilon)
+	&= \bbP(\{X \le t - \varepsilon\} \cap \{|X_n -X|\le \varepsilon\}) + \bbP(\{X \le t - \varepsilon\} \cap \{|X_n - X|>\varepsilon\})\\
+	&\le \bbP(X_n \le t) + \bbP(|X_n - X| > \varepsilon).
+\end{align*}
+Taking the liminf on both sides gives
+\[
+	\bbP(X \le t - \varepsilon)
+	\le \liminf_{n \to \infty} \bbP(X_n \le t),
+\]
+and using that $t$ is a continuity point of $F_X$ we conclude that 
+\[
+	\bbP(X \le t) \le \liminf_{n \to \infty} \bbP(X_n \le t).\qedhere
+\]
+\end{proof}
+
+While convergence in probability implies convergence in distribution, the other implication is not true in general (see Problem~\ref{prb:dlim_not_plim}). However, if $X$ is constant (deterministic instead of random) then both notions of convergence are equivalent.
+
+\begin{lemma}{}\label{lem:dlim_constant_plim}
+Let $(X_n)_{n \ge 1}$ be a sequence of random variables such that $X_n \dlim a$ for some constant $a \in \mathbb{R}$. Then we also have that $X_n \plim a$.
+\end{lemma}
+
+\begin{proof}
+We again use the equivalent definition given by Lemma~\ref{lem:convergence_probability_classical}. Fix some $\varepsilon > 0$. We have to show that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0.
+\]
+Let $B_\varepsilon(a)$ denote the open ball of radius $\varepsilon$ around $a$ and consider the compliment $B_\varepsilon^c(a) := \mathbb{R} \backslash B_\varepsilon(a)$, which is a closed set. We then have
+\[
+	\bbP(|X_n-a|>\varepsilon) \le \bbP(|X_n-a|\ge\varepsilon) = \bbP(X_n \in B_\varepsilon^c(a)). 
+\]
+In particular we have
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) \le \limsup_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a)).
+\]
+Since $X_n \dlim a$, statement 3 in Theorem~\ref{thm:portmanteau} implies that 
+\[
+	\limsup_{n \to \infty} \bbP(X_n \in B_\varepsilon^c(a))
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0,
+\]
+because obviously $a \notin B_\varepsilon(a)^c$. Therefore we conclude that
+\[
+	\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon)
+	\le \limsup_{n \to \infty} \bbP(a \in B_\varepsilon^c(a)) = 0
+\]
+which implies that $\lim_{n \to \infty} \bbP(|X_n-a|>\varepsilon) = 0$.
+\end{proof}
+
+
+\section{Almost-sure convergence}\label{ssec:almost_sure_convergence}
+
+The final notion of convergence we will discuss is \emph{almost-sure convergence}, which looks much more natural than the previous two notions and requires less notation.
+
+\begin{definition}[Almost-sure convergence]\label{def:almost_sure_convergence}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. We say that $X_n$ \emph{converges almost-surely} to $X$ if
+\[
+	\bbP(\{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}) = 1.
+\] 
+In this case we write $X_n \aslim X$.
+\end{definition} 
+
+The definition of almost-sure convergence says that the set for which $X$ is \emph{not} the limit of $X_n$ must have probability zero. This is why it is also often referred to as \emph{convergence with probability $1$}.
+
+Note that similar to convergence in probability, almost-sure convergence by its definition only makes sense if all random variables are defined on the same probability space. 
+
+There is a different way to characterize \emph{almost-sure} convergence which is often useful. This requires the concept of \emph{infinitely often}.
+
+\begin{definition}[Infinitely often]\label{def:infinitely_often}
+Let $(\Omega, \cF, \bbP)$ be a probability space and consider a sequence $(A_n)_{n \ge 1}$ of measurable sets. We then define the event $\{A_n \text{ i.o.}\}$ ($A_n$ happens infinitely often) as
+\[
+	\{A_n \text{ i.o.}\} := \bigcap_{k = 1}^\infty \bigcup_{n \ge k} A_n.
+\]
+\end{definition}
+
+The use of the term \emph{infinitely often} for the event defined in Definition~\ref{def:infinitely_often} can be understood as follows: If $\{A_n \text{ i.o.}\} \ne \emptyset$ then term must exist $\omega \in \Omega$ such that $\omega \in \bigcup_{n \ge k} A_n$ for all $k \ge 1$. This implies that no mater how large you pick $k$, there will always be and $A_n$ with $n \ge k$ such that $\omega \in A_n$, i.e. there are infinitely many $A_n$ that share the same element $\omega$ and thus happen for this element.
+
+The alternative definition of almost-sure convergence $X_n \aslim X$ is is that the probability that $|X_n - X|$ is arbitrarily small infinitely often is zero.
+
+\begin{lemma}\label{lem:almost_sure_alternative}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space $(\Omega, \cF, \bbP)$. Then
+\[
+	X_n \aslim X \iff \bbP(\|X_n - X\| > \varepsilon \text{ i.o.}) = 0 \quad \text{for all } \varepsilon > 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $A_n(\varepsilon) :=  \{\|X_n - X\| > \varepsilon\}$ and $A = \{\omega \in \Omega \, : \, \lim_{n \to \infty} X_n(\omega) = X(\omega)\}$. We first observe that
+\[
+	\Omega\backslash A = \bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}.
+\]
+
+Now suppose that $X_n \aslim X$ and let $\varepsilon > 0$. Then $\bbP(A) = 1$ and there exist a $m \in \bbN$ such that $\{A_n(\varepsilon) \text{ i.o.}\} \subset \{A_n(1/m) \text{ i.o}\}$. Thus
+\[
+	\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) \le \bbP(\{A_n(1/m) \text{ i.o.}\}) \le \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) = \bbP(\Omega \backslash A) = 0.
+\]
+
+For the other implication suppose that $\bbP(\{A_n(\varepsilon) \text{ i.o.}\}) = 0$ for all $\varepsilon > 0$. Then clearly the same holds for all $\varepsilon = 1/m$ with $m \in \bbN$. Hence
+\[
+	\bbP(\Omega\backslash A) = \bbP(\bigcup_{m \in \bbN} \{A_n(1/m) \text{ i.o.}\}) \le \sum_{m \in \bbN} \bbP(\{A_n(1/m) \text{ i.o.}\}) = 0,
+\]
+which implies that $\bbP(A) = 1$.
+\end{proof}
+
+While this notion of convergence looks very natural, it turn out it is the strongest of the three notions. In practice proving almost-sure convergence is often much harder than proving convergence in probability or distribution.
+
+\begin{lemma}\label{lem:almost_sure_implies_probability}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables such that $X_n \aslim X$. Then $X_n \plim X$.
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:almost_sure_implies_probability}.
+\end{proof}
+
+We end this chapter with a classical result that provides sufficient conditions for proving some thing happens infinitely often.
+
+\begin{lemma}[Borel-Cantelli]\label{lem:borel_cantelli}
+Let $(\Omega, \mathcal{F}, \bbP)$ be a probability space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets.
+\begin{enumerate}[label={(\alph*)}]
+\item If
+\[
+	\sum_{n=1}^\infty \bbP(A_n) < \infty.
+\]
+then $\bbP(A_n \text{ i.o.}) = 0$.
+\item If, $(A_n)_{n \ge 1}$ are mutually exclusive and,
+\[
+	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+\]
+then $\bbP(A_n \text{ i.o.}) = 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:borel_cantelli}
+\end{proof}
+
+
+\section{Convergence results for sequences of independent random variables}
+
+We end this section by proving a powerful result that pops up everywhere: he Law of Large Numbers (LLN). It basically says that if we have a sequence $(X_n)_{n \ge 1}$ of independent copies of some random variable $X$ with finite expectation, then the normalized sum
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_i
+\]
+converges to the expected value $\bbE[X]$. There are two versions of the (LLN): the strong version, and the weak version. The difference is in terms of the mode of convergence. The weak law deals with convergence in distribution, while the strong law is for almost-sure convergence. We will prove the strong law, as this in particular implies the weak law through Lemma~\ref{lem:almost_sure_implies_probability} and Lemma~\ref{lem:convergence_prob_implies_d}.
+
+But before we can give the formal statement and proof of this result, we first need to define what we mean with independent random variables.
+
+%\subsection{Independent random variables}
+%
+%Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random variable $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. In Probability and Modeling you were taught that the random variables $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$.
+%
+%The nice thing is that we can frame the notion of independence in a more general measure-theoretical setting. To this end we start by defining what we mean by the independence of $\sigma$-algebras.
+%
+%\begin{definition}
+%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
+%	\[
+%	\mathbb{P}\biggl( \bigcap_{j \in J} A_j \biggr) = \prod_{j \in J} \mathbb{P}(A_{j}).
+%	\]
+%\end{definition}
+%
+%We can now express the independence of random variables in this language.
+%
+%\begin{definition}\label{def:independent_rvs}
+%	Let $\{X_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of random variables, with $X_\alpha:(\Omega, \cF) \to (E_\alpha, \mathcal{G}_\alpha)$. We say that the random variables $X_\alpha$ are independent if the family of sub $\sigma$-algebras $\{\sigma(X_\alpha)\}_{\alpha \in \mathcal{I}}$, is independent.
+%\end{definition}
+%
+%The independence of events can also be expressed in the measure-theoretic language.
+%
+%\begin{definition}
+%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space. A family of events $\{A_\alpha\}_{\alpha \in \mathcal{I}}$ is called independent if the family $\{ \cF_\alpha \}_{\alpha\in\mathcal{I}}$ of sub-$\sigma$-algebras
+%	\[
+%	\cF_\alpha := \{ \emptyset, A_\alpha, \Omega \backslash A_\alpha, \Omega \}\qquad\text{is independent.}
+%	\]	
+%\end{definition}
+%
+%The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
+%
+%\begin{lemma}\label{lem:independence_random_variables}
+%Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to Definition~\ref{def:independent_rvs}, if and only if 
+%	\[
+%	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
+%	\]
+%	for every $a \in \bbR$, $b \in \bbR$.
+%\end{lemma}
+%
+%\begin{proof}
+%See Problem~\ref{prb:independence_random_variables}.
+%\end{proof}
+%
+%We can now define what an sequence of independent copies is.
+%
+%\begin{definition}\label{def:iid}
+%We say that $(X_n)_{n \ge 1}$ is sequence of \emph{independent copies of $X$}, if $(X_n)_{n \ge 1}$ are independent random variables with $\bbP(X_n \in A) = \bbP(X \in A)$ for all measurable sets $A$.
+%\end{definition}
+%
+%\begin{remark}
+%Instead of sequences of independent copies, you also often encounter a sequence $(X_n)_{n\ge 1}$ of independent identically distributed random variables (i.i.d. sequence for short). This simply means that $(X_i)_\# \bbP = (X_j)_\# \bbP := \mu$ holds for all $i,j$ and thus this is a sequence of independent copies of $X$ where $X$ is independent of all $X_n$ with distribution $X_\# \bbP = \mu$.
+%\end{remark}
+
+\subsection{Strong Law of Large Numbers}
+
+Using the notion of independent copies, the strong law of large number is the following result:
+
+\begin{theorem}[Strong Law of Large Numbers]\label{thm:slln}
+Let $(X_n)_{n \ge 1}$ be a sequence of independent copies of a random variable $X$, such that $\bbE[X] < \infty$. Then
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_n \aslim \bbE[X].
+\]
+\end{theorem}
+
+The proof of this theorem heavily relies on using the Borel-Cantelli lemma. However, in its full generality this usage is hidden under several more technical considerations and computations. Thus we will provide a proof for a slightly weaker version that requires a finite third moment.
+
+\begin{theorem}[Strong Law of Large Numbers]\label{thm:slln_weaker}
+Let $(X_n)_{n \ge 1}$ be a sequence of independent copies of a random variable $X$, such that $\bbE[|X|^3] < \infty$. Then
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_n \aslim \bbE[X].
+\]
+\end{theorem}
+
+\begin{proof}
+We may assume without loss of generality that $\bbE[X] = 0$. Else, the random variables $Y_i = X_i - \bbE[X]$ satisfy $\bbE[Y] = 0$ and since
+\[
+	\frac{1}{n} \sum_{i = 1}^n X_i - \bbE[X] = \frac{1}{n} \sum_{i = 1}^n Y_i
+\]
+we conclude that the result holds when $\frac{1}{n} \sum_{i = 1}^n Y_i \aslim 0 = \bbE[Y]$.
+
+So from now on we assume that $\bbE[X] = 0 = \bbE[X_i]$. First observe that
+\[
+	(x+y)^3 = x^3 +3xy^2 + 3x^2 y + y^3.
+\]
+In addition, if $X_i$ and $X_j$ are independent it holds that $\bbE[X_i X_j^2] = \bbE[X_i] \bbE[X_j^2] = 0$ (see Problem~\ref{prb:expectation_independent_product}). We thus conclude that
+\[
+	\bbE\left[\left|\sum_{i = 1}^n X_i\right|^3\right] \le n \bbE[|X|^3].
+\]
+
+Therefore, using Markov's inequality (see Problem~\ref{prb:markov_chebyshev}) we get
+\begin{align*}
+	\bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right| > \varepsilon\right)
+	&= \bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right|^3 > \varepsilon^3\right)\\
+	&\le \frac{1}{n^3 \varepsilon^3} \bbE\left[\left|\sum_{i = 1}^n X_i\right|^3\right]\\
+	&\le \frac{1}{n^2 \varepsilon^3} \bbE[|X|^3].
+\end{align*}
+This then implies that
+\[
+	\sum_{n \ge 1} \bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right| > \varepsilon\right) 
+	\le \frac{\bbE[|X|^3]}{\varepsilon^3}\sum_{n \ge 1} n^{-2} < \infty.
+\]
+Thus, by the Borel-Cantelli we have that
+\[
+	\bbP\left(\left|\frac{1}{n} \sum_{i = 1}^n X_i\right| > \varepsilon \text{ i.o.}\right) = 0 
+\]
+so that the result follows from Lemma~\ref{lem:almost_sure_alternative}.
+\end{proof}
+
+%\begin{proof}
+%The proof makes use of the Borel-Cantelli result as well as Lemma~\ref{lem:almost_sure_alternative}.
+%
+%We will show that the result holds for any sequence of non-negative $X_n$, i.e. $X_n \ge 0$ a.e. For a general $X_n$ we decompose it into its positive and negative part $X_n = X_n^+ - X_n^-$, each of which are non-negative. Then the result will hold due to linearity of the limit.
+%
+%So assume from now one that $X_n \ge 0$ and $X \ge 0$. We start with defining $Y_m := X_m \mathbf{1}_{X_m \le m}$, so that $(Y_m)_{m \ge 1}$ is a sequence of independent random variables (they are not identically distributed in general). In addition, take $\alpha > 1$, let $k_n = [\alpha^n]$ denote the integer part of $\alpha^n$ and define $S_t := \sum_{m = 1}^{t} Y_m$.
+%
+%Here are the keys steps of the proof:
+%\begin{enumerate}
+%\item We first show that $\bbP(Y_m \ne X_m \text{ i.o.}) = 0$.
+%\item Then we prove that
+%\[
+%	\left|\frac{S_{k_n}}{k_n} - \frac{\bbE[S_{k_n}]}{k_n}\right| \aslim 0.
+%\]
+%\item Next we show that $\bbE[S_{k_n}]/k_n \to \bbE[X]$.
+%\item Finally we conclude that 2) and 3) imply that 
+%\[
+%	\left|\frac{S_{n}}{n} - \bbE[X]\right| \aslim 0.
+%\]
+%\end{enumerate}
+%
+%We will first show how to finish the proof with these statements, before proving each of them. Observe that by Lemma~\ref{lem:almost_sure_alternative} we need to show that for all $\varepsilon > 0$
+%\[
+%	\bbP\left(\|\frac{1}{n} \sum_{i =1}^n X_i - \bbE[X]\| > \varepsilon \text{ i.o.}\right) = 0.
+%\]
+%Using the triangle inequality and Problem~\ref{prb:properties_io} we get
+%\begin{align*}
+%	\bbP\left(\|\frac{1}{n} \sum_{i =1}^n X_i - \bbE[X]\| > \varepsilon \text{ i.o.}\right)
+%	&\le \bbP\left(\|\frac{1}{n} \sum_{i =1}^n Y_i - \bbE[X]\| > \varepsilon/2 \text{ i.o.}\right) \\
+%	&\hspace{10pt}+ \bbP\left(\|\frac{1}{n} \sum_{i =1}^n (X_i - Y_i)\| > \varepsilon/2 \text{ i.o.}\right).
+%\end{align*}
+%The first probability is zero due to Lemma~\ref{lem:almost_sure_alternative} and 4), while the second probability is bounded by $\bbP(Y_m \ne X_m \text{ i.o.}) = 0$ by 1). 
+%
+%We are thus left to prove 1)-4). For this define $a_n := \bbE[S_{k_n}]/k_n$.
+%\begin{enumerate}
+%\item We will use that $\bbE[X] < \infty$ to show that 
+%\[
+%	\sum_{m \ge 1} \bbP(Y_m \ne X_m) < \infty,
+%\]
+%from which the result follows by Lemma~\ref{lem:borel_cantelli}.
+%
+%Recall the definition $Y_m = X_m \mathbbm{1}_{X_m \le m}$ and note that $\bbP(X>t) = \int_{(t,\infty)} \, \dd X_\# \bbP$. We now have that
+%\begin{align*}
+%	\sum_{m \ge 1} \bbP(Y_m \ne X_m) &= \sum_{m \ge 1} \bbP(X_m > m)\\
+%	&= \sum_{m \ge 1} \int_{(m,\infty)} \, \dd X_\#\bbP \\
+%	&= \sum_{m \ge 1} \sum_{t = m}^\infty \int_{(t,t+1]} \, \dd X_\#\bbP \\
+%	&= \sum_{t \ge 1} t \int_{(t,t+1]} \, \dd X_\# \bbP \\
+%	&\le \sum_{t \ge 1} \int_{(t,t+1]} \, \dd X_\# \bbP (\dd x)\\
+%	&\le \int_{(0,\infty)} \, \dd X_\# \bbP (\dd x) = \bbE[X] < \infty.
+%\end{align*}
+%To see why the fourth equality is true, simply count for each $t$ how many times you will see the entry $\int_{(t,t+1]} \, \dd X_\#\bbP$ appear in the full summation. This will be $t$ times.
+%
+%\item For this step we will use Borel-Cantelli
+%Let $\varepsilon > 0$. Note that for every $m \ge 1$, $\mathrm{Var}(Y_m) < \infty$. Then, using Chebyshev's inequality (see Problem ??] we get
+%\begin{align*}
+%	\sum_{n \ge 1} \bbP\left(\left|\frac{S_{k_n} - \bbE[S_{k_n}]}{k_n}\right| > \varepsilon\right)
+%	&=  \sum_{n \ge 1} \bbP\left(\left|S_{k_n} - \bbE[S_{k_n}]\right| > k_n \varepsilon\right)\\
+%	&\le \sum_{n \ge 1} \frac{\mathrm{Var}(S_{k_n})}{k_n^2 \varepsilon^2}\\
+%	&\le \sum_{n \ge 1} \frac{1}{k_n^2 \varepsilon^2} \sum_{m =1}^{k_n} \mathrm{Var}(Y_m)\\
+%	&\le \sum_{n \ge 1} \frac{1}{k_n^2 \varepsilon^2} \sum_{m =1}^{k_n} \bbE[Y_m^2]\\
+%	&= \varepsilon^{-2} \sum_{n \ge 1} \sum_{m = 1}^{k_n} k_n^{-2} \bbE[Y_m^2]\\
+%	&= \varepsilon^{-2} \sum_{m \ge 1} \bbE[Y_m^2] \sum_{n: k(n) \ge m} k_n^{-2}.
+%\end{align*}
+%
+%To proceed we will show that
+%\begin{equation}\label{eq:slln_geometric_sum_bound}
+%	\sum_{n: k(n) \ge m} k_n^{-2} \le 4(1-\alpha^{-2})^{-1} m^{-2}.
+%\end{equation}
+%This requires us to recall some properties of the geometric sequence $\sum_{t = 0}^m r^{t}$ for $r \in (0,1)$. 
+%\begin{equation}\label{eq:geometric_series_partialsum}
+%	\sum_{t = 0}^m r^{t} = \frac{1 - r^{m + 1}}{1 - r.}
+%\end{equation}
+%
+%Using~\eqref{eq:slln_geometric_sum_bound} and writing $C := 4\varepsilon^{-2}(1-\alpha^{-2})^{-1}$ we have
+%\begin{align*}
+%	\sum_{n \ge 1} \bbP\left(\left|\frac{S_{k_n} - \bbE[S_{k_n}]}{k_n}\right| > \varepsilon\right)
+%	&\le C \sum_{m \ge 1} \frac{\bbE[Y_m^2]}{m^2} \\
+%	&\le C \sum_{m \ge 1} m^{-2} \int_{(0,\infty)} 2y^2 \, (Y_m)_\# \bbP (\dd y) \\
+%	&\le C \sum_{m \ge 1} m^{-2} \int_{(0,\infty)} 2y^2 \mathbbm{1}_{y \le m} \, X_\# \bbP (\dd y) \\
+%	&= C \int_{(0, \infty)} \left(\sum_{m \ge 1} m^{-2} \mathbbm{1}_{y \le m}\right) 2 y^2 \, X_\# \bbP (\dd y).
+%\end{align*}
+%Here the last equality is due to Fubini (note that all terms are positive).
+%
+%Now we note that 
+%\[
+%	\sum_{m \ge 1} m^{-2} \mathbbm{1}_{y \le m} = \sum_{m \ge y} m^{-2} \le 2/y.
+%\]
+%Hence
+%\[
+%	\sum_{n \ge 1} \bbP\left(\left|\frac{S_{k_n} - \bbE[S_{k_n}]}{k_n}\right| > \varepsilon\right)
+%	\le 4C \int_{(0,\infty)} \, y  X_\# \bbP(\dd y) = 4C \bbE[X] < \infty,
+%\]
+%which is what we needed to show for 2).
+%
+%\item 
+%
+%\end{enumerate}
+%
+%
+%\end{proof}
+%
+%A useful tool for proving almost everywhere convergence is the following result.
+%
+%\begin{lemma}[Borel-Cantelli]\label{lem:Borel-Cantelli}
+%	Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and let $(A_n)_{n\in\bbN}$ be a family of measurable sets. If
+%	\[
+%	\sum_{n=1}^\infty \mu(A_n) < \infty,
+%	\]
+%	then for $\mu$-almost every $\omega \in \Omega$, there are only finitely many $n \in \mathbb{N}$ such that $\omega \in A_n$.
+%\end{lemma}
+%\begin{proof}
+%	Define the sets
+%	\[
+%		B_j := \bigcup_{i \ge j} A_i,\qquad j\in\bbN.
+%	\]
+%	Clearly the sequence $(B_j)_{j\in\bbN}$ is decreasing and $\{A_n \text{ i.o.}\}\subset B_j$ for every $j \in \mathbb{N}$. 
+%	
+%	By assumption, and the $\sigma$-subadditivity of $\mu$,
+%	\[
+%	\mu(B_1) = \mu\left(\bigcup_{i=1}^\infty A_i \right) \leq \sum_{i=1}^\infty \mu(A_i) < +\infty.
+%	\]
+%	Moreover, the summability also gives
+%	\[
+%		\lim_{j\to\infty}\mu(B_j) \leq \limsup_{j\to\infty}\sum_{i=j}^\infty \mu(A_i) = 0.
+%	\]
+%	Hence, by the continuity from above of $\mu$, we obtain
+%	\[
+%		\mu(\{A_n \text{ i.o.}\}) \le \mu\left(\bigcup_{j=1}^\infty B_j\right) = \lim_{j\to \infty} \mu(B_j) = 0,
+%	\]
+%	i.e., $\{A_n \text{ i.o.}\}$ is a null set. In other words, $\mu$-almost every $\omega$ is in only finitely many $A_n$.
+%\end{proof}
+%
+%\begin{theorem}[Borel-Cantelli Lemma II]
+%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, and let $A_i \in \cF$, $i \in \mathbb{N}$ be a sequence of independent events such that
+%	\[
+%		\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+%	\]
+%	Then
+%	\[
+%	\mathbb{P} \left( \bigcap_{m = 1}^\infty \bigcup_{i=m}^\infty A_i \right) = 1,
+%	\]
+%	i.e., infinitely many of the events occur almost surely.
+%\end{theorem}
+%\begin{proof}
+%	Let $m \in \mathbb{N}$. Note that
+%	\begin{align*}
+%	\mathbb{P}\left(\bigcap_{i=m}^{\infty} (\Omega \backslash A_i) \right) &= 
+%	\prod_{i=m}^\infty (1 - \mathbb{P}(A_i)) \\
+%	&\leq \prod_{i=m}^\infty \exp(- \mathbb{P}(A_i)) 
+%	= \exp\left(- \sum_{i=m}^\infty \mathbb{P}(A_i)\right) = 0.\qedhere
+%	\end{align*}
+%\end{proof}   
+
+\section{Problems}
+
+\begin{problem}\label{prb:dlim_not_plim}
+Give an example (with proof) of a sequence of random variables that converge in distribution but not in probability.
+\end{problem}
+
+
+
+\begin{problem}\label{prb:convergence_distribution}
+The goal of this problem is to prove Lemma~\ref{lem:convergence_distribution_cdfs}. That is
+\[
+	X_n \stackrel{d}{\rightarrow} X \iff F_n(t) \to F(t) \quad \text{for all } t \in \cC_F,
+\]
+where $F_n$ and $F$ denote the cdfs of the random variables $X_n$ and $X$, respectively.
+
+Write $\mu_n = (X_n)_\# \bbP_n$ and $\mu = X_\# \bbP$ and note that for any measurable function $f$, $\bbE[f(X_n)] = \int f \, \dd \mu_n$ and $\bbE[f(X)] = \int f \, \dd \mu$.
+
+We will first prove the $\Rightarrow$ implication. 
+\begin{enumerate}[label={(\alph*)}]
+\item Let $t \in \bbR$. Find a measurable function $h_t$, such that $F_n(t) = \int_\bbR h_t \, \dd \mu_n$ and $F(t) = \int_\bbR h_t \, \dd \mu$.
+\item Show that $\mu(\cC_{h_t}) = 1$.
+\item Prove the $\Rightarrow$ implication. 
+\end{enumerate}
+
+For the other implication $\Leftarrow$ let $g$ be a continuous function with compact support. Then there is some $K > 0$ such that $g$ is zero outside $[-K,K]$. You may use the fact that any continuous function with compact support is uniformly continuous, i.e. for every $\varepsilon > 0$ there exist a $\delta > 0$ such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. 
+
+For now let us fix some $\varepsilon > 0$ and let $\delta > 0$ be such that $\|x-y\| < \delta$ implies that $\|g(x) - g(y)\| < \varepsilon$. We then consider the partition of $[-K,K]$ into $L = L(\delta) := \lceil (4K/\delta) \rceil$ intervals $I_\ell = (a_\ell, b_\ell$ of equal length. This then implies that $b_\ell - a_\ell \le \delta/2 < \delta$.
+
+We will now define an approximate function
+\[
+	\hat{g}(x) = \sum_{\ell = 1}^L g(b_\ell) \mathbf{1}_{I_\ell}(x).
+\]
+ 
+\begin{enumerate}[label={(\alph*)}]
+\setcounter{enumi}{3}
+\item Show that $|g(x) - \hat{g}(x)| \le \varepsilon$ holds for all $x \in [-K , K]$.
+\item Show that there exists an $M$ and sequences $(\beta_m)_{1 \le m \le M}$ and $(t_m)_{1 \le m \le M}$ such that
+\[
+	\hat{g}(x) = \sum_{m = 1}^M \beta_m \mathbf{1}_{(-\infty, t_m]}.
+\]
+\item Prove that $\lim_{n \to \infty} \bbE[\hat{g}(X_n)] = \bbE[\hat{g}(X)]$. [Hint: Use the assumption $F_n(t) \to F(t)$ for all $t \in \cC_F$.]
+\item Prove that $\bbE[g(X_n)] \to \bbE[g(X)]$. [Hint: First use the previous result to show that $\| \int g \, \dd \mu_n - \int g \, \dd \mu\| \to 2\varepsilon$ by adding and subtracting $\int \hat{g} \, \dd \mu_n$ and $\int \hat{g} \, \dd \mu$.]
+\item Conclude that $X_n \dlim X$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:convergence_probability_classic}
+Prove Lemma~\ref{lem:convergence_probability_classical}.
+\end{problem}
+
+\begin{problem}\label{prb:properties_io}
+Let $(A_n)_{n \ge 1}$, $(B_n)_{n \ge 1}$ be two families of measurable sets. 
+\begin{enumerate}[label={(\alph*)}]
+\item Suppose that $A_n \subseteq B_n$ holds for all $n \ge 1$. Prove that $\{A_n \text{ i.o.}\} \subseteq \{B_n \text{ i.o.}\}$.
+\item Prove that $\{A_n \cup B_n \text{ i.o.}\} = \{A_n \text{ i.o.}\} \cup \{B_n \text{ i.o.}\}$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prb:almost_sure_implies_probability}
+Prove Lemma~\ref{lem:almost_sure_implies_probability}. [Hint: use the alternative definition of Lemma~\ref{lem:almost_sure_alternative} and reverse Fatou from Problem~\ref{prb:reverse_fatou}.]
+\end{problem}
+
+\begin{problem}[Borel-Cantelli]\label{prb:borel_cantelli}
+In this exercise you will prove Lemma~\ref{lem:borel_cantelli}.
+
+\begin{enumerate}[label={(\alph*)}]
+\item Suppose that
+\[
+	\sum_{n=1}^\infty \mu(A_n) < \infty.
+\]
+Prove that $\bbP(A_n \text{ i.o.}) = 0$.
+\item Suppose that $A_n \cap A_m = \emptyset$ for all distinct $n,m \ge 1$,
+\[
+	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
+\]
+Prove that $\bbP(A_n \text{ i.o.}) = 1$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Let $(X_n)_{n \ge 1}$ and $X$ be random variables defined on the same probability space. Prove that $X_n \aslim X$ if for every $\varepsilon > 0$ it holds that
+\[
+	\sum_{n \ge 1} \bbP(|X_n - X| > \varepsilon) < \infty.
+\]
+\end{problem}
+
+\begin{problem}\label{prb:expectation_independent_product}
+Suppose that $X$ and $Y$ are two independent random variables on the same probability space. Show that $\bbE[XY] = \bbE[E]\bbE[Y]$.
+[Hint: first assume that both $X$ and $Y$ are simple functions. Then consider the case where they are non-negative, using monotone convergence and then the general case.]
+
+
+\end{problem}

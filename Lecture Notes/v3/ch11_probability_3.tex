@@ -1,47 +1,4 @@
 
-%\section{Independent random variables}
-%
-%Let us now go back to the setting of probability theory. Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random variable $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. In Probability and Modeling you were taught that the random variables $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$.
-%
-%The nice thing is that we can frame the notion of independence in a more general measure-theoretical setting. To this end we start by defining what we mean by the independence of $\sigma$-algebras.
-%
-%\begin{definition}
-%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
-%	\[
-%	\mathbb{P}\biggl( \bigcap_{j \in J} A_j \biggr) = \prod_{j \in J} \mathbb{P}(A_{j}).
-%	\]
-%\end{definition}
-%
-%We can now express the independence of random variables in this language.
-%
-%\begin{definition}\label{def:independent_rvs}
-%	Let $\{X_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of random variables, with $X_\alpha:(\Omega, \cF) \to (E_\alpha, \mathcal{G}_\alpha)$. We say that the random variables $X_\alpha$ are independent if the family of sub $\sigma$-algebras $\{\sigma(X_\alpha)\}_{\alpha \in \mathcal{I}}$, is independent.
-%\end{definition}
-%
-%The independence of events can also be expressed in the measure-theoretic language.
-%
-%\begin{definition}
-%	Let $(\Omega, \cF, \mathbb{P})$ be a probability space. A family of events $\{A_\alpha\}_{\alpha \in \mathcal{I}}$ is called independent if the family $\{ \cF_\alpha \}_{\alpha\in\mathcal{I}}$ of sub-$\sigma$-algebras
-%	\[
-%	\cF_\alpha := \{ \emptyset, A_\alpha, \Omega \backslash A_\alpha, \Omega \}\qquad\text{is independent.}
-%	\]	
-%\end{definition}
-%
-%The following result shows that these concepts are really generalizations of concepts that you have seen in elementary probability theory.
-%
-%\begin{lemma}\label{lem:independence_random_variables}
-%Let $X_1, X_2: (\Omega, \cF) \to (\bbR, \cB)$ be two random variables. Then $X_1$ and $X_2$ are independent according to Definition~\ref{def:independent_rvs}, if and only if 
-%	\[
-%	\mathbb{P}( X_1 \leq a,\; X_2 \leq b ) = \mathbb{P}(X_1 \leq a)\, \mathbb{P}(X_2 \leq b)
-%	\]
-%	for every $a \in \bbR$, $b \in \bbR$.
-%\end{lemma}
-%
-%\begin{proof}
-%See Problem~\ref{prb:independence_random_variables}.
-%\end{proof}
-
-%\section{Conditional Expectation}
 
 In Chapter~\ref{chapter:radon-nikodym} we introduce the Radon-Nikodym derivative and used it to provide a definition of conditional expectation, see Definition~\ref{def:conditional_expectation}. In this chapter we will first use this, somewhat abstract notion, to define conditional probabilities. Then we will use these concepts to derive several known, and some new, results for conditional expectations and probabilities, as well as provide results that help you do computations with these complex objects in applied settings.
 

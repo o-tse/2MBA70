@@ -1,0 +1,162 @@
+
+\section{Uniqueness of measures}
+
+In this section will provide the proof of Theorem~\ref{thm:uniqueness_measures}. For this weneed to introduce a few concepts as well as a powerful theorem, called the monotone class theorem.
+
+We start with the definition of an algebra.
+
+\begin{definition}[Algebra's of sets]
+A collection $\cA$ of subsets of $\Omega$ is called an \emph{algebra} if
+\begin{enumerate}
+\item $\emptyset \in \cA$,
+\item $\Omega \setminus A \in \cA$ for all $A \in \cA$, and
+\item $A \cup B \in \cA$ for every $A, B \in \cA$.
+\end{enumerate}
+\end{definition}
+
+Observe that, as the name suggests, every \sigalg/ is indeed and algebra. However, in addition to the properties of an algebra, \sigalgs/ where also closed under countable unions and intersections. We will actually take these properties on their own and define any collection of subsets that have these two properties a monotone class.
+
+\begin{definition}[Monotone classes]
+A collection $\cM$ of subsets of $\Omega$ is called a \emph{monotone class} if
+\begin{enumerate}
+\item $\bigcup_{i \in \bbN} A_i \in \cM$ holds for any increasing family of sets $(A_i)_{i \in \bbN}$ in $\cM$, and
+\item $\bigcap_{i \in \bbN} A_i \in \cM$ holds for any decreasing family of sets $(A_i)_{i \in \bbN}$ in $\cM$
+\end{enumerate}
+\end{definition}
+
+As we already remarked, any \sigalg/ is a monotone class. However, there are monotone classes that are not algebras and vise versa, there are algebras that are not monotone classes. However, suppose we start with an algebra $\cA$ and we want to turn this into a \sigalg/. Then we at least need to ensure it is also a monotone class. Similar to the construction of $\sigma(\cA)$ we can construct the smallest monotone class that contains $\cA$. Moreover, it turns out, maybe not surprisingly, that the resulting collection is \sigalg/. Even better, it is exactly $\sigma(\cA)$. This is the content of the monotone class theorem. 
+
+\begin{theorem}[Monotone class theorem]
+Let $\cA$ be an algebra on $\Omega$ and let $\Xi_\cA$ denote the collection of all monotone classes that contain $\cA$. Then 
+\begin{enumerate}
+\item the collection defined by
+\[
+	\cM(\cA) = \bigcup_{\cM \in \Xi_\cA} \cM,
+\]
+is a monotone class, and moreover
+\item $\cM(\cA)$ is the smallest \sigalg/ containing $\cA$, i.e. $\cM(\cA) = \sigma(\cA)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+TODO
+\end{proof}
+
+With the monotone class theorem at hand we can prove the uniqueness theorem for measures.
+
+\begin{proof}[Proof of Theorem~\ref{thm:uniqueness_measures}]
+Define the collection
+\[
+	\cM := \left\{A \in \cF \, : \, \mu_1(A) = \mu_2(A)\right\}.
+\]
+The goal of the proof is to show that this is a monotone class. If that is true then, since $\cA \subset \cM$, the monotone class theorem (Theorem [REF]) implies that $\sigma(\cA) = \cM(\cA) \subset \cM$ and hence $\mu_1 = \mu_2$ on $\sigma(\cA)$.
+
+To show that $\cM$ is a monotone class let $(A_i)_{i \in \bbN}$ be an increasing sequence in $\cM$. Since by definition, $\mu_1(A_i) = \mu_2(A_i)$ for all $i \in \bbN$, continuity from below (Proposition [REF]) implies that
+\[
+	\mu_1\left(\bigcup_{i \in \bbN} A_i\right) = \lim_{i \to \infty} \mu_1(A_i) 
+	= \lim_{i \to \infty} \mu_2(A_i) = \mu_2\left(\bigcup_{i \in \bbN} A_i\right),
+\]
+which implies that $\bigcup_{i \in \bbN} A_i \in \cM$.
+
+Similarly, now let $(A_i)_{i \in \bbN}$ be a decreasing sequence. Again, by definition $\mu_1(A_i) = \mu_2(A_i)$ for all $i \in \bbN$ and moreover $\mu_1(A_1) = \mu(A_1) < \infty$ since both measures are finite. Hence continuity from above (Proposition [REF]) implies that
+\[
+	\mu_1\left(\bigcap_{i \in \bbN} A_i\right) = \lim_{i \to \infty} \mu_1(A_i) 
+	= \lim_{i \to \infty} \mu_2(A_i) = \mu_2\left(\bigcap_{i \in \bbN} A_i\right).
+\]
+It then follows that $\bigcap_{i \in \bbN} A_i \in \cM$ which shows that $\cM$ is indeed a monotone class.
+\end{proof}
+
+\section{Construction of the Lebesgue measure}   
+
+ But how can we construct a measure on this set? In particular, is it possible to start with a set function that does not satisfy all the properties of a measure? We will address these questions next. But in order to do so we need to introduce the notion of an \emph{algebra}.
+
+\begin{definition}[Algebra's of sets]
+A collection $\cA$ of subsets of $\Omega$ is called an \emph{algebra} if
+\begin{enumerate}
+\item $\emptyset \in \cA$,
+\item $\Omega \setminus A \in \cA$ for all $A \in \cA$, and
+\item $A \cup B \in \cA$ for every $A, B \in \cA$.
+\end{enumerate}
+\end{definition}
+
+Note that every \sigalg/ is an algebra. The idea is that is we start with a set function on an algebra, we can extend this to all the way to a measure on \sigalg/. To ensure this extension is possible, we need to start with set functions that have some structure, suspiciously called premeasures. 
+
+\begin{definition}[Premeasures]
+Let $\cA$ be an algebra on $\Omega$. A set function $\mu_o : \cA \to [0,\infty]$ is called a \emph{premeasure} if
+\begin{enumerate}
+\item $\mu_o(\emptyset) = 0$, and
+\item $\mu_o$ is $\sigma$-additive.
+\end{enumerate}
+\end{definition}
+
+If we start with a premeasure $\mu_o$ on an algebra $\cA$ we can construct a new set function on the entire collection of subsets of $\Omega$.
+
+\begin{definition}[Outer measure]
+Let $\mu_o$ be a premeasure on an algebra $\cA$ on $\Omega$. Then the set function $\mu^\ast$ defined by
+\[
+	\mu^\ast(A) := \inf \left\{\sum_{i = 1}^\infty \mu_o(A) \, : \, A \subset \bigcup_{i \in \bbN} A_i, \, A_i \in \cA\right\},
+\]
+is called the \emph{outer measure induced by $\mu_o$}. 
+\end{definition}
+
+The idea is that the outer measure $\mu^\ast$ is almost a measure. This is captured by the following set of properties it has.
+
+\begin{proposition}
+Let $\mu_o$ be a premeasure on an algebra $\cA$ on $\Omega$ and $\mu^\ast$ be the outer measure induced by $\mu_o$. Then $\mu^\ast$ satisfies the following properties:
+\begin{enumerate}
+\item $\mu^\ast(A) = \mu_o(A)$ for all $A \in \cA$,
+\item $\mu^\ast(\emptyset) = 0$ and $\mu^\ast(A) \ge 0$ for all $A \subset \Omega$,
+\item $\mu^\ast$ is monotone, and
+\item $\mu^\ast$ is $\sigma$-subadditive.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+TODO
+\end{proof}
+
+Observe that indeed, $\mu^\ast$ is almost a measure. The only property missing is full $\sigma$-additivity. Then next fundamental result, due to the Greek mathematician Constantin Carath\'{e}odory, provides a way to construct a \sigalg/ from a given algebra such that $\mu^\ast$ can be extended to a true measure on it. We state a partial version here, without proof.
+
+\begin{theorem}[Carath\'{e}odory's extension theorem (partial)]\label{thm:Caratheorody_extenstion}
+Let $\cA$ be an algebra on $\Omega$. Let $\mu_0$ be a pre-measure on $\cA$ and denote by $\mu^\ast$ the outer measure induced by $\mu_0$. Then the collection defined by
+\[
+	\cA_{\mu^\ast} := \left\{B \subset \Omega \, : \, \mu^\ast(A) \ge \mu^\ast(A \cap B) + \mu^\ast(A \setminus B) \, \forall A \in \cA\right\},
+\] 
+is a \sigalg/ on $\Omega$. Moreover, the restriction $\bar{\mu} := \mu^\ast|\cA_{\mu^\ast}$ of $\mu^\ast$ to $\cA_{\mu^\ast}$ is a measure on $\cA_{\mu^\ast}$ called the \emph{Carath\'{e}odory extension of $\mu_o$}.
+\end{theorem}
+
+At this point we should take some time to fully appreciate what Theorem~\ref{thm:Caratheorody_extenstion} gives us. In order to construct a measure all we need is an algebra on $\Omega$ and some premeasure.  
+
+\begin{remark}
+The statement in Theorem~\ref{thm:Caratheorody_extenstion} only covers part of the original theorem. It actually turns out that the \sigalg/ constructed has some very nice properties and the measure space $(\Omega, \cA_{\mu^\ast}, \bar{\mu})$ is \emph{complete}. However, in order to properly define these notions we needed to introduce additional concepts going beyond the goal of this section. The interested reader is referred to the Appendix for the full statement and details, including the proof of this theorem. 
+\end{remark}
+
+Let us now utilize the Carath\'{e}odory extension to obtain a measure on the Borel space $(\bbR^d, \cB_{\bbR^d})$. 
+
+%a \emph{semi-algebra}.
+%
+%\begin{definition}[Semi-algebra]
+%A collection $\cS$ of subsets of $\Omega$ is called a \emph{semi-algebra} if
+%\begin{enumerate}
+%\item $\emptyset, \Omega \in \cS$,
+%\item $A \cap B \in \cS$ for every $A, B \in \cS$, and
+%\item for every $A \in \cS$ such that $\Omega \setminus A \notin \cS$, there exist a family $(A_i)_{i \in \bbN}$ of pairwise disjoint sets such that $\Omega\setminus A = \bigcup_{i \in \bbN} A_i$.
+%\end{enumerate}
+%\end{definition}
+%
+%As the name suggests, any algebra is a semi-algebra. Moreover, as was the case for \sigalgs/ we can construct a minimal algebra that contains a given semi-algebra $\cS$.
+%
+%\begin{proposition}
+%Let $\cS$ be a semi-algebra on $\Omega$. Then the collection
+%\[
+%	\cA(\cS) := \left\{A \subset \Omega \, : \, \exists n\in \bbN, \, A = \bigcup_{i =1}^n A_i, \, A_i \in \cS \text{ pairwise disjoint} \right\},
+%\]
+%is the smallest algebra containing $\cS$ and is called \emph{the algebra generated by $\cS$}.
+%\end{proposition}
+%
+%This result is useful, as it allows us to extend any set function $\mu$ on a semi-algebra $\cS$ to a set function on the algebra $\cA(\cS)$ by simply defining
+%\[
+%	\mu(A) = \sum_{i = 1}^n \mu(A_i),
+%\]
+%where the $A_i$ come from the definition of $\cA(\cS)$.
+

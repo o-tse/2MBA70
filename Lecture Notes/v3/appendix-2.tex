@@ -1,0 +1,126 @@
+\section{Recalling Riemann integration}
+
+\begin{definition}
+A partition $P = (x_0, \dots, x_n)$ of $[a,b]$ is an $(n+1)$-tuple of real numbers $x_i$ such that $a = x_0 < x_1 < \cdots < x_n = b$, and we denote by $\Delta x_i = x_i-x_{i-1}$ the length of the interval $[x_{i-1},x_i]$, $i=1,\ldots,n$. Furthermore, we say that a partition $Q = (y_0, y_1, \dots y_m)$ of $[a,b]$ is a refinement of $P$ if $\{x_0,\dots, x_n\} \subset \{y_0, \dots, y_m\}$.
+\end{definition}
+
+Recall that given a partition $P = (x_0, \dots, x_n)$, the upper and lower sum of a bounded function $f:[a,b] \to \mathbb{R}$ with respect to $P$ are defined as
+\[
+U(P,f) := \sum_{i=1}^n \sup\bigl\{f(x) : \ x \in [x_{i-1},x_i] \bigr\} \Delta x_i
+\]
+and
+\[
+L(P,f) := \sum_{i=1}^n \inf\bigl\{f(x) : \ x \in [x_{i-1},x_i] \bigr\} \Delta x_i
+\]
+Note that if a partition $Q$ is a refinement of a partition $P$, then
+\[
+L(Q, f) \geq L(P,f) \quad \text{ and } U(Q,f) \leq U(P,f).
+\]
+Finally, if $P$ and $R$ are two partitions of $[a,b]$, there exists a partition $Q$ of $[a,b]$ such that $Q$ is both a refinement of $P$ and a refinement of $R$.
+
+The upper and lower Riemann integral of $f$ are respectively defined as
+\[
+\upRiemint f(x) \,\dd x := \inf \bigl\{ U(P,f) : \ P \text{ partition of } [a,b] \bigr\}
+\]
+and
+\[
+\lowRiemint f(x) \,\dd x:= \sup \bigl\{L(P,f) : \ P \text{ partition of } [a,b]  \bigr\}.
+\]
+\begin{definition}
+Recall that a bounded function $f:[a,b] \to \mathbb{R}$ is said to be \emph{Riemann integrable} if 
+\[
+\upRiemint f(x) \,\dd x = \lowRiemint f(x) \,\dd x.
+\]
+If $f$ is Riemann integrable, the Riemann integral of $f$ is defined as
+\[
+\Riemint f(x) \,\dd x := \sup \bigl\{  U(P, f) : \ P \text{ partition of } [a,b] \bigr\}.
+\]
+\end{definition}
+
+\section{Riemann vs Lebesgue integration}
+
+\begin{theorem}
+If a bounded function $f: [a,b] \to \mathbb{R}$ is Riemann integrable, then $f$ is \emph{Lebesgue}-measurable and integrable. Moreover
+\[
+\int_a^b f(x) \,\dd x = \int_{[a,b]} f \,\dd \lambda.
+\]
+\end{theorem}
+
+\begin{proof}
+	Let $f:[a,b] \to \mathbb{R}$ be Riemann-integrable. 
+	We can then find a sequence of partitions $(P_n)$, $P_n = (x^n_1, \dots, x^n_{N_n})$, such that for every $n \in \mathbb{N}$, $P_{n+1}$ is a refinement of $P_n$ and such that
+	\begin{equation}\label{eq:Convergence-Darboux}
+	\lim_{n \to \infty} U(P_n, f) = \lim_{n \to \infty} L(P_n, f) = \Riemint f(x) \,\dd x.
+	\end{equation}
+	The details on how to find such $P_n$ are as follows: By the definition of the upper and lower Riemann integral and by the assumption that $f$ is bounded and Riemann integrable, we know that there exist partitions $Q_1$ and $R_1$ such that
+	\[
+	\Riemint f(x) \,\dd x - 1 < L(R_1, f) \quad \text{ and } \quad   U(Q_1, f) < \Riemint f(x) \,\dd x + 1 .
+	\]
+	We then choose the partition $P_1$ as a common refinement of the partitions $Q_1$ and $R_1$. Hence,
+	\[
+	\begin{split}
+	\Riemint f(x) \,\dd x - 1 &< L(R_1, f) 
+	\leq L(P_1, f) \\ &\leq U(P_1,f)
+	\leq U(Q_1,f) < \Riemint f(x) \,\dd x +1.
+	\end{split}
+	\]
+	
+	Now suppose the partition $P_k$ has been defined for some $k \in \mathbb{N}$.
+	Again by the definition of the upper and lower Riemann integral and by the assumption that $f$ is bounded and Riemann integrable, there exist partitions $Q_{k+1}$ and $R_{k+1}$ such that
+	\[
+	\begin{split}
+	 \Riemint f(x) \,\dd x - \frac{1}{k+1} &< L(R_{k+1}, f)  \qquad \text{ and } \qquad U(Q_{k+1}, f) < \Riemint f(x) \,\dd x + \frac{1}{k+1}.
+	 \end{split}
+	\]
+	Now define $P_{k+1}$ as a common refinement of $P_k$, $Q_{k+1}$ and $R_{k+1}$. Then
+	\[
+	\begin{split}
+	\Riemint f(x) \,\dd x - \frac{1}{k+1} &< L(R_{k+1}, f) \leq L(P_{k+1}, f) \\
+	& \leq U(P_{k+1},f) \leq U(Q_{k+1},f) < \Riemint f(x) \,\dd x + \frac{1}{k+1}.
+	\end{split}
+	\]
+	It follows that for every $n \in \mathbb{N}$, the partition $P_{n+1}$ is a refinement of the partition $P_n$ and 
+	\[
+	\begin{split}
+	L(P_n, f) &\leq \Riemint f(x) \,\dd x < L(P_n, f) + \frac{1}{n} \\
+	U(P_n,f)-\frac{1}{n} &< \Riemint f(x) \,\dd x \leq U(P_n,f)
+	\end{split}
+	\]
+	from which the limits (\ref{eq:Convergence-Darboux}) follow.
+	
+	Now define the functions
+	\begin{align*}
+	u_n &:= \sum_{i=1}^{N_n} \sup\bigl\{ f(x)  :\ x \in [x^n_{i-1},x^n_i] \bigr\} \mathbf{1}_{(x^n_{i-1},x^n_i]}, \\
+	\ell_n &:= \sum_{i=1}^{N_n} \inf\bigl\{ f(x) :\ x \in [x^n_{i-1},x^n_i]\bigr\} \mathbf{1}_{(x^n_{i-1},x^n_i]}.
+	\end{align*}
+	Because $P_{n+1}$ is a refinement of $P_n$, we find that $\ell_n\le \ell_{n+1}$, $u_{n+1} \leq u_n$, and therefore
+	\[
+		\ell(x) := \lim_{n \to \infty} \ell_n(x)\quad\text{exists},\qquad u(x) := \lim_{n \to \infty} u_n(x)\quad\text{exists}.
+	\]
+	The functions $\ell,u:[a,b]\to \mathbb{R}$ are clearly Borel-measurable. Moreover, $\ell \leq f \leq u$. Note that
+	\[
+	U(P_n, f) = \int_{[a,b]} u_n \,\dd \lambda \qquad L(P_n,f) = \int_{[a,b]} \ell_n \,\dd \lambda.
+	\]
+	By the dominated convergence theorem (recall that $f$ is bounded),
+	\[
+	U(P_n, f) \to \int_{[a,b]} u \,\dd \lambda  \qquad L(P_n, f) \to \int_{[a,b]} \ell \,\dd \lambda\qquad\text{as $n\to\infty$}.
+	\]
+	However, since $f$ is Riemann integrable, both the upper and lower sums also converge to the Riemann integral of $f$, so 
+	\[
+	\int_{[a,b]} u \,\dd \lambda = \Riemint f(x) \,\dd x = \int_{[a,b]} \ell \,\dd \lambda.
+	\]
+	Now since $\ell\le f\le u$, we then obtain, by linearity of the integral,
+	\[
+		0\le \int_{[a',b']} \bigl(u-\ell\bigr) \,\dd \lambda = 0\qquad\Longrightarrow\qquad \ell\equiv u\quad\text{$\lambda$-almost everywhere},
+	\]
+from which we also obtain $\ell\equiv f\equiv \ell$ $\lambda$-almost everywhere. Moreover, since $u$ and $\ell$ are both Borel-measurable, $f$ is Borel-measurable, and particularly Lebesgue-measurable.
+\end{proof}
+
+The following theorem provides a full characterization of Riemann-integrable functions.
+
+\begin{theorem}
+	A bounded function $f:[a,b] \to \mathbb{R}$ is Riemann integrable if and only if it is continuous $\lambda$-almost everywhere.
+\end{theorem}
+
+
+

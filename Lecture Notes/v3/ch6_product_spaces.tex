@@ -135,19 +135,42 @@ This lemma is very useful because it allows us to analyze product measure $\mu_1
 %Note that by 
 %\end{proof}
 
-\section{Joint probability measures and independent random variables}
+\section{Joint probability measures and independent random variables}\label{sec:joint_prob_measures}
 
 Armed with the definition of product spaces and measures we can now look at joint probability distributions of multiple random variables and discuss the notion of independence.
 
-Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random elements $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. We can then consider the random element $(X_1, X_2)$ on the product space $(E_1 \times E_2, \mathcal{G}_1 \otimes \mathcal{G}_2)$ defined as $\omega \mapsto (X_1(\omega), X_2(\omega))$. This new random element as law $(X_1, X_2)_\ast \mathbb{P}$ which we call the \emph{joint law} of $X_1$ and $X_2$. Recall that by definition
+Consider a probability space $(\Omega, \cF, \mathbb{P})$ and two random elements $X_i: (\Omega, \cF) \to (E_i, \mathcal{G}_i)$, $i=1,2$. Recall that the \emph{law} of $X_i$ is defined as $\mu_i:= (X_i)_\# \mathbb{P}$. We can then consider the random element $(X_1, X_2)$ on the product space $(E_1 \times E_2, \mathcal{G}_1 \otimes \mathcal{G}_2)$ defined as $\omega \mapsto (X_1(\omega), X_2(\omega))$. This new random element as law $(X_1, X_2)_\# \mathbb{P}$ which we call the \emph{joint law} of $X_1$ and $X_2$. Recall that by definition
 \[
-	(X_1, X_2)_\ast \mathbb{P}(A) = \mathbb{P}((X_1,X_2)^{-1}(A)) = \mathbb{P}(\{\omega \in \Omega \,:\, (X_1(\omega), X_2(\omega)) \in A\}),
+	(X_1, X_2)_\# \mathbb{P}(A) = \mathbb{P}((X_1,X_2)^{-1}(A)) = \mathbb{P}(\{\omega \in \Omega \,:\, (X_1(\omega), X_2(\omega)) \in A\}),
 \]
 for any $A \in \mathcal{G}_1 \otimes \mathcal{G}_2$.
 
-In the case where $X_1$ and $X_2$ are random variables, i.e. $E_1 = \bbR = E_2$, you were taught in the course Probability and Modeling that $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure $\mu_1 \otimes \mu_2$. As you might expect by now, this is indeed true. However, the nice thing is that we can frame the notion of independence in a much more general measure-theoretical setting. Which we will do first. 
 
-To this end we start by defining what we mean by the independence of $\sigma$-algebras.
+
+
+
+In the case where $X_1$ and $X_2$ are random variables, i.e. $E_1 = \bbR = E_2$, we can now define the notion of a joint probability density function.
+
+\begin{definition}[Joint probability density function]\label{def:joint_pdf}
+Let $X,Y$ be two random variables. We say they have a joint density $f : \bbR \times \bbR \to \bbR$. If for any $A \in \cB_{\bbR^2}$
+\[
+	(X_1, X_2)_\# \mathbb{P}(A) = \int_A f \, \dd \lambda^2,
+\]
+where $\lambda^2$ is the 2-dimensional Lebesgue measure on $\bbR^2$
+\end{definition}
+
+Problem~\ref{prb:joint_pdfs} shows that the existence of a joint probability density function implies the existence of probability density functions for both $X$ and $Y$, where the probability density function of $X$ is defined by
+\[
+	f_X(x) = \int_\bbR f(x,y) \, \lambda(\dd y).
+\] 
+
+In the course Probability and Modeling you were taught that $X_1$ and $X_2$ are \emph{independent} if and only if the law of the random variable $(X_1, X_2): \Omega \to E_1\times E_2$ is the product measure of the marginals. For the case of random variable with a joint probability density function this would be stated as
+\[
+	f(x,y) = f_X(x) f_Y(y).
+\] 
+In the general language of measure theory, this would mean that the joint measure $(X_1, X_2)_\# \mathbb{P}$ equals the product measure $\mu_1 \otimes \mu_2$. We will show that this is true in general for independent random variables. For this we do have to define what \emph{independence} formally means. The nice thing is that we can frame the notion of independence in a much more general measure-theoretical setting. Which we will do first. 
+
+We start by defining what we mean by the independence of $\sigma$-algebras.
 
 \begin{definition}
 	Let $(\Omega, \cF, \mathbb{P})$ be a probability space, let $\mathcal{I}$ be some index set and let $\{\cF_\alpha\}_{\alpha \in \mathcal{I}}$ be a family of sub-$\sigma$-algebras. We say that it is a family of independent sub-$\sigma$-algebras if for every finite subset $J \subset \mathcal{I}$, and sets $A_j\in \cF_j$ for $j \in J$,
@@ -359,6 +382,8 @@ Let $(\bbR^d, \cB_{\bbR^d})$ be the $d$-dimensional Borel space. Prove that the 
 where $a_i, b_i \in \bbQ,$ or $a_i, b_i \in \bbR$ for all $i = 1, \dots, d$.
 \end{problem}
 
+
+
 \begin{problem}\label{prb:independence_random_variables}
 The goal of this exercise is to finish the proof of Lemma~\ref{lem:independence_random_variables}. This means we have to show that if
 \[
@@ -380,6 +405,21 @@ To this end fix $b \in \bbR$ and define the following measures on the measurable
 \]
 [Hint: prove a similar statement as in (a) for measures on $(\Omega, \sigma(X_2))$.]
 \item Finish the proof of the lemma.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[Joint densities]\label{prb:joint_pdfs}
+Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to \bbR$. 
+
+Define the function $f_X(x) = \int_\bbR f(x,y) \, \lambda(\dd y)$.
+\begin{enumerate}[label={(\alph*)}]
+\item Prove that $f_X$, as a function from $(\bbR, \cB_{\bbR})$ to $(\bbR, \cB_{\bbR})$ is measurable and integrable.
+\item Show that
+\[
+	X_\# \bbP (A) = \int_A f_X \, \dd \lambda.
+\]
+That is, $f_X$ is the probability density function of $X$.
+\item Conclude that if $X$ and $Y$ are independent if and only if $f(x,y) = f_X(x) f_Y(y)$.
 \end{enumerate}
 \end{problem}
 

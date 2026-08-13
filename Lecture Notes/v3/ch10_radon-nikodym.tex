@@ -1,5 +1,26 @@
-\section{A General Radon-Nikodym Theorem}
 
+Consider a measure space $(\Omega, \cF, \mu)$. In Problem~\ref{prb:measure} we have seen that we can turn a measurable function $f : \Omega \to [0,+\infty]$ into a measure $\nu$ by defining
+\begin{equation}\label{eq:setup_radon_nikodym}
+	\nu(A) = \int_A f \, \dd \mu.
+\end{equation}
+Later, in Chapter~\ref{chapter:probability_1} we even defined the notion of a probability density function as a functions $f$ such that~\eqref{eq:setup_radon_nikodym} holds for the push-forward measure $X_\ast \bbP$ on the probability space $(\Omega, \cF, \bbP)$. This function is often understood as the derivative of the cdf $F(t) := \bbP(X \le t)$ with respect to $t$. This can, to some extend, be obtained by using the intuitive notation of differentiation and Riemannian integration notation 
+\[
+	F = \int \frac{\dd F}{\dd t} \, \dd t
+\]
+since $\frac{\dd F}{\dd t} \dd t$ \textit{``equals''} $\dd F$.
+
+Using this point of view we can look again at~\eqref{eq:setup_radon_nikodym} and think of $f$ as the \textit{``derivative''} of $\nu$ with respect to $\mu$, as in
+\[
+	\nu = \int \frac{\dd \nu}{\dd \mu} \, \dd \mu.
+\]
+
+However, what does it mean to differentiate a measure with respect to another measure? More importantly, does there always exist a function $f$ that makes~\eqref{eq:setup_radon_nikodym} hold for a given measure $\nu$?
+
+In this chapter we will address these questions. The first step is to define a function that plays the role of $\frac{\dd \nu}{\dd \mu}$. This object is called the \emph{Radon-Nikodym derivative} of $\nu$ with respect to $\mu$ and its existence requires a proof. 
+
+We then make use of this somewhat abstract notion, to define conditional expectation and conditional probabilities. Then we will use these concepts to derive several known, and some new, results for conditional expectations and probabilities, as well as provide results that help you do computations with these complex objects in applied settings.
+
+\section{A General Radon-Nikodym Theorem}
 
 \begin{lemma}\label{lem:partial-radon-nikodym}
 	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ satisfying $\nu\le \mu$ on $\cF$, i.e.\ $\nu(A)\le \mu(A)$ for every $A\in\cF$. Then there exists an $(\cF,\cB_\bbR)$-measurable function $f_0$ with $0\le f_0\le 1$ such that
@@ -61,14 +82,63 @@ However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varep
 	In this case, $f_0$ can be simply determined to be $f_0 = \mathbf{1}_{[a,b]}$.
 \end{example}
 
-\begin{theorem}[Radon-Nikodym Theorem]\label{thm:radon-nikodym}
-	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$. Then there exists a $\mu$-null set $D\in\cF$ and a nonnegative $\mu$-integrable function $f_0$ such that
+%\begin{theorem}[Radon-Nikodym Theorem]\label{thm:radon-nikodym}
+%	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$. Then there exists a $\mu$-null set $D\in\cF$ and a nonnegative $\mu$-integrable function $f_0$ such that
+%	\[
+%		\nu(E) = \nu(E\cap D) + \int_E f_0\,\dd\mu\qquad\text{for all $E\in\cF$}.
+%	\]
+%\end{theorem}
+%\begin{proof}
+%	Let $\lambda=\mu+\nu$. Then $0\le \nu\le \lambda$, so by Lemma~\ref{lem:partial-radon-nikodym}, there exists a measurable function $g$ with $0\le g\le 1$ such that $\nu(E)=\int_E g\,\dd\lambda$ for all $E\in\cF$. It follows that
+%	$\mu(E) = \int_E (1-g)\,\dd\lambda$ for all $E\in\cF$. Let $D=\{g=1\}$. Then $\mu(D) = 0$. 
+%	
+%	Moreover, since $\nu(E)=\int_E g\,\dd\nu + \int_E g\,\dd\mu$, we have $\int_E (1-g)\,\dd\nu = \int_E g\,\dd\mu$ for all $E\in\cF$. In particular, $\int_\Omega (1-g)f\,\dd\nu = \int_\Omega gf\,\dd\mu$ for all nonnegative measurable functions $f$. Taking $f=(1+g +\cdots g^n)\mathbf{1}_E$, we learn that
+%	\[
+%		\int_E (1-g^{n+1})\,\dd\nu = \int_E g(1+g\cdots+g^n)\,\dd\mu\qquad\text{for all $E\in\cF$ and $n\ge 1$}.
+%	\]
+%	Now since $0\le g <1$ on $D^c$, the Monotone Convergence Theorem yields
+%	\begin{align*}
+%		\nu(E\cap D^c) &= \lim_{n\to\infty} \int_{E\cap D^c} (1-g^{n+1})\,\dd\nu = \lim_{n\to\infty}\int_{E\cap D^c} g(1+g\cdots+g^n)\,\dd\mu \\
+%		&=\int_{E\cap D^c} g(1-g)^{-1}\,\dd\mu = \int_E f_0\,d\mu,
+%	\end{align*}
+%	where $f_0:= g(1-g)^{-1}\mathbf{1}_{D^c}$, thus concluding the proof.
+%\end{proof}
+
+\begin{definition}[Absolute continuity of measures]
+	Let $\mu$, $\nu$ be two measures on a measurable space $(\Omega, \cF)$.
+	We say that $\nu$ is \emph{absolutely continuous w.r.t.\ $\mu$}, if for every $E\in\cF$ with $\mu(E)=0$, we also have that $\nu(E)=0$, i.e.\ $\mu$-null sets are $\nu$-null sets. In this case, we write $\nu\ll\mu$.
+\end{definition}
+
+%\begin{example}
+%	Consider again the Lebesgue measure $\lambda$ on $[0,1]$ and define the measure
+%	\[
+%		\mu(E) = \begin{cases}
+%			1 + \lambda(E) &\text{if $0$ or $1\in E$}, \\
+%			\lambda(E) &\text{otherwise}.
+%		\end{cases}
+%	\]
+%	It is not difficult to see that $\delta_x\not\ll \lambda$ and $\lambda\not\ll \delta_x$. i.e., they are \emph{mutually singular}. The Radon-Nikodym Theorem (cf.~Theorem~\ref{thm:radon-nikodym}) yields
+%	\[
+%		\lambda(E) = \lambda(E\cap (0,1)),\qquad \mu(E) = \mu(E\cap \{0,1\}) + \lambda(E).
+%	\]
+%\end{example}
+
+
+\begin{theorem}[Radon-Nikodym]\label{thm:radon-nikodym}
+	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ such that $\nu\ll \mu$. Then there exists a unique (up to $\mu$-null sets) nonnegative $\mu$-integrable function $\dd\nu/\dd\mu$, called the \emph{Radon-Nikodym derivative of $\nu$ w.r.t.\ $\mu$} such that
 	\[
-		\nu(E) = \nu(E\cap D) + \int_E f_0\,\dd\mu\qquad\text{for all $E\in\cF$}.
+		\nu(E) = \int_E \frac{\dd\nu}{\dd\mu}\,\dd\mu\qquad\text{for all $E\in\cF$}.
 	\]
+	The function $\dd\nu/\dd\mu$ is also often called the $\mu$-density of $\nu$.
 \end{theorem}
 \begin{proof}
-	Let $\lambda=\mu+\nu$. Then $0\le \nu\le \lambda$, so by Lemma~\ref{lem:partial-radon-nikodym}, there exists a measurable function $g$ with $0\le g\le 1$ such that $\nu(E)=\int_E g\,\dd\lambda$ for all $E\in\cF$. It follows that
+	The idea of the proof is to obtain a $\mu$-measurable function $f_0$ such that
+	\begin{equation}\label{eq:radon-nikodym_lemma}
+		\nu(E) = \nu(E\cap D) + \int_E f_0\,\dd\mu \qquad\text{for all $E\in\cF$},
+	\end{equation}
+	where $D$ is a $\mu$-null set. If we have this, then since $E\cap D$ is a $\mu$-null set and $\nu\ll \mu$ we get $\nu(E\cap D)=0$. Setting $\dd\nu/\dd\mu:= f_0$, we then obtain the assertion.
+	
+	So let us now show~\eqref{eq:radon-nikodym_lemma}. Let $\lambda=\mu+\nu$. Then $0\le \nu\le \lambda$, so by Lemma~\ref{lem:partial-radon-nikodym}, there exists a measurable function $g$ with $0\le g\le 1$ such that $\nu(E)=\int_E g\,\dd\lambda$ for all $E\in\cF$. It follows that
 	$\mu(E) = \int_E (1-g)\,\dd\lambda$ for all $E\in\cF$. Let $D=\{g=1\}$. Then $\mu(D) = 0$. 
 	
 	Moreover, since $\nu(E)=\int_E g\,\dd\nu + \int_E g\,\dd\mu$, we have $\int_E (1-g)\,\dd\nu = \int_E g\,\dd\mu$ for all $E\in\cF$. In particular, $\int_\Omega (1-g)f\,\dd\nu = \int_\Omega gf\,\dd\mu$ for all nonnegative measurable functions $f$. Taking $f=(1+g +\cdots g^n)\mathbf{1}_E$, we learn that
@@ -83,62 +153,44 @@ However, since $\int_\Omega f_0 + \varepsilon_0\mathbf{1}_F\,\dd\mu = M + \varep
 	where $f_0:= g(1-g)^{-1}\mathbf{1}_{D^c}$, thus concluding the proof.
 \end{proof}
 
-\begin{definition}[Absolute continuity of measures]
-	Let $\mu$, $\nu$ be two measures on a measurable space $(\Omega, \cF)$.
-	We say that $\nu$ is \emph{absolutely continuous w.r.t.\ $\mu$}, if for every $E\in\cF$ with $\mu(E)=0$, we also have that $\nu(E)=0$, i.e.\ $\mu$-null sets are $\nu$-null sets. In this case, we write $\nu\ll\mu$.
-\end{definition}
-
-\begin{example}
-	Consider again the Lebesgue measure $\lambda$ on $[0,1]$ and define the measure
-	\[
-		\mu(E) = \begin{cases}
-			1 + \lambda(E) &\text{if $0$ or $1\in E$}, \\
-			\lambda(E) &\text{otherwise}.
-		\end{cases}
-	\]
-	It is not difficult to see that $\delta_x\not\ll \lambda$ and $\lambda\not\ll \delta_x$. i.e., they are \emph{mutually singular}. The Radon-Nikodym Theorem (cf.~Theorem~\ref{thm:radon-nikodym}) yields
-	\[
-		\lambda(E) = \lambda(E\cap (0,1)),\qquad \mu(E) = \mu(E\cap \{0,1\}) + \lambda(E).
-	\]
-\end{example}
+%\begin{theorem}[Radon-Nikodym III] 
+%	Let $\bbP$, $\bbQ$ be probability measures on $(\Omega,\cF)$ such that $\bbQ\ll \bbP$. Then there exists a unique (up to $\bbP$-null sets) nonnegative $\bbP$-integrable function $\frac{\dd\bbQ}{\dd\bbP}\in L^1(\bbP)$ such that
+%	\[
+%		\bbQ(E) = \int_E \frac{\dd\bbQ}{\dd\bbP}\,\dd\bbP\qquad\text{for all $E\in\cF$}.
+%	\]
+%\end{theorem}
 
 
-\begin{theorem}[Radon-Nikodym II]\label{thm:radon-nikodym-2}
-	Let $\mu$, $\nu$ be finite measures on $(\Omega,\cF)$ such that $\nu\ll \mu$. Then there exists a unique (up to $\mu$-null sets) nonnegative $\mu$-integrable function $\dd\nu/\dd\mu$, called the \emph{Radon-Nikodym derivative of $\nu$ w.r.t.\ $\mu$} such that
-	\[
-		\nu(E) = \int_E \frac{\dd\nu}{\dd\mu}\,\dd\mu\qquad\text{for all $E\in\cF$}.
-	\]
-	The function $\dd\nu/\dd\mu$ is also often called the $\mu$-density of $\nu$.
+%\begin{definition}[Conditional expectation]\label{def:conditional_expectation}
+%	Let $(\Omega,\cF,\bbP)$ be a probability space, and let $X$ be an integrable random variable, i.e., $X\in L^1(\bbP)$. Let $\cG\subset\cF$ be a sub-$\sigma$-algebra. Then the \emph{conditional expectation of $X$ given $\cG$} is the unique (up to $\bbP$-null sets) $\cG$-measurable function $Z\in L^1(\bbP)$ such that
+%	\[
+%		\int_A X\,\dd\bbP = \int_A Z\,\dd\bbP\qquad\forall\,A\in\cG.
+%	\]
+%	Since $Z$ is unique in $L^1(\bbP)$, we denote it by $Z=\bbE[X|\cG]$.
+%\end{definition}
+
+
+
+
+
+\section{Conditional Expectation and Probability}
+
+Having defined the Radom-Nikodym derivative, we can now move on to define what is often considered one of the more powerful--and conceptually difficult--concepts in probability theory.
+
+\begin{theorem}[Conditional expectation]\label{def:conditional_expectation}
+Let $(\Omega,\cF,\bbP)$ be a probability space, and let $X$ be an integrable random variable, i.e., $X\in L^1(\bbP)$. Let $\cG\subset\cF$ be a sub-$\sigma$-algebra. Then there exists an unique (up to $\bbP$-null sets) $\cG$-measurable function $Z\in L^1(\bbP)$ such that
+\[
+	\int_A X\,\dd\bbP = \int_A Z\,\dd\bbP\qquad\forall\,A\in\cG.
+\]
+The function $Z$ is called the \emph{conditional expectation of $X$ given $\cG$} and, since $Z$ is unique in $L^1(\bbP)$, we denote it by $Z=\bbE[X|\cG]$.
 \end{theorem}
+
 \begin{proof}
-	We apply Theorem~\ref{thm:radon-nikodym} to obtain a $\mu$-measurable function $f_0$ such that
-	\[
-		\nu(E) = \nu(E\cap D) + \int_E f_0\,\dd\mu \qquad\text{for all $E\in\cF$},
-	\]
-	where $D$ is a $\mu$-null set. In particular, $E\cap D$ is a $\mu$-null set. Since $\nu\ll \mu$, we have also that $\nu(E\cap D)=0$. Setting $\dd\nu/\dd\mu:= f_0$, we then obtain the assertion.
-\end{proof}
-
-\begin{theorem}[Radon-Nikodym III] 
-	Let $\bbP$, $\bbQ$ be probability measures on $(\Omega,\cF)$ such that $\bbQ\ll \bbP$. Then there exists a unique (up to $\bbP$-null sets) nonnegative $\bbP$-integrable function $\frac{\dd\bbQ}{\dd\bbP}\in L^1(\bbP)$ such that
-	\[
-		\bbQ(E) = \int_E \frac{\dd\bbQ}{\dd\bbP}\,\dd\bbP\qquad\text{for all $E\in\cF$}.
-	\]
-\end{theorem}
-
-
-\begin{definition}[Conditional expectation]\label{def:conditional_expectation}
-	Let $(\Omega,\cF,\bbP)$ be a probability space, and let $X$ be an integrable random variable, i.e., $X\in L^1(\bbP)$. Let $\cG\subset\cF$ be a sub-$\sigma$-algebra. Then the \emph{conditional expectation of $X$ given $\cG$} is the unique (up to $\bbP$-null sets) $\cG$-measurable function $Z\in L^1(\bbP)$ such that
-	\[
-		\int_A X\,\dd\bbP = \int_A Z\,\dd\bbP\qquad\forall\,A\in\cG.
-	\]
-	Since $Z$ is unique in $L^1(\bbP)$, we denote it by $Z=\bbE[X|\cG]$.
-\end{definition}
-
-The existence of the conditional expectation follows from the Radon-Nikodym Theorem II (cf.\ Theorem~\ref{thm:radon-nikodym-2}). Indeed, we begin by defining finite measures on $(\Omega,\cG)$ given by
+The existence of $Z$ will follow from the Radon-Nikodym Theorem (cf.\ Theorem~\ref{thm:radon-nikodym}). Indeed, we begin by defining finite measures on $(\Omega,\cG)$ given by
 \[
 	\mu_X^+(A) := \int_A X^+\,\dd\bbP,\qquad \mu_X^-(A) := \int_A X^-\,\dd\bbP\qquad\forall\,A\in\cG.
 \]
-Clearly, these measures satisfies $\mu_X^\pm\ll \bbP|_\cG$ since, by construction, $\mu_X^\pm(A)=0$ for every $A\in\cG$ with $\bbP|_{\cG}(A)=0$. Recall that $\bbP|_{\cG}$ is the restriction of $\bbP$ on the sub-$\sigma$-algebra $\cG$. By Theorem~\ref{thm:radon-nikodym-2}, we then find unique (up to $\bbP$-null sets) measurable functions $Z^\pm\in L^1(\bbP)$ such that
+Clearly, these measures satisfies $\mu_X^\pm\ll \bbP|_\cG$ since, by construction, $\mu_X^\pm(A)=0$ for every $A\in\cG$ with $\bbP|_{\cG}(A)=0$. Recall that $\bbP|_{\cG}$ is the restriction of $\bbP$ on the sub-$\sigma$-algebra $\cG$. By Theorem~\ref{thm:radon-nikodym}, we then find unique (up to $\bbP$-null sets) measurable functions $Z^\pm\in L^1(\bbP)$ such that
 \[
 	\mu_X^\pm = \int_A Z^\pm\,\dd\bbP\qquad\forall\,A\in\cG.
 \]
@@ -147,7 +199,349 @@ Setting $Z:= Z^+-Z^-\in L^1(\bbP)$, we then find that
 	\int_A X\,\dd\bbP = \int_A Z^+\,\dd\bbP - \int_A Z^-\,\dd\bbP = \int_A Z\,\dd\bbP\qquad \forall\,A\in\cG,
 \]
 which is what was claimed.
+\end{proof}
 
+%Recall that the conditional expectation $\bbE[X|\mathcal{G}]$ of $X$ given a sub-\sigalg/ is defined as the $\bbP$-almost everywhere unique random variable such that
+%\[
+%	\int_B \bbE[X|\mathcal{G}] \, \dd \bbP = \int_B X \, \dd \bbP,
+%\]
+%holds for all $B \in \mathcal{G}$.
+
+Note that since $\Omega \in \mathcal{G}$ for any sub-\sigalg/ $\mathcal{G}$, it immediately follows from this definition that
+\begin{equation}\label{eq:law_total_expectation}
+	\bbE[\bbE[X|\mathcal{G}]] = \int_\Omega \bbE[X|\mathcal{G}] \, \dd \bbP = \int_\Omega X \, \dd \bbP = \bbE[X].
+\end{equation}
+
+From this definition we can define the expectation of $X$ conditioned on another random variable $Y$ by considering the \sigalg/ generated by $Y$.
+
+\begin{definition}
+Let $(\Omega, \cF, \bbP)$ be a probability space, let $X,Y$ be random variables, where $X$ is $\bbP$-integrable. Then the conditional expectation of $X$ given $Y$ is defined as
+\[
+\mathbb{E}[X | Y] := \mathbb{E}[ X | \sigma(Y) ].
+\]	
+\end{definition}
+
+
+It is important to note that a conditional expectation is (in general) a stochastic object, i.e. a measurable function. Nevertheless, the next lemma shows that it still satisfies many of the same properties as the regular expectation. Moreover, if $X$ is measurable with respect to $\sigma(Y)$ then conditioning on $Y$ does nothing, i.e. $\bbE[X|Y] = X$.
+
+\begin{lemma}[Properties of conditional expectation]\label{lem:properties_conditional_expectation}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $\cH$ be a sub-\sigalg/ of $\cF$. Furthermore, let $X, Y$ be random variables and $a \in \bbR$. Then following statements hold $\bbP$-almost everywhere:
+\begin{enumerate}[label={(\alph*)}]
+\item If $X$ is $\cH$-measurable, then $\bbE[X | \cH] = X$.
+\item $\bbE[a X | \cH] = a \bbE[X | \cH]$.
+\item $\bbE[X + Y | \cH] = \bbE[X | \cH] + \bbE[Y | \cH]$.
+\item If $X \le Y$, then $\bbE[X | \cH] \le \bbE[Y | \cH]$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+See Problem~\ref{prb:properties_conditional_expectation}
+\end{proof}
+
+
+Armed with the notion of conditional expectation we can now define conditional probabilities of measurable sets. The key observation is that for any probability measure $\bbP$ on $(\Omega, \cF)$ and $A \in \cF$, we have that
+\[
+	\bbP(A) = \int_\Omega \mathbbm{1}_{A} \, \dd \bbP = \bbE[\mathbbm{1}_A].
+\]
+
+random variable $X$ we have that
+\[
+	\bbP(X \in A) = \int_\Omega \mathbf{1}_{X \in A} \, \dd \bbP = \bbE[\mathbf{1}_{X \in A}].
+\]
+
+\begin{definition}[Conditional probability]
+Let $(\Omega, \cF, \bbP)$ be a probability space, $\cH$ a sub-\sigalg/ of $\cF$, and $A \in \cF$. Then the conditional probability of $A$ with respect to $\cH$ is defined as
+\[
+	\bbP(A | \cH) := \bbE[\mathbf{1}_{A} | \cH].
+\]
+If $Y$ is another random variable we define
+\[
+	\bbP(A | Y) := \bbP( A | \sigma(Y)).
+\]
+\end{definition}
+
+If $X$ is a random variable, then using the short-hand notation $X \in B$ for the set $X^{-1}(B)$ when $B \in \cB_{\bbR}$, we define
+\begin{equation}
+	\bbP(X \in B | \cH) = \bbE[\mathbbm{1}_{X^{-1}(B)} | \cH] \quad \text{and} \quad
+	\bbP(X \in B | Y) = \bbE[\mathbbm{1}_{X^{-1}(B)} | \sigma(Y)].
+\end{equation}
+
+It now follow from~\eqref{eq:law_total_expectation} that
+\[
+	\bbE[\bbP(X \in A | Y)] = \bbP(X \in A).
+\]
+This is often referred to as the \emph{total law of probability}. Please note that this law is an immediate consequence of how conditional expectation, and hence conditional probabilities, are defined.
+
+
+
+\section{Conditioning on specific outcomes}
+
+A common formula related to the total law of probability given to you in the course Probability and Modeling, when considering discrete random variables $X$ and $Y$ was the following:
+\begin{equation}\label{eq:law_of_probability_discrete}
+	\bbP(X \in A) = \bbE[\bbP(X \in A | Y)] = \sum_{k \in \bbZ} \bbP(X \in A | Y= k) \bbP(Y = k). 
+\end{equation}
+There is however an issue with the above expression: is not clear what $\bbP(X \in A | Y = k)$ is. The problem here is that we have a definition for the random variable $\bbP(X \in A | Y)$, which is a measurable function $\Omega \to \bbR$. But here we would like to consider $\bbP(X \in A | Y = k)$ as a function $\bbZ \to \bbR$. How would you define this from first-based principles?
+
+Let's break this problem down at the level of condition expectations. We are looking for a (measurable) function $h$ that maps $y \mapsto \bbE[X | Y = y]$ for all $y \in \mathrm{range}(Y)$. The problem is that we only have a random variable $\bbE[X |Y] : \Omega \to \bbR$ and, in particular, $\bbE[X | Y = y]$ is simply not defined yet. So our first task is to give a definition of $h$. However, this must in some way be consistent with our definition of $\bbE[X|Y]$.  
+
+To understand how to proceed we look at the following diagram, which outlines the spaces and two measurable functions we need to relate.
+\[
+\begin{tikzcd}
+	\Omega \arrow[dr,swap,"{\bbE[X|Y]}"] &\bbR \arrow[d,"h"]  \\
+	&\bbR
+\end{tikzcd}
+\]
+
+A good way to define $h$ would be such that it makes this into a commuting diagram. But for this we need a measurable function $\Omega \to \bbR$. Luckily we have two of these at our disposal: $X$ and $Y$. Now since evaluation of $h$ at $y$ should be related to ``evaluating" $\bbE[X|Y]$ at $Y = y$, it makes sense to pick $Y$ as our measurable function. Thus we want to pick $h$ such that the following diagram commutes
+\[
+\begin{tikzcd}
+	\Omega \arrow[r,"Y"] \arrow[dr,swap,"{\bbE[X|Y]}"] &\bbR \arrow[d,"h"]  \\
+	&\bbR
+\end{tikzcd}
+\]
+
+This prompts the following definition:
+
+\begin{definition}\label{def:conditional_expectation_function}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X, Y$ be two random variables. Suppose there exist a $\bbP$-integrable function $h : \mathrm{range}(Y) \to \bbR$ such that $h(Y) = \bbE[X | Y]$, then we define
+\[
+	\bbE[X | Y = y] := h(y).
+\]
+\end{definition}
+
+In a similar spirit we define
+\[
+	\bbP(A | Y = y) := \bbE[\mathbbm{1}_A | Y = y],
+\]
+taking $X := \mathbbm{1}_A$ in Definition~\ref{def:conditional_expectation_function}.
+
+\begin{remark}
+Definition~\ref{def:conditional_expectation_function} implicitly assumes that the function $h$ exists. Thus when writing $\bbE[X | Y]$ we have to make sure this actually holds. There is a more general theory about the existence of such functions, captured under the umbrella-term \emph{disintegration}, but this is beyond the scope of this course. The interested and adventurous student is referred to Chapter 5 in \textit{Foundations of Modern Probability} by Olav Kallenberg. 
+\end{remark}
+
+Before we return to~\eqref{eq:law_of_probability_discrete}, let us first consider another common formula presented in most basic courses on probability theory. This is the conditional probability of an event $A$ given another event $B$, with non-zero probability, which was defined as
+\begin{equation}\label{eq:conditional_prop_events_def}
+	\bbP(A|B) := \frac{\bbP(A \cap B)}{\bbP(B)}.
+\end{equation}
+
+We will show that~\eqref{eq:conditional_prop_events_def} is consistent with our definitions. First note that we can view conditioning on a measurable set $B$ in our framework by considering the random variable $Y = \mathbbm{1}_B$ and condition on $Y = 1$, using Definition~\ref{def:conditional_expectation_function}.
+
+\begin{lemma}\label{lem:conditional_expectation_function}
+Let $(\Omega, \cF, \bbP)$ be a probability space, $A, B \in \cF$ be two measurable sets and set $Y := \mathbbm{1}_B$. Then, if we define the function $h : \bbR \to \bbR$ as
+\[
+	h(x) = \frac{\bbP(A \cap B)}{\bbP(B)} \delta_{1}(x) + \frac{\bbP(A \cap B^c)}{\bbP(B^c)}\delta_{0}(x).
+\]
+we have that
+\[
+	h(Y) = \bbE[\mathbbm{1}_A | Y].
+\]
+\end{lemma}
+
+\begin{proof}
+First note that the function $h$ is measurable and $\bbP$-integrable. Moreover, we have that $h(Y)$ is $\sigma(Y)$-measurable. Thus, we need to show that
+\begin{equation}\label{eq:conditional_exp_function_proof_main}
+	\int_C h(Y) \, \dd \bbP = \int_C \mathbbm{1}_A \, \dd \bbP,
+\end{equation}
+holds for all $C \in \sigma(Y)$.
+
+We start with observing that since $Y = \mathbbm{1}_B$, it holds that $\sigma(Y) = \{\Omega, B, B^c, \emptyset\}$. Moreover, it is clear that~\eqref{eq:conditional_exp_function_proof_main} holds for $C = \emptyset$. Now if $C = B$, we have that
+\begin{align*}
+	\int_B h(Y) \, \dd \bbP &= \int_\Omega h(Y) \mathbbm{1}_B \, \dd \bbP \\
+	&= \int_\Omega \frac{\bbP(A \cap B)}{\bbP(B)} \mathbbm{1}_B \, \dd \bbP \\
+	&= \frac{\bbP(A \cap B)}{\bbP(B)} \int_\Omega \mathbbm{1}_B \, \dd \bbP \\
+	&= \bbP(A \cap B) = \int_B \mathbbm{1}_A \, \dd \bbP,
+\end{align*}
+as required.
+
+Following similar computations we also get that
+\[
+	\int_{B^c} h(Y) \, \dd \bbP = \frac{\bbP(A \cap B^c)}{\bbP(B^c)} \int_\Omega \mathbbm{1}_B \, \dd \bbP
+	= \bbP(A \cap B^c) = \int_{B^c} \mathbbm{1}_A \, \dd \bbP.
+\]
+
+Finally, for $C = \Omega$ the above computation together with linearity integration give
+\[
+	\int_\Omega h(Y) \, \dd \bbP = \int_B h(Y) \, \dd \bbP + \int_{B^c} h(Y) \, \dd \bbP
+	= \bbP(A \cap B) + \bbP(A \cap B^c) = \bbP(A) = \int_\Omega \mathbbm{1}_A \, \dd \bbP.
+\]
+\end{proof}
+
+By definition we now have that 
+\[
+	\bbP(A | B) = \bbP(A | Y = 1) = \bbE[\mathbbm{1}_A | Y = 1] := h(1) = \frac{\bbP(A \cap B)}{\bbP(B)},
+\]
+which indeed agrees with~\eqref{eq:conditional_prop_events_def}.
+
+
+Now we can return to~\eqref{eq:law_of_probability_discrete} and make sense of $\bbP(X \in A | Y = k)$. Since $Y$ is discrete $\{Y = k\} \in \sigma(Y)$ and hence, taken the random variable $Z_k = \mathbbm{1}_{Y = k}$, we can apply~\ref{eq:conditional_prop_events_def} to obtain 
+\[
+	\bbP(X \in A | Y = k) = \bbE[\mathbbm{1}_{X \in A} | Z_k = 1]
+	= \frac{\bbP(X \in A, Y = k)}{\bbP(Y = k)}.
+\]
+This then yields that
+\[
+	\sum_{k \in \mathbb{Z}} \bbP(X \in A | Y = k) \bbP(Y = k) 
+	= \sum_{k \in \mathbb{Z}} \bbP(X \in A, Y = k) = \bbP(X \in A)
+\]
+proving~\eqref{eq:law_of_probability_discrete}.
+
+\section{Conditional densities}
+
+In Section~\ref{sec:joint_prob_measures} we introduce the concept of a joint probability density function for two random variables $X, Y$, see Definition~\ref{def:joint_pdf}. This was a measurable function $f$ such that
+\[
+	\bbP((X,Y) \in A) = \int_A f \, \dd \lambda^2,
+\]
+for any measurable set $A \in \bbR^2$.
+
+If $X$ and $Y$ have a joint probability density function, then we can define the \emph{conditional probability density function} of $X$ given that $Y = y$. Note that it is not obvious this is possible as $\bbP(Y = y) = 0$ if $Y$ has a pdf. 
+
+The general idea is that we would like to be able to write the conditional expectation $\bbE[X | Y = y]$ as an integral over $\bbR$ with a conditional density function, that depends on $y$. In other words, we are looking for an integrable function $g : \bbR \times \bbR \to \bbR$ such that
+\[
+	\bbE[X | Y = y] = \int_\bbR x g(x,y) \, \lambda (\dd x).
+\]
+
+
+The key point of defining the conditional density is the following lemma.
+
+
+\begin{lemma}\label{lem:condition_expectation_Y_y}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X,Y$ be two random variables with joint probability density $f : \bbR \times \bbR \to \bbR$. Further, let $f_Y$ denote the probability density function of $Y$ and define
+\[
+	h(y) := \int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \dd \lambda
+\]
+Then
+\[
+	h(Y) = \bbE[X | Y].
+\]
+\end{lemma}
+
+\begin{proof}
+We need to show that for all $B \in \sigma(Y)$
+\[
+	\int_B h(Y) \, \dd \bbP = \int_B X \, \dd \bbP := \bbE[\mathbf{1}_B X]. 
+\]
+Note that the map $B \mapsto \int_B h(Y) \, \dd \bbP$ is a measure on $\sigma(Y)$. Moreover, $\sigma(Y)$ satisfies the two properties of Theorem~\ref{thm:uniqueness_measures} (see Problem~\ref{prb:uniqueness_integration_measures}. Hence it suffices to consider sets of the form $B = Y^{-1}(A)$ for some $A \in \cB$. 
+
+Using that $\mathbf{1}_B(\omega) = \mathbf{1}_A(Y(\omega))$ we then have,
+\begin{align*}
+	\int_B h(Y) \, \dd \bbP &= \int_\Omega \mathbf{1}_{B} h(Y) \, \dd \bbP 
+	= \int_\Omega \mathbf{1}_{Y^{-1}(A)} h(Y) \, \dd \bbP \\
+	&= \int_\bbR \mathbf{1}_{A}(y) h(y) f_Y(Y) \, \lambda (\dd y) &&\text{by change of variables}\\
+	&= \int_\bbR \mathbf{1}_A(y) \left(\int_\bbR \frac{x \, f(x,y)}{f_Y(y)} \, \lambda(\dd x)\right)
+		\, f_Y(y) \lambda(\dd y)\\
+	&= \iint_{\bbR^2} \mathbf{1}_A(y) x f(x,y) \, \lambda(\dd x) \lambda(\dd y)\\
+	&= \bbE[\mathbf{1}_A(Y) X] = \bbE[\mathbf{1}_B X].
+\end{align*}
+\end{proof}
+
+
+From Lemma~\ref{lem:condition_expectation_Y_y} we see that the function
+\begin{equation}\label{eq:def_condition_pdf}
+	g(x,y) := \frac{f(x,y)}{f_Y(y)},
+\end{equation}
+fulfills the requirements. We thus refer to $g(x,y)$ as the conditional density of $X$ given $Y = y$. We often write $f_{X|Y}(x|y) := g(x,y)$ to emphasize the conditioning on $Y = y$. 
+
+%The function $h(y)$ is the formal way to interpret the expression $\bbE[X | Y=y]$. So in the example of the total law of probability, we would have that $\bbP(X\in A | Y = y) := \bbE[\mathbf{1}_{X \in A} | Y = y]$. 
+
+
+\section{Working with conditional expectations}
+
+Up to now we have focused on the formal definitions of conditional expectation and probability and relating it to formulas that are presented in basics courses on probability theory. However, you might still not feel very comfortable using the definitions to do actual computations with conditional expectations. Here we will present a lemma that will be usefull for this.
+
+Let us consider the case where we have two independent random variables $X$ and $Y$, with $X$ being a Bernouli random variable with success probability $p$ and $Y$ the uniform random variable on $[0,1]$. If you are asked to compute $\bbE[e^{XY}]$ you might do this as follows:
+
+First you compute
+\[
+	\bbE[e^{XY} | Y = y] = \bbE[e^{yX}] = pe^{y} + (1-p) := h(y)
+\]
+and then use this together with the total law of probability to obtain
+\[
+	\bbE[e^{XY}] = \bbE[\bbE[e^{XY}|Y]] = \bbE[pe^Y] + (1-p) = p \int_0^1 e^{y} \, \dd y + (1-p)
+	= p(e - 1) + (1-p).
+\]
+Now, for the second equality you made use of the first computation and Lemma~\ref{lem:condition_expectation_Y_y}. However, it is not clear yet if the first computation is valid. Intuitively it makes sense as you simply replace all instances of the random variable $Y$ by the value $y$ which you conditioned it to be. The next result shows that this is indeed correct.
+
+\begin{lemma}\label{lem:computing_conditional_expectations}
+Let $X$, $Y$ be two independent random variables defined on the same probability space and let $f : \bbR \times \bbR \to \bbR$ be a measurable function. Then
+\[
+	\bbE[f(X,Y) | Y = y] = \bbE[f(X,y)].
+\]
+\end{lemma}
+
+\begin{proof}
+Before we start it will be helpful to define some auxiliary random variables and draw a diagram.
+
+We write $(\Omega, \cF, \bbP)$ to denote the probability space on which $X$ and $Y$ are defined. We further define them diagonal map $\Delta : \Omega \to \Omega \times \Omega$ as $\omega \mapsto (\omega, \omega)$. Note that this map is measurable with respect to the product \sigalg/ $\cF \otimes \cF$. We can also define the random vector $(X,Y)$ in $\bbR^2$ as the measurable function $(X, Y) : \Omega \times \Omega \to \bbR^2$, given by $(\omega_1, \omega_2) \mapsto (X(\omega_1), Y(\omega_2))$. We can now define the random variable $Z := f \circ (X, Y) \circ \Delta$, i.e. $\omega \mapsto f(X(\omega), Y(\omega))$. Note that $\bbE[f(X,Y)] = \int_\Omega Z \, \dd \bbP$. Finally, we define the function $h(y) := \bbE[f(X,y)]$.
+
+The diagram below depicts the construction of $Z$.
+\[
+\begin{tikzcd}
+	\Omega \times \Omega \arrow[r,"{(X,Y)}"] &\bbR^2 \arrow[d,"f"]  \\
+	\Omega \arrow[u, "\Delta"] \arrow[r, "Z"] &\bbR
+\end{tikzcd}
+\]
+
+To prove the lemma, we need to show that $h(Y) = \bbE[f(X,Y)|Y]$. This means, with our setup, that we have to prove that for all $B \in \sigma(Y)$ 
+\[
+	\int_B h(Y) \, \dd \bbP = \int_B Z \, \dd \bbP.
+\]
+
+The prove will be based on two claims, which you will be asked to verify in Problem~\ref{prb:computing_conditional_expectations}.
+
+Frist we note that it suffice to prove that for every $C \in \cB_{\bbR}$
+\[
+	\int_{Y^{-1}(C)} h(Y) \, \dd \bbP = \int_{Y^{-1}(C)} Z \, \dd \bbP,
+\]
+see Problem~\ref{prb:uniqueness_integration_measures}. So from now on we will assume that $B = Y^{-1}(C)$.
+
+To better understand how the computation will work out, we take $B = \Omega = Y^{-1}(\bbR)$, start from the right hand side and apply the change of variables formula. We then get
+\begin{align*}
+	\int_\Omega Z \, \dd \bbP &= \int_\Omega [f \circ (X, Y)] \circ \Delta \, \dd \bbP \\
+	&= \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \Delta_\# \bbP.
+\end{align*}
+
+To proceed we need to better understand the measure $\Delta_\# \bbP$. Here we will use the fact that $X$ and $Y$ are independent. Let $A \in \sigma(X)$ and $B \in \sigma(Y)$. Then $A \times B \in \cF \otimes \cF$ and we have that
+\begin{align*}
+	\Delta_\# \bbP(A \times B) &= \bbP(\Delta^{-1}(A \times B))
+		= \bbP(\{\omega \in \Omega \, : \, \omega \in A, \omega \in B\})\\
+	&= \bbP(A \cap B) = \bbP(A) \bbP(B) = \bbP\otimes \bbP(A\times B).
+\end{align*}
+Based on this we make our first, and most important, claim.
+
+\textbf{Claim I:}
+\[
+	\int_{B} Z \, \dd \bbP = \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
+\]
+
+Recalling that $B = Y^{-1}(C)$, we have now derived that
+\begin{align*}
+	\int_{B} Z \, \dd \bbP &= \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP\\
+	&= \int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP,
+\end{align*}
+where the last equality is another application of the change of variables formula.
+
+Note that for any $C, D \in \cB_{\bbR}$
+\[
+	(X,Y)_\# \bbP \otimes \bbP(D \times C) = \bbP(X^{-1}(D)) \bbP(Y^{-1}(C)) 
+	= X_\# \bbP(D) Y_\# \bbP(C).
+\]
+
+\textbf{Claim II:}
+\[
+	\int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP
+	= \int_C \int_\bbR f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y)
+\]
+
+Finally we note that $h(y) := \bbE[f(X,y)] = \int_\Omega f(x,y) \, X_\#\bbP(\dd x)$. Putting everything together we then get
+\begin{align*}
+	\int_{B} Z \, \dd \bbP &= \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP\\
+	&= \int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP\\
+	&= \int_C \int_\bbR f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y)\\
+	&= \int_C h(y) Y_\# \bbP(\dd y) \\
+	&= \int_B h(Y) \, \bbP.
+\end{align*}
+
+\end{proof}
 
 \section{Problems}
 
@@ -182,4 +576,101 @@ Prove that $f=g$ $\bbP$-almost everywhere, i.e.
 \]
 \end{problem}
 
+%\begin{problem}[Joint densities]\label{prb:joint_pdfs}
+%Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to \bbR$. 
+%
+%Define the function $f_X(x) = \int_\bbR f(x,y) \, \lambda(\dd y)$.
+%\begin{enumerate}[label={(\alph*)}]
+%\item Prove that $f_X$, as a function from $(\bbR, \cB_{\bbR})$ to $(\bbR, \cB_{\bbR})$ is measurable and integrable.
+%\item Show that
+%\[
+%	X_\# \bbP (A) = \int_A f_X \, \dd \lambda.
+%\]
+%That is, $f_X$ is the probability density function of $X$.
+%\end{enumerate}
+%\end{problem}
 
+%\begin{problem}
+%The goal of this problem is to show that the conditional expectation is unique $\bbP$-almost everywhere.
+%
+%\begin{enumerate}[label={(\alph*)}]
+%\item Let $f : \Omega \to \bbR$ be a non-negative measurable function. Show that $\int_\Omega f \, \dd \bbP = 0$ implies that $\bbP(f = 0) = 1$.
+%\item Let $X$ be a random variable and $\mathcal{H}$ a sub-\sigalg/. Suppose further, that $Z_1$ and $Z_2$ are $\mathcal{H}$-measurable random variables such that for $i = 1,2$
+%\[
+%	\int_B Z_i \, \dd \bbP = \int_B X \, \dd \bbP \quad \forall B \in \mathcal{H}.
+%\]
+%Show that $Z_1 = Z_2$ hold $\bbP$-almost everywhere, i.e. $\bbP(Z_1 = Z_2) = 1$. 
+%\end{enumerate}
+%\end{problem}
+
+\begin{problem}[Properties conditional expectation]\label{prb:properties_conditional_expectation}
+The goal of this problem is to prove Lemma~\ref{lem:properties_conditional_expectation}.
+\end{problem}
+
+\begin{problem}\label{prb:uniqueness_integration_measures}
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X$ a random variable. Define the set function $\nu_X : \sigma(X) \to [0,+\infty]$ as
+\[
+	\nu_X(B) := \int_B X \, \dd \bbP.
+\]
+\begin{enumerate}[label={(\alph*)}]
+\item Show that $\nu_X$ is a measure on $\sigma(X)$.
+\end{enumerate}
+
+Suppose now that $\mu$ is another measure on $\sigma(X)$ such that $\mu(X^{-1}(A)) = \nu_X(X^{-1}(A))$ holds for all $A \in \cB_{\bbR}$.
+\begin{enumerate}[label={(\alph*)}]
+\setcounter{enumi}{1}
+\item Show that $\nu_X = \mu$ on $\sigma(X)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Let $X,Y$ be two random variables with a joint density $f : \bbR \times \bbR \to \bbR$ and let $g(x,y)$ be given by~\eqref{eq:def_condition_pdf}. Show that for any measurable function $h : \bbR \to \bbR$
+\[
+	\bbE[h(X) | Y = y] = \int_\bbR h(x) g(x,y) \, \lambda(\dd x).
+\]
+\end{problem}
+
+\begin{problem}
+Let $\nu > 0$ and $X$ be a random variable with an Exponential distribution with scale $\nu$, i.e. $X$ has probability density function $\rho(x) = \nu e^{-\nu x} \mathbbm{1}_{x \ge 0}$.
+\begin{enumerate}[label={(\alph*)}]
+\item Prove the \emph{memoryless property:}
+\[
+	\forall s,t \ge 0 \quad \bbP(X > t+s | X > t) = \bbP(X > s).
+\]
+\item Let $Y$ be another random variable with Exponential distribution with scale $\nu$, and independent of $X$. Prove that $\bbP(X + Y \le t | Y = y) = (1 - e^{-\nu (t - y)}) \mathbbm{1}_{y < t}$.
+\item Use the above result to show that $\bbP(X + Y \le t) = 1 - e^{-\nu t} - t e^{-\nu t}$. 
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}\label{prb:computing_conditional_expectations}
+Here you will prove the four claims made in the proof of Lemma~\ref{lem:computing_conditional_expectations}.
+
+Let $X$, $Y$ be two independent random variables defined on the same probability space $(\Omega, \cF, \bbP)$, let $f : \bbR \times \bbR \to \bbR$ be a measurable function and define $h(y) := \bbE[f(X,y)]$. Define also $\Delta(\omega) = (\omega, \omega)$ and $Z = f \circ (X, Y) \circ \Delta$, so that $\bbE[f(X,Y)] = \int_\Omega Z \, \dd \bbP$.
+
+\begin{enumerate}[label={(\alph*)}]
+\item Claim I. Let $B \in \sigma(Y)$. Prove that
+\[
+	\int_{B} Z \, \dd \bbP = \int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP.
+\]
+[Hint: It suffices to show that two measures are equal on $\cB^2$. For this you can use Theorem 2.15, which tells you that you only need to show equality on the generator set $\cB \times \cB$.
+]
+\item Claim II. Let $C \in \cB_{\bbR}$. Prove that
+\[
+	\int_{\bbR \times C} f \, \dd (X,Y)_\# \bbP \otimes \bbP
+	= \int_C \int_\Omega f(x,y) \, X_\#\bbP(\dd x) \, Y_\# \bbP (\dd y).
+\]
+[Hint: Fubini-Tonelli]
+\end{enumerate}
+\end{problem}
+
+%\begin{problem}
+%Let $X$ and $Y$ be random variables that are independent. The goal of this exercise is to show that $\bbE[X|Y] = \bbE[X]$.
+%\begin{enumerate}[label={(\alph*)}]
+%\item 
+%\end{enumerate}
+%\end{problem}
+
+%\begin{problem}\label{prb:law_of_probability_discrete}
+%Use Lemma~\ref{lem:condition_expectation_Y_y} to prove~\eqref{eq:law_of_probability_discrete}.
+%\end{problem}

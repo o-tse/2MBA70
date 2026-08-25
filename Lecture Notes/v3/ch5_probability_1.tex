@@ -86,7 +86,7 @@ Let $F : \bbR \to [0,1]$ be a cdf. Then there exists a probability space  $(\Ome
 In other words, $X$ is a random variable with cdf $F$.
 \end{theorem}
 
-\begin{proof}[New and better proof]
+\begin{proof}%[New and better proof]
 Let us first discuss the idea of the proof. Suppose we have a probability measure $\mu$ on $(\bbR, \cB_{\bbR})$ such that $\mu((-\infty,t]) = F(t)$. Then we can simply take $(\bbR, \cB_{\bbR}, \mu)$ as our probability space and take $X : \bbR \to \bbR$ to be $X(\omega) = \omega$. The difficulty in applying this philosophy to our setting is that we do not have this probability measure $\mu$. So the main goal of the proof is to construct this using our cdf $F$. 
 
 Note that the function $F$ is only defined on sets of the form $(-\infty,x]$ and not on general measurable sets $A \in \cB_{\bbR}$. However, if we can extend $F$ to a proper measure $\mu$ on $\cB_{\bbR}$ then we would be done. To achieve this, first recall the collection of right-closed intervals (see~\eqref{def:right_closed_intervals})
@@ -166,86 +166,86 @@ We have proven that $\mu_F$ satisfies the requirements of Theorem~\ref{thm:measu
 
 \end{proof}
 
-\begin{proof}[Old proof presented in the lecture (incomplete)]
-
-Let us first discuss the idea of the proof. Suppose we have a probability measure $\mu$ on $(\bbR, \cB_{\bbR})$ such that $\mu((-\infty,t]) = F(t)$. Then we can simply take $(\bbR, \cB_{\bbR}, \mu)$ as our probability space and take $X : \bbR \to \bbR$ to be $X(\omega) = \omega$. The difficulty in applying this philosophy to our setting is that we do not have this probability measure $\mu$. So the main goal of the proof is to construct this using our cdf $F$. 
-
-Note that the function $F$ is only defined on sets of the form $(-\infty,x]$ and not on general measurable sets $A \in \cB_{\bbR}$. However, if we can extend $F$ to a proper measure $\mu$ on $\cB_{\bbR}$ then we would be done. To achieve this, first recall the collection of right-closed intervals (see~\eqref{def:right_closed_intervals})
-\[
-	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a \le b, a,b \in \bbR\} \cup \{(a, \infty) \, : \, a \in \bbR\} \cup \{\bbR\},
-\] 
-which is a semi-algebra that generates the Borel \sigalg/ $\cB_{\bbR}$ (see Problem~\ref{prb:right_closed_intervals}). We will construct a pre-measure $\mu_F$ on $\mathcal{S}$ such that $\mu_F((t,\infty)) = 1 - F(t)$. Then we use Theorem~\ref{thm:caratheodory} (Carath\'{e}odory Extension) to obtain a measure $\mu$ on $\sigma(\mathcal{S}) = \cB_{\bbR}$ that extents $\mu_F$. This then implies that 
-\[
-	\mu((-\infty,t]) = 1 - \mu((t,\infty)) = 1 - \mu_F((t,\infty)) = F(t),
-\]
-as required. 
-
-Having explained the outline of the proof lets get started. We first note that any cdf $F$ defines a set function $\mu_F$ on $\mathcal{S}$ by
-\[
-	\mu_F(A) = \begin{cases}
-		0 &\text{if } A = \emptyset,\\
-		1 &\text{if } A = \bbR,\\
-		F(b) - F(a) &\text{if } A = (a,b],\\
-		1 - F(a) &\text{if } A = (a, \infty).
-	\end{cases}
-\]
-In particular, by definition $\mu_F((t,\infty)) = 1 - F(t)$ as we needed.
-
-The only thing left to do is show that $\mu_F$ is a pre-measure on $\mathcal{S}$. Since $\mu_F(\emptyset) = 0$ by definition we only need to show that it is $\sigma$-additive. 
-
-To this end, let $(A_i)_{i \ge 1}$ be a family of disjoint sets in $\mathcal{S}$ such that $\bigcup_{i \ge 1} A_i \in \mathcal{S}$. We must show that
-\begin{equation}\label{eq:construction_rv_sig_add}
-	\mu_F(\bigcup_{i \ge 1} A_i) = \sum_{i \ge 1} \mu_F(A_i).
-\end{equation}
-
-Before we continue, we observe that if $A_i = \bbR$ for some $i \ge 1$ then $A_j = \emptyset$ for all other $j$ in which case~\eqref{eq:construction_rv_sig_add} holds. So without loss of generality we can assume that all $A_i$ are non-empty and $A_i \ne \bbR$.
-
-In addition, suppose that $\bigcup_{i \ge 1} A_i = (a, \infty)$ then there must exist an index $j$ such that $A_j = (b,\infty)$ with $a < b$ and $\bigcup_{i \ne j} A_i = (a, b]$. In this case we get
-\[
-	\mu_F(\bigcup_{i \ge 1} A_i) = 1 - F(a) = 1 - F(b) + F(b) - F(a) = \mu_F(A_j) + \mu_F(\bigcup_{i \ne j} A_i).
-\]
-From this we see that it is enough to prove~\eqref{eq:construction_rv_sig_add} for the case where all sets are of the form $(a,b]$.
-
+%\begin{proof}[Old proof presented in the lecture (incomplete)]
 %
-%Let us first consider two disjoint sets $A, B$ such that $A \cup B \in \mathcal{S}$. Then, we may assume that $A = (a,b]$ and either $B = (b, c]$ or $B = (b, \infty)$. In the first cases we have that
+%Let us first discuss the idea of the proof. Suppose we have a probability measure $\mu$ on $(\bbR, \cB_{\bbR})$ such that $\mu((-\infty,t]) = F(t)$. Then we can simply take $(\bbR, \cB_{\bbR}, \mu)$ as our probability space and take $X : \bbR \to \bbR$ to be $X(\omega) = \omega$. The difficulty in applying this philosophy to our setting is that we do not have this probability measure $\mu$. So the main goal of the proof is to construct this using our cdf $F$. 
+%
+%Note that the function $F$ is only defined on sets of the form $(-\infty,x]$ and not on general measurable sets $A \in \cB_{\bbR}$. However, if we can extend $F$ to a proper measure $\mu$ on $\cB_{\bbR}$ then we would be done. To achieve this, first recall the collection of right-closed intervals (see~\eqref{def:right_closed_intervals})
 %\[
-%	F(c) - F(a) = \mu_F(A\cup B) = F(c) - F(b) + F(b) - F(a) = \mu_F(A) + \mu_F(B), 
-%\]
-%while in the second case it holds that
+%	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a \le b, a,b \in \bbR\} \cup \{(a, \infty) \, : \, a \in \bbR\} \cup \{\bbR\},
+%\] 
+%which is a semi-algebra that generates the Borel \sigalg/ $\cB_{\bbR}$ (see Problem~\ref{prb:right_closed_intervals}). We will construct a pre-measure $\mu_F$ on $\mathcal{S}$ such that $\mu_F((t,\infty)) = 1 - F(t)$. Then we use Theorem~\ref{thm:caratheodory} (Carath\'{e}odory Extension) to obtain a measure $\mu$ on $\sigma(\mathcal{S}) = \cB_{\bbR}$ that extents $\mu_F$. This then implies that 
 %\[
-%	1 - F(a) = \mu_F(A \cup B) = 1 - F(b) + F(b) - F(a) = = \mu_F(A) + \mu_F(B).
+%	\mu((-\infty,t]) = 1 - \mu((t,\infty)) = 1 - \mu_F((t,\infty)) = F(t),
 %\]
-%This argument can be trivially extended to any finite number of disjoint sets and we thus conclude that 
-%\begin{equation}
-%	\mu_F(\bigcup_{i = 1}^N A_i) = \sum_{i = 1}^N \mu_F(A_i)
+%as required. 
+%
+%Having explained the outline of the proof lets get started. We first note that any cdf $F$ defines a set function $\mu_F$ on $\mathcal{S}$ by
+%\[
+%	\mu_F(A) = \begin{cases}
+%		0 &\text{if } A = \emptyset,\\
+%		1 &\text{if } A = \bbR,\\
+%		F(b) - F(a) &\text{if } A = (a,b],\\
+%		1 - F(a) &\text{if } A = (a, \infty).
+%	\end{cases}
+%\]
+%In particular, by definition $\mu_F((t,\infty)) = 1 - F(t)$ as we needed.
+%
+%The only thing left to do is show that $\mu_F$ is a pre-measure on $\mathcal{S}$. Since $\mu_F(\emptyset) = 0$ by definition we only need to show that it is $\sigma$-additive. 
+%
+%To this end, let $(A_i)_{i \ge 1}$ be a family of disjoint sets in $\mathcal{S}$ such that $\bigcup_{i \ge 1} A_i \in \mathcal{S}$. We must show that
+%\begin{equation}\label{eq:construction_rv_sig_add}
+%	\mu_F(\bigcup_{i \ge 1} A_i) = \sum_{i \ge 1} \mu_F(A_i).
 %\end{equation}
-%holds for any finite number of disjoint sets $A_i$ whose union is in $\mathcal{S}$.
-
-
-Consider first a countable families of disjoint sets of the form $A_i = (a_i, a_{i-1}]$ for some non-increasing sequence $(a_i)_{i \ge 1}$ with $a_0 = b$ and $\lim_{i \to \infty} a_i = a$. This implies that $\bigcup_{i \ge 1} A_i = (a, b]$. Using that $F$ is right-continuous we get
-\begin{align*}
-	\mu_F(\bigcup_{i \ge 1} A_i) &= F(b) - F(a) = F(b) - \lim_{N \to \infty} F(a_N) \\
-	&= \lim_{N \to \infty} \sum_{i = 1}^N F(a_{i-1}) - F(a_i) = \lim_{N \to \infty} \sum_{i = 1}^N \mu_F(A_i) 
-	= \sum_{i \ge 1} \mu_F(A_i).
-\end{align*}
-
-Now let $(A_i)_{i \ge 1}$ be a general family of disjoint sets of the form $(c,d]$ with $\bigcup_{i \ge 1} A_i = (a, b]$. The main idea is that we can order these sets into groups of sets that are of the previous form. We can then chain the result we obtained to prove that~\eqref{eq:construction_rv_sig_add} holds.
-
-To this end we observe that the sets $(A_i)_{i \ge 1}$ can be ordered into at most countable groups $(C_n)_{n \ge 1}$, such that each group $C_n$ consists of intervals $A_{n_i} = (a_{n_i}, b_{n_i}]$ with $b_{n_1} \le b$, $a_{n_{i}} = b_{n_{i+1}}$ for all $i \ge 1$ and $\lim_{i \to \infty} a_{n_i} := a_n \ge a$. With this notation we have that $\bigcup_{i \ge 1} A_{n_i} = (a_n, b_n]$. Moreover, we can choose the ordering such that $b_1 = b$, $a_n = b_{n-1}$ for all $n \ge 2$ and $\lim_{n \to \infty} a_n = a$.
-
-Putting this together we have
-\begin{align*}
-	\sum_{i = 1}^\infty \mu_F(A_i) &= \sum_{n = 1}^\infty \sum_{i = 1}^\infty \mu_F(A_{n_i}) \\
-	&= \sum_{n = 1}^\infty \mu_F(\bigcup_{i \ge 1} A_{n_i})\\
-	&= \sum_{n = 1}^\infty F(b_n) - F(a_n) \\
-	&= F(b) - \lim_{n \to \infty} F(a_n) \\
-	&= F(b) - F(a) = \mu_F((a,b]) = \mu_F(\bigcup_{i \ge 1} A_i),
-\end{align*}
-where we used the previous result in the third line and again in the forth one.
-
-We thus conclude that~\eqref{eq:construction_rv_sig_add} holds and thus $\mu_F$ is $\sigma$-additive as required.
-
-\end{proof}
+%
+%Before we continue, we observe that if $A_i = \bbR$ for some $i \ge 1$ then $A_j = \emptyset$ for all other $j$ in which case~\eqref{eq:construction_rv_sig_add} holds. So without loss of generality we can assume that all $A_i$ are non-empty and $A_i \ne \bbR$.
+%
+%In addition, suppose that $\bigcup_{i \ge 1} A_i = (a, \infty)$ then there must exist an index $j$ such that $A_j = (b,\infty)$ with $a < b$ and $\bigcup_{i \ne j} A_i = (a, b]$. In this case we get
+%\[
+%	\mu_F(\bigcup_{i \ge 1} A_i) = 1 - F(a) = 1 - F(b) + F(b) - F(a) = \mu_F(A_j) + \mu_F(\bigcup_{i \ne j} A_i).
+%\]
+%From this we see that it is enough to prove~\eqref{eq:construction_rv_sig_add} for the case where all sets are of the form $(a,b]$.
+%
+%%
+%%Let us first consider two disjoint sets $A, B$ such that $A \cup B \in \mathcal{S}$. Then, we may assume that $A = (a,b]$ and either $B = (b, c]$ or $B = (b, \infty)$. In the first cases we have that
+%%\[
+%%	F(c) - F(a) = \mu_F(A\cup B) = F(c) - F(b) + F(b) - F(a) = \mu_F(A) + \mu_F(B), 
+%%\]
+%%while in the second case it holds that
+%%\[
+%%	1 - F(a) = \mu_F(A \cup B) = 1 - F(b) + F(b) - F(a) = = \mu_F(A) + \mu_F(B).
+%%\]
+%%This argument can be trivially extended to any finite number of disjoint sets and we thus conclude that 
+%%\begin{equation}
+%%	\mu_F(\bigcup_{i = 1}^N A_i) = \sum_{i = 1}^N \mu_F(A_i)
+%%\end{equation}
+%%holds for any finite number of disjoint sets $A_i$ whose union is in $\mathcal{S}$.
+%
+%
+%Consider first a countable families of disjoint sets of the form $A_i = (a_i, a_{i-1}]$ for some non-increasing sequence $(a_i)_{i \ge 1}$ with $a_0 = b$ and $\lim_{i \to \infty} a_i = a$. This implies that $\bigcup_{i \ge 1} A_i = (a, b]$. Using that $F$ is right-continuous we get
+%\begin{align*}
+%	\mu_F(\bigcup_{i \ge 1} A_i) &= F(b) - F(a) = F(b) - \lim_{N \to \infty} F(a_N) \\
+%	&= \lim_{N \to \infty} \sum_{i = 1}^N F(a_{i-1}) - F(a_i) = \lim_{N \to \infty} \sum_{i = 1}^N \mu_F(A_i) 
+%	= \sum_{i \ge 1} \mu_F(A_i).
+%\end{align*}
+%
+%Now let $(A_i)_{i \ge 1}$ be a general family of disjoint sets of the form $(c,d]$ with $\bigcup_{i \ge 1} A_i = (a, b]$. The main idea is that we can order these sets into groups of sets that are of the previous form. We can then chain the result we obtained to prove that~\eqref{eq:construction_rv_sig_add} holds.
+%
+%To this end we observe that the sets $(A_i)_{i \ge 1}$ can be ordered into at most countable groups $(C_n)_{n \ge 1}$, such that each group $C_n$ consists of intervals $A_{n_i} = (a_{n_i}, b_{n_i}]$ with $b_{n_1} \le b$, $a_{n_{i}} = b_{n_{i+1}}$ for all $i \ge 1$ and $\lim_{i \to \infty} a_{n_i} := a_n \ge a$. With this notation we have that $\bigcup_{i \ge 1} A_{n_i} = (a_n, b_n]$. Moreover, we can choose the ordering such that $b_1 = b$, $a_n = b_{n-1}$ for all $n \ge 2$ and $\lim_{n \to \infty} a_n = a$.
+%
+%Putting this together we have
+%\begin{align*}
+%	\sum_{i = 1}^\infty \mu_F(A_i) &= \sum_{n = 1}^\infty \sum_{i = 1}^\infty \mu_F(A_{n_i}) \\
+%	&= \sum_{n = 1}^\infty \mu_F(\bigcup_{i \ge 1} A_{n_i})\\
+%	&= \sum_{n = 1}^\infty F(b_n) - F(a_n) \\
+%	&= F(b) - \lim_{n \to \infty} F(a_n) \\
+%	&= F(b) - F(a) = \mu_F((a,b]) = \mu_F(\bigcup_{i \ge 1} A_i),
+%\end{align*}
+%where we used the previous result in the third line and again in the forth one.
+%
+%We thus conclude that~\eqref{eq:construction_rv_sig_add} holds and thus $\mu_F$ is $\sigma$-additive as required.
+%
+%\end{proof}
 
 %We will start this construction for a specific random variable and then use it to construct a random variable with any cumulative distribution function.
 
@@ -546,7 +546,7 @@ Then there exists a probability space $(\Omega, \cF, \mathbb{P})$ and random var
 \end{theorem}
 
 \begin{proof}
-The proof is done by extending the ideas in the proof of Theorem~\ref{thm:construction_random_variable} to the two-dimensional case and is left as an exercise (see Problem~\ref{prb:construction_multivatiate_rv}).
+The proof is done by extending the ideas in the proof of Theorem~\ref{thm:construction_random_variable} to the two-dimensional case. %and is left as an exercise (see Problem~\ref{prb:construction_multivatiate_rv}).
 \end{proof}
 
 \section{Problems}

@@ -237,15 +237,15 @@ See Problem~\ref{prb:borel_cantelli}
 \end{proof}
 
 
-\section{Convergence results for sequences of independent random variables}
+\section{Law of large numbers}
 
-We end this section by proving a powerful result that pops up everywhere: he Law of Large Numbers (LLN). It basically says that if we have a sequence $(X_n)_{n \ge 1}$ of independent copies of some random variable $X$ with finite expectation, then the normalized sum
+We end this section by proving a powerful result that pops up everywhere: the Law of Large Numbers (LLN). It basically says that if we have a sequence $(X_n)_{n \ge 1}$ of independent copies of some random variable $X$ with finite expectation, then the normalized sum
 \[
 	\frac{1}{n} \sum_{i = 1}^n X_i
 \]
 converges to the expected value $\bbE[X]$. There are two versions of the (LLN): the strong version, and the weak version. The difference is in terms of the mode of convergence. The weak law deals with convergence in distribution, while the strong law is for almost-sure convergence. We will prove the strong law, as this in particular implies the weak law through Lemma~\ref{lem:almost_sure_implies_probability} and Lemma~\ref{lem:convergence_prob_implies_d}.
 
-But before we can give the formal statement and proof of this result, we first need to define what we mean with independent random variables.
+%But before we can give the formal statement and proof of this result, we first need to define what we mean with independent random variables.
 
 %\subsection{Independent random variables}
 %
@@ -299,9 +299,9 @@ But before we can give the formal statement and proof of this result, we first n
 %Instead of sequences of independent copies, you also often encounter a sequence $(X_n)_{n\ge 1}$ of independent identically distributed random variables (i.i.d. sequence for short). This simply means that $(X_i)_\# \bbP = (X_j)_\# \bbP := \mu$ holds for all $i,j$ and thus this is a sequence of independent copies of $X$ where $X$ is independent of all $X_n$ with distribution $X_\# \bbP = \mu$.
 %\end{remark}
 
-\subsection{Strong Law of Large Numbers}
+%\subsection{Strong Law of Large Numbers}
 
-Using the notion of independent copies, the strong law of large number is the following result:
+Recall the notion of independent copies, Definition~\ref{def:iid}.
 
 \begin{theorem}[Strong Law of Large Numbers]\label{thm:slln}
 Let $(X_n)_{n \ge 1}$ be a sequence of independent copies of a random variable $X$, such that $\bbE[X] < \infty$. Then

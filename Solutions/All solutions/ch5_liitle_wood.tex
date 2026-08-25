@@ -1,0 +1,26 @@
+
+\textbf{Problem 5.1} (5 pts)
+
+Let $\varepsilon>0$ be arbitrary and $f\in L^1(\mathbb{R}^d,\mu)$. By Theorem~7.12, we find a bounded and continuous function $h\in L^1(\mathbb{R}^d,\mu)$ such that $\|f-h\|_1 \le \varepsilon/3$. (0.5 pts)
+
+Let $K>0$ and consider the function 
+\[
+	h_K:=h\mathbf{1}_{E_K} \in L^1(\mathbb{R}^d,\mu),\qquad E_K:=[-K,K]^d,
+\]
+i.e., $h_K$ is a horizontal truncation of $h$ to the compact set $E_K\subset\mathbb{R}^d$ (1 pts). 
+
+Then,
+
+\[
+	\int_{\mathbb{R}^d} |h-h_K|\,d\mu = \int_{E_K^c} |h|\,d\mu \le \|h\|_\infty\, \mu(E_K^c). \qquad \text{(1 pts)}
+\]
+Since $\mu$ is a finite measure, we have that $\lim_{K\to\infty} \mu(E_K^c)=0$. In particular, we can make the rhs of the estimate above arbitrarily small such that $\|h\|_\infty\, \mu(E_K^c) \le \varepsilon/3$. (0.5 pts)
+
+We then find, by Theorem 7.12, a bounded and continuous function $g\in L^1(\mathbb{R}^d,\mu)$ such that $\|h_K-g\|_1\le \varepsilon/3$ (0.5 pts). 
+
+Since $h_K$ is continuous on $E_K$, the function $g$ may be taken to be $h_K$ on $E_K$. Moreover, $g$ can be chosen to have compact support since $h_K$ has compact support. (0.5 pts)
+
+Altogether, we obtain (1 pts)
+\[
+	\|f-g\|_1 \le \|f-h\|_1 + \|h-h_K\|_1 + \|h_K-g\|_1 \le \varepsilon/3 + \varepsilon/3 + \varepsilon/3 = \varepsilon.
+\]   

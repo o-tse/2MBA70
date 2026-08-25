@@ -262,34 +262,36 @@ Recall that this is a random variable $U$ that takes values in $[0,1]$ and whose
 
 While Theorem~\ref{thm:construction_random_variable} tells us that defining this $F$ is enough, we will construct an explicit probability space $(\Omega,\cF, \bbP)$ and a measurable function $U : \Omega \to \bbR$ such that $	\bbP\left(U^{-1}((-\infty,t])\right) = F(t)$.
 
-The following result shows that this is indeed possible. Moreover, in its proof we see a first nice usage of the Lebesgue measure.
+The following result shows that this is indeed possible. Moreover, it provides a first nice usage of the Lebesgue measure.
 
 \begin{lemma}[Uniform random variable]\label{lem:uniform_random_variable}
 Let $\Omega = [0,1]$, denote the Borel \sigalg/ restricted to $[0,1]$ by $\cF = \cB_{[0,1]}$ and let $\bbP := \lambda|_{[0,1]}$ the Lebesgue measure restricted to $[0,1]$. Then the function $U(t) = \mathbf{1}_{(0,1]} \, t$ has a cdf that satisfies~\eqref{eq:cdf_uniform_rv}.
 \end{lemma}
 
 \begin{proof}
-First observe that the function $U(t)$ is measurable, as it is a product of an indicator and a continuous function. By definition of $U$ it follows that
-\[
-	U^{-1}((-\infty,t]) = \begin{cases}
-		\emptyset &\text{if } t \le 0,\\
-		(0,t] &\text{if } 0 < t \le 1, \\
-		[0,1] &\text{if } t > 1.
-	\end{cases}
-\]
-Since by Theorem~\ref{thm:lebesgue_measure}
-\[
-	\lambda|_{[0,1]}((0,t]) = \lambda((0,t]) = t,
-\]
-for any $0 < t \le 1$ we have
-\[
-	\bbP\left(U^{-1}((-\infty,t])\right) := \lambda|_{[0,1]}\left(U^{-1}((-\infty,t])\right)
-	= \begin{cases}
-		0 &\text{if } t < 0,\\
-		t &\text{if } 0 \le t\le 1,\\
-		1 &\text{if } t > 1.
-	\end{cases}\qedhere
-\]
+See Problem~\ref{prb:construction_uniform_rv}
+
+%First observe that the function $U(t)$ is measurable, as it is a product of an indicator and a continuous function. By definition of $U$ it follows that
+%\[
+%	U^{-1}((-\infty,t]) = \begin{cases}
+%		\emptyset &\text{if } t \le 0,\\
+%		(0,t] &\text{if } 0 < t \le 1, \\
+%		[0,1] &\text{if } t > 1.
+%	\end{cases}
+%\]
+%Since by Theorem~\ref{thm:lebesgue_measure}
+%\[
+%	\lambda|_{[0,1]}((0,t]) = \lambda((0,t]) = t,
+%\]
+%for any $0 < t \le 1$ we have
+%\[
+%	\bbP\left(U^{-1}((-\infty,t])\right) := \lambda|_{[0,1]}\left(U^{-1}((-\infty,t])\right)
+%	= \begin{cases}
+%		0 &\text{if } t < 0,\\
+%		t &\text{if } 0 \le t\le 1,\\
+%		1 &\text{if } t > 1.
+%	\end{cases}\qedhere
+%\]
 \end{proof}
 
 The construction of a standard uniform random variable is extremely important. This is because it can serve as the base from which we can construct any other random variable. To illustrate this we consider the case of an \emph{exponential random variable} with rate $\lambda > 0$. This is a random variable $X$ with cdf
@@ -561,6 +563,14 @@ The above relation is often denoted as $X \stackrel{d}{=} Y$ ($X$ is equal to $Y
 \end{enumerate}
 \end{problem}
 
+\begin{problem}\label{prb:construction_uniform_rv}
+In this problem we will prove Lemma~\ref{lem:uniform_random_variable}. 
+\begin{enumerate}[label=(\alph*)]
+\item Prove that the function $U$ from the lemma is measurable.
+\item Compute the preimage $U^{-1}((-\infty, t])$.
+\item Use Theorem 2.19 to conclude the proof.
+\end{enumerate}
+\end{problem}
 
 \begin{problem}\label{prb:construction_random_variable_inverse}
 Here we prove Proposition~\ref{prop:construction_random_variable_inverse}. 
@@ -634,7 +644,7 @@ You might be inclined to think that the problem with existence of pdfs lies with
 
 The setting we described above does occur and is a classical example for a continuous random variable in $\bbR$ that does not have a pdf. The set $C$ is called the Cantor set and the function $F$ is constructed using the so-called the Cantor function. 
 
-Simple example of continuous stochastic objects without pdfs exist for higher dimensions, for example $\bbR^2$. And we will come back to this in a later chapter [REF].
+%Simple example of continuous stochastic objects without pdfs exist for higher dimensions, for example $\bbR^2$. And we will come back to this in a later chapter [REF].
 \end{problem}
 
 \begin{problem}\label{prb:expectation_continuous_random_variable}
@@ -691,6 +701,6 @@ Here, you will use the tools from measure theory to prove both statements.
 \end{enumerate}
 \end{problem}
 
-\begin{problem}\label{prb:construction_multivatiate_rv}
-
-\end{problem}
+%\begin{problem}\label{prb:construction_multivatiate_rv}
+%
+%\end{problem}

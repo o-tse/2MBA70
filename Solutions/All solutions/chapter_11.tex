@@ -1,0 +1,219 @@
+
+
+
+
+\textbf{Problem 11.2}
+
+\begin{enumerate}[label={(\alph*)}]
+\item By definition we have that
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP,
+\]
+holds for all $B \in \cH$. Since by assumption both $\bbE[X | \cH]$ and $X$ are $\cH$-measurable, the result follows from problem 8.2.
+\item Note that $a \bbE[X | \cH]$ is $\cH$-measurable. Moreover,
+\[
+	\int_B a \bbE[X | \cH] \, \dd \bbP = a \int_B \bbE[X | \cH] \, \dd \bbP = a \int_B X \, \dd \bbP = \int_B aX \, \dd \bbP.
+\]
+This proves the claim.
+\item Similarly to the previous point, we first note that since $\bbE[X | \cH]$ and $\bbE[Y | \cH]$ are $\cH$-measurable so is $\bbE[X | \cH] + \bbE[Y | \cH]$. The result then follows because
+\begin{align*}
+	\int_B \bbE[X | \cH] + \bbE[Y | \cH] \, \dd \bbP 
+	&= \int_B \bbE[X | \cH] \, \dd \bbP + \int_B \bbE[Y | \cH] \, \dd \bbP \\
+	&= \int_B X \, \dd \bbP + \int_B Y \, \dd \bbP = \int_B X + Y \, \dd \bbP.
+\end{align*}
+\item First we observe that for any $B \in \cH$
+\[
+	\int_B \bbE[X | \cH] \, \dd \bbP = \int_B X \, \dd \bbP \le \int_B Y \, \dd \bbP = \int_B \bbE[Y | \cH] \, \dd \bbP.
+\]
+Now consider the event $A := \{ \bbE[X | \cH] > \bbE[Y | \cH]\} \in \cH$. If this event has non-zero measure then it would follow that
+\[
+	\int_A \bbE[X | \cH] \, \dd \bbP > \int_A \bbE[Y | \cH] \, \dd \bbP,
+\]
+which is a contradiction. Hence we conclude that $\bbE[X | \cH] \le \bbE[Y | \cH]$ holds $\bbP$-almost everywhere.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 11.3}
+
+\begin{enumerate}[label={(\alph*)}]
+\item This follows by repeating the step for the solution to Problem 4.8 a). 
+%
+%By definition, we have that $\nu_X(\Omega) = \int_\Omega X\,\dd\mu = 1$. Now let $(A_n)_{n\in\bbN}$ be a family of mutually disjoint measurable sets in $\sigma(X)$. Then we have that the sequence 
+%	\[
+%		g_n:= \sum_{i=1}^n X\,\mathbf{1}_{A_i} = X\,\mathbf{1}_{\bigcup_{i=1}^n\! A_i}\;\longrightarrow\; g:= X\,\mathbf{1}_{\bigcup_{i\in\bbN}\! A_i}\qquad\text{pointwise monotonically}.
+%	\]
+%	By MCT, we then have that
+%	\[
+%		\nu_X\left(\bigcup_{i\in\bbN} A_i\right) = \int_{\bigcup_{i\in\bbN}\! A_i} X\,\dd\mu = \lim_{n\to\infty} \int_{\bigcup_{i=1}^n\! A_i} X\,\dd\mu = \lim_{n\to\infty} \sum_{i=1}^n \int_{A_i} X\,\dd\mu = \sum_{i\in\bbN}\nu_X(A_i),
+%	\]
+%	thus showing that $\nu_X$ is a measure on $(\Omega,\sigma(X))$.
+
+\item We start by observing that the result will directly follow from Theorem 2.15 if we can show that the \sigalg/ $\sigma(X)$ satisfies the two properties.
+
+The first one is immediate, from the fact that $X^{-1}(A) \cap X^{-1}(B) = X^{-1}(A\ cap B)$. For the second one consider the intervals $I_n = (-n,n)$ and define $A_n := X^{-1}(I_n) \in \sigma(X)$. Since $\bigcup_{n \in \bbN} I_n = \bbR$ it follows that $\bigcup_{n \in \bbN} A_n = \Omega$. Moreover since $|X| \le n$ on the set $A_n$ it holds that
+\[
+	\mu(A_n) = \nu_X(A_n) = \int_{A_n} X \, \dd \bbP \le n \int_{A_n} \, \dd \bbP = n \bbP(A_n) \le n < \infty.
+\]
+Thus the second condition of Theorem 2.15 is also satisfied and the result now follows.
+
+	
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 11.4}
+
+The solution to this problem will closely follow the proof of Lemma 11.7. To this end let $g(x,y)$ denote the conditional density of $X$ given $Y = y$ and define the function $\phi(y) := \int_\bbR h(x) g(x,y) \, \lambda(\dd x)$. We now need to show that for any $A \in \cB_\bbR$ it holds that
+\[
+	\int_{Y^{-1}(A)} \phi(Y) \, \dd \bbP = \bbE[\mathbbm{1}_A(Y) h(X)].
+\]
+
+Using the change of variables formula and the definition of $\phi$ and $g$ we get
+\begin{align*}
+	\int_{Y^{-1}(A)} \phi(Y) \, \dd \bbP &= \int_\Omega \mathbbm{1}_{Y^{-1}(A)} \phi(Y) \, \dd \bbP\\
+	&= \int_\bbR \int_A(y) \phi(y) f_Y(y) \, \lambda(\dd y)\\
+	&= \int_{\bbR} \int_\bbR \mathbbm{1}_A(y) h(x) g(x,y) f_Y(y)  \, \lambda(\dd x) \, \lambda(\dd y)\\
+	&= \int_{\bbR^2} \mathbbm{1}_{A}(y) h(x) f(x,y) \, \lambda(\dd x) \, \lambda(\dd y)\\
+	&= \bbE[\mathbbm{1}_{A}(Y) h(X)].
+\end{align*}
+
+
+
+\textbf{Problem 11.5}
+\begin{enumerate}[label={(\alph*)}]
+\item First note that for any $\ell \ge 0$ 
+\[
+	\bbP(X > \ell) = \int_{\ell} \nu e^{-\nu x} \, \lambda(dx) 
+	= e^{-\nu \ell}.
+\]
+
+By Lemma 11.5 we have that
+\[
+	\bbP(X > t +s | X > t) = \frac{\bbP(X > t + s, X > t)}{\bbP(X > t)}
+	= \frac{\bbP(X > t + s)}{\bbP(X > t)}
+	= \frac{e^{-\nu(t + s)}}{e^{-\nu t}} = e^{-\nu s} = \bbP(X > s).
+\]
+\item Define the function $f(x,y) = \mathbbm{1}_{x + y \le t}$. By Lemma 11.8 we then have that
+\[
+	\bbP(X + Y \le t | Y = y) = \bbE[f(X,Y) | Y = y]
+	= \bbE[f(X,y)].
+\]
+Using the probability density function we then get
+\[
+	\bbE[f(X,y)] = \int_{\bbR} f(x,y) \rho(x) \, \lambda(dx)
+	= \mathbbm{1}_{y < t} \int_0^{t-y} \nu e^{-\nu x} \, \lambda(dx)
+	= \mathbbm{1}_{y < t} (1 - e^{-\nu(t-y)}).
+\]
+\item We have that
+\begin{align*}
+	\bbP(X + Y \le t) &= \bbE[\bbP(X+Y \le t | Y)]\\
+	&= \int_\bbR \rho(y) \bbP(X + Y \le t | Y = y) \, \lambda(dx)\\
+	&= \int_\bbR \mathbbm{1}_{0 \le y < t} (1 - e^{-\nu(t-y)}) \nu e^{-\nu y} \, \lambda(dy) \\
+	&= \int_0^t \nu e^{-\nu y} - e^{-\nu t} \, \lambda(dy) \\
+	&= 1 - e^{-\nu t} - t e^{-\nu t}.
+\end{align*}
+\end{enumerate}
+
+
+\bigskip
+
+\textbf{Problem 11.6}
+
+\begin{enumerate}[label={(\alph*)}]
+%\item First note that it always holds that
+%\[
+%	\int_\Omega Z \, \dd \bbP = \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \Delta_\# \bbP.
+%\]
+%
+%Furthermore, as shown in the proof of Lemma 11.8 if holds that
+%\[
+%	\Delta_\# \bbP = \bbP \otimes \bbP
+%\]
+%on the set $X^{-1}(\cB_\bbR) \times Y^{-1}(\cB_\bbR)$. Note that by Lemma 5.2 we have that
+%\[
+%	\sigma(X) \otimes \sigma(Y) = \sigma(X^{-1}(\cB_\bbR) \times Y^{-1}(\cB_\bbR)). 
+%\]
+%Now let $I_n = (-n,n)$. Then since both $\Delta_\# \bbP$ and $\bbP \otimes \bbP$ are finite measures, and the sequence $A_n := X^{-1}(I_n) \times Y^{-1}(I_n)$ satisfies $\bigcup_{n \ge 1} A_n = \Omega \times \Omega$, it follows from Theorem 2.15 that $\Delta_\# = \bbP \otimes \bbP$ on $\sigma(X) \otimes \sigma(Y)$.
+%
+%Suppose now that $f$ is a simple function, i.e. $f = \sum_{i = 1}^N f_i \mathbbm{1}_{A_i}$ with $A_i \in \cB_{\bbR^2}$. Then $f \circ (X,Y) = \sum_{i = 1}^N f_i \mathbbm{1}_{(X,Y)^{-1}(A_i)}$ and since $(X,Y)^{-1}(A_i) \in \sigma(X) \otimes \sigma(Y) \subseteq \cF \otimes \cF$, we get
+%\begin{align*}
+%	\int_\Omega Z \bbP &= \int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \Delta_\# \bbP\\
+%	&= \sum_{i = 1}^M f_i \Delta_\# \bbP((X,Y)^{-1}(A_i))\\
+%	&= \sum_{i = 1}^M f_i \bbP \otimes \bbP ((X,Y)^{-1}(A_i)) \\
+%	&= \int_{\Omega \times \Omega} f \circ (X,Y) \, \bbP \otimes \bbP.
+%\end{align*} 
+%
+%For general non-negative $f$ we take a monotone sequence $(f_n)_{n \ge 1}$ of simple functions that converge point-wise to $f$ and use monotone convergence twice to obtain
+%\begin{align*}
+%	\int_{\Omega \times \Omega} f \circ (X,Y) \, \dd \Delta_\# \bbP
+%	&= \lim_{n \to \infty} \int_{\Omega \times \Omega} f_n \circ (X,Y) \, \dd \Delta_\# \bbP\\
+%	&= \lim_{n \to \infty} \int_{\Omega \times \Omega} f_n \circ (X,Y) \, \bbP \otimes \bbP\\
+%	&= \int_{\Omega \times \Omega} f \circ (X,Y) \, \bbP \otimes \bbP.
+%\end{align*}
+%
+%For general $f$ we consider the positive and negative part separately and use linearity of integration.
+\item (3 pts)
+\textbf{2 pts}
+We first observe that
+\[
+	\int_B Z \, \dd \bbP = \int_\Omega f \circ [(X,Y) \circ \Delta \mathbbm{1}_B] \, \dd \bbP
+	= \int_{\bbR^2} f \, \dd [(X,Y) \circ \Delta \mathbbm{1}_B]_\# \bbP.
+\]
+On the other hand
+\[
+	\int_{\Omega \times B} f \circ (X,Y) \, \dd \bbP \otimes \bbP
+	= \int_{\Omega \times \Omega} f \circ (X,Y)\mathbbm{1}_{\Omega \times B} \, \dd \bbP \otimes \bbP
+	= \int_{\bbR^2} f \, \dd [(X,Y)\mathbbm{1}_{\Omega \times B}]_\# \bbP \otimes \bbP.
+\]
+
+Thus, the result follows if we can show that 
+\[
+	[(X,Y)\mathbbm{1}_{\Omega \times B}]_\# \bbP \otimes \bbP = [(X,Y)\circ \Delta \mathbbm{1}_B]_\# \bbP 
+\]
+as measures on $\cB^2 = \cB \otimes \cB$. 
+
+\textbf{1 pt}
+Since both measure are finite it follows from Theorem 2.15 that is suffices to check equality on the generator set $\cB \times \cB$.
+
+\textbf{2 pts}
+To this end, let $C, D \in \cB$. Then it holds that
+\begin{align*}
+	[(X,Y)\circ \Delta \mathbbm{1}_B]^{-1}(C \times D) 
+	&= \{\omega \in \Omega \, : \, \omega \in B, X(\omega) \in C, Y(\omega) \in D\}\\
+	&= X^{-1}(C) \cap Y^{-1}(D) \cap B.
+\end{align*}
+Recall that $B \in \sigma(Y)$ so that also $Y^{-1}(D) \cap B \in \sigma(Y)$. Thus, since $X$ and $Y$ are independent
+\begin{align*}
+	[(X,Y)\circ \Delta \mathbbm{1}_B]_\# \bbP(C \times D) 
+	&= \bbP(X^{-1}(C) \cap Y^{-1}(D) \cap B) \\
+	&= \bbP(X^{-1}(C)) \bbP(Y^{-1}(D) \cap B).
+\end{align*}
+
+\textbf{2 pts}
+On the other hand, since
+\[
+	[(X,Y)\mathbbm{1}_{\Omega \times B}]^{-1}(C \times D) = X^{-1}(C) \times Y^{-1}(D) \cap B,
+\]
+we have that
+\begin{align*}
+	[(X,Y)\mathbbm{1}_{\Omega \times B}]_\# \bbP \otimes \bbP(C \times D)
+	&= \bbP \otimes \bbP(X^{-1}(C) \times Y^{-1}(D) \cap B) \\
+	&= \bbP(X^{-1}(C)) \bbP(Y^{-1}(D) \cap B). 
+\end{align*}
+
+We therefore conclude that both measures are equal on the generator set of $\cB^2$ and hence are equal on the entire \sigalg/.
+\item (3 pts)
+\textbf{1 pt} As noted in the proof of Lemma 11.8 the measures $(X, Y)_\# \bbP \otimes \bbP$ and $X_\# \bbP \otimes Y_\# \bbP$ agree on the generator set of $\cB^2$. Thus, using Theorem 11.5 the are equal on the entire \sigalg/. 
+
+\textbf{2 pts} Using Fubini-Tonelli twice we then have that
+\begin{align*}
+	\int_{R \times C} f \dd (X, Y)_\# \bbP \otimes \bbP 
+	&= \int_{R \times C} f \, \dd X_\# \bbP \otimes Y_\# \bbP\\
+	&= \int_\bbR \int_C f(x,y) Y_\# \bbP(\dd y)  X_\#\bbP(\dd x) \\
+	&= \int_C \int_\bbR f(x,y) X_\# \bbP(\dd X) Y_\# \bbP(\dd y).
+\end{align*}
+
+\end{enumerate}
+
+

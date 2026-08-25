@@ -1,0 +1,31 @@
+\textbf{Problem 10.3} (5 pts)
+
+Let $(\Omega,\mathcal{F},\mu)$ be a finite measure space.
+\begin{enumerate}[label={(\alph*)}]
+\item (2 pts) Let $p\le q$, $p,q\in[1,\infty)$. We will show that $\Phi_p(f)\le \Phi_q(f)$ whenever $\Phi_q(f)$ is finite, otherwise, there is nothing to show. Using Jensen's inequality, we immediately find
+\[
+	\int_\Omega |f|^q\,\frac{d\mu}{\mu(\Omega)} = \int_\Omega \Bigl(|f|^p\Bigr)^{\frac{q}{p}}\,\frac{d\mu}{\mu(\Omega)} \ge \left(\int_\Omega |f|^p\,\frac{d\mu}{\mu(\Omega)}\right)^{\frac{q}{p}}.
+\]
+Taking the $q$-th root then yields the claim. 
+
+\item (3 pt) If $f\in L^\infty(\mu)$, then clearly $\Phi_p(f)\le \|f\|_\infty$. We are now left to show that the upper bound is saturated. W.l.o.g.\ we assume that $\|f\|_\infty=1$, otherwise, we can take $f/\|f\|_\infty$, since
+\[
+	\frac{1}{\|f\|_\infty}\Phi_p(f) = \Phi_p\left(\frac{f}{\|f\|_\infty}\right) \qquad\text{for every $p\in[1,\infty)$}.
+\]
+In the case $\|f\|_\infty=1$, we have find that
+\[
+	0\le a_p:=\int_\Omega |f|^p\,\frac{d\mu}{\mu(\Omega)} \le 1\qquad\text{independently of $p$}.
+\]
+Now, since $a_p$ is increasing due to (a) and bounded from above, we deduce that $a_p$ has a limit (Analysis 1). By the squeeze theorem, we then conclude that $\lim_{p\to\infty} (a_p)^{1/p} = 1$.
+
+\end{enumerate}
+
+\bigskip
+
+
+
+
+
+
+
+

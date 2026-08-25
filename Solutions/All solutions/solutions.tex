@@ -5,8 +5,8 @@
 % Reset mathcal back to previous style (not curly)
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 
-
-
+\newcommand{\rubric}[1]{#1}
+%\renewcommand{\rubric}[1]{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %										For leaving comments									  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,65 +46,49 @@
     \courseid{2MBA70}
     \title{Solutions to problems for Measure and Probability Theory}
     \author{Pim van der Hoorn and Oliver Tse}
-    \version{Version 0.5 \today}
+    \version{Version 1.0 \today}
     \maketitle
 \end{titlepage}
 
 \setcounter{chapter}{1}
 
 \chapter{Measurable spaces (sigma-algebras and measures)}
-\input{chapter_2}
+\input{ch2_sigma_algebras}
 
 \newpage
 \chapter{Measurable functions}
-\input{chapter_3}
+\input{ch3_measurable_functions}
 
 \newpage
 \chapter{The Lebesgue Integral}
-\input{chapter_4}
+\input{ch4_integration}
+
+\newpage
+\chapter{Little Wood's Principles}
+\input{ch5_liitle_wood}
 
 \newpage
 \chapter{Probability I, The basics}
-\input{chapter_6}
+\input{ch6_probability_1}
 
 \newpage
 \chapter{Product spaces and independent random variables}
-\input{chapter_5}
+\input{ch7_product_spaces}
 
 \newpage
 \chapter{Convergence of integrals and measures}
-\input{chapter_7}
+\input{ch8_convergence}
 
 \newpage
 \chapter{Convergence of random variables}
-\input{chapter_8}
+\input{ch9_convergence_random_variables}
 
 \newpage
 \chapter{$L^p$-spaces}
-\input{chapter_9}
+\input{ch10_lp_spaces}
 
 \newpage
-\chapter{The Radon-Nikodym Theorem}
-\input{chapter_10}
-
-\newpage
-\chapter{Conditional Expectation and Probability}
-
-%\include{chapter_11}
-
-
-
-%
-%\section*{Chapter 5: Convergence of integrals and functions}
-%
-%
-%\section*{Chapter 6: $L^p$-spaces}
-%
-%
-%\section*{Chapter 7: Fubini-Tonelli}
-%\input{chapter_7}
-%
-%\section*{Chapter 8: Radon-Nikodym}
-%\input{chapter_8}
+\chapter{The Radon-Nikodym derivative and conditional expectation and probability}
+\input{ch10_radon_nikodym}
 
 \end{document}

@@ -1,5 +1,78 @@
 
+\textbf{Problem 6.1}
+
+\begin{enumerate}[label=(\alph*)]
+\item Note that by assumption we have that
+\[
+	X_\# \bbP((-\infty, t]) := F_X(t) = F_Y(t) := Y_\# \bbP((-\infty, t]),
+\]
+holds for all intervals $(-\infty, t]$. Moreover, these intervals generate the Borel \sigalg/, see Proposition 2.7. Therefore the idea is to use Theorem 2.15 to conclude that $X_\# \bbP = Y_\# \bbP$.
+
+For this we need to check two properties for the generator set $\cA = \{(-\infty, t] \, : \, t \in \bbR\}$.
+\begin{enumerate}[label=\arabic*.]
+\item Suppose $A = (-\infty, t]$ and $B = (-\infty, s]$ with $t \le s$. Then $A \cap B = (-\infty, t] = A \in \cA$.
+\item Take $A_n = (\infty,n]$. Then $\bigcup_{n \in \bbN} A_n = \bbR$.
+\end{enumerate}
+
+We thus conclude that $\cA$ satisfies the requirements of Theorem 2.15 and thus $X_\# \bbP = Y_\# \bbP$ on the entire Borel \sigalg/.
+\item First note that there must exist a measurable set $N \in \cB_\bbR$ such that $X_\# \bbP(N) = 0$. If not, then using the sequence of disjoint sets $A_n = [n,n+1)$ we get that
+\[
+	X_\# \bbP(\bbR) \ge X_\# \bbP(\bigcup_{n \in \bbN} A_n) = \sum_{n \in \bbN} X_\#\bbP(A_n) = \infty,
+\]
+contradicting $X_\# \bbP(\bbR) = 1$.
+
+Define the function $Y : \Omega \to \bbR$ as follows:
+\[
+	Y(\omega) = \begin{cases}
+		X(\omega) &\text{if } \omega \in \bbR \setminus N,\\
+		X(\omega) + 2 &\text{if } \omega \in N.
+	\end{cases}
+\]
+Then clearly $Y \ne X$ as functions. However, for any measurable set $A$, writing $A \Delta N := \Omega \setminus (A \cap N)$, we have
+\begin{align*}
+	X_\# \bbP(A) &= \bbP(X^{-1}(A)) \\
+	&= \bbP(X^{-1}(A\cap N) \cup X^{-1}(A \Delta N)) \\
+	&= \bbP(X^{-1}(A \cap N)) + \bbP(X^{-1}(A \Delta N))\\
+	&= 0 + \bbP(\{\omega \in \Omega \, : \, X(\omega) \in A \Delta N\}) \\
+	&= 0 + \bbP(\{\omega \in \Omega \, : \, Y(\omega) \in A \Delta N\}) \\
+	&= \bbP(Y^{-1}(A \cap N)) + \bbP(Y^{-1}(A \Delta N))\\
+	&= \bbP(Y^{-1}(A)) = Y_\# \bbP(A),
+\end{align*}
+so $X \stackrel{d}{=} Y$ still holds.
+\end{enumerate}
+
+\bigskip
+
 \textbf{Problem 6.2}
+\begin{enumerate}[label=(\alph*)]
+\item The function $U(t)$ is measurable as it is a product of an indicator and a continuous function.
+\item By definition of $U$ it follows that
+\[
+	U^{-1}((-\infty,t]) = \begin{cases}
+		\emptyset &\text{if } t \le 0,\\
+		(0,t] &\text{if } 0 < t \le 1, \\
+		[0,1] &\text{if } t > 1.
+	\end{cases}
+\]
+\item Since by Theorem 2.19
+\[
+	\lambda|_{[0,1]}((0,t]) = \lambda((0,t]) = t,
+\]
+for any $0 < t \le 1$ we have
+\[
+	\bbP\left(U^{-1}((-\infty,t])\right) := \lambda|_{[0,1]}\left(U^{-1}((-\infty,t])\right)
+	= \begin{cases}
+		0 &\text{if } t < 0,\\
+		t &\text{if } 0 \le t\le 1,\\
+		1 &\text{if } t > 1,
+	\end{cases}
+\]
+which proves the result.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 6.3}
 \begin{enumerate}[label=(\alph*)]
 \item The implication from right to left is by definition of $\overleftarrow{F}$ and the fact that $F$ is non-decreasing. The implication from left to right is because $F$ is right continuous.
 \item Consider the preimage of $(-\infty, t]$ under $X$. Then, using the above observation, we have
@@ -21,34 +94,73 @@ which finished the proof.
 
 \bigskip
 
-\textbf{Problem 6.3}
+\textbf{Problem 6.4} \rubric{Total points: 14}
 
 \begin{enumerate}[label=(\alph*)]
-\item 
-\textbf{1 point} For the probability space, take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+\item \rubric{ Total points: 3 \hfill
 
-\textbf{1 point} Observe that the function $H_\gamma(z)$ is continuous and hence has an inverse $g_\gamma(y) = \gamma \tan(\pi(y - 1/2))$ on $[0,1]$.
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Construct the correct probability space & 1pt\\
+Continuity and inverse of $H_\gamma$ & 1pt\\
+Definition correct random variable & 1pt\\
+\hline
+\end{tabular}
 
-\textbf{1 point} So the function $Y [0,1] \to \bbR$ defined by $Y(x) = g_\gamma(x)$ has the correct distribution as
+}
+For the probability space, take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Observe that the function $H_\gamma(z)$ is continuous and hence has an inverse $g_\gamma(y) = \gamma \tan(\pi(y - 1/2))$ on $[0,1]$.
+
+So the function $Y [0,1] \to \bbR$ defined by $Y(x) = g_\gamma(x)$ has the correct distribution as
 \[
 	\bbP(Y^{-1}((-\infty,t])) = \bbP(g_\gamma^{-1}((-\infty, t])) = \lambda(H_\gamma((-\infty,t])) = H_\gamma(t).
 \]
-\item \textbf{1 point} Note that $g_\gamma$ is continuous on $[0,1]$ and hence measurable.
-\item \textbf{1 point} For any $t \ge 0$, the cdf of the Poisson random variable is given by
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Continuity implies measurable & 1pt\\
+\hline
+\end{tabular}
+
+} 
+Note that $g_\gamma$ is continuous on $[0,1]$ and hence measurable.
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+CDF is sum of pmf and correct use of ceiling & 1pt\\
+\hline
+\end{tabular}
+
+} 
+
+For any $t \ge 0$, the cdf of the Poisson random variable is given by
 \[
 	F_\lambda(t) = \sum_{n = 0}^{\lceil t \rceil} f_\lambda(n),
 \]
 where $\lceil t \rceil$ is the ceiling of $t$, i.e. the smallest integer $k \ge t$.
-\item 
-\textbf{1 point} For the probability space, we again take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+\item \rubric{ Total points: 4 \hfill
 
-\textbf{2 points} Now for any $y \in [0,1]$ let $k := k(y)$ be such that
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Construct the correct probability space & 1pt\\
+Finding the integer where the cdfs change in value & 2pt\\
+Definition correct random variable $X$ & 1pt\\
+\hline
+\end{tabular}
+
+}
+For the probability space, we again take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Now for any $y \in [0,1]$ let $k := k(y)$ be such that
 \[
 	\sum_{n = 1}^k f_\lambda(n) \ge y \quad \text{and} \quad \sum_{n = 1}^{k-1} f_\lambda(n) < y,
 \]
 where the last sum is interpreted as $-1$ if $k=0$.
 
-\textbf{1 point} Now define $X(y) = k(y) : [0,1] \to \bbR$. Then $k(y) \le t$ if and only if $y \le F_\lambda(t)$ and hence
+Now define $X(y) = k(y) : [0,1] \to \bbR$. Then $k(y) \le t$ if and only if $y \le F_\lambda(t)$ and hence
 \[
 	X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, k(y) \in (0,t]\}
 	= \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\},
@@ -57,12 +169,30 @@ from which it follows that
 \[
 	\bbP(X^{-1}((-\infty,t])) = \lambda((0, F_\lambda(t)]) = F_\lambda(t).
 \]
-\item
-\textbf{1 point} It follows from the above computation that $X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\}$. Since the latter is a measurable set we conclude that $X^{-1}((-\infty,t])$ is measurable for all $t$ and since these generate the Borel \sigalg/ $X$ is measurable.
-\item 
-\textbf{2 points} For any $\ell \in \bbN$ define the sets $A_\ell = (n-1-1/\ell, n-1 + 1/\ell]$. Then $A_\ell$ is a decreasing set with $\lim_{\ell \to \infty} A_\ell = \{n-1\}$. Moreover, $A_\ell = (-\infty,n-1+1/\ell] \setminus (-\infty, n-1-1/\ell]$ and $\bbP(A_1) < \infty$. 
+\item \rubric{ Total points: 1 \hfill
 
-\textbf{2 points} It now follows from continuity from above and (d) that
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+$X$ is measurable on a generator set and hence measurable on the entire \sigalg/ & 1pt\\
+\hline
+\end{tabular}
+
+}
+It follows from the above computation that $X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\}$. Since the latter is a measurable set we conclude that $X^{-1}((-\infty,t])$ is measurable for all $t$ and since these generate the Borel \sigalg/ $X$ is measurable.
+\item \rubric{ Total points: 4 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Write $\{n\}$ as limit of decreasing measurable sets with finite measure & 2pt\\
+Use continuity from below to conclude & 2pt\\
+\hline
+\end{tabular}
+
+}
+
+For any $\ell \in \bbN$ define the sets $A_\ell = (n-1-1/\ell, n-1 + 1/\ell]$. Then $A_\ell$ is a decreasing set with $\lim_{\ell \to \infty} A_\ell = \{n-1\}$. Moreover, $A_\ell = (-\infty,n-1+1/\ell] \setminus (-\infty, n-1-1/\ell]$ and $\bbP(A_1) < \infty$. 
+
+It now follows from continuity from above and (d) that
 \begin{align*}
 	X_\#\bbP(\{n\}) &= \lim_{\ell \to \infty} X_\# \bbP(A_\ell) \\
 	&= \lim_{\ell \to \infty} X_\# \bbP((-\infty,n-1+1/\ell])
@@ -74,7 +204,7 @@ from which it follows that
 
 \bigskip
 
-\textbf{Problem 6.5}
+\textbf{Problem 6.6}
 
 Define for any $j \in \mathbb{Z}$, $p_j := \bbP(X^{-1}(\{j\}))$. Then, since $(X^{-1}(j))_{j \in \mathbb{Z}}$ is a family of disjoint sets and $\bbP$ is a probability measure we get that
 \[
@@ -93,28 +223,46 @@ Then it follows that
 
 \bigskip
 
-\textbf{Problem 6.7}
+\textbf{Problem 6.8} \rubric{Total points: 8}
 
 \begin{enumerate}[label=(\alph*)]
-\item (3 pts) 
+\item \rubric{ Total points: 3 \hfill
 
-\textbf{1 pt} We first observe that 
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Equality $\nu = X_\#\bbP$ on $(-\infty,t]$ & 1pt\\
+Sets $(-\infty, t]$ generate $\cB_\bbR$ and satisfy conditions Theorem 2.15 & 1pt\\
+Use Theorem 2.15 to conclude & 1pt\\
+\hline
+\end{tabular}
+
+} 
+
+We first observe that 
 \[
 	\nu((-\infty,t]) = X_\# \bbP((-\infty,t])
 \]
 holds by definition of the pdf. 
 
-\textbf{1 pt}
 Next we note that the collection $\mathcal{A} := \{(-\infty, t] \, : \, t \in \bbR\}$ generates $\cB$ and satisfies the conditions of Theorem 2.15:
 \begin{enumerate}
 \item $(-\infty, t] \cap (-\infty ,s] = (-\infty, \min\{t,s\}] \in \mathcal{A}$, and
 \item the sets $A_n (-\infty,n] \in \mathcal{A}$ for $n \in \bbN$ satisfies $\bigcup_{n \in \bbN} A_n = \bbR$.
 \end{enumerate}
 
-\textbf{1 pt}
 Thus, since $\nu = X_\# \bbP$ on $\mathcal{A}$, by Theorem 2.15 we conclude that $\nu = X_\# \bbP$ on $\sigma(\cA_2) = \cB$.
 
-\item (2 pts) Let $g = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i}$ be a simple function. Then by definition of $\nu$ and linearity of the integral we get
+\item \rubric{ Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Correct computation using definition $\nu$ and linearity integral & 2pt\\
+\hline
+\end{tabular}
+
+}
+
+Let $g = \sum_{i = 1}^N a_i \mathbbm{1}_{A_i}$ be a simple function. Then by definition of $\nu$ and linearity of the integral we get
 \begin{align*}
 	\int_\bbR g \, \dd \nu &= \sum_{i = 1}^N a_i \int_{A_i} \dd \nu\\
 	&= \sum_{i = 1}^N a_i \nu(A_i) \\ 
@@ -122,14 +270,34 @@ Thus, since $\nu = X_\# \bbP$ on $\mathcal{A}$, by Theorem 2.15 we conclude that
 	&= \int_{\Omega} \sum_{i = 1}^N a_i \mathbbm{1}_{A_i} \rho \, \dd \lambda
 	= \int_\bbR g \rho \, \dd \lambda.
 \end{align*}
-\item (2 pts) By using (b) and monotone convergence twice we get
+\item \rubric{ Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Correct application of MCT twice using (b) & 2pt\\
+\hline
+\end{tabular}
+
+} 
+
+By using (b) and monotone convergence twice we get
 \begin{align*}
 	\int_\bbR h \, \dd \nu &= \int_\bbR \lim_{n \to \infty} [h]_n \, \dd \nu \\
 	&= \lim_{n \to \infty} \int_\bbR [h]_n \, \dd \nu \\
 	&= \lim_{n \to \infty} \int_\bbR [h]_n \rho \, \dd \lambda \\
 	&= \int_\bbR \lim_{n \to \infty} [h]_n \rho \, \dd \lambda = \int_\bbR h \rho \, \dd \lambda.
 \end{align*}
-\item (1 pt) Using the change of variables result (Proposition 4.14) (a) and (c) we get
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Conclude using (a), (c) and change of variables & 1pt\\
+\hline
+\end{tabular}
+
+}
+
+Using the change of variables result (Proposition 4.14) (a) and (c) we get
 \[
 	\bbE[h(X)] = \int_\Omega h \circ X \, \dd \bbP 
 	= \int_{\bbR} h \, \dd X_\# \bbP = \int_\bbR h \, \dd \nu 
@@ -139,7 +307,7 @@ Thus, since $\nu = X_\# \bbP$ on $\mathcal{A}$, by Theorem 2.15 we conclude that
 
 \bigskip
 
-\textbf{Problem 6.8}
+\textbf{Problem 6.9}
 
 \begin{enumerate}[label=(\alph*)]
 \item This follows from the following computation

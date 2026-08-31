@@ -1,7 +1,18 @@
 
 \textbf{Problem 4.2}
 
+We first make the following observation: Suppose that $A_i \cap B_j \ne \emptyset$ and take $\omega \in A_i \cap B_j$. Then $a_i = f(\omega) = b_j$. 
 
+We thus conclude that $a_i = b_j$ must hold for any $i,j$ such that $A_i \cap B_j \ne \emptyset$.
+
+Using that $A_i = \bigcup_{j = 1}^M A_i \cap B_j$ and similarly $B_j = \bigcup_{i = 1}^N A_i \cap B_j$, and these are all disjoint sets, we get
+\begin{align*}
+	\sum_{i = 1}^N a_i \mu(A_i) &= \sum_{i = 1}^N a_i \mu(\bigcup_{j = 1}^M A_i \cap B_j)\\
+	&= \sum_{i = 1}^N a_i \sum_{j = 1}^M \mu(A_i \cap B_j) \\
+	&= \sum_{i = 1}^N \sum_{j = 1}^M a_i \mu(A_i \cap B_j) \\
+	&= \sum_{i = 1}^N \sum_{j = 1}^M b_i \mu(A_i \cap B_j) \\
+	&= \sum_{j = 1}^M b_j \mu(\bigcup_{i = 1}^N A_i \cap B_j) = \sum_{j = 1}^M b_j \mu(B_j).
+\end{align*}
 
 
 \bigskip

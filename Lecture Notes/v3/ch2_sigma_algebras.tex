@@ -606,9 +606,9 @@ Let $\cS$ be a semi-algebra on $\Omega$. Show that a set function $\mu : \cS \to
 \begin{enumerate}
 \item $\mu(\emptyset) = 0$,
 \item $\mu(A \cup B) = \mu(A) + \mu(B)$, for any two disjoint sets $A, B \in \cS$, and
-\item for any increasing family $(A_i)_{i \in \bbN}$ of measurable sets such that $A_\infty := \bigcup_{i \in \bbN} A_i \in \cS$, it holds that
+\item for any decreasing family $(A_i)_{i \in \bbN}$ of measurable sets such that $\mu(A_1) < \infty$ and $A_\infty := \bigcap_{i \in \bbN} A_i \in \cS$, it holds that
 \[
-	\mu(A_\infty) = \lim_{i \to \infty} \mu(A_i) \quad (= \sup_{i \in \bbN} \mu(A_i)).
+	\mu(A_\infty) = \lim_{i \to \infty} \mu(A_i) \quad (= \inf_{i \in \bbN} \mu(A_i)).
 \]
 \end{enumerate}
 \end{problem}

@@ -25,11 +25,13 @@ which shows that $\bigcup_{i = 1}^\infty B_i \in \cH$, completing the proof that
 
 \textbf{Problem 3.3}
 It is clear that $f_{\#}\mu(\emptyset) = \mu(f^{-1}(\emptyset)) = \mu(\emptyset) = 0$. 
-	Suppose a sequence of mutually disjoint sets $B_i \in \mathcal{G}$, $i \in \mathbb{N}$, is given. Then,
-	\[
-	f_{\#} \mu\left( \bigcup_{i=1}^\infty B_i \right) = \mu\left( f^{-1} \left(\bigcup_{i=1}^\infty B_i \right) \right) = \mu \left( \bigcup_{i=1}^\infty  f^{-1}(B_i) \right) = \sum_{i=1}^\infty f_{\#}\mu (B_i). \qedhere
-	\]
-	
+Suppose a sequence of mutually disjoint sets $B_i \in \mathcal{G}$, $i \in \mathbb{N}$, is given. Then,
+\[
+f_{\#} \mu\left( \bigcup_{i=1}^\infty B_i \right) = \mu\left( f^{-1} \left(\bigcup_{i=1}^\infty B_i \right) \right) = \mu \left( \bigcup_{i=1}^\infty  f^{-1}(B_i) \right) = \sum_{i=1}^\infty f_{\#}\mu (B_i).
+\]
+Which shows that indeed $f_{\#}\mu$ is a measure on $\mathcal{G}$.
+
+Now if $\mu$ is a probability measure on $\cF$, it follows that $f_{\#}\mu(E) = \mu(f^{-1}(E)) = \mu(\Omega) = 1$, so $f_{\#}\mu$ is also a probability measure on $\mathcal{G}$.
 \bigskip
 
 \textbf{Problem 3.5}

@@ -1,4 +1,47 @@
 
+\textbf{Problem 2.3}
+
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{enumerate}[label=\arabic*.]
+\item From the definition it is obvious that $\emptyset, \Omega \in \cF$.
+\item Since $\Omega \setminus \emptyset = \Omega$ and $\Omega \setminus \Omega = \emptyset$, the second property holds as well.
+\item The only possible sequence is $\emptyset, \Omega$ whose union is $\Omega \in \cF$.
+\end{enumerate}
+\item 
+\begin{enumerate}[label=\arabic*.]
+\item From the definition it is obvious that $\emptyset, \Omega \in \cF$.
+\item The only additional thing to check with respect to (a) is to observe that $A^c = \Omega \setminus A \in \cF$ and $(A^c)^c = A \in \cF$.
+\item The only other outcomes for sequences of sets with respect to (a) are $A$ and $A^c$, which are both in $\cF$.
+\end{enumerate}
+\item Since $\mathcal{P}$ contains all sets, it trivially satisfies all requirements.
+\item The key property that is violated is 2., since $A^c = \Omega \setminus A \notin \cF$ since $\emptyset \ne A \subset \Omega$.
+\item Suppose that $\cF$ is a \sigalg/ and consider the countable family $A_n$, with $A_1 = \emptyset$ and $A_n = [0,1/2 - 1/n] \cup  [1/2 + 1/n, 1]$ for $n \ge 2$. Note that since $1/2 \notin A_n$ for all $n$ it follow that $A_\infty := \bigcup_{n \in \bbN} A_n = [0,1] \setminus \{1/2\}$. Since we assumed that $\cF$ was a \sigalg/ it must then hold that $\{1/2\} = [0,1] \setminus A_\infty \in \cF$. However, there is no way we can get a singleton with finite unions of the given intervals. Thus we arrive at a contradiction and conclude that $\cF$ cannot be a \sigalg/.
+\item 
+\begin{enumerate}[label=\arabic*.]
+\item Note that $f^{-1}(\emptyset) = \emptyset$ and $f^{-1}(\Omega^\prime) = \Omega$.
+\item Here we use that
+\begin{align*}
+	f^{-1}(\Omega^\prime \setminus A^\prime) &= \{\omega \in \Omega \, : \, f(\omega) \notin A^\prime \}\\
+	&= \Omega \setminus f^{-1}(A^\prime) \in \cF.
+\end{align*}
+\item For any countable family $A_n^\prime$ we have that
+\begin{align*}
+	f^{-1}(\bigcup_{n \in \bbN} A_n^\prime) &= \{\omega \in \Omega \, : \, f(\omega) \in \bigcup_{n \in \bbN} A_n^\prime\}\\
+	&= \bigcup_{n \in \bbN} \{\omega \in \Omega \, : \, f(\omega) \in A_n\} \\
+	&= \bigcup_{n \in \bbN} f^{-1}(A_n) \in \cF.
+\end{align*}
+\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 2.5}
+
+It suffices to show that $\sigma(\cA) \subseteq \sigma(\cB)$. Assume now that $\sigma(\cB) \subsetneq \sigma(\cA)$ and note that $\cA \subset \cB$ implies that $\cA \subset \sigma(\cB)$. This then contradicts the fact that $\sigma(\cA)$ is the smallest \sigalg/ that contains $\cA$ which finishes the proof. 
+
+\bigskip
+
 \textbf{Problem 2.6} \rubric{Total points: 22}
 
 Let $\cO$ denote the open sets in $\bbR^d$.
@@ -180,6 +223,75 @@ Then we show that any set from one of the first three families can also be obtai
 %
 %Then we show that any set of the form $(a,b), [a,b)$ or $(a,b]$ can also be obtained through countable unions/intersections and finite complements of intervals of the forms $(-\infty, a]$, $(-\infty ,a), (a,\infty)$ and $[a,\infty)$. These will then yield the $\supset$ inclusions and finish the proof.
 %\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 2.7}
+
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{enumerate}[label=\arabic*.]
+\item By definition $(a,a] = \emptyset \in \cS$.
+\item Let $A, B \in \cS$. Then there are three non-trivial cases to consider
+
+Suppose that $A = (a, \infty)$ and $B = (b, \infty)$ and assume without loss of generality that $a \le b$. Then $A \cap B = (b,\infty) \in \cS$.
+
+Suppose $A = (a,b]$ and $B = (c, d]$. We can assume without loss of generality that $a \le c$. Then
+\[
+	A \cap B = \begin{cases}
+		(c,b] &\text{if } c < b \le d\\
+		(c,d] &\text{if } c \le d \le b\\
+		\emptyset &\text{otherwise},
+	\end{cases}
+\]
+which are all part of $\cS$.
+
+Finally suppose that $A = (a.b]$ and $B = (c,\infty)$. Then
+\[
+	A \cap B = \begin{cases}
+		(a,b] &\text{if } c \le a\\
+		(c,b] &\text{if } a \le c \le b\\
+		\emptyset &\text{otherwise},
+	\end{cases}
+\]
+which are all in $\cS$.
+\item Here there are four non-trivial cases to consider for $A$ and $B$.
+
+Suppose that $A = (a, \infty)$ and $B = (b, \infty)$ and assume without loss of generality that $a \le b$. Then $A \setminus B = (a,b] \in \cS$.
+
+Suppose $A = (a,b]$ and $B = (c, d]$. We can assume without loss of generality that $a \le c$. Then
+\[
+	A \setminus B = \begin{cases}
+			(a,c] &\text{if } c < b \le d \\
+			(a,c] \cup (d,b] &\text{if } c \le d < b\\
+			(a,b] &\text{otherwise},
+		\end{cases}
+\]
+and each is a finite union of elements in $\cS$.
+
+Finally suppose that $A = (a.b]$ and $B = (c,\infty)$. Then
+\[
+	A \setminus B = \begin{cases}
+		\emptyset &\text{if } c \le a\\
+		(a,c] &\text{if } a \le c \le b\\
+		(a,b] &\text{otherwise},
+	\end{cases}
+\]
+which are all in $\cS$. On the other hand
+\[
+	B \setminus A = \begin{cases}
+		(c,a\ \cup (b,\infty) &\text{if } c \le a\\
+		(b, \infty) &\text{if } a \le c \le b\\
+		(c,\infty) &\text{otherwise},
+	\end{cases}
+\]
+and each is a finite union of elements in $\cS$.
+\end{enumerate}
+\item Let $\cA_1 := \{(a,b] \, : \, a \le b \in \bbR\}$ and $\cA_1 := \{(a,\infty) \, : \, a \in \bbR\}$ so that $\cS = \cA_1 \cup \cA_2 \cup \bbR$. Note that by Proposition 2.7 $\cB_\bbR = \sigma(\cA_1) = \sigma(\cA_2)$. By the inclusion property we then have that $\cB_\bbR \subset \sigma(\cS)$. Observer further that $\sigma(\cA_1 \cup \cA_2) = \sigma(\cS)$. Since $\cB_\bbR$ is the smallest \sigalg/ containing $\cA_1$ and also the smallest one containing $\cA_2$ it must hold that \[
+	\sigma(\cS) = \sigma(\cA_1 \cup \cA_2) \subset \cB_\bbR,
+\]
+which finishes the proof.
+\end{enumerate}
 
 \bigskip
 

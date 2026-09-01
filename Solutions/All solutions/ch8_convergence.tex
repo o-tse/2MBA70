@@ -39,61 +39,88 @@ As the chosen sequence was arbitrary, we deduce that $\lim_{t\to t_0} F(t) = F(t
 
 \bigskip
 
-\textbf{Problem 8.3}
+\textbf{Problem 8.3} \rubric{Total points: 12}
 
 \begin{enumerate}[label={(\alph*)}]
-	\item (4 pts) We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. 
+	\item \rubric{ Total points: 4 \hfill
 	
-	\textbf{2 pts}
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Show that the differential fraction is a measurable function & 2pt\\
+	Use point-wise convergence to conclude that the derivative is measurable & 1pt\\
+	Use the dominating function $g$ to conclude that the derivative is also integrable & 1pt\\
+	\hline
+	\end{tabular}
+	
+	} 
+	
+	We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. 
+	
 	Let $(t_n)_{n\ge 1}\subset(a,b)$ be an arbitrary sequence with $t_n\ne t$ and $t_n\to t$ for $n\to\infty$. We set
 	\[
 		h_n(\omega) = \frac{f(\omega,t_n)-f(\omega,t)}{t_n-t}.
 	\]
 	Clearly, $h_n$ is measurable for every $n\ge 1$. 
 	
-	\textbf{1 pt}
 	Moreover, $\lim_{n\to\infty} h_n(\omega) = (\partial f/\partial t)(\omega,t)$ by the definition of the derivative. Since $(\partial f/\partial t)(\cdot,t)$ is the pointwise limit of a sequence of measurable functions, it is also measurable. 
 	
-	\textbf{1 pt} Finally, $(\partial f/\partial t)(\cdot,t)$ is integrable since
+	Finally, $(\partial f/\partial t)(\cdot,t)$ is integrable since
 	\[
 		\int_\Omega |(\partial f/\partial t)(\omega,t)|\,\mu(\dd\omega) \le \int_\Omega g\,\dd\mu <+\infty.
 	\]
 	
-	\item (3 pts)
+	\item \rubric{ Total points: 3 \hfill
 	
-	\textbf{2 pts} Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Use mean-value theorem to write differential fraction as derivative in a given point & 2pt\\
+	Use dominating function $g$ to conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
+	
+	Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
 	\[
 		\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} = (\partial f/\partial t)(\omega,\tau)\qquad\text{	for some $\tau\in(t_0,t)$.}
 	\]
 	
-	\textbf{1 pt}
 	Taking the modulus on both sides, we obtain
 	\[
 		\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le |(\partial f/\partial t)(\omega,\tau)|\le g(\omega)\qquad\text{for all $\omega\in\Omega$}.
 	\]
-	\item (5 pts)
+	\item \rubric{ Total points: 5 \hfill
 	
-	\textbf{2 pts} Take $t_0 \in (a,b)$ and let $(t_n)_{n \ge 1}$ be a sequence in $(a,b)$ such that $t_n \to t_0$ and define
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Define $h(\omega,t)$ as differential fraction for arbitrary $t_0$ & 1pt\\
+	Check conditions of Problem 8.2 & 1pt\\
+	Express differential fraction of $F$ as integral of $h$ & 1pt\\
+	Use Problem 8.2 to conclude that the result holds with this arbitrary $t_0$ & 1pt\\
+	Conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
+	
+	Take $t_0 \in (a,b)$ and let $(t_n)_{n \ge 1}$ be a sequence in $(a,b)$ such that $t_n \to t_0$ and define
 	\[
 		h(\omega, t) := \frac{f(\omega, t) - f(\omega, t_0)}{t - t_0}.
 	\] 
-	Then by (b) and the conditions in this exercise, $h$ satisfies all the conditions listed in Problem 4.2.
+	Then by (b) and the conditions in this exercise, $h$ satisfies all the conditions listed in Problem 8.2.
 	
-	\textbf{1 pt}
 	Next, we note that by linearity of the integral we have that
 	\[
 		\frac{F(t_n) - F(t_0)}{t_n - t_0} = \int_\Omega \frac{f(\omega, t_n) - f(\omega, t_0)}{t_n - t_0} \, \mu(d \omega)
 		= \int_\Omega h(\omega, t_n) \, \mu(\dd \omega).
 	\]
 	
-	\textbf{1 pt}
-	Now by Problem 4.2 it holds that 
+	Now by Problem 8.2 it holds that 
 	\[
 		\lim_{t_n \to t_0} \int_\Omega h(\omega, t_n) \, \mu(\dd \omega) 
 		= \int_\Omega \lim_{t_n \to t_0} h(\omega, t_n) \, \mu(\dd \omega) = \int_\Omega \frac{\partial f}{\partial t}(\omega, t_0) \, \mu(\dd \omega).
 	\]
 	
-	\textbf{1 pt}
 	Since $t_0 \in(a,b)$ and the sequence $(t_n)_{n\ge 1}$ were arbitrary, we conclude that $F$ is indeed differentiable on $(a,b)$ with 
 	\[
 		\frac{\partial F}{\partial t}(t_0) := \lim_{t_n \to t_0} \frac{F(t_n) - F(t_0)}{t_n - t_0} 

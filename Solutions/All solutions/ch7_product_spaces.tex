@@ -14,48 +14,137 @@ Since $A\times B = (A\times\Omega_2) \cap (\Omega_1\times B)$, we have that
 
 \bigskip
 
-\textbf{Problem 7.3}
+\textbf{Problem 7.3} \rubric{Total points: 10}
 \begin{enumerate}[label={(\alph*)}]
-\item 
-\textbf{1 point} Note that $\cA_1 \times \cA_2 \subset \cF_1 \times \cF_2$, and hence
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use inclusion property Lemma 2.5 & 1pt\\
+\hline
+\end{tabular}
+
+}
+Note that $\cA_1 \times \cA_2 \subset \cF_1 \times \cF_2$, and hence
 \[
 	\sigma(\cA_1 \times \cA_2) \subset \cF_1 \otimes \cF_2.
 \]
-\item 
-\textbf{1 point} Let $B \in \cA_2$. Then we have that
+\item \rubric{ Total points: 3 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Show that $\Omega_1 \in \Sigma_1$ & 1pt\\
+Show that $C^c \in \Sigma_1$ & 1pt\\
+Show $\sigma$-additivity & 1pt\\
+\hline
+\end{tabular}
+
+}
+Let $B \in \cA_2$. Then we have that
 \[
 	\Omega_1 \times B = \bigcup_{n \ge 1} A_n \times B \in \sigma(\cA_1 \times \cA_2) 
 \]
 since $A_n \times B \in \sigma(\cA_1 \times \cA_2)$ for all $n \ge 1$. So $\Omega_1 \in \Sigma$
 
-\textbf{1 point} For the second property, let $C \in \Sigma$ and note that $C^c \times B = (\Omega_1 \times B) \setminus (C \times B)$.
+For the second property, let $C \in \Sigma$ and note that $C^c \times B = (\Omega_1 \times B) \setminus (C \times B)$.
 Since both these sets are in $\sigma(\cA_1 \times \cA_2)$ it follows that $C^c \times B \in \sigma(\cA_1 \times \cA_2)$ and hence $C^c \in \Sigma$.
 
-\textbf{1 point} Finally consider a countable sequence $(C_n)_{n \ge 1}$ of sets in $\Sigma$. Then for any $B \in \cA_2$
+Finally consider a countable sequence $(C_n)_{n \ge 1}$ of sets in $\Sigma$. Then for any $B \in \cA_2$
 \[
 	\left(\bigcup_{n \ge 1} C_n \right) \times B = \bigcup_{n \ge 1} (C_n \times B) \in \sigma(\cA_1 \times \cA_2),
 \]
 since each $C_n \times B \in \sigma(\cA_1 \times \cA_2)$.
-\item 
-\textbf{1 point} Note that $\cA_1 \subset \Sigma_1 \subset \cF_1$. From which it follows that $\Sigma_1 = \cF_1$. 
+\item \rubric{ Total points: 2 \hfill
 
-\textbf{1 point} But then, from the definition of $\Sigma_1$ we have that $\cF_1 \times \cA_2 \subset \sigma(\cA_1 \times \cA_2)$.
-\item 
-\textbf{2 point} We can show in a similar fashion that
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use inclusion property Lemma 2.5 to conclude that $\Sigma_1 = \cF_1$& 1pt\\
+Use definition of $\Sigma_1$ to conclude & 1pt\\ 
+\hline
+\end{tabular}
+
+}
+
+Note that $\cA_1 \subset \Sigma_1 \subset \cF_1$. From which it follows that $\Sigma_1 = \cF_1$. 
+
+But then, from the definition of $\Sigma_1$ we have that $\cF_1 \times \cA_2 \subset \sigma(\cA_1 \times \cA_2)$.
+\item \rubric{ Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Any clear explanation of how this works & 2pt\\
+\hline
+\end{tabular}
+
+}
+We can show in a similar fashion that
 \[
 	\Sigma_2 := \{C \in \cF_2 \, : \, B \times C \in \sigma(\cA_1 \times \cA_2) \, \forall B \in \cA_1\}.
 \]
 is a \sigalg/ on $\Omega_2$, from which we conclude that $\cA_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$.
-\item 
-\textbf{1 point} Take any $A \in \cF_1$ and $B \in \cF_2$. Then
+\item \rubric{ Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Write $A \times B$ as intersection of know measurable sets to show it is in $\sigma(\cA_1 \times \cA_2)$ & 1pt\\
+Use this to show inclusion $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$ and conclude & 1pt\\
+\hline
+\end{tabular}
+
+}
+Take any $A \in \cF_1$ and $B \in \cF_2$. Then
 \[
 	A \times B = (A \times \Omega_2) \cap (\Omega_1 \times B) = \bigcup_{n,m \ge 1} (A \times B_m) \cap (A_n \times B) \in \sigma(\cA_1 \times \cA_2).
 \]
 
-\textbf{1 point} From this we conclude that $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$, which finishes the proof.
+From this we conclude that $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$, which finishes the proof.
 \end{enumerate}
 
 \bigskip
+
+\textbf{Problem 7.6}
+
+Assume that for all $a,b \in \bbR$
+\[
+	\mathbb{P}(X_1 \le a, X_2 \le b) = \mathbb{P}(X_1 \le a) \mathbb{P}(X_2 \le b).
+\]
+We now have to show that $X_1$ and $X_2$ are independent according to Definition 7.7.
+
+First note that since the family $(-\infty, a] \times (-\infty ,b]$ generate the 2-dimensional Borel \sigalg/ we have, using Theorem 2.2.17, that
+\[
+	\bbP(X_1 \in B_1, X_2 \in B_2) = \bbP(X_1 \in B_1) \bbP(X_2 \in B_2)
+\]
+for all $B_1, B_2 \in \cB_{\bbR}$.
+
+Now fix a set $B_2 \in \cB_{\bbR}$, set $A_2 := X_2^{-1}(B_2) \in \sigma(X_2)$, and define the following two measures on the space $(\Omega, \sigma(X_1))$
+\[
+	\mu_1(A) = \bbP(A \cap A_2) \quad \text{and} \quad \mu_2(A) = \bbP(A)\bbP(A_2).
+\]  
+
+Let $a \in \bbR$ and consider the set $A_1 := X_1^{-1}((-\infty ,a]) \in \sigma(X_1)$. Then, by our assumption we have that
+\[
+	\mu_1(A_1) = \bbP(A_1 \cap A_2) = \bbP(X_1 \le a, X_2 \in B_2) = \bbP(X_1 \le a) \bbP(X_2 \in B_2) = \bbP(A_1) \bbP(A_2)
+	= \mu_2(A_1).
+\]
+In other words, the measures $\mu_1, \mu_2$ coincide on the set $\{X_1^{-1}((-\infty, a]) \, : \, a \in \bbR\}$.
+
+Since the set $(-\infty,a]$ generate $\cB_{\bbR}$ it follows that 
+\[
+	\sigma(X_1) = \sigma(\{X_1^{-1}((-\infty, a]) \, : \, a \in \bbR\}).
+\]
+In addition, this set satisfies the conditions of Theorem 2.2.17 and hence we conclude that $\mu_1(A) = \mu_2(A)$ for all $A \in \sigma(X_1)$.
+
+We can repeat this argument for the two measures on $(\Omega, \sigma(X_2))$
+\[
+	\nu_1(A) = \bbP(A_1 \cap A) \quad \text{ and } \quad \nu_2(A) = \bbP(A_1) \bbP(A), 
+\]
+where $A_1 \in \{X_1^{-1}((-\infty, a]) \, : \, a \in \bbR\}$ is fixed. 
+
+From this we conclude that for any $A_1 \in \sigma(X_1)$ and $A_2 \in \sigma(X_2)$
+\[
+	\bbP(A_1 \cap A_2) = \bbP(A_1)\bbP(A_2)
+\]
+and hence $X_1$ and $X_2$ are independent.
 
 %%########################################### Old numbering ###############################################
 %

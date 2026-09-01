@@ -2,7 +2,16 @@
 \textbf{Problem 9.2}
 
 \begin{enumerate}[label={(\alph*)}]
-\item (2 pts) 
+\item \rubric{ Total points: 2 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Define the correct measurable function & 1pt\\
+	Show that $F$ and $F_n$ are integrals of this function & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
 
 For this let $h_t(x) = \mathbf{1}_{(-\infty,t]}$ and note that 
 \[
@@ -10,11 +19,21 @@ For this let $h_t(x) = \mathbf{1}_{(-\infty,t]}$ and note that
 	= \int_\bbR h_t \, \dd \mu_n.
 \]
 and similarly $F(t) = \int_\bbR h_t \, \dd \mu$
-\item (3 pts)
+\item \rubric{ Total points: 3 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Observe that $t$ is the only discontinuity point of $h_t$& 1pt\\
+	Write $\{t\}$ as a limit of measurable sets & 1pt\\
+	Use continuity of $F$ at $t$ to conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
 
-\textbf{1 pt} The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. 
+The function $h$ is discontinuous only at $t$, i.e. $\cC_h = \bbR \setminus \{t\}$. 
 
-\textbf{2 pts} Moreover, for any $\varepsilon > 0$
+Moreover, for any $\varepsilon > 0$
 \[
 	\mu((t-\varepsilon, t+\varepsilon)) = \mu((t-\varepsilon,t]) + \mu((t,t+\varepsilon))
 	= F(t) - F(t-\varepsilon) + F(t + \varepsilon) - F(t).
@@ -24,20 +43,59 @@ Since $F$ is continuous at $t$, the right hand side goes to zero as $\varepsilon
 	\mu(\{t\}) = \lim_{\varepsilon \to 0} \mu((t-\varepsilon, t+\varepsilon)) = 0,
 \]
 which implies that $\mu(\cC_h) = 1$.
-\item (1 pt) The result follows by applying condition (2) in Theorem 7.6.
-\item (2 pts)
+\item \rubric{ Total points: 1 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Use condition (2) in Theorem 8.6 to conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	} 
 
-\textbf{1 pt} Without loss of generality assume $x \in I_\ell = (a_\ell, b_\ell]$ for some $1 \le \ell \le L$. Then it holds that $\hat{g}(x) = g(b_\ell)$. 
+The result follows by applying condition (2) in Theorem 8.6.
+\item \rubric{ Total points: 2 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Show that $\hat{g}(x) = g(b_\ell)$ for $x \in (a_\ell, b_\ell]$ & 1pt\\
+	Use bound on $|x-b_\ell|$ to get the correct bound on for $g$ & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
 
-\textbf{1 pt} Moreover, since $|x - b_\ell| < \delta$ we have that
+Without loss of generality assume $x \in I_\ell = (a_\ell, b_\ell]$ for some $1 \le \ell \le L$. Then it holds that $\hat{g}(x) = g(b_\ell)$. 
+
+Moreover, since $|x - b_\ell| < \delta$ we have that
 \[
 	|g(x) - \hat{g}(x)| = |g(x) - g(b_\ell)| < \varepsilon.
 \]
-\item (1 pt) Let $M=L$, $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$ and $t_\ell = b_\ell$. Then
+\item \rubric{ Total points: 1 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Define the correct $M$ and $\beta_\ell$ to obtain the result & 1pt\\
+	\hline
+	\end{tabular}
+	
+	} 
+
+Let $M=L$, $\beta_\ell = \sum_{t = 1}^\ell h(b_t)$ and $t_\ell = b_\ell$. Then
 \[
 	\hat{g} := \sum_{\ell = 1}^L \beta_\ell \mathbf{1}_{(-\infty, b_\ell]}.
 \]
-\item (2 pts) Using the representation in (e) we get
+\item \rubric{ Total points: 2 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Use representation in (e) and definitions of $F$ and $F_n$ from (a) to conclude & 2pt\\
+	\hline
+	\end{tabular}
+	
+	} 
+
+Using the representation in (e) we get
 \begin{align*}
 	\lim_{n \to \infty} \bbE[\hat{g}(X_n)] 
 	&= \lim_{n \to \infty} \sum_{\ell = 1}^L \beta_\ell \int_\bbR \mathbf{1}_{X_n^{-1}((-\infty,b_\ell])} \, \dd \bbP \\
@@ -45,28 +103,70 @@ which implies that $\mu(\cC_h) = 1$.
 	&= \lim_{n \to \infty} 	\sum_{\ell = 1}^L \beta_\ell F_n(b_\ell) \\
 	&= \sum_{\ell = 1}^L F(b_\ell) = \bbE[\hat{g}(X)].
 \end{align*}
-\item (4 pts)
-\textbf{1 pt} First we write
+\item \rubric{ Total points: 4 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Split difference $\|\bbE[g(X_n)] - \bbE[g(X)]\|$ into three different terms involving $\hat{g}$ & 1pt\\
+	Use (f) to conclude that $\|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|$ goes to zero  & 1pt\\
+	Use (d) to conclude that the other two terms are bounded by $\varepsilon$ & 1pt\\
+	Use the fact that $\varepsilon$ was arbitrary to conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
+
+First we write
 \begin{align*}
 	\|\bbE[g(X_n)] - \bbE[g(X)]\| &\le \|\bbE[g(X_n)] - \bbE[\hat{g}(X_n)]\| 
 		+ \|\bbE[g(X)] - \bbE[\hat{g}(X)]\| \\
 	&\hspace{10pt}+ \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|.
 	%&\le 2\varepsilon + \|\bbE[\hat{g}(X_n)] - \bbE[\hat{g}(X)]\|.
 \end{align*}
-\textbf{1 pt} We have shown in (f) that the last term goes to zero as $n \to \infty$. 
 
-\textbf{1 pt} Next, using (d) it follows that the other two terms are bounded by $\varepsilon$.
+We have shown in (f) that the last term goes to zero as $n \to \infty$. 
 
-\textbf{1 pt} Since $\varepsilon$ was arbitrary we conclude that
+Next, using (d) it follows that the other two terms are bounded by $\varepsilon$.
+
+Since $\varepsilon$ was arbitrary we conclude that
 \[
 	\lim_{n \to \infty} \bbE[g(X_n)] = \bbE[g(X)].
 \]
-\item (1 pt) This now follows from Theorem 7.6 (3).
+\item \rubric{ Total points: 1 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Use part (3) of Theorem 8.6 to conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}  
+	
+This now follows from Theorem 8.6 (3).
 \end{enumerate}
 
 \bigskip
 
 \textbf{Problem 9.3}
+
+\rubric{ Total points: 5 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+$\Rightarrow$ & \\
+\hline
+Write $Y_n = |X_n - X|$ and use definition of convergence in probability to conclude this converges in distribution to $0$ function & 1pt\\
+Use alternative definition of convergence in distribution (Lemma 8.2) and the fact that $\varepsilon > 0$ is a continuity point of the $0$ function to conclude & 1pt\\
+\hline
+$\Leftarrow$ & \\
+\hline 
+Use Lemma 8.2 together with definition of convergence in probability to identify statement to prove & 1pt\\
+Note that $0$ is the only non-continuity point and the result is trivial for $t < 0$ & 1 pt\\
+Use the assumption to conclude the result for $t > 0$ & 1 pt\\
+\hline
+\end{tabular}
+
+}
 
 The main idea is to use the equivalent version of convergence in distribution.
 

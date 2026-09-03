@@ -381,13 +381,13 @@ A family $\mathcal{S}$ of subsets of $\Omega$ is called a \emph{semi-algebra} if
 \begin{enumerate}
 \item $\emptyset \in \mathcal{S}$;
 \item For any $A, B \in \mathcal{S}$ we have $A \cap B \in \mathcal{S}$;
-\item For any $A, B \in \mathcal{S}$, there exists a finite family of mutually disjoint sets $C_1, \dots, C_m \in \mathcal{S}$ such that $A \setminus B = \bigcup_{i = 1}^m C_i$.
+\item For any $A \in \mathcal{S}$, there exists a finite family of mutually disjoint sets $C_1, \dots, C_m \in \mathcal{S}$ such that $\Omega \setminus A = \bigcup_{i = 1}^m C_i$.
 \end{enumerate}
 \end{definition}
 
-An example of a semi-algebra for a finite set $\Omega$ is the set of singletons $\mathcal{S} = \{\{\omega\} \in \Omega\} \cup \{\emptyset, \Omega\}$. A more important example in the case of $\bbR$ is the collection of right-closed intervals
+An example of a semi-algebra for a finite set $\Omega$ is the set of singletons $\mathcal{S} = \{\{\omega\} \in \Omega\} \cup \{\emptyset, \Omega\}$. A more important example in the case of $\bbR$ is the collection of semi-open intervals
 \begin{equation}\label{def:right_closed_intervals}
-	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a\le b, a, b \in \bbR\} \cup \{(a,+\infty) \, : \, a \in \bbR\} \cup \{\bbR\},
+	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a\le b, a, b \in \bbR\} \cup \{(a,+\infty) \, : \, a \in \bbR\} \cup \{(-\infty, a] \, : \, a \in \bbR \} \cup \{\bbR\},
 \end{equation}
 see Problem~\ref{prb:right_closed_intervals}. Finally, as the name might suggest, any \sigalg/ is also a semi-algebra (see Problem~\ref{prb:sigalg_is_semialg}).
 

@@ -192,6 +192,8 @@ A triple $(\Omega, \cF, \mu)$, consisting of a measurable space $(\Omega, \cF)$ 
 A measure space $(\Omega, \cF, \mu)$ is called \emph{$\sigma$-finite} if there exists a family $(A_i)_{i \ge 1}$ of measurable sets such that $\mu(A_i) < \infty$ for all $i \ge 1$ and $\bigcup_{i \ge 1} A_i = \Omega$.
 \end{definition}
 
+Sometime we will simply say that a measure $\mu$ is $\sigma$-finite if $(\Omega \cF, \mu)$ is a $\sigma$-finite measure space.
+
 Let us give some simple examples of measures.
 
 \begin{example}[Examples of measures]
@@ -370,7 +372,7 @@ Let $(\Omega ,\cF)$ be a measurable space where $\cF = \sigma(\cA)$ with $\cA$ s
 Then any two measure $\mu_1$ and $\mu_2$ that are equal on $\cA$ and are finite on every element of the sequence $(A_i)_{i \in \bbN}$ are equal on the entire \sigalg/ $\cF = \sigma(\cA)$.
 \end{theorem}
 
-The proof of this theorem is outside the scope of this course, as it is requires another more technical results. What is important is the implication of Theorem~\ref{thm:uniqueness_measures}: to study a measure on $\sigma(\cA)$ it suffices to look at what it does on the generator $\cA$.
+The proof of this theorem is outside the scope of this course, as it is requires some additional technical considerations. The interested student can find the details in Chapter~\ref{chapter:uniqueness_measures} in the Appendix. What is important is the implication of Theorem~\ref{thm:uniqueness_measures}: to study a measure on $\sigma(\cA)$ it suffices to look at what it does on the generator $\cA$.
 
 \subsection{Construction of measures}
 
@@ -387,11 +389,11 @@ A family $\mathcal{S}$ of subsets of $\Omega$ is called a \emph{semi-algebra} if
 
 An example of a semi-algebra for a finite set $\Omega$ is the set of singletons $\mathcal{S} = \{\{\omega\} \in \Omega\} \cup \{\emptyset, \Omega\}$. A more important example in the case of $\bbR$ is the collection of semi-open intervals
 \begin{equation}\label{def:right_closed_intervals}
-	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a\le b, a, b \in \bbR\} \cup \{(a,+\infty) \, : \, a \in \bbR\} \cup \{(-\infty, a] \, : \, a \in \bbR \} \cup \{\bbR\},
+	\mathcal{S} = \{\emptyset\} \cup \{(a,b] \, : \, a < b, a, b \in \bbR\} \cup \{(a,+\infty) \, : \, a \in \bbR\} \cup \{(-\infty, a] \, : \, a \in \bbR \} \cup \{\bbR\},
 \end{equation}
 see Problem~\ref{prb:right_closed_intervals}. Finally, as the name might suggest, any \sigalg/ is also a semi-algebra (see Problem~\ref{prb:sigalg_is_semialg}).
 
-The utility of this somewhat seemingly abstract notion of a semi-algebra is that it serves as the starting point to construct measures from a pre-measure. This is a set function $\mu : \mathcal{S} \to [0,+\infty]$  that satisfies the two properties of a measure as given in Definition~\ref{def:measure}. Note that the only difference with a measure is that the domain of $\mu$ is a semi-algebra $\mathcal{S}$ and not a \sigalg/. 
+The utility of this somewhat seemingly abstract notion of a semi-algebra is that it serves as the starting point to construct measures from a \emph{pre-measure}. This is a set function $\mu : \mathcal{S} \to [0,+\infty]$  that satisfies the two properties of a measure as given in Definition~\ref{def:measure}, when this makes sense. For the $\sigma$-additivity part, this means a pre-measure only needs to satisfy it if the union is in $\mathcal{S}$.  
 
 \begin{remark}
 It is important to note that the result of Theorem~\ref{thm:measure_equivalent_def} remains true in the case of pre-measures on a semi-algebra. See also Problem~\ref{prb:alternative_def_premeasure}.

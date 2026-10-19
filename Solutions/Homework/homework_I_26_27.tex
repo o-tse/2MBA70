@@ -1,0 +1,286 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\newcommand{\rubric}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+
+
+\textbf{Problem 2.10} \rubric{Total points: 15}
+
+\begin{enumerate}[label=(\alph*)]
+\item \rubric{ Total points: 5 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Define sets $E_i$ & 1pt\\
+Check that they are disjoint & 1pt\\
+Prove union for $A_i$ property (by induction) & 2pt\\
+Use previous part to prove equality of unions & 1 pt\\
+\hline
+\end{tabular}
+
+}
+
+Define the sets $E_i$ as follows:
+\[
+	E_1 = A_1, \quad E_k = A_k \setminus A_{k-1} \text{ for } k \ge 2.
+\]
+
+Clearly, $E_k \cap E_t = \emptyset$ for any $k \ne t$.
+
+For the other properties, note that $A_i = \bigcup_{k = 1}^i E_k$ holds for $i = 1$. Suppose now that it holds for a given $i$. Then
+\begin{align*}
+	A_{i + 1} &= A_{i} \cup (A_{i+1} \setminus A_i) \\
+	&= \left(\bigcup_{k = 1}^i E_k\right) \cup (A_{i+1} \setminus A_i)\\
+	&= \left(\bigcup_{k = 1}^i E_k\right) \cup E_{i+1} = \bigcup_{k = 1}^{i+1} E_k,
+\end{align*}
+and thus $A_i = \bigcup_{k = 1}^i E_k$ holds for all $i \ge 1$ by induction. 
+
+This then immediately implies that $\bigcup_{i \ge 1} A_i = \bigcup_{k \ge 1} E_k$.
+\item \rubric{ Total points: 3 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use (a) and $\sigma$-additivity to write measure of union $A_i$ as sum measure $E_k$ & 2pt\\
+Use this to conclude & 1pt\\
+\hline
+\end{tabular}
+
+}
+
+
+By a) and $\sigma$-additivity we have that
+\begin{align*}
+	\mu(A_i) &= \mu\left(\bigcup_{k = 1}^i E_k\right) = \sum_{k = 1}^i \mu(E_k),
+\end{align*}
+and 
+\[
+	\mu\left(\bigcup_{i \ge 1} A_i\right) = \mu\left(\bigcup_{k \ge 1} E_k\right) = \sum_{k = 1}^\infty \mu(E_k).
+\]
+
+Thus,
+\[
+	\lim_{i \to \infty} \mu(A_i) = \sum_{k = 1}^\infty \mu(E_k) = \mu\left(\bigcup_{i \ge 1} A_i\right),
+\]
+as required.
+\item \rubric{ Total points: 7 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Define sets $B_i$& 1pt\\
+Use part 1 and Proposition 2.12 to write limit of measures as measure of union & 1pt\\
+Use finiteness measure $A_1$ and exclusion property to write limit measures $B_i$ as difference measures $A_1$ and limit & 2pt\\
+Write measure union $B_i$ as difference measure $A_1$ and intersection $A_i$ & 2pt\\
+Conclude & 1pt\\
+\hline
+\end{tabular}
+
+}
+
+Consider the family $B_i = A_1 \setminus A_i$. 
+
+Then $(B_i)_{i \ge 1}$ is an increasing family of sets satisfying $\bigcup_{i \ge 1} B_i = A_1$ and thus, by part 1 of Proposition 2.12 we have
+\[
+	\lim_{i \to \infty} \mu(B_i) = \mu\left(\bigcup_{i \ge 1} B_i\right).
+\]
+
+Since $\mu(A_1) < \infty$, the exclusion property (point 3 in Proposition 2.11) gives us that
+\[
+	\lim_{i \to \infty} \mu(B_i) = \mu(A_1) - \lim_{i \to \infty} \mu(A_i). 
+\]
+
+On the other hand
+\[
+	\bigcup_{i \ge 1} B_i = \bigcup_{i \ge 1} (A_1 \setminus A_i) = A_1 \setminus \bigcap_{i \ge 1} A_i
+\]
+and thus
+\[
+	\mu\left(\bigcup_{i \ge 1} B_i\right) = \mu\left(A_1 \setminus \bigcap_{i \ge 1} A_i\right)
+	= \mu(A_1) - \mu\left(\bigcap_{i \ge 1} A_i\right),
+\]
+where we used the exclusion property since $ \mu\left(\bigcap_{i \ge 1} A_i\right) \le \mu(A_1) < \infty$.
+
+Together we get
+\[
+	\mu(A_1) - \lim_{i \to \infty} \mu(A_i) = \mu(A_1) - \mu\left(\bigcap_{i \ge 1} A_i\right),
+\]
+which yields the required identity since $\mu(A_1) < \infty$.
+
+\end{enumerate}
+
+\textbf{Problem 3.7} \rubric{Total points: 8}
+
+\begin{enumerate}[label=(\alph*)]
+	\item \rubric{ Total points: 4 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Write $f_M$ as sum using indicators & 1pt\\
+	Show that the indicator functions are measurable & 2pt\\
+	Conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
+	
+	Note that
+	\[
+		f_M = M\mathbf{1}_{\{f\ge M\}} + f\mathbf{1}_{\{|f|< M\}} - M\mathbf{1}_{\{f\le -M\}}.
+	\]
+	
+	Since the sets
+	\[
+		\{f\ge M\},\quad \{f\le -M\},\quad \{|f|<M\}\qquad\text{are $\cF$-measurable},
+	\]
+	their corresponding indicator functions are $(\cF,\cB_{\bbR})$-measurable. 
+	
+	Since $f_M$ is the sum of products of $(\cF,\cB_{\bbR})$-measurable functions, we conclude that $f_M$ is also $(\cF,\cB_{\bbR})$-measurable.
+	
+	\item \rubric{ Total points: 4 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Observe $f_M$ converges pointwise for $\omega$ such that $f$ is infinite & 1pt\\
+	Prove pointwise convergence on points where $f$ is finite & 2pt\\
+	Use Lemma 3.12 to conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
+	We first show that $f_M$ converges pointwise to $f$ as $M\to\infty$, i.e.,
+	\[
+		\lim_{M\to\infty} f_M(\omega) = f(\omega)\qquad\forall\, \omega\in\Omega.
+	\]
+	
+	Indeed, if $\omega \in \Omega$ is such that $f(\omega)=+\infty$, then
+	\[
+		\lim_{M\to\infty} f_M(\omega) = \lim_{M\to\infty} M = +\infty = f(\omega),
+	\]
+	and similarly for $\omega\in\Omega$ for which $f(\omega)=-\infty$. 
+	
+	On the other hand, for any $\omega\in\Omega$ with $f(\omega)\in\bbR$, there is some $N_0(\omega)\in\bbN$ such that $f_N(\omega)=f(\omega)$ for all $N\ge N_0(\omega)$, and hence,
+	\[
+		\lim_{M\to\infty} f_M(\omega) = f(\omega).
+	\]
+	
+	Since $f$ is the limit of a sequence of $(\cF,\cB_{\bbR})$-measurable functions, we conclude from Lemma~3.12 that $f$ is $(\cF,\cB_{\bbR})$-measurable.
+\end{enumerate}
+
+\textbf{Problem 4.8}
+
+\begin{enumerate}[label={(\alph*)}]
+	\item \rubric{ Total points: 5 \hfill
+		
+		\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+		\hline
+		Check $\nu_f(\Omega) = 1$ & 1pt\\
+		Write $\nu_f$ of countable union as integral of $f$ times indicator union & 1pt\\
+		Observe this is the pointwise limit of $f$ times finite indicators & 1pt\\
+		Use MCT to move limit outside integral & 1pt\\
+		Conclude & 1pt\\
+		\hline
+		\end{tabular}
+		
+		} 
+		
+	By definition, we have that $\nu_f(\Omega) = \int_\Omega f\,\dd\mu = 1$. 
+	
+	Now let $(A_n)_{n\in\bbN}$ be a family of mutually disjoint measurable sets. Then we have that the sequence 
+	\[
+		g_n:= \sum_{i=1}^n f\,\mathbf{1}_{A_i} = f\,\mathbf{1}_{\bigcup_{i=1}^n\! A_i}\;\longrightarrow\; g:= f\,\mathbf{1}_{\bigcup_{i\in\bbN}\! A_i}\qquad\text{pointwise monotonically}.
+	\]
+	
+	By MCT, we then have that
+	\begin{align*}
+		\nu_f\left(\bigcup_{i\in\bbN} A_i\right) &= \int_{\bigcup_{i\in\bbN}\! A_i} f\,\dd\mu \\
+		&= \int_\Omega g \, \dd \mu \\
+		&= \lim_{n\to\infty} \int_\Omega g_n \,\dd \mu \\
+		&= \lim_{n\to\infty} \int_{\bigcup_{i=1}^n\! A_i} f\,\dd\mu \\
+		&=  \sum_{i\in\bbN}\nu_f(A_i),
+	\end{align*}
+	thus showing that $\nu_f$ is a probability measure on $(\Omega,\cF)$.
+	
+	\item \rubric{ Total points: 4 \hfill
+		
+		\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+		\hline
+		Write integral simple function as sum $\nu_f$ measures & 1pt\\
+		Use definition of $\mu_f$ to conclude for simple functions & 1pt\\
+		Approximate $g$ by simple functions & 1pt\\
+		Conclude using the previous part and MCT & 1pt\\
+		\hline
+		\end{tabular}
+		
+		} 
+		
+	Following the hint, we start by considering nonnegative simple functions $g$. Suppose $g=\sum_{i=1}^n a_i \mathbf{1}_{A_i}$ for $a_i\in\bbR$ and $A_i\in\cF$ mutually disjoint. Then,
+	\[
+		\int_\Omega g\,d\nu_f = \sum_{i=1}^n a_i \,\nu_f(A_i) = \sum_{i=1}^n a_i\int_{A_i} f\,\dd\mu = \int_\Omega gf\,\dd\mu.
+	\]
+	
+	Now let $g$ be a nonnegative measurable function and $[g]_n$ be a sequence of nonnegative simple functions that converge pointwise monotonically to $g$. Then MCT yields
+	\[
+		\int_\Omega g\,\dd\nu_f = \lim_{n\to\infty}\int_\Omega [g]_n\,\dd\nu_f = \lim_{n\to\infty} \int_\Omega [g]_n f\,\dd\mu = \int_\Omega gf\,\dd\mu,
+	\]
+	where we used the fact that $[g]_n f$ converges pointwise monotonically to $gf$.
+	
+	\item \rubric{ Total points: 2 \hfill
+		
+		\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+		\hline
+		Use nonnegativity of $f$ and (b) to write integral positive and negative part $g$ as integral positive and negative part $gf$ & 1pt\\
+		Write integral $|g|$ as integral $|gf|$ and conclude & 1pt\\
+		\hline
+		\end{tabular}
+		
+		} 
+		
+	Let $g$ be measurable. Then $g=g^+-g^-$, where $g^\pm$ are nonnegative measurable functions. Since $f$ is nonnegative, we have that $(fg)^\pm = f g^\pm$. Due to (b), we deduce
+	\[
+		\int_\Omega g^\pm\,\dd\nu_f = \int_\Omega g^\pm f\,\dd\mu = \int_\Omega (gf)^\pm\,\dd\mu.
+	\]
+	
+	Hence, $g^\pm$ is $\nu_f$-integrable if and only if $(gf)^\pm$ is $\mu$-integrable. Consequently, $g$ is $\nu_f$-integrable if and only if $gf$ is $\mu$-integrable, since
+	\[
+		\int_\Omega |g|\,\dd\nu_f = \int_\Omega g^+\,\dd\nu_f + \int_\Omega g^-\,\dd\nu_f = \int_\Omega g^+f\,\dd\mu + \int_\Omega g^-f\,\dd\mu = \int_\Omega |gf|\,\dd\mu.
+	\]
+\end{enumerate}
+\end{document}

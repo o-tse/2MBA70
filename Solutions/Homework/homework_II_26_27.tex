@@ -1,0 +1,374 @@
+\documentclass{lecturenotes}
+
+\usepackage{lecture_notes}
+
+% Reset mathcal back to previous style (not curly)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\newcommand{\rubric}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%										For leaving comments									  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			XXX
+%Description:	Adds a piece of text in blue, surrounded by [] brackets. 
+%				#1: the person the comment is addressed to
+%				#2: the person the comment is from
+%				#3: the comment
+%Usage:			Write \XXX{collaborator}{myName}{myComment} to write [myComment] addressed to [collaborator]
+\newcommand{\XXX}[3]{{\color{blue} \textbf{ [#1:  #3 \textit{ -#2-} ]}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									     BibTeX commands 									      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Name:			Swap
+%Description:	Command for properly typesetting "van der" and related expressions in Dutch and German names in the
+%				bibliography. It swaps [van der] and [Lastname] in [van der Lastname] so that ordering will be performed on 
+%				[Lastname] instead of [van der].
+%Usage:			Write \swap{Lastname}{~van~der~}, Firstname instead of [van der Lastname, Firstname] in the author header
+%				of the bibtex entry.
+
+\newcommand*{\swap}[2]{\hspace{-0.5ex}#2#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%											Document											  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\textbf{Problem 6.4} \rubric{Total points: 14}
+
+\begin{enumerate}[label=(\alph*)]
+\item \rubric{ Total points: 3 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Construct the correct probability space & 1pt\\
+Continuity and inverse of $H_\gamma$ & 1pt\\
+Definition correct random variable & 1pt\\
+\hline
+\end{tabular}
+
+}
+For the probability space, take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Observe that the function $H_\gamma(z)$ is continuous and hence has an inverse $g_\gamma(y) = \gamma \tan(\pi(y - 1/2))$ on $[0,1]$.
+
+So the function $Y [0,1] \to \bbR$ defined by $Y(x) = g_\gamma(x)$ has the correct distribution as
+\[
+	\bbP(Y^{-1}((-\infty,t])) = \bbP(g_\gamma^{-1}((-\infty, t])) = \lambda(H_\gamma((-\infty,t])) = H_\gamma(t).
+\]
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Continuity implies measurable & 1pt\\
+\hline
+\end{tabular}
+
+} 
+Note that $g_\gamma$ is continuous on $[0,1]$ and hence measurable.
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+CDF is sum of pmf and correct use of ceiling & 1pt\\
+\hline
+\end{tabular}
+
+} 
+
+For any $t \ge 0$, the cdf of the Poisson random variable is given by
+\[
+	F_\lambda(t) = \sum_{n = 0}^{\lceil t \rceil} f_\lambda(n),
+\]
+where $\lceil t \rceil$ is the ceiling of $t$, i.e. the smallest integer $k \ge t$.
+\item \rubric{ Total points: 4 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Construct the correct probability space & 1pt\\
+Finding the integer where the cdfs change in value & 2pt\\
+Definition correct random variable $X$ & 1pt\\
+\hline
+\end{tabular}
+
+}
+For the probability space, we again take $\Omega = [0,1]$, $\cF = \cB_{[0,1]}$ and $\bbP = \lambda$ the Lebesgue measure restricted to $[0,1]$. 
+
+Now for any $y \in [0,1]$ let $k := k(y)$ be such that
+\[
+	\sum_{n = 1}^k f_\lambda(n) \ge y \quad \text{and} \quad \sum_{n = 1}^{k-1} f_\lambda(n) < y,
+\]
+where the last sum is interpreted as $-1$ if $k=0$.
+
+Now define $X(y) = k(y) : [0,1] \to \bbR$. Then $k(y) \le t$ if and only if $y \le F_\lambda(t)$ and hence
+\[
+	X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, k(y) \in (0,t]\}
+	= \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\},
+\]
+from which it follows that
+\[
+	\bbP(X^{-1}((-\infty,t])) = \lambda((0, F_\lambda(t)]) = F_\lambda(t).
+\]
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+$X$ is measurable on a generator set and hence measurable on the entire \sigalg/ & 1pt\\
+\hline
+\end{tabular}
+
+}
+It follows from the above computation that $X^{-1}((-\infty,t]) = \{y \in [0,1] \, : \, y \in (0, F_\lambda(t)]\}$. Since the latter is a measurable set we conclude that $X^{-1}((-\infty,t])$ is measurable for all $t$ and since these generate the Borel \sigalg/ $X$ is measurable.
+\item \rubric{ Total points: 4 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Write $\{n\}$ as limit of decreasing measurable sets with finite measure & 2pt\\
+Use continuity from below to conclude & 2pt\\
+\hline
+\end{tabular}
+
+}
+
+For any $\ell \in \bbN$ define the sets $A_\ell = (n-1-1/\ell, n-1 + 1/\ell]$. Then $A_\ell$ is a decreasing set with $\lim_{\ell \to \infty} A_\ell = \{n-1\}$. Moreover, $A_\ell = (-\infty,n-1+1/\ell] \setminus (-\infty, n-1-1/\ell]$ and $\bbP(A_1) < \infty$. 
+
+It now follows from continuity from above and (d) that
+\begin{align*}
+	X_\#\bbP(\{n\}) &= \lim_{\ell \to \infty} X_\# \bbP(A_\ell) \\
+	&= \lim_{\ell \to \infty} X_\# \bbP((-\infty,n-1+1/\ell])
+	- X_\# \bbP((-\infty,n-1-1/\ell]) \\
+	&= F_\lambda(n-1+1/\ell) - F_\lambda(n-1-1/\ell) \\
+	&= \sum_{k = 0}^{n} f_\lambda(k) - \sum_{k = 0}^{n-1} f_\lambda(k) = f_\lambda(n).
+\end{align*}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 7.3} \rubric{Total points: 10}
+\begin{enumerate}[label={(\alph*)}]
+\item \rubric{ Total points: 1 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use inclusion property Lemma 2.5 & 1pt\\
+\hline
+\end{tabular}
+
+}
+Note that $\cA_1 \times \cA_2 \subset \cF_1 \times \cF_2$, and hence
+\[
+	\sigma(\cA_1 \times \cA_2) \subset \cF_1 \otimes \cF_2.
+\]
+\item \rubric{ Total points: 3 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Show that $\Omega_1 \in \Sigma_1$ & 1pt\\
+Show that $C^c \in \Sigma_1$ & 1pt\\
+Show $\sigma$-additivity & 1pt\\
+\hline
+\end{tabular}
+
+}
+Let $B \in \cA_2$. Then we have that
+\[
+	\Omega_1 \times B = \bigcup_{n \ge 1} A_n \times B \in \sigma(\cA_1 \times \cA_2) 
+\]
+since $A_n \times B \in \sigma(\cA_1 \times \cA_2)$ for all $n \ge 1$. So $\Omega_1 \in \Sigma$
+
+For the second property, let $C \in \Sigma$ and note that $C^c \times B = (\Omega_1 \times B) \setminus (C \times B)$.
+Since both these sets are in $\sigma(\cA_1 \times \cA_2)$ it follows that $C^c \times B \in \sigma(\cA_1 \times \cA_2)$ and hence $C^c \in \Sigma$.
+
+Finally consider a countable sequence $(C_n)_{n \ge 1}$ of sets in $\Sigma$. Then for any $B \in \cA_2$
+\[
+	\left(\bigcup_{n \ge 1} C_n \right) \times B = \bigcup_{n \ge 1} (C_n \times B) \in \sigma(\cA_1 \times \cA_2),
+\]
+since each $C_n \times B \in \sigma(\cA_1 \times \cA_2)$.
+\item \rubric{ Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Use inclusion property Lemma 2.5 to conclude that $\Sigma_1 = \cF_1$& 1pt\\
+Use definition of $\Sigma_1$ to conclude & 1pt\\ 
+\hline
+\end{tabular}
+
+}
+
+Note that $\cA_1 \subset \Sigma_1 \subset \cF_1$. From which it follows that $\Sigma_1 = \cF_1$. 
+
+But then, from the definition of $\Sigma_1$ we have that $\cF_1 \times \cA_2 \subset \sigma(\cA_1 \times \cA_2)$.
+\item \rubric{ Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Any clear explanation of how this works & 2pt\\
+\hline
+\end{tabular}
+
+}
+We can show in a similar fashion that
+\[
+	\Sigma_2 := \{C \in \cF_2 \, : \, B \times C \in \sigma(\cA_1 \times \cA_2) \, \forall B \in \cA_1\}.
+\]
+is a \sigalg/ on $\Omega_2$, from which we conclude that $\cA_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$.
+\item \rubric{ Total points: 2 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+Write $A \times B$ as intersection of know measurable sets to show it is in $\sigma(\cA_1 \times \cA_2)$ & 1pt\\
+Use this to show inclusion $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$ and conclude & 1pt\\
+\hline
+\end{tabular}
+
+}
+Take any $A \in \cF_1$ and $B \in \cF_2$. Then
+\[
+	A \times B = (A \times \Omega_2) \cap (\Omega_1 \times B) = \bigcup_{n,m \ge 1} (A \times B_m) \cap (A_n \times B) \in \sigma(\cA_1 \times \cA_2).
+\]
+
+From this we conclude that $\cF_1 \times \cF_2 \subset \sigma(\cA_1 \times \cA_2)$, which finishes the proof.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 8.3}\rubric{Total points: 12}
+
+\begin{enumerate}[label={(\alph*)}]
+	\item \rubric{ Total points: 4 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Show that the differential fraction is a measurable function & 2pt\\
+	Use point-wise convergence to conclude that the derivative is measurable & 1pt\\
+	Use the dominating function $g$ to conclude that the derivative is also integrable & 1pt\\
+	\hline
+	\end{tabular}
+	
+	} 
+	
+	We start by showing that $(\partial f/\partial t)(\cdot,t)$ is measurable. 
+	
+	Let $(t_n)_{n\ge 1}\subset(a,b)$ be an arbitrary sequence with $t_n\ne t$ and $t_n\to t$ for $n\to\infty$. We set
+	\[
+		h_n(\omega) = \frac{f(\omega,t_n)-f(\omega,t)}{t_n-t}.
+	\]
+	Clearly, $h_n$ is measurable for every $n\ge 1$. 
+	
+	Moreover, $\lim_{n\to\infty} h_n(\omega) = (\partial f/\partial t)(\omega,t)$ by the definition of the derivative. Since $(\partial f/\partial t)(\cdot,t)$ is the pointwise limit of a sequence of measurable functions, it is also measurable. 
+	
+	Finally, $(\partial f/\partial t)(\cdot,t)$ is integrable since
+	\[
+		\int_\Omega |(\partial f/\partial t)(\omega,t)|\,\mu(\dd\omega) \le \int_\Omega g\,\dd\mu <+\infty.
+	\]
+	
+	\item \rubric{ Total points: 3 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Use mean-value theorem to write differential fraction as derivative in a given point & 2pt\\
+	Use dominating function $g$ to conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
+	
+	Let $t_0\in (a,b)$ and suppose w.l.o.g.\ $t_0<t$. Since $t\mapsto f(\omega,t)$ is differentiable on $(a,b)$ for all $\omega\in\Omega$, the Mean Value Theorem gives
+	\[
+		\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0} = (\partial f/\partial t)(\omega,\tau)\qquad\text{	for some $\tau\in(t_0,t)$.}
+	\]
+	
+	Taking the modulus on both sides, we obtain
+	\[
+		\left|\frac{f(\omega,t)-f(\omega,t_0)}{t-t_0}\right| \le |(\partial f/\partial t)(\omega,\tau)|\le g(\omega)\qquad\text{for all $\omega\in\Omega$}.
+	\]
+	\item \rubric{ Total points: 5 \hfill
+	
+	\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+	\hline
+	Define $h(\omega,t)$ as differential fraction for arbitrary $t_0$ & 1pt\\
+	Check conditions of Problem 8.2 & 1pt\\
+	Express differential fraction of $F$ as integral of $h$ & 1pt\\
+	Use Problem 8.2 to conclude that the result holds with this arbitrary $t_0$ & 1pt\\
+	Conclude & 1pt\\
+	\hline
+	\end{tabular}
+	
+	}
+	
+	Take $t_0 \in (a,b)$ and let $(t_n)_{n \ge 1}$ be a sequence in $(a,b)$ such that $t_n \to t_0$ and define
+	\[
+		h(\omega, t) := \frac{f(\omega, t) - f(\omega, t_0)}{t - t_0}.
+	\] 
+	Then by (b) and the conditions in this exercise, $h$ satisfies all the conditions listed in Problem 8.2.
+	
+	Next, we note that by linearity of the integral we have that
+	\[
+		\frac{F(t_n) - F(t_0)}{t_n - t_0} = \int_\Omega \frac{f(\omega, t_n) - f(\omega, t_0)}{t_n - t_0} \, \mu(d \omega)
+		= \int_\Omega h(\omega, t_n) \, \mu(\dd \omega).
+	\]
+	
+	Now by Problem 8.2 it holds that 
+	\[
+		\lim_{t_n \to t_0} \int_\Omega h(\omega, t_n) \, \mu(\dd \omega) 
+		= \int_\Omega \lim_{t_n \to t_0} h(\omega, t_n) \, \mu(\dd \omega) = \int_\Omega \frac{\partial f}{\partial t}(\omega, t_0) \, \mu(\dd \omega).
+	\]
+	
+	Since $t_0 \in(a,b)$ and the sequence $(t_n)_{n\ge 1}$ were arbitrary, we conclude that $F$ is indeed differentiable on $(a,b)$ with 
+	\[
+		\frac{\partial F}{\partial t}(t_0) := \lim_{t_n \to t_0} \frac{F(t_n) - F(t_0)}{t_n - t_0} 
+		= \int_\Omega \frac{\partial f}{\partial t}(\omega,t_0)\,\mu(\dd\omega).
+	\]
+\end{enumerate}
+
+\bigskip
+
+\textbf{Problem 9.3}\rubric{ Total points: 5 \hfill
+
+\begin{tabular}{p{0.8\linewidth}p{0.15\linewidth}}
+\hline
+$\Rightarrow$ & \\
+\hline
+Write $Y_n = |X_n - X|$ and use definition of convergence in probability to conclude this converges in distribution to $0$ function & 1pt\\
+Use alternative definition of convergence in distribution (Lemma 8.2) and the fact that $\varepsilon > 0$ is a continuity point of the $0$ function to conclude & 1pt\\
+\hline
+$\Leftarrow$ & \\
+\hline 
+Use Lemma 8.2 together with definition of convergence in probability to identify statement to prove & 1pt\\
+Note that $0$ is the only non-continuity point and the result is trivial for $t < 0$ & 1 pt\\
+Use the assumption to conclude the result for $t > 0$ & 1 pt\\
+\hline
+\end{tabular}
+
+}
+
+The main idea is to use the equivalent version of convergence in distribution.
+
+Suppose that $X_n \plim X$ and define $Y_n = |X_n - X|$. We need to show that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. First recall that $X_n \plim X$ is defined as weak convergence of $Y_n$ to the constant zero random variable. By Lemma 8.2 this is equivalent to 
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t),
+\]
+for all continuity points of the function $\omega \mapsto 0$. We now note that any $\varepsilon > 0$ is a continuity point of this function. Hence, we get
+\[
+	\lim_{n \to \infty} \bbP(Y_n > \varepsilon) = 1 - \lim_{n \to \infty} \bbP(Y_n \le \varepsilon) = 1 - \bbP(0 \le \varepsilon) = 0
+\]
+
+Now we prove the other implication. So suppose that $\bbP(Y_n > \varepsilon) \to 0$ holds for any $\varepsilon > 0$. We then have to prove that $(Y_n)_\# \bbP \Rightarrow 0_\# \bbP$. Due to Lemma 8.2 it is enough to show that
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = \bbP(0 \le t) = \mathbbm{1}_{t \ge 0},
+\]
+holds for all continuity points $t$ of the function $\omega \mapsto 0$. Notice that the only non-continuity point is $0$. Moreover, for all $t < 0$ we have that $\bbP(Y_n \le t) = 0$ since $Y_n \ge 0$ almost every-where. Finally, for all $t > 0$ we have
+\[
+	\lim_{n \to \infty} \bbP(Y_n \le t) = 1 - \lim_{n \to \infty} \bbP(Y_n > t) = 1 = \bbP(0 \le t). 
+\]
+
+
+
+\end{document}

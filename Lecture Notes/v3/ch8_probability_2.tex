@@ -224,7 +224,7 @@ Let $(\Omega, \mathcal{F}, \bbP)$ be a probability space, and let $(A_n)_{n\in\b
 	\sum_{n=1}^\infty \bbP(A_n) < \infty.
 \]
 then $\bbP(A_n \text{ i.o.}) = 0$.
-\item If, $(A_n)_{n \ge 1}$ are mutually exclusive and,
+\item If, $(A_n)_{n \ge 1}$ is a sequence of independent events and,
 \[
 	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
 \]
@@ -578,11 +578,15 @@ In this exercise you will prove Lemma~\ref{lem:borel_cantelli}.
 	\sum_{n=1}^\infty \mu(A_n) < \infty.
 \]
 Prove that $\bbP(A_n \text{ i.o.}) = 0$.
-\item Suppose that $A_n \cap A_m = \emptyset$ for all distinct $n,m \ge 1$,
+
+[Hint: use continuity from below]
+\item Suppose that $\mathbb{P}(A_n \cap A_m) = \mathbb{P}(A_n) \mathbb{P}(A_m)$ for all distinct $n,m \ge 1$ and
 \[
 	\sum_{i=1}^\infty \mathbb{P}(A_i) = +\infty.
 \]
 Prove that $\bbP(A_n \text{ i.o.}) = 1$.
+
+[Hint: Write $1- \bbP(A_n \text{ i.o.})$ as limit $N \to \infty$ of probability of intersections of $A_N^c, A_{N+1}^c, \dots$.] 
 \end{enumerate}
 \end{problem}
 

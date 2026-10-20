@@ -303,7 +303,7 @@ A good way to define $h$ would be such that it makes this into a commuting diagr
 This prompts the following definition:
 
 \begin{definition}\label{def:conditional_expectation_function}
-Let $(\Omega, \cF, \bbP)$ be a probability space and $X, Y$ be two random variables. Suppose there exist a $\bbP$-integrable function $h : \mathrm{range}(Y) \to \bbR$ such that $h(Y) = \bbE[X | Y]$, then we define
+Let $(\Omega, \cF, \bbP)$ be a probability space and $X, Y$ be two random variables. Suppose there exist a measurable function $h : \mathrm{im}(Y) \to \bbR$ such that $h(Y) := h \circ Y$ is $\bbP$-integrable and $h(Y) = \bbE[X | Y]$, then we define
 \[
 	\bbE[X | Y = y] := h(y).
 \]
@@ -638,7 +638,7 @@ Let $\nu > 0$ and $X$ be a random variable with an Exponential distribution with
 	\forall s,t \ge 0 \quad \bbP(X > t+s | X > t) = \bbP(X > s).
 \]
 \item Let $Y$ be another random variable with Exponential distribution with scale $\nu$, and independent of $X$. Prove that $\bbP(X + Y \le t | Y = y) = (1 - e^{-\nu (t - y)}) \mathbbm{1}_{y < t}$.
-\item Use the above result to show that $\bbP(X + Y \le t) = 1 - e^{-\nu t} - t e^{-\nu t}$. 
+\item Use the above result to show that $\bbP(X + Y \le t) = 1 - e^{-\nu t} - \nu t e^{-\nu t}$. 
 \end{enumerate}
 
 \end{problem}
